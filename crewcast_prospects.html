@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CrewCast &mdash; Daily Prospect Review</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f0f4f8;color:#1a202c}
+header{background:#1a202c;color:#fff;padding:20px 32px;display:flex;align-items:center;justify-content:space-between}
+header h1{font-size:20px;font-weight:700}
+.sub{font-size:13px;color:#a0aec0;margin-top:3px}
+.badge{background:#f6ad55;color:#1a202c;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px}
+.wrap{max-width:920px;margin:0 auto;padding:28px 20px}
+.stats{display:flex;gap:12px;margin-bottom:14px}
+.stat{background:#fff;border-radius:10px;padding:16px 20px;flex:1;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.stat .n{font-size:28px;font-weight:800}
+.stat .l{font-size:11px;color:#718096;text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.pbar{background:#e2e8f0;border-radius:4px;height:6px;margin-bottom:6px}
+.pfill{background:#48bb78;border-radius:4px;height:6px;transition:width .4s;width:0%}
+.ptxt{font-size:12px;color:#718096;margin-bottom:20px}
+.card{background:#fff;border-radius:12px;padding:20px 24px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.08);border-left:4px solid #e2e8f0;transition:opacity .3s,border-color .3s}
+.card.sent{border-left-color:#68d391;opacity:.6}
+.card.skipped{border-left-color:#fc8181;opacity:.5}
+.card-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px}
+.person{display:flex;align-items:center;gap:12px}
+.avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-weight:700;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.name{font-size:16px;font-weight:700}
+.meta{font-size:13px;color:#718096;margin-top:2px}
+.btns{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn-li{background:#0077b5;color:#fff;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none}
+.btn-li:hover{background:#005e8e}
+.btn-sent{background:#c6f6d5;color:#276749;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none}
+.btn-skip{background:#fed7d7;color:#9b2c2c;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none}
+.touch-tabs{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.ttab{padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;background:#edf2f7;color:#4a5568;border:none}
+.ttab.active{background:#ebf4ff;color:#2b6cb0}
+.msgbox{position:relative}
+.msg{background:#f7fafc;border:1px solid #e2e8f0;border-radius:8px;padding:14px 52px 14px 16px;font-size:14px;line-height:1.7;color:#2d3748;display:none;white-space:pre-wrap}
+.msg.active{display:block}
+.copybtn{position:absolute;top:10px;right:10px;background:#1a202c;color:#fff;border:none;border-radius:6px;padding:5px 12px;font-size:12px;font-weight:600;cursor:pointer}
+.copybtn.copied{background:#38a169}
+.timing{font-size:11px;color:#a0aec0;margin-top:6px}
+</style>
+</head>
+<body>
+<header>
+  <div><h1>&#127959; CrewCast &mdash; Daily Prospect Review</h1><div class="sub">Tuesday, June 09, 2026</div></div>
+  <div class="badge">13 Prospects Ready</div>
+</header>
+<div class="wrap">
+  <div class="stats">
+    <div class="stat"><div class="n" id="tot">13</div><div class="l">Total Prospects</div></div>
+    <div class="stat"><div class="n" id="snt">0</div><div class="l">Sent Today</div></div>
+    <div class="stat"><div class="n" id="rem">13</div><div class="l">Remaining</div></div>
+  </div>
+  <div class="pbar"><div class="pfill" id="pf"></div></div>
+  <div class="ptxt" id="pt">0/13 sent</div>
+  
+    <div class="card" id="card-0">
+      <div class="card-header">
+        <div class="person">
+          <div class="avatar">G</div>
+          <div class="info">
+            <div class="name">Guillermo Valdez</div>
+            <div class="meta">Principal, Tilt-Up Operations Manager &middot; Suntec Concrete</div>
+          </div>
+        </div>
+        <div class="btns">
+          <a href="https://www.linkedin.com/in/guillermo-valdez-bab778103" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
+          <button class="btn-sent" onclick="markSent(0)">&#10003; Sent</button>
+          <button class="btn-skip" onclick="markSkip(0)">&#10005; Skip</button>
+        </div>
+      </div>
+      <div class="touch-tabs">
+        <button class="ttab active" onclick="showT(0,1,this)">Touch 1 &middot; Connection Request</button>
+        <button class="ttab" onclick="showT(0,2,this)">Touch 2 &middot; Value Message</button>
+        <button class="ttab" onclick="showT(0,3,this)">Touch 3 &middot; Follow-up</button>
+      </div>
+      <div class="msgbox">
+        <div class="msg active" id="m01">Hey Guillermo — 25 years running tilt-up ops at Suntec is seriously impressive. I work with self-perform concrete contractors on craft-level manpower forecasting — making sure the right crew shows up before the pour, not after. Would love to connect.</div>
+        <div class="msg" id="m02">Thanks for connecting Guillermo. With the volume of tilt-up Suntec runs, how are you tracking craft availability for each pour sequence before the week starts? The 'headcount looks fine but wrong mix shows up' problem is exactly what CrewCast was built to eliminate. Worth a 15-minute conversation?</div>
+        <div class="msg" id="m03">One last reach out — I know ops managers at Suntec's pace stay buried. If craft-level scheduling is still a gap, I'd love 15 minutes to show you what we're doing. [Calendar Link]</div>
+        <button class="copybtn" id="cp0" onclick="copyMsg(0)">Copy</button>
+      </div>
+      <div class="timing" id="ti0">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
+    </div>
+    <script>msgs[0] = {1:`Hey Guillermo — 25 years running tilt-up ops at Suntec is seriously impressive. I work with self-perform concrete contractors on craft-level manpower forecasting — making sure the right crew shows up before the pour, not after. Would love to connect.`,2:`Thanks for connecting Guillermo. With the volume of tilt-up Suntec runs, how are you tracking craft availability for each pour sequence before the week starts? The 'headcount looks fine but wrong mix shows up' problem is exactly what CrewCast was built to eliminate. Worth a 15-minute conversation?`,3:`One last reach out — I know ops managers at Suntec's pace stay buried. If craft-level scheduling is still a gap, I'd love 15 minutes to show you what we're doing. [Calendar Link]`};</script>
+
+    <div class="card" id="card-1">
+      <div class="card-header">
+        <div class="person">
+          <div class="avatar">S</div>
+          <div class="info">
+            <div class="name">Steve Bieber</div>
+            <div class="meta">Director of Project Controls &middot; MMR Group</div>
+          </div>
+        </div>
+        <div class="btns">
+          <a href="https://www.linkedin.com/in/steve-bieber-8129b137" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
+          <button class="btn-sent" onclick="markSent(1)">&#10003; Sent</button>
+          <button class="btn-skip" onclick="markSkip(1)">&#10005; Skip</button>
+        </div>
+      </div>
+      <div class="touch-tabs">
+        <button class="ttab active" onclick="showT(1,1,this)">Touch 1 &middot; Connection Request</button>
+        <button class="ttab" onclick="showT(1,2,this)">Touch 2 &middot; Value Message</button>
+        <button class="ttab" onclick="showT(1,3,this)">Touch 3 &middot; Follow-up</button>
+      </div>
+      <div class="msgbox">
+        <div class="msg active" id="m11">Hey Steve — I work with self-perform electrical and I&amp;E contractors on craft-level manpower forecasting. Your project controls background at MMR caught my attention — think there's a real overlap with what we're building. Would love to connect.</div>
+        <div class="msg" id="m12">Thanks for connecting Steve. In project controls at a firm MMR's scale, I'm curious — how much of your variance is actually a craft mix problem masquerading as a headcount problem? That's the 'Headcount Trap' we see constantly in self-perform. CrewCast was built specifically around it. Worth a conversation?</div>
+        <div class="msg" id="m13">Last reach out — I know project controls teams at MMR's scale are constantly firefighting. If trade-specific labor visibility is still a gap heading into Q3, I'd love 15 minutes to show you what we're doing. [Calendar Link]</div>
+        <button class="copybtn" id="cp1" onclick="copyMsg(1)">Copy</button>
+      </div>
+      <div class="timing" id="ti1">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
+    </div>
+    <script>msgs[1] = {1:`Hey Steve — I work with self-perform electrical and I&E contractors on craft-level manpower forecasting. Your project controls background at MMR caught my attention — think there's a real overlap with what we're building. Would love to connect.`,2:`Thanks for connecting Steve. In project controls at a firm MMR's scale, I'm curious — how much of your variance is actually a craft mix problem masquerading as a headcount problem? That's the 'Headcount Trap' we see constantly in self-perform. CrewCast was built specifically around it. Worth a conversation?`,3:`Last reach out — I know project controls teams at MMR's scale are constantly firefighting. If trade-specific labor visibility is still a gap heading into Q3, I'd love 15 minutes to show you what we're doing. [Calendar Link]`};</script>
+
+    <div class="card" id="card-2">
+      <div class="card-header">
+        <div class="person">
+          <div class="avatar">M</div>
+          <div class="info">
+            <div class="name">Mike Keatley</div>
+            <div class="meta">Senior Vice President &middot; M.C. Dean</div>
+          </div>
+        </div>
+        <div class="btns">
+          <a href="https://www.linkedin.com/in/mike-keatley-bb057929" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
+          <button class="btn-sent" onclick="markSent(2)">&#10003; Sent</button>
+          <button class="btn-skip" onclick="markSkip(2)">&#10005; Skip</button>
+        </div>
+      </div>
+      <div class="touch-tabs">
+        <button class="ttab active" onclick="showT(2,1,this)">Touch 1 &middot; Connection Request</button>
+        <button class="ttab" onclick="showT(2,2,this)">Touch 2 &middot; Value Message</button>
+        <button class="ttab" onclick="showT(2,3,this)">Touch 3 &middot; Follow-up</button>
+      </div>
+      <div class="msgbox">
+        <div class="msg active" id="m21">Hey Mike — I work with self-perform electrical contractors on workforce forecasting — connecting the schedule to actual craft availability before the week starts. Your ops background at M.C. Dean caught my attention. Would love to connect.</div>
+        <div class="msg" id="m22">Thanks for connecting Mike. With M.C. Dean running complex self-perform electrical across federal and commercial projects simultaneously, how are your teams tracking craft-specific gaps before they become delays? That coordination challenge is exactly what CrewCast was built for. Worth a quick conversation?</div>
+        <div class="msg" id="m23">One last reach out — I know SVP roles at M.C. Dean's scale stay moving. If field labor visibility is still a gap heading into Q3, I'd love 15 minutes to show you what we're building. [Calendar Link]</div>
+        <button class="copybtn" id="cp2" onclick="copyMsg(2)">Copy</button>
+      </div>
+      <div class="timing" id="ti2">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
+    </div>
+    <script>msgs[2] = {1:`Hey Mike — I work with self-perform electrical contractors on workforce forecasting — connecting the schedule to actual craft availability before the week starts. Your ops background at M.C. Dean caught my attention. Would love to connect.`,2:`Thanks for connecting Mike. With M.C. Dean running complex self-perform electrical across federal and commercial projects simultaneously, how are your teams tracking craft-specific gaps before they become delays? That coordination challenge is exactly what CrewCast was built for. Worth a quick conversation?`,3:`One last reach out — I know SVP roles at M.C. Dean's scale stay moving. If field labor visibility is still a gap heading into Q3, I'd love 15 minutes to show you what we're building. [Calendar Link]`};</script>
+
+    <div class="card" id="card-3">
+      <div class="card-header">
+        <div class="person">
+          <div class="avatar">D</div>
+          <div class="info">
+            <div class="name">Derek Wright</div>
+            <div class="meta">President &middot; Suntec Concrete</div>
+          </div>
+        </div>
+        <div class="btns">
+          <a href="https://www.linkedin.com/in/derekwright1" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
+          <button class="btn-sent" onclick="markSent(3)">&#10003; Sent</button>
+          <button class="btn-skip" onclick="markSkip(3)">&#10005; Skip</button>
+        </div>
+      </div>
+      <div class="touch-tabs">
+        <button class="ttab active" onclick="showT(3,1,this)">Touch 1 &middot; Connection Request</button>
+        <button class="ttab" onclick="showT(3,2,this)">Touch 2 &middot; Value Message</button>
+        <button class="ttab" onclick="showT(3,3,this)">Touch 3 &middot; Follow-up</button>
+      </div>
+      <div class="msgbox">
+        <div class="msg active" id="m31">Hey Derek — I work with self-perform concrete contractors on craft-level manpower forecasting. Suntec has built an impressive operation in the Southwest — managing tilt-up at that volume is a real scheduling challenge. Would love to connect.</div>
+        <div class="msg" id="m32">Thanks for connecting Derek. Quick question — with the tilt-up volume Suntec runs, how are your superintendents tracking whether the right craft mix is confirmed before a pour sequence starts? That morning-of surprise is the exact problem CrewCast was built to eliminate. Worth a 15-minute conversation?</div>
+        <div class="msg" id="m33">One last reach out — I know running a concrete operation at Suntec's scale keeps you moving. If craft-level scheduling visibility is still a challenge, I'd love 15 minutes to show you what we're doing. [Calendar Link]</div>
+        <button class="copybtn" id="cp3" onclick="copyMsg(3)">Copy</button>
+      </div>
+      <div class="timing" id="ti3">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
+    </div>
+    <script>msgs[3] = {1:`Hey Derek — I work with self-perform concrete contractors on craft-level manpower forecasting. Suntec has built an impressive operation in the Southwest — managing tilt-up at that volume is a real scheduling challenge. Would love to connect.`,2:`Thanks for connecting Derek. Quick question — with the tilt-up volume Suntec runs, how are your superintendents tracking whether the right craft mix is confirmed before a pour sequence starts? That morning-of surprise is the exact problem CrewCast was built to eliminate. Worth a 15-minute conversation?`,3:`One last reach out — I know running a concrete operation at Suntec's scale keeps you moving. If craft-level scheduling visibility is still a challenge, I'd love 15 minutes to show you what we're doing. [Calendar Link]`};</script>
+
+    <div class="card" id="card-4">
+      <div class="card-header">
+        <div class="person">
+          <div class="avatar">A</div>
+          <div class="info">
+            <div class="name">Adam Spillane</div>
+            <div class="meta">Senior Vice President of Operations &middot; Cupertino Electric</div>
+          </div>
+        </div>
+        <div class="btns">
+          <a href="https://www.linkedin.com/in/adam-spillane" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
+          <button class="btn-sent" onclick="markSent(4)">&#10003; Sent</button>
+          <button class="btn-skip" onclick="markSkip(4)">&#10005; Skip</button>
+        </div>
+      </div>
+      <div class="touch-tabs">
+        <button class="ttab active" onclick="showT(4,1,this)">Touch 1 &middot; Connection Request</button>
+        <button class="ttab" onclick="showT(4,2,this)">Touch 2 &middot; Value Message</button>
+        <button class="ttab" onclick="showT(4,3,this)">Touch 3 &middot; Follow-up</button>
+      </div>
+      <div class="msgbox">
+        <div class="msg active" id="m41">Hey Adam — I work with self-perform electrical contractors on craft-level workforce forecasting. Delivering high-quality electrical construction at Cupertino's scale requires serious labor coordination — would love to connect and share what we're seeing.</div>
+        <div class="msg" id="m42">Thanks for connecting Adam. With Cupertino running large-scale electrical projects simultaneously, how are your teams catching the craft mix gaps before they impact a milestone? That's the exact visibility problem CrewCast was built to solve. Worth a quick conversation?</div>
+        <div class="msg" id="m43">One more reach out — I know SVP ops at Cupertino's scale keeps you moving. If matching the right trades to the right projects is still a challenge heading into H2, I'd love 15 minutes. [Calendar Link]</div>
+        <button class="copybtn" id="cp4" onclick="copyMsg(4)">Copy</button>
+      </div>
+      <div class="timing" id="ti4">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
+    </div>
+    <script>msgs[4] = {1:`Hey Adam — I work with self-perform electrical contractors on craft-level workforce forecasting. Delivering high-quality electrical construction at Cupertino's scale requires serious labor coordination — would love to connect and share what we're seeing.`,2:`Thanks for connecting Adam. With Cupertino running large-scale electrical projects simultaneously, how are your teams catching the craft mix gaps before they impact a milestone? That's the exact visibility problem CrewCast was built to solve. Worth a quick conversation?`,3:`One more reach out — I know SVP ops at Cupertino's scale keeps you moving. If matching the right trades to the right projects is still a challenge heading into H2, I'd love 15 minutes. [Calendar Link]`};</script>
+
+    <div class="card" id="card-5">
+      <div class="card-header">
+        <div class="person">
+          <div class="avatar">J</div>
+          <div class="info">
+            <div class="name">John Messick</div>
+            <div class="meta">Vice President of Operations &middot; Rosendin Electric</div>
+          </div>
+        </div>
+        <div class="btns">
+          <a href="https://www.linkedin.com/in/john-messick-74596862" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
+          <button class="btn-sent" onclick="markSent(5)">&#10003; Sent</button>
+          <button class="btn-skip" onclick="markSkip(5)">&#10005; Skip</button>
+        </div>
+      </div>
+      <div class="touch-tabs">
+        <button class="ttab active" onclick="showT(5,1,this)">Touch 1 &middot; Connection Request</button>
+        <button class="ttab" onclick="showT(5,2,this)">Touch 2 &middot; Value Message</button>
+        <button class="ttab" onclick="showT(5,3,this)">Touch 3 &middot; Follow-up</button>
+      </div>
+      <div class="msgbox">
+        <div class="msg active" id="m51">Hey John — congrats on the VP Operations move at Rosendin. I work with self-perform electrical contractors on workforce forecasting — matching craft trades to project demand before the week starts, not the morning of. Would love to connect.</div>
+        <div class="msg" id="m52">Thanks for connecting John. Curious what you're seeing on the ops side — when your field teams are managing multiple active projects, how are you catching craft-specific gaps before they become delays? It's the problem we built CrewCast around. Worth a 15-minute conversation?</div>
+        <div class="msg" id="m53">Didn't want to let this drop — I know VP ops roles at a firm Rosendin's size keep you buried. If matching the right trades to the right projects is still a challenge, I'd love to show you what we're doing. [Calendar Link]</div>
+        <button class="copybtn" id="cp5" onclick="copyMsg(5)">Copy</button>
+      </div>
+      <div class="timing" id="ti5">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
+    </div>
+    <script>msgs[5] = {1:`Hey John — congrats on the VP Operations move at Rosendin. I work with self-perform electrical contractors on workforce forecasting — matching craft trades to project demand before the week starts, not the morning of. Would love to connect.`,2:`Thanks for connecting John. Curious what you're seeing on the ops side — when your field teams are managing multiple active projects, how are you catching craft-specific gaps before they become delays? It's the problem we built CrewCast around. Worth a 15-minute conversation?`,3:`Didn't want to let this drop — I know VP ops roles at a firm Rosendin's size keep you buried. If matching the right trades to the right projects is still a challenge, I'd love to show you what we're doing. [Calendar Link]`};</script>
+
+    <div class="card" id="card-6">
+      <div class="card-header">
+        <div class="person">
+          <div class="avatar">J</div>
+          <div class="info">
+            <div class="name">James Jaskolski</div>
+            <div class="meta">Vice President of Operations &middot; ArchKey Solutions</div>
+          </div>
+        </div>
+        <div class="btns">
+          <a href="https://www.linkedin.com/in/james-jaskolski-75062b12" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
+          <button class="btn-sent" onclick="markSent(6)">&#10003; Sent</button>
+          <button class="btn-skip" onclick="markSkip(6)">&#10005; Skip</button>
+        </div>
+      </div>
+      <div class="touch-tabs">
+        <button class="ttab active" onclick="showT(6,1,this)">Touch 1 &middot; Connection Request</button>
+        <button class="ttab" onclick="showT(6,2,this)">Touch 2 &middot; Value Message</button>
+        <button class="ttab" onclick="showT(6,3,this)">Touch 3 &middot; Follow-up</button>
+      </div>
+      <div class="msgbox">
+        <div class="msg active" id="m61">Hey James — I work with self-perform electrical contractors on manpower forecasting and craft scheduling. 7 years building national construction ops at ArchKey is impressive — would love to connect and share what we're seeing across the industry.</div>
+        <div class="msg" id="m62">Thanks for connecting James. With ArchKey running self-perform across so many markets, how are your superintendents staying ahead of craft mix gaps before they hit a milestone? The 'headcount looks fine but wrong trades on site' problem is exactly what CrewCast was built around. Worth a conversation?</div>
+        <div class="msg" id="m63">Last reach out — I know ops VP roles at ArchKey's scale stay buried. If trade-specific scheduling visibility is still a gap, I'd love 15 minutes to show you what we're building. [Calendar Link]</div>
+        <button class="copybtn" id="cp6" onclick="copyMsg(6)">Copy</button>
+      </div>
+      <div class="timing" id="ti6">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
+    </div>
+    <script>msgs[6] = {1:`Hey James — I work with self-perform electrical contractors on manpower forecasting and craft scheduling. 7 years building national construction ops at ArchKey is impressive — would love to connect and share what we're seeing across the industry.`,2:`Thanks for connecting James. With ArchKey running self-perform across so many markets, how are your superintendents staying ahead of craft mix gaps before they hit a milestone? The 'headcount looks fine but wrong trades on site' problem is exactly what CrewCast was built around. Worth a conversation?`,3:`Last reach out — I know ops VP roles at ArchKey's scale stay buried. If trade-specific scheduling visibility is still a gap, I'd love 15 minutes to show you what we're building. [Calendar Link]`};</script>
+
+    <div class="card" id="card-7">
+      <div class="card-header">
+        <div class="person">
+          <div class="avatar">J</div>
+          <div class="info">
+            <div class="name">Jose Martinez</div>
+            <div class="meta">Senior Vice President &middot; Keller North America</div>
+          </div>
+        </div>
+        <div class="btns">
+          <a href="https://www.linkedin.com/in/jose-a-martinez-657ba52" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
+          <button class="btn-sent" onclick="markSent(7)">&#10003; Sent</button>
+          <button class="btn-skip" onclick="markSkip(7)">&#10005; Skip</button>
+        </div>
+      </div>
+      <div class="touch-tabs">
+        <button class="ttab active" onclick="showT(7,1,this)">Touch 1 &middot; Connection Request</button>
+        <button class="ttab" onclick="showT(7,2,this)">Touch 2 &middot; Value Message</button>
+        <button class="ttab" onclick="showT(7,3,this)">Touch 3 &middot; Follow-up</button>
+      </div>
+      <div class="msgbox">
+        <div class="msg active" id="m71">Hey Jose — I work with self-perform heavy civil and foundation contractors on workforce forecasting — connecting field operations, project management, and scheduling in one place. Your background bridging ops and management at Keller caught my attention. Would love to connect.</div>
+        <div class="msg" id="m72">Thanks for connecting Jose. With Keller managing crews across so many simultaneous foundation projects, I'm curious — how are your teams catching craft availability gaps before they hit the schedule? That coordination between the office and field is exactly what CrewCast was built for. Worth a quick conversation?</div>
+        <div class="msg" id="m73">Circling back one more time — I know SVP roles at Keller's scale keep you moving. If field-to-office labor visibility is still a gap heading into H2, I'd love 15 minutes to show you what we're doing. [Calendar Link]</div>
+        <button class="copybtn" id="cp7" onclick="copyMsg(7)">Copy</button>
+      </div>
+      <div class="timing" id="ti7">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
+    </div>
+    <script>msgs[7] = {1:`Hey Jose — I work with self-perform heavy civil and foundation contractors on workforce forecasting — connecting field operations, project management, and scheduling in one place. Your background bridging ops and management at Keller caught my attention. Would love to connect.`,2:`Thanks for connecting Jose. With Keller managing crews across so many simultaneous foundation projects, I'm curious — how are your teams catching craft availability gaps before they hit the schedule? That coordination between the office and field is exactly what CrewCast was built for. Worth a quick conversation?`,3:`Circling back one more time — I know SVP roles at Keller's scale keep you moving. If field-to-office labor visibility is still a gap heading into H2, I'd love 15 minutes to show you what we're doing. [Calendar Link]`};</script>
+
+    <div class="card" id="card-8">
+      <div class="card-header">
+        <div class="person">
+          <div class="avatar">S</div>
+          <div class="info">
+            <div class="name">Sam Potter</div>
+            <div class="meta">National Vice President of Operations &middot; ArchKey Solutions</div>
+          </div>
+        </div>
+        <div class="btns">
+          <a href="https://www.linkedin.com/in/sam-potter-15a9a86" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
+          <button class="btn-sent" onclick="markSent(8)">&#10003; Sent</button>
+          <button class="btn-skip" onclick="markSkip(8)">&#10005; Skip</button>
+        </div>
+      </div>
+      <div class="touch-tabs">
+        <button class="ttab active" onclick="showT(8,1,this)">Touch 1 &middot; Connection Request</button>
+        <button class="ttab" onclick="showT(8,2,this)">Touch 2 &middot; Value Message</button>
+        <button class="ttab" onclick="showT(8,3,this)">Touch 3 &middot; Follow-up</button>
+      </div>
+      <div class="msgbox">
+        <div class="msg active" id="m81">Hey Sam — I work with self-perform electrical contractors on craft-level workforce forecasting across multiple active projects. National ops at a firm ArchKey's scale is a real coordination challenge — would love to connect and share what we're seeing.</div>
+        <div class="msg" id="m82">Thanks for connecting Sam. Managing self-perform electrical at a national scale, I'm curious — how are your project teams tracking craft-specific gaps across regions before they become schedule delays? That's the exact problem CrewCast was built to solve. Worth a 15-minute conversation?</div>
+        <div class="msg" id="m83">One last reach out — I know national VP ops roles stay busy. If craft-level labor visibility across your regions is still a challenge heading into Q3, I'd love 15 minutes. [Calendar Link]</div>
+        <button class="copybtn" id="cp8" onclick="copyMsg(8)">Copy</button>
+      </div>
+      <div class="timing" id="ti8">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
+    </div>
+    <script>msgs[8] = {1:`Hey Sam — I work with self-perform electrical contractors on craft-level workforce forecasting across multiple active projects. National ops at a firm ArchKey's scale is a real coordination challenge — would love to connect and share what we're seeing.`,2:`Thanks for connecting Sam. Managing self-perform electrical at a national scale, I'm curious — how are your project teams tracking craft-specific gaps across regions before they become schedule delays? That's the exact problem CrewCast was built to solve. Worth a 15-minute conversation?`,3:`One last reach out — I know national VP ops roles stay busy. If craft-level labor visibility across your regions is still a challenge heading into Q3, I'd love 15 minutes. [Calendar Link]`};</script>
+
+    <div class="card" id="card-9">
+      <div class="card-header">
+        <div class="person">
+          <div class="avatar">B</div>
+          <div class="info">
+            <div class="name">Brian Kavanagh</div>
+            <div class="meta">Executive Vice President &middot; Performance Contracting Group</div>
+          </div>
+        </div>
+        <div class="btns">
+          <a href="https://www.linkedin.com/in/brian-kavanagh-085b9aa4" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
+          <button class="btn-sent" onclick="markSent(9)">&#10003; Sent</button>
+          <button class="btn-skip" onclick="markSkip(9)">&#10005; Skip</button>
+        </div>
+      </div>
+      <div class="touch-tabs">
+        <button class="ttab active" onclick="showT(9,1,this)">Touch 1 &middot; Connection Request</button>
+        <button class="ttab" onclick="showT(9,2,this)">Touch 2 &middot; Value Message</button>
+        <button class="ttab" onclick="showT(9,3,this)">Touch 3 &middot; Follow-up</button>
+      </div>
+      <div class="msgbox">
+        <div class="msg active" id="m91">Hey Brian — I work with self-perform specialty contractors on craft-level manpower forecasting. Employee-owned firms like PCI tend to feel labor inefficiency more directly in the P&amp;L — would love to connect and share what we're seeing.</div>
+        <div class="msg" id="m92">Thanks for connecting Brian. At a firm PCI's scale managing specialty trades across so many markets, how are your ops teams staying ahead of craft availability gaps before they hit the schedule? That's exactly the problem CrewCast was built around. Worth a 15-minute conversation?</div>
+        <div class="msg" id="m93">Last reach out — I know executive roles at PCI's scale stay busy. If craft-level labor visibility heading into H2 is still a gap, I'd love 15 minutes to show you what we're doing. [Calendar Link]</div>
+        <button class="copybtn" id="cp9" onclick="copyMsg(9)">Copy</button>
+      </div>
+      <div class="timing" id="ti9">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
+    </div>
+    <script>msgs[9] = {1:`Hey Brian — I work with self-perform specialty contractors on craft-level manpower forecasting. Employee-owned firms like PCI tend to feel labor inefficiency more directly in the P&L — would love to connect and share what we're seeing.`,2:`Thanks for connecting Brian. At a firm PCI's scale managing specialty trades across so many markets, how are your ops teams staying ahead of craft availability gaps before they hit the schedule? That's exactly the problem CrewCast was built around. Worth a 15-minute conversation?`,3:`Last reach out — I know executive roles at PCI's scale stay busy. If craft-level labor visibility heading into H2 is still a gap, I'd love 15 minutes to show you what we're doing. [Calendar Link]`};</script>
+
+    <div class="card" id="card-10">
+      <div class="card-header">
+        <div class="person">
+          <div class="avatar">J</div>
+          <div class="info">
+            <div class="name">Jason Behring</div>
+            <div class="meta">Vice President & CIO &middot; Everus Construction Group</div>
+          </div>
+        </div>
+        <div class="btns">
+          <a href="https://www.linkedin.com/in/jason-behring-149526188" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
+          <button class="btn-sent" onclick="markSent(10)">&#10003; Sent</button>
+          <button class="btn-skip" onclick="markSkip(10)">&#10005; Skip</button>
+        </div>
+      </div>
+      <div class="touch-tabs">
+        <button class="ttab active" onclick="showT(10,1,this)">Touch 1 &middot; Connection Request</button>
+        <button class="ttab" onclick="showT(10,2,this)">Touch 2 &middot; Value Message</button>
+        <button class="ttab" onclick="showT(10,3,this)">Touch 3 &middot; Follow-up</button>
+      </div>
+      <div class="msgbox">
+        <div class="msg active" id="m101">Hey Jason — I work with self-perform electrical contractors on workforce forecasting and operational visibility. Your background bridging technology and construction ops at Everus is exactly the intersection we work in. Would love to connect.</div>
+        <div class="msg" id="m102">Thanks for connecting Jason. From the tech side at Everus, I'm curious — how much of your field ops data is actually getting used to make proactive craft scheduling decisions? The gap between what the schedule says and what actually shows up on site is the problem CrewCast was built to close. Worth a conversation?</div>
+        <div class="msg" id="m103">One more reach out — I know VP and CIO roles at Everus's scale keep you busy. If connecting field labor data to proactive scheduling decisions is still a gap, I'd love 15 minutes to show you what we're doing. [Calendar Link]</div>
+        <button class="copybtn" id="cp10" onclick="copyMsg(10)">Copy</button>
+      </div>
+      <div class="timing" id="ti10">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
+    </div>
+    <script>msgs[10] = {1:`Hey Jason — I work with self-perform electrical contractors on workforce forecasting and operational visibility. Your background bridging technology and construction ops at Everus is exactly the intersection we work in. Would love to connect.`,2:`Thanks for connecting Jason. From the tech side at Everus, I'm curious — how much of your field ops data is actually getting used to make proactive craft scheduling decisions? The gap between what the schedule says and what actually shows up on site is the problem CrewCast was built to close. Worth a conversation?`,3:`One more reach out — I know VP and CIO roles at Everus's scale keep you busy. If connecting field labor data to proactive scheduling decisions is still a gap, I'd love 15 minutes to show you what we're doing. [Calendar Link]`};</script>
+
+    <div class="card" id="card-11">
+      <div class="card-header">
+        <div class="person">
+          <div class="avatar">D</div>
+          <div class="info">
+            <div class="name">David Elkins</div>
+            <div class="meta">Senior Vice President of Field Operations &middot; Rosendin Electric</div>
+          </div>
+        </div>
+        <div class="btns">
+          <a href="https://www.linkedin.com/in/david-elkins-5170554a" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
+          <button class="btn-sent" onclick="markSent(11)">&#10003; Sent</button>
+          <button class="btn-skip" onclick="markSkip(11)">&#10005; Skip</button>
+        </div>
+      </div>
+      <div class="touch-tabs">
+        <button class="ttab active" onclick="showT(11,1,this)">Touch 1 &middot; Connection Request</button>
+        <button class="ttab" onclick="showT(11,2,this)">Touch 2 &middot; Value Message</button>
+        <button class="ttab" onclick="showT(11,3,this)">Touch 3 &middot; Follow-up</button>
+      </div>
+      <div class="msgbox">
+        <div class="msg active" id="m111">Hey David — started as an IBEW apprentice and worked up to SVP Field Operations at Rosendin — that's a career worth connecting with. I work with self-perform electrical contractors on craft-level workforce forecasting. Would love to connect.</div>
+        <div class="msg" id="m112">Thanks for connecting David. With 40+ years in the field, I'd love your take on this — how much of the scheduling chaos you see comes down to having the right headcount vs. the right craft mix on the right day? That gap is exactly what CrewCast was built to solve. Worth a quick conversation?</div>
+        <div class="msg" id="m113">One more reach out — I know field ops at Rosendin's scale keeps you moving. If labor visibility across projects is still a challenge heading into H2, I'd love 15 minutes. [Calendar Link]</div>
+        <button class="copybtn" id="cp11" onclick="copyMsg(11)">Copy</button>
+      </div>
+      <div class="timing" id="ti11">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
+    </div>
+    <script>msgs[11] = {1:`Hey David — started as an IBEW apprentice and worked up to SVP Field Operations at Rosendin — that's a career worth connecting with. I work with self-perform electrical contractors on craft-level workforce forecasting. Would love to connect.`,2:`Thanks for connecting David. With 40+ years in the field, I'd love your take on this — how much of the scheduling chaos you see comes down to having the right headcount vs. the right craft mix on the right day? That gap is exactly what CrewCast was built to solve. Worth a quick conversation?`,3:`One more reach out — I know field ops at Rosendin's scale keeps you moving. If labor visibility across projects is still a challenge heading into H2, I'd love 15 minutes. [Calendar Link]`};</script>
+
+    <div class="card" id="card-12">
+      <div class="card-header">
+        <div class="person">
+          <div class="avatar">D</div>
+          <div class="info">
+            <div class="name">David Schoonbeck</div>
+            <div class="meta">Director of Operational Excellence &middot; Baker Construction Enterprises</div>
+          </div>
+        </div>
+        <div class="btns">
+          <a href="https://www.linkedin.com/in/david-schoonbeck-9a89a59" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
+          <button class="btn-sent" onclick="markSent(12)">&#10003; Sent</button>
+          <button class="btn-skip" onclick="markSkip(12)">&#10005; Skip</button>
+        </div>
+      </div>
+      <div class="touch-tabs">
+        <button class="ttab active" onclick="showT(12,1,this)">Touch 1 &middot; Connection Request</button>
+        <button class="ttab" onclick="showT(12,2,this)">Touch 2 &middot; Value Message</button>
+        <button class="ttab" onclick="showT(12,3,this)">Touch 3 &middot; Follow-up</button>
+      </div>
+      <div class="msgbox">
+        <div class="msg active" id="m121">Hey David — I work with self-perform concrete contractors on labor forecasting and operational efficiency. Your background in operational excellence caught my eye. Would love to connect — think there's some interesting overlap in what we're building.</div>
+        <div class="msg" id="m122">Thanks for connecting David. Curious — in your operational excellence work, how much of the variance you're chasing comes down to craft mix issues vs. total headcount planning? It's the #1 blind spot we see across self-perform concrete. We built a tool specifically for that gap. Worth a quick conversation?</div>
+        <div class="msg" id="m123">Circling back one more time — I know Q2 close is a busy stretch. If labor productivity visibility is still on your radar heading into H2, I'd love 15 minutes to show you what we're doing at CrewCast. [Calendar Link]</div>
+        <button class="copybtn" id="cp12" onclick="copyMsg(12)">Copy</button>
+      </div>
+      <div class="timing" id="ti12">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
+    </div>
+    <script>msgs[12] = {1:`Hey David — I work with self-perform concrete contractors on labor forecasting and operational efficiency. Your background in operational excellence caught my eye. Would love to connect — think there's some interesting overlap in what we're building.`,2:`Thanks for connecting David. Curious — in your operational excellence work, how much of the variance you're chasing comes down to craft mix issues vs. total headcount planning? It's the #1 blind spot we see across self-perform concrete. We built a tool specifically for that gap. Worth a quick conversation?`,3:`Circling back one more time — I know Q2 close is a busy stretch. If labor productivity visibility is still on your radar heading into H2, I'd love 15 minutes to show you what we're doing at CrewCast. [Calendar Link]`};</script>
+
+</div>
+<script>
+var msgs={};var sent=0;var total=13;
+var timings=['Send Touch 1 now → Touch 2 in 3-5 days after connect → Touch 3 in 5-7 days if no reply','Send after they accept your connection (3-5 days later)','Send if no reply to Touch 2 (5-7 days later)'];
+function showT(i,t,btn){
+  [1,2,3].forEach(function(n){var el=document.getElementById('m'+i+n);if(el)el.classList.toggle('active',n===t);});
+  btn.closest('.touch-tabs').querySelectorAll('.ttab').forEach(function(b){b.classList.remove('active')});
+  btn.classList.add('active');
+  document.getElementById('ti'+i).textContent=timings[t-1];
+}
+function copyMsg(i){
+  var t=[...document.getElementById('card-'+i).querySelectorAll('.ttab')].findIndex(function(b){return b.classList.contains('active')})+1;
+  navigator.clipboard.writeText(msgs[i][t]).then(function(){
+    var b=document.getElementById('cp'+i);b.textContent='Copied!';b.classList.add('copied');
+    setTimeout(function(){b.textContent='Copy';b.classList.remove('copied')},2000);
+  });
+}
+function markSent(i){document.getElementById('card-'+i).classList.add('sent');sent++;upd();}
+function markSkip(i){document.getElementById('card-'+i).classList.add('skipped');}
+function upd(){
+  document.getElementById('snt').textContent=sent;
+  document.getElementById('rem').textContent=total-sent;
+  document.getElementById('pf').style.width=(sent/total*100)+'%';
+  document.getElementById('pt').textContent=sent+'/'+total+' sent';
+}
+</script>
+</body>
+</html>
