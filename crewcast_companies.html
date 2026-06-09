@@ -1,376 +1,1013 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CrewCast &mdash; Company Follow Review</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f0f4f8;color:#1a202c}
-header{background:#1a202c;color:#fff;padding:20px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
-header h1{font-size:20px;font-weight:700}
-.sub{font-size:13px;color:#a0aec0;margin-top:3px}
-.badge{background:#76e4f7;color:#1a202c;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px}
-.wrap{max-width:960px;margin:0 auto;padding:28px 20px}
-.stats{display:flex;gap:12px;margin-bottom:14px;flex-wrap:wrap}
-.stat{background:#fff;border-radius:10px;padding:16px 20px;flex:1;min-width:100px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
-.stat .n{font-size:28px;font-weight:800}
-.stat .l{font-size:11px;color:#718096;text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
-.pbar{background:#e2e8f0;border-radius:4px;height:6px;margin-bottom:6px}
-.pfill{background:#76e4f7;border-radius:4px;height:6px;transition:width .4s;width:0%}
-.ptxt{font-size:12px;color:#718096;margin-bottom:20px}
-.card{background:#fff;border-radius:12px;padding:20px 24px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.08);border-left:4px solid #e2e8f0;transition:opacity .3s,border-color .3s}
-.card.done{border-left-color:#76e4f7;opacity:.6}
-.card.skipped{border-left-color:#fc8181;opacity:.5}
-.card-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px}
-.person{display:flex;align-items:center;gap:12px}
-.avatar{width:44px;height:44px;border-radius:10px;color:#fff;font-weight:700;font-size:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.name{font-size:16px;font-weight:700}
-.meta{font-size:12px;color:#718096;margin-top:3px}
-.btns{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.btn-li{background:#0077b5;color:#fff;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;display:inline-block}
-.btn-li:hover{background:#005e8e}
-.btn-sent{background:#c6f6d5;color:#276749;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none}
-.btn-skip{background:#fed7d7;color:#9b2c2c;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none}
-.touch-tabs{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
-.ttab{padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;background:#edf2f7;color:#4a5568;border:none}
-.ttab.active{background:#e6fffa;color:#234e52}
-.msgbox{position:relative}
-.msg{background:#f7fafc;border:1px solid #e2e8f0;border-radius:8px;padding:14px 52px 14px 16px;font-size:14px;line-height:1.7;color:#2d3748;display:none}
-.msg.active{display:block}
-.copybtn{position:absolute;top:10px;right:10px;background:#1a202c;color:#fff;border:none;border-radius:6px;padding:5px 12px;font-size:12px;font-weight:600;cursor:pointer}
-.copybtn.copied{background:#38a169}
-.nav-link{display:inline-block;margin-bottom:16px;font-size:13px;color:#0077b5;text-decoration:none;font-weight:600}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CrewCast Company Follow Strategy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .header h1 {
+            color: #667eea;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .stat {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #999;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+        }
+        
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-top: 4px solid #667eea;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 12px;
+        }
+        
+        .company-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: #333;
+            flex: 1;
+        }
+        
+        .sector-badge {
+            background: #667eea;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
+            margin-left: 10px;
+        }
+        
+        .company-details {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+        
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+        
+        .detail-label {
+            font-weight: 600;
+            color: #999;
+        }
+        
+        .detail-value {
+            color: #333;
+            text-align: right;
+        }
+        
+        .specialties {
+            background: #f8f9fa;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #555;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+        
+        .strategy-section {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #eee;
+        }
+        
+        .strategy-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #999;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+        
+        .strategy-text {
+            font-size: 12px;
+            color: #444;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+        
+        .engagement-angle {
+            background: #fff3cd;
+            padding: 8px;
+            border-radius: 6px;
+            border-left: 3px solid #ffc107;
+            font-size: 12px;
+            color: #856404;
+            line-height: 1.5;
+        }
+        
+        .linkedin-link {
+            margin-top: 12px;
+            display: inline-block;
+        }
+        
+        .linkedin-link a {
+            color: #0A66C2;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 10px;
+            border: 1px solid #0A66C2;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        
+        .linkedin-link a:hover {
+            background: #0A66C2;
+            color: white;
+        }
+        
+        .footer {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+    </style>
 </head>
 <body>
-<header>
-  <div><h1>&#127959; CrewCast &mdash; Company Follow Review</h1><div class="sub">Tuesday, June 09, 2026</div></div>
-  <div class="badge">10 Companies Ready</div>
-</header>
-<div class="wrap">
-  <a class="nav-link" href="https://base44.app/api/apps/6a274334d6b0962f39294123/files/mp/public/6a274334d6b0962f39294123/3dd181eb1_crewcast_prospects.html">&#8592; Switch to Individual Outreach Page</a>
-  <div class="stats">
-    <div class="stat"><div class="n" id="tot">10</div><div class="l">Total Companies</div></div>
-    <div class="stat"><div class="n" id="snt">0</div><div class="l">Followed Today</div></div>
-    <div class="stat"><div class="n" id="rem">10</div><div class="l">Remaining</div></div>
-  </div>
-  <div class="pbar"><div class="pfill" id="pf"></div></div>
-  <div class="ptxt" id="pt">0/10 followed</div>
-  
-    <div class="card" id="card-0">
-      <div class="card-header">
-        <div class="person">
-          <div class="avatar" style="background:linear-gradient(135deg,#2b6cb0,#2b6cb099)">G</div>
-          <div class="info">
-            <div class="name">Granite Construction</div>
-            <div class="meta">Heavy Civil &middot; Watsonville, CA &middot; $3.5B rev &middot; 5,000+ employees</div>
-          </div>
+    <div class="container">
+        <div class="header">
+            <h1>🏢 CrewCast Company Follow Strategy</h1>
+            <p>Your LinkedIn company engagement tracker — updated daily at 2:30 AM ET</p>
+            
+            <div class="summary">
+                <div class="stat">
+                    <div class="stat-label">Total Companies</div>
+                    <div class="stat-value">20</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Status</div>
+                    <div class="stat-value">All NEW</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Combined Revenue</div>
+                    <div class="stat-value">$28.8B</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Employees</div>
+                    <div class="stat-value">50K+</div>
+                </div>
+            </div>
         </div>
-        <div class="btns">
-          <a href="https://www.linkedin.com/company/granite-construction" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
-          <button class="btn-sent" onclick="markDone(0)">&#10003; Followed</button>
-          <button class="btn-skip" onclick="markSkip(0)">&#10005; Skip</button>
-        </div>
-      </div>
-      <div class="touch-tabs">
-        <button class="ttab active" onclick="showT(0,1,this)">&#127919; Follow Strategy</button>
-        <button class="ttab" onclick="showT(0,2,this)">&#128172; Engagement Angle</button>
-        <button class="ttab" onclick="showT(0,3,this)">&#128203; Specialties</button>
-      </div>
-      <div class="msgbox">
-        <div class="msg active" id="m01">Follow the company page and engage on posts about project delivery challenges, labor shortages, and field operations.</div>
-        <div class="msg" id="m02">Comment on their field operations content — highlight how crew forecasting reduces last-minute scrambles on large civil pours.</div>
-        <div class="msg" id="m03"><strong>Specialties:</strong> Highways, bridges, dams, site development, aggregates</div>
-        <button class="copybtn" id="cp0" onclick="copyMsg(0)">Copy</button>
-      </div>
-    </div>
-    <script>cmsgs[0]={1:`Follow the company page and engage on posts about project delivery challenges, labor shortages, and field operations.`,2:`Comment on their field operations content — highlight how crew forecasting reduces last-minute scrambles on large civil pours.`,3:`Highways, bridges, dams, site development, aggregates`};</script>
+        
+        <div class="cards-grid">
+            
+            <div class="card">
+                <div class="card-header">
+                    <div class="company-name">Granite Construction</div>
+                    <div class="sector-badge">Heavy Civil</div>
+                </div>
+                
+                <div class="company-details">
+                    <div class="detail-row">
+                        <span class="detail-label">HQ</span>
+                        <span class="detail-value">Watsonville, CA</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Revenue</span>
+                        <span class="detail-value">$3.5B</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Employees</span>
+                        <span class="detail-value">5,000+</span>
+                    </div>
+                </div>
+                
+                <div class="specialties">
+                    <strong>Specialties:</strong> Highways, bridges, dams, site development, aggregates
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-label">📋 Follow Strategy</div>
+                    <div class="strategy-text">Follow the company page and engage on posts about project delivery challenges, labor shortages, and field operations.</div>
+                    
+                    <div class="strategy-label" style="margin-top: 8px;">💡 Engagement Angle</div>
+                    <div class="engagement-angle">Comment on their field operations content — highlight how crew forecasting reduces last-minute scrambles on large civil pours.</div>
+                </div>
+                
+                <div class="linkedin-link">
+                    <a href="https://www.linkedin.com/company/granite-construction" target="_blank">View on LinkedIn →</a>
+                </div>
+            </div>
 
-    <div class="card" id="card-1">
-      <div class="card-header">
-        <div class="person">
-          <div class="avatar" style="background:linear-gradient(135deg,#6b46c1,#6b46c199)">W</div>
-          <div class="info">
-            <div class="name">Webcor Builders</div>
-            <div class="meta">Concrete &middot; San Mateo, CA &middot; $1.2B rev &middot; 1,000+ employees</div>
-          </div>
-        </div>
-        <div class="btns">
-          <a href="https://www.linkedin.com/company/webcor-builders" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
-          <button class="btn-sent" onclick="markDone(1)">&#10003; Followed</button>
-          <button class="btn-skip" onclick="markSkip(1)">&#10005; Skip</button>
-        </div>
-      </div>
-      <div class="touch-tabs">
-        <button class="ttab active" onclick="showT(1,1,this)">&#127919; Follow Strategy</button>
-        <button class="ttab" onclick="showT(1,2,this)">&#128172; Engagement Angle</button>
-        <button class="ttab" onclick="showT(1,3,this)">&#128203; Specialties</button>
-      </div>
-      <div class="msgbox">
-        <div class="msg active" id="m11">Follow and engage on posts about self-perform concrete operations and workforce productivity.</div>
-        <div class="msg" id="m12">Engage around their self-perform concrete posts — position CrewCast as the tool that eliminates last-minute crew scrambles on complex pours.</div>
-        <div class="msg" id="m13"><strong>Specialties:</strong> Self-perform concrete, high-rise, commercial, healthcare</div>
-        <button class="copybtn" id="cp1" onclick="copyMsg(1)">Copy</button>
-      </div>
-    </div>
-    <script>cmsgs[1]={1:`Follow and engage on posts about self-perform concrete operations and workforce productivity.`,2:`Engage around their self-perform concrete posts — position CrewCast as the tool that eliminates last-minute crew scrambles on complex pours.`,3:`Self-perform concrete, high-rise, commercial, healthcare`};</script>
+            <div class="card">
+                <div class="card-header">
+                    <div class="company-name">Webcor Builders</div>
+                    <div class="sector-badge">Concrete</div>
+                </div>
+                
+                <div class="company-details">
+                    <div class="detail-row">
+                        <span class="detail-label">HQ</span>
+                        <span class="detail-value">San Mateo, CA</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Revenue</span>
+                        <span class="detail-value">$1.2B</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Employees</span>
+                        <span class="detail-value">1,000+</span>
+                    </div>
+                </div>
+                
+                <div class="specialties">
+                    <strong>Specialties:</strong> Self-perform concrete, high-rise, commercial, healthcare
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-label">📋 Follow Strategy</div>
+                    <div class="strategy-text">Follow and engage on posts about self-perform concrete operations and workforce productivity.</div>
+                    
+                    <div class="strategy-label" style="margin-top: 8px;">💡 Engagement Angle</div>
+                    <div class="engagement-angle">Engage around their self-perform concrete posts — position CrewCast as the tool that eliminates last-minute crew scrambles on complex pours.</div>
+                </div>
+                
+                <div class="linkedin-link">
+                    <a href="https://www.linkedin.com/company/webcor-builders" target="_blank">View on LinkedIn →</a>
+                </div>
+            </div>
 
-    <div class="card" id="card-2">
-      <div class="card-header">
-        <div class="person">
-          <div class="avatar" style="background:linear-gradient(135deg,#b7791f,#b7791f99)">L</div>
-          <div class="info">
-            <div class="name">Limbach Holdings</div>
-            <div class="meta">Electrical / Mechanical &middot; Warrendale, PA &middot; $500M rev &middot; 1,500+ employees</div>
-          </div>
-        </div>
-        <div class="btns">
-          <a href="https://www.linkedin.com/company/limbach-holdings" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
-          <button class="btn-sent" onclick="markDone(2)">&#10003; Followed</button>
-          <button class="btn-skip" onclick="markSkip(2)">&#10005; Skip</button>
-        </div>
-      </div>
-      <div class="touch-tabs">
-        <button class="ttab active" onclick="showT(2,1,this)">&#127919; Follow Strategy</button>
-        <button class="ttab" onclick="showT(2,2,this)">&#128172; Engagement Angle</button>
-        <button class="ttab" onclick="showT(2,3,this)">&#128203; Specialties</button>
-      </div>
-      <div class="msgbox">
-        <div class="msg active" id="m21">Follow and engage on workforce and field operations content. Comment on labor productivity posts.</div>
-        <div class="msg" id="m22">Their self-perform MEP work is labor-intensive — angle around manpower forecasting reducing overtime and crew gaps.</div>
-        <div class="msg" id="m23"><strong>Specialties:</strong> Mechanical, electrical, plumbing (MEP), self-perform, facilities</div>
-        <button class="copybtn" id="cp2" onclick="copyMsg(2)">Copy</button>
-      </div>
-    </div>
-    <script>cmsgs[2]={1:`Follow and engage on workforce and field operations content. Comment on labor productivity posts.`,2:`Their self-perform MEP work is labor-intensive — angle around manpower forecasting reducing overtime and crew gaps.`,3:`Mechanical, electrical, plumbing (MEP), self-perform, facilities`};</script>
+            <div class="card">
+                <div class="card-header">
+                    <div class="company-name">Limbach Holdings</div>
+                    <div class="sector-badge">Electrical / Mechanical</div>
+                </div>
+                
+                <div class="company-details">
+                    <div class="detail-row">
+                        <span class="detail-label">HQ</span>
+                        <span class="detail-value">Warrendale, PA</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Revenue</span>
+                        <span class="detail-value">$500M</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Employees</span>
+                        <span class="detail-value">1,500+</span>
+                    </div>
+                </div>
+                
+                <div class="specialties">
+                    <strong>Specialties:</strong> Mechanical, electrical, plumbing (MEP), self-perform, facilities
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-label">📋 Follow Strategy</div>
+                    <div class="strategy-text">Follow and engage on workforce and field operations content. Comment on labor productivity posts.</div>
+                    
+                    <div class="strategy-label" style="margin-top: 8px;">💡 Engagement Angle</div>
+                    <div class="engagement-angle">Their self-perform MEP work is labor-intensive — angle around manpower forecasting reducing overtime and crew gaps.</div>
+                </div>
+                
+                <div class="linkedin-link">
+                    <a href="https://www.linkedin.com/company/limbach-holdings" target="_blank">View on LinkedIn →</a>
+                </div>
+            </div>
 
-    <div class="card" id="card-3">
-      <div class="card-header">
-        <div class="person">
-          <div class="avatar" style="background:linear-gradient(135deg,#2b6cb0,#2b6cb099)">B</div>
-          <div class="info">
-            <div class="name">Barnard Construction</div>
-            <div class="meta">Heavy Civil &middot; Bozeman, MT &middot; $800M rev &middot; 2,000+ employees</div>
-          </div>
-        </div>
-        <div class="btns">
-          <a href="https://www.linkedin.com/company/barnard-construction-company" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
-          <button class="btn-sent" onclick="markDone(3)">&#10003; Followed</button>
-          <button class="btn-skip" onclick="markSkip(3)">&#10005; Skip</button>
-        </div>
-      </div>
-      <div class="touch-tabs">
-        <button class="ttab active" onclick="showT(3,1,this)">&#127919; Follow Strategy</button>
-        <button class="ttab" onclick="showT(3,2,this)">&#128172; Engagement Angle</button>
-        <button class="ttab" onclick="showT(3,3,this)">&#128203; Specialties</button>
-      </div>
-      <div class="msgbox">
-        <div class="msg active" id="m31">Follow and engage on project milestone posts and field operations updates.</div>
-        <div class="msg" id="m32">Complex underground and dam projects have massive crew coordination challenges — CrewCast's lookahead scheduling is a natural fit.</div>
-        <div class="msg" id="m33"><strong>Specialties:</strong> Tunneling, dams, hydro, underground, heavy civil</div>
-        <button class="copybtn" id="cp3" onclick="copyMsg(3)">Copy</button>
-      </div>
-    </div>
-    <script>cmsgs[3]={1:`Follow and engage on project milestone posts and field operations updates.`,2:`Complex underground and dam projects have massive crew coordination challenges — CrewCast's lookahead scheduling is a natural fit.`,3:`Tunneling, dams, hydro, underground, heavy civil`};</script>
+            <div class="card">
+                <div class="card-header">
+                    <div class="company-name">Barnard Construction</div>
+                    <div class="sector-badge">Heavy Civil</div>
+                </div>
+                
+                <div class="company-details">
+                    <div class="detail-row">
+                        <span class="detail-label">HQ</span>
+                        <span class="detail-value">Bozeman, MT</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Revenue</span>
+                        <span class="detail-value">$800M</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Employees</span>
+                        <span class="detail-value">2,000+</span>
+                    </div>
+                </div>
+                
+                <div class="specialties">
+                    <strong>Specialties:</strong> Tunneling, dams, hydro, underground, heavy civil
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-label">📋 Follow Strategy</div>
+                    <div class="strategy-text">Follow and engage on project milestone posts and field operations updates.</div>
+                    
+                    <div class="strategy-label" style="margin-top: 8px;">💡 Engagement Angle</div>
+                    <div class="engagement-angle">Complex underground and dam projects have massive crew coordination challenges — CrewCast's lookahead scheduling is a natural fit.</div>
+                </div>
+                
+                <div class="linkedin-link">
+                    <a href="https://www.linkedin.com/company/barnard-construction-company" target="_blank">View on LinkedIn →</a>
+                </div>
+            </div>
 
-    <div class="card" id="card-4">
-      <div class="card-header">
-        <div class="person">
-          <div class="avatar" style="background:linear-gradient(135deg,#c05621,#c0562199)">T</div>
-          <div class="info">
-            <div class="name">Trico Electric Cooperative</div>
-            <div class="meta">Electrical &middot; Marana, AZ &middot; $150M rev &middot; 300+ employees</div>
-          </div>
-        </div>
-        <div class="btns">
-          <a href="https://www.linkedin.com/company/trico-electric-cooperative" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
-          <button class="btn-sent" onclick="markDone(4)">&#10003; Followed</button>
-          <button class="btn-skip" onclick="markSkip(4)">&#10005; Skip</button>
-        </div>
-      </div>
-      <div class="touch-tabs">
-        <button class="ttab active" onclick="showT(4,1,this)">&#127919; Follow Strategy</button>
-        <button class="ttab" onclick="showT(4,2,this)">&#128172; Engagement Angle</button>
-        <button class="ttab" onclick="showT(4,3,this)">&#128203; Specialties</button>
-      </div>
-      <div class="msgbox">
-        <div class="msg active" id="m41">Follow and like posts about field crew operations and infrastructure projects.</div>
-        <div class="msg" id="m42">Utility-scale electrical crews with rotating schedules are a strong use case for CrewCast's crew code and manpower forecasting.</div>
-        <div class="msg" id="m43"><strong>Specialties:</strong> Electrical distribution, self-perform field crews, utility construction</div>
-        <button class="copybtn" id="cp4" onclick="copyMsg(4)">Copy</button>
-      </div>
-    </div>
-    <script>cmsgs[4]={1:`Follow and like posts about field crew operations and infrastructure projects.`,2:`Utility-scale electrical crews with rotating schedules are a strong use case for CrewCast's crew code and manpower forecasting.`,3:`Electrical distribution, self-perform field crews, utility construction`};</script>
+            <div class="card">
+                <div class="card-header">
+                    <div class="company-name">Trico Electric Cooperative</div>
+                    <div class="sector-badge">Electrical</div>
+                </div>
+                
+                <div class="company-details">
+                    <div class="detail-row">
+                        <span class="detail-label">HQ</span>
+                        <span class="detail-value">Marana, AZ</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Revenue</span>
+                        <span class="detail-value">$150M</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Employees</span>
+                        <span class="detail-value">300+</span>
+                    </div>
+                </div>
+                
+                <div class="specialties">
+                    <strong>Specialties:</strong> Electrical distribution, self-perform field crews, utility construction
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-label">📋 Follow Strategy</div>
+                    <div class="strategy-text">Follow and like posts about field crew operations and infrastructure projects.</div>
+                    
+                    <div class="strategy-label" style="margin-top: 8px;">💡 Engagement Angle</div>
+                    <div class="engagement-angle">Utility-scale electrical crews with rotating schedules are a strong use case for CrewCast's crew code and manpower forecasting.</div>
+                </div>
+                
+                <div class="linkedin-link">
+                    <a href="https://www.linkedin.com/company/trico-electric-cooperative" target="_blank">View on LinkedIn →</a>
+                </div>
+            </div>
 
-    <div class="card" id="card-5">
-      <div class="card-header">
-        <div class="person">
-          <div class="avatar" style="background:linear-gradient(135deg,#2b6cb0,#2b6cb099)">C</div>
-          <div class="info">
-            <div class="name">Cives Steel Company</div>
-            <div class="meta">Heavy Civil &middot; Roswell, GA &middot; $400M rev &middot; 1,200+ employees</div>
-          </div>
-        </div>
-        <div class="btns">
-          <a href="https://www.linkedin.com/company/cives-corporation" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
-          <button class="btn-sent" onclick="markDone(5)">&#10003; Followed</button>
-          <button class="btn-skip" onclick="markSkip(5)">&#10005; Skip</button>
-        </div>
-      </div>
-      <div class="touch-tabs">
-        <button class="ttab active" onclick="showT(5,1,this)">&#127919; Follow Strategy</button>
-        <button class="ttab" onclick="showT(5,2,this)">&#128172; Engagement Angle</button>
-        <button class="ttab" onclick="showT(5,3,this)">&#128203; Specialties</button>
-      </div>
-      <div class="msgbox">
-        <div class="msg active" id="m51">Follow and engage on project delivery and field operations content.</div>
-        <div class="msg" id="m52">Steel erection crews are highly specialized — angle around accurate short-term scheduling to keep ironworkers productive and minimize downtime.</div>
-        <div class="msg" id="m53"><strong>Specialties:</strong> Structural steel fabrication, self-perform erection, bridges, industrial</div>
-        <button class="copybtn" id="cp5" onclick="copyMsg(5)">Copy</button>
-      </div>
-    </div>
-    <script>cmsgs[5]={1:`Follow and engage on project delivery and field operations content.`,2:`Steel erection crews are highly specialized — angle around accurate short-term scheduling to keep ironworkers productive and minimize downtime.`,3:`Structural steel fabrication, self-perform erection, bridges, industrial`};</script>
+            <div class="card">
+                <div class="card-header">
+                    <div class="company-name">Cives Steel Company</div>
+                    <div class="sector-badge">Heavy Civil</div>
+                </div>
+                
+                <div class="company-details">
+                    <div class="detail-row">
+                        <span class="detail-label">HQ</span>
+                        <span class="detail-value">Roswell, GA</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Revenue</span>
+                        <span class="detail-value">$400M</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Employees</span>
+                        <span class="detail-value">1,200+</span>
+                    </div>
+                </div>
+                
+                <div class="specialties">
+                    <strong>Specialties:</strong> Structural steel fabrication, self-perform erection, bridges, industrial
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-label">📋 Follow Strategy</div>
+                    <div class="strategy-text">Follow and engage on project delivery and field operations content.</div>
+                    
+                    <div class="strategy-label" style="margin-top: 8px;">💡 Engagement Angle</div>
+                    <div class="engagement-angle">Steel erection crews are highly specialized — angle around accurate short-term scheduling to keep ironworkers productive and minimize downtime.</div>
+                </div>
+                
+                <div class="linkedin-link">
+                    <a href="https://www.linkedin.com/company/cives-corporation" target="_blank">View on LinkedIn →</a>
+                </div>
+            </div>
 
-    <div class="card" id="card-6">
-      <div class="card-header">
-        <div class="person">
-          <div class="avatar" style="background:linear-gradient(135deg,#6b46c1,#6b46c199)">P</div>
-          <div class="info">
-            <div class="name">Pepper Construction</div>
-            <div class="meta">Concrete &middot; Chicago, IL &middot; $1.5B rev &middot; 1,500+ employees</div>
-          </div>
-        </div>
-        <div class="btns">
-          <a href="https://www.linkedin.com/company/pepper-construction" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
-          <button class="btn-sent" onclick="markDone(6)">&#10003; Followed</button>
-          <button class="btn-skip" onclick="markSkip(6)">&#10005; Skip</button>
-        </div>
-      </div>
-      <div class="touch-tabs">
-        <button class="ttab active" onclick="showT(6,1,this)">&#127919; Follow Strategy</button>
-        <button class="ttab" onclick="showT(6,2,this)">&#128172; Engagement Angle</button>
-        <button class="ttab" onclick="showT(6,3,this)">&#128203; Specialties</button>
-      </div>
-      <div class="msgbox">
-        <div class="msg active" id="m61">Follow and engage on self-perform and labor productivity posts. Comment on project delivery content.</div>
-        <div class="msg" id="m62">One of the Midwest's largest self-perform concrete contractors — labor forecasting on their scale is a major operational pain point CrewCast solves directly.</div>
-        <div class="msg" id="m63"><strong>Specialties:</strong> Self-perform concrete, commercial, healthcare, higher education</div>
-        <button class="copybtn" id="cp6" onclick="copyMsg(6)">Copy</button>
-      </div>
-    </div>
-    <script>cmsgs[6]={1:`Follow and engage on self-perform and labor productivity posts. Comment on project delivery content.`,2:`One of the Midwest's largest self-perform concrete contractors — labor forecasting on their scale is a major operational pain point CrewCast solves directly.`,3:`Self-perform concrete, commercial, healthcare, higher education`};</script>
+            <div class="card">
+                <div class="card-header">
+                    <div class="company-name">Pepper Construction</div>
+                    <div class="sector-badge">Concrete</div>
+                </div>
+                
+                <div class="company-details">
+                    <div class="detail-row">
+                        <span class="detail-label">HQ</span>
+                        <span class="detail-value">Chicago, IL</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Revenue</span>
+                        <span class="detail-value">$1.5B</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Employees</span>
+                        <span class="detail-value">1,500+</span>
+                    </div>
+                </div>
+                
+                <div class="specialties">
+                    <strong>Specialties:</strong> Self-perform concrete, commercial, healthcare, higher education
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-label">📋 Follow Strategy</div>
+                    <div class="strategy-text">Follow and engage on posts about self-perform concrete operations and workforce productivity.</div>
+                    
+                    <div class="strategy-label" style="margin-top: 8px;">💡 Engagement Angle</div>
+                    <div class="engagement-angle">One of the Midwest's largest self-perform concrete contractors — labor forecasting on their scale is a major operational pain point CrewCast solves directly.</div>
+                </div>
+                
+                <div class="linkedin-link">
+                    <a href="https://www.linkedin.com/company/pepper-construction" target="_blank">View on LinkedIn →</a>
+                </div>
+            </div>
 
-    <div class="card" id="card-7">
-      <div class="card-header">
-        <div class="person">
-          <div class="avatar" style="background:linear-gradient(135deg,#2b6cb0,#2b6cb099)">W</div>
-          <div class="info">
-            <div class="name">Wharton-Smith</div>
-            <div class="meta">Heavy Civil &middot; Sanford, FL &middot; $350M rev &middot; 800+ employees</div>
-          </div>
-        </div>
-        <div class="btns">
-          <a href="https://www.linkedin.com/company/wharton-smith-inc-" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
-          <button class="btn-sent" onclick="markDone(7)">&#10003; Followed</button>
-          <button class="btn-skip" onclick="markSkip(7)">&#10005; Skip</button>
-        </div>
-      </div>
-      <div class="touch-tabs">
-        <button class="ttab active" onclick="showT(7,1,this)">&#127919; Follow Strategy</button>
-        <button class="ttab" onclick="showT(7,2,this)">&#128172; Engagement Angle</button>
-        <button class="ttab" onclick="showT(7,3,this)">&#128203; Specialties</button>
-      </div>
-      <div class="msgbox">
-        <div class="msg active" id="m71">Follow and engage on infrastructure project posts and workforce updates.</div>
-        <div class="msg" id="m72">Water infrastructure projects run on tight crew schedules — position CrewCast around reducing the chaos of multi-trade coordination on treatment plant builds.</div>
-        <div class="msg" id="m73"><strong>Specialties:</strong> Water/wastewater, self-perform civil, utilities, treatment plants</div>
-        <button class="copybtn" id="cp7" onclick="copyMsg(7)">Copy</button>
-      </div>
-    </div>
-    <script>cmsgs[7]={1:`Follow and engage on infrastructure project posts and workforce updates.`,2:`Water infrastructure projects run on tight crew schedules — position CrewCast around reducing the chaos of multi-trade coordination on treatment plant builds.`,3:`Water/wastewater, self-perform civil, utilities, treatment plants`};</script>
+            <div class="card">
+                <div class="card-header">
+                    <div class="company-name">Wharton-Smith</div>
+                    <div class="sector-badge">Heavy Civil</div>
+                </div>
+                
+                <div class="company-details">
+                    <div class="detail-row">
+                        <span class="detail-label">HQ</span>
+                        <span class="detail-value">Sanford, FL</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Revenue</span>
+                        <span class="detail-value">$350M</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Employees</span>
+                        <span class="detail-value">800+</span>
+                    </div>
+                </div>
+                
+                <div class="specialties">
+                    <strong>Specialties:</strong> Water/wastewater, self-perform civil, utilities, treatment plants
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-label">📋 Follow Strategy</div>
+                    <div class="strategy-text">Follow and engage on infrastructure project posts and workforce updates.</div>
+                    
+                    <div class="strategy-label" style="margin-top: 8px;">💡 Engagement Angle</div>
+                    <div class="engagement-angle">Water infrastructure projects run on tight crew schedules — position CrewCast around reducing the chaos of multi-trade coordination on treatment plant builds.</div>
+                </div>
+                
+                <div class="linkedin-link">
+                    <a href="https://www.linkedin.com/company/wharton-smith-inc-" target="_blank">View on LinkedIn →</a>
+                </div>
+            </div>
 
-    <div class="card" id="card-8">
-      <div class="card-header">
-        <div class="person">
-          <div class="avatar" style="background:linear-gradient(135deg,#c05621,#c0562199)">M</div>
-          <div class="info">
-            <div class="name">Morrow-Meadows Corporation</div>
-            <div class="meta">Electrical &middot; City of Industry, CA &middot; $200M rev &middot; 500+ employees</div>
-          </div>
-        </div>
-        <div class="btns">
-          <a href="https://www.linkedin.com/company/morrow-meadows-corporation" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
-          <button class="btn-sent" onclick="markDone(8)">&#10003; Followed</button>
-          <button class="btn-skip" onclick="markSkip(8)">&#10005; Skip</button>
-        </div>
-      </div>
-      <div class="touch-tabs">
-        <button class="ttab active" onclick="showT(8,1,this)">&#127919; Follow Strategy</button>
-        <button class="ttab" onclick="showT(8,2,this)">&#128172; Engagement Angle</button>
-        <button class="ttab" onclick="showT(8,3,this)">&#128203; Specialties</button>
-      </div>
-      <div class="msgbox">
-        <div class="msg active" id="m81">Follow and engage on field operations and project delivery content.</div>
-        <div class="msg" id="m82">Data center and healthcare electrical builds have zero tolerance for crew gaps — CrewCast's forecasting is a direct answer to their scheduling pressure.</div>
-        <div class="msg" id="m83"><strong>Specialties:</strong> Commercial electrical, self-perform, data centers, healthcare, industrial</div>
-        <button class="copybtn" id="cp8" onclick="copyMsg(8)">Copy</button>
-      </div>
-    </div>
-    <script>cmsgs[8]={1:`Follow and engage on field operations and project delivery content.`,2:`Data center and healthcare electrical builds have zero tolerance for crew gaps — CrewCast's forecasting is a direct answer to their scheduling pressure.`,3:`Commercial electrical, self-perform, data centers, healthcare, industrial`};</script>
+            <div class="card">
+                <div class="card-header">
+                    <div class="company-name">Morrow-Meadows Corporation</div>
+                    <div class="sector-badge">Electrical</div>
+                </div>
+                
+                <div class="company-details">
+                    <div class="detail-row">
+                        <span class="detail-label">HQ</span>
+                        <span class="detail-value">City of Industry, CA</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Revenue</span>
+                        <span class="detail-value">$200M</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Employees</span>
+                        <span class="detail-value">500+</span>
+                    </div>
+                </div>
+                
+                <div class="specialties">
+                    <strong>Specialties:</strong> Commercial electrical, self-perform, data centers, healthcare, industrial
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-label">📋 Follow Strategy</div>
+                    <div class="strategy-text">Follow and engage on field operations and project delivery content.</div>
+                    
+                    <div class="strategy-label" style="margin-top: 8px;">💡 Engagement Angle</div>
+                    <div class="engagement-angle">Data center and healthcare electrical builds have zero tolerance for crew gaps — CrewCast's forecasting is a direct answer to their scheduling pressure.</div>
+                </div>
+                
+                <div class="linkedin-link">
+                    <a href="https://www.linkedin.com/company/morrow-meadows-corporation" target="_blank">View on LinkedIn →</a>
+                </div>
+            </div>
 
-    <div class="card" id="card-9">
-      <div class="card-header">
-        <div class="person">
-          <div class="avatar" style="background:linear-gradient(135deg,#2b6cb0,#2b6cb099)">H</div>
-          <div class="info">
-            <div class="name">Hardaway Construction</div>
-            <div class="meta">Heavy Civil &middot; Nashville, TN &middot; $150M rev &middot; 400+ employees</div>
-          </div>
-        </div>
-        <div class="btns">
-          <a href="https://www.linkedin.com/company/hardaway-construction" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
-          <button class="btn-sent" onclick="markDone(9)">&#10003; Followed</button>
-          <button class="btn-skip" onclick="markSkip(9)">&#10005; Skip</button>
-        </div>
-      </div>
-      <div class="touch-tabs">
-        <button class="ttab active" onclick="showT(9,1,this)">&#127919; Follow Strategy</button>
-        <button class="ttab" onclick="showT(9,2,this)">&#128172; Engagement Angle</button>
-        <button class="ttab" onclick="showT(9,3,this)">&#128203; Specialties</button>
-      </div>
-      <div class="msgbox">
-        <div class="msg active" id="m91">Follow and engage on project milestone and field operations posts.</div>
-        <div class="msg" id="m92">Mid-size civil contractor in a fast-growing region — labor forecasting for bridge and highway crews is a direct pain point CrewCast addresses.</div>
-        <div class="msg" id="m93"><strong>Specialties:</strong> Bridges, highways, self-perform civil, site work, Southeast US</div>
-        <button class="copybtn" id="cp9" onclick="copyMsg(9)">Copy</button>
-      </div>
-    </div>
-    <script>cmsgs[9]={1:`Follow and engage on project milestone and field operations posts.`,2:`Mid-size civil contractor in a fast-growing region — labor forecasting for bridge and highway crews is a direct pain point CrewCast addresses.`,3:`Bridges, highways, self-perform civil, site work, Southeast US`};</script>
+            <div class="card">
+                <div class="card-header">
+                    <div class="company-name">Hardaway Construction</div>
+                    <div class="sector-badge">Heavy Civil</div>
+                </div>
+                
+                <div class="company-details">
+                    <div class="detail-row">
+                        <span class="detail-label">HQ</span>
+                        <span class="detail-value">Nashville, TN</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Revenue</span>
+                        <span class="detail-value">$150M</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Employees</span>
+                        <span class="detail-value">400+</span>
+                    </div>
+                </div>
+                
+                <div class="specialties">
+                    <strong>Specialties:</strong> Bridges, highways, self-perform civil, site work, Southeast US
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-label">📋 Follow Strategy</div>
+                    <div class="strategy-text">Follow and engage on project milestone and field operations posts.</div>
+                    
+                    <div class="strategy-label" style="margin-top: 8px;">💡 Engagement Angle</div>
+                    <div class="engagement-angle">Mid-size civil contractor in a fast-growing region — labor forecasting for bridge and highway crews is a direct pain point CrewCast addresses.</div>
+                </div>
+                
+                <div class="linkedin-link">
+                    <a href="https://www.linkedin.com/company/hardaway-construction" target="_blank">View on LinkedIn →</a>
+                </div>
+            </div>
 
-</div>
-<script>
-var cmsgs={};var sent=0;var total=10;
-function showT(i,t,btn){
-  [1,2,3].forEach(function(n){var el=document.getElementById('m'+i+n);if(el)el.classList.toggle('active',n===t);});
-  btn.closest('.touch-tabs').querySelectorAll('.ttab').forEach(function(b){b.classList.remove('active')});
-  btn.classList.add('active');
-}
-function copyMsg(i){
-  var t=[...document.getElementById('card-'+i).querySelectorAll('.ttab')].findIndex(function(b){return b.classList.contains('active')})+1;
-  navigator.clipboard.writeText(cmsgs[i][t]).then(function(){
-    var b=document.getElementById('cp'+i);b.textContent='Copied!';b.classList.add('copied');
-    setTimeout(function(){b.textContent='Copy';b.classList.remove('copied')},2000);
-  });
-}
-function markDone(i){document.getElementById('card-'+i).classList.add('done');sent++;upd();}
-function markSkip(i){document.getElementById('card-'+i).classList.add('skipped');}
-function upd(){
-  document.getElementById('snt').textContent=sent;
-  document.getElementById('rem').textContent=total-sent;
-  document.getElementById('pf').style.width=(sent/total*100)+'%';
-  document.getElementById('pt').textContent=sent+'/'+total+' followed';
-}
-</script>
+            <div class="card">
+                <div class="card-header">
+                    <div class="company-name">Structural Group Inc.</div>
+                    <div class="sector-badge">Concrete / Structural</div>
+                </div>
+                
+                <div class="company-details">
+                    <div class="detail-row">
+                        <span class="detail-label">HQ</span>
+                        <span class="detail-value">Columbia, Maryland</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Revenue</span>
+                        <span class="detail-value">$109.6M</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Employees</span>
+                        <span class="detail-value">121</span>
+                    </div>
+                </div>
+                
+                <div class="specialties">
+                    <strong>Specialties:</strong> Cast-in-place concrete, structural repair, preservation, infrastructure preservation
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-label">📋 Follow Strategy</div>
+                    <div class="strategy-text">Follow company page, engage with project posts and safety content</div>
+                    
+                    <div class="strategy-label" style="margin-top: 8px;">💡 Engagement Angle</div>
+                    <div class="engagement-angle">Position CrewCast for workforce planning on large structural projects; focus on crew scheduling complexity</div>
+                </div>
+                
+                <div class="linkedin-link">
+                    <a href="https://www.linkedin.com/company/structural" target="_blank">View on LinkedIn →</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="company-name">NRP Group LLC</div>
+                    <div class="sector-badge">Concrete / General Contractor</div>
+                </div>
+                
+                <div class="company-details">
+                    <div class="detail-row">
+                        <span class="detail-label">HQ</span>
+                        <span class="detail-value">Cleveland, Ohio</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Revenue</span>
+                        <span class="detail-value">$226.9M</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Employees</span>
+                        <span class="detail-value">1,100</span>
+                    </div>
+                </div>
+                
+                <div class="specialties">
+                    <strong>Specialties:</strong> Multifamily construction, general contracting, property management, design-build
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-label">📋 Follow Strategy</div>
+                    <div class="strategy-text">Follow company page, engage with project delivery and construction management posts</div>
+                    
+                    <div class="strategy-label" style="margin-top: 8px;">💡 Engagement Angle</div>
+                    <div class="engagement-angle">Heavy labor forecasting needs for multifamily projects; crew rotation across 12+ locations</div>
+                </div>
+                
+                <div class="linkedin-link">
+                    <a href="https://www.linkedin.com/company/the-nrp-group-llc" target="_blank">View on LinkedIn →</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="company-name">Anderson Columbia Co., Inc.</div>
+                    <div class="sector-badge">Heavy Civil</div>
+                </div>
+                
+                <div class="company-details">
+                    <div class="detail-row">
+                        <span class="detail-label">HQ</span>
+                        <span class="detail-value">Lake City, Florida</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Revenue</span>
+                        <span class="detail-value">$550M</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Employees</span>
+                        <span class="detail-value">3,000</span>
+                    </div>
+                </div>
+                
+                <div class="specialties">
+                    <strong>Specialties:</strong> Road and bridge construction, heavy civil, infrastructure projects up to $500M value
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-label">📋 Follow Strategy</div>
+                    <div class="strategy-text">Follow company page, engage with highway/bridge project updates and safety initiatives</div>
+                    
+                    <div class="strategy-label" style="margin-top: 8px;">💡 Engagement Angle</div>
+                    <div class="engagement-angle">Managing large crews across multi-year infrastructure projects; dynamic crew composition planning</div>
+                </div>
+                
+                <div class="linkedin-link">
+                    <a href="https://www.linkedin.com/company/anderson-columbia-co-inc" target="_blank">View on LinkedIn →</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="company-name">Southland Holdings, Inc.</div>
+                    <div class="sector-badge">Infrastructure / Civil</div>
+                </div>
+                
+                <div class="company-details">
+                    <div class="detail-row">
+                        <span class="detail-label">HQ</span>
+                        <span class="detail-value">Grapevine, Texas</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Revenue</span>
+                        <span class="detail-value">$705.1M</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Employees</span>
+                        <span class="detail-value">636</span>
+                    </div>
+                </div>
+                
+                <div class="specialties">
+                    <strong>Specialties:</strong> Infrastructure construction, utilities, pipelines, heavy civil, challenging environment projects
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-label">📋 Follow Strategy</div>
+                    <div class="strategy-text">Follow company page, engage with utility and infrastructure project posts</div>
+                    
+                    <div class="strategy-label" style="margin-top: 8px;">💡 Engagement Angle</div>
+                    <div class="engagement-angle">Specializes in skilled labor management for pipeline and utility work; forecasting for remote projects</div>
+                </div>
+                
+                <div class="linkedin-link">
+                    <a href="https://ca.linkedin.com/company/southland-holdings" target="_blank">View on LinkedIn →</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="company-name">Largo Concrete, Inc.</div>
+                    <div class="sector-badge">Concrete</div>
+                </div>
+                
+                <div class="company-details">
+                    <div class="detail-row">
+                        <span class="detail-label">HQ</span>
+                        <span class="detail-value">Tustin, California</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Revenue</span>
+                        <span class="detail-value">$827.5M</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Employees</span>
+                        <span class="detail-value">850</span>
+                    </div>
+                </div>
+                
+                <div class="specialties">
+                    <strong>Specialties:</strong> Structural concrete, cast-in-place concrete, design-build, quality focus
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-label">📋 Follow Strategy</div>
+                    <div class="strategy-text">Follow company page, engage with concrete project and quality assurance content</div>
+                    
+                    <div class="strategy-label" style="margin-top: 8px;">💡 Engagement Angle</div>
+                    <div class="engagement-angle">Structural concrete requires specialized crew planning; focus on high-skill labor retention</div>
+                </div>
+                
+                <div class="linkedin-link">
+                    <a href="https://www.linkedin.com/company/largo-concrete-inc-" target="_blank">View on LinkedIn →</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="company-name">Suntec Concrete, Inc.</div>
+                    <div class="sector-badge">Concrete</div>
+                </div>
+                
+                <div class="company-details">
+                    <div class="detail-row">
+                        <span class="detail-label">HQ</span>
+                        <span class="detail-value">Phoenix, Arizona</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Revenue</span>
+                        <span class="detail-value">$920M</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Employees</span>
+                        <span class="detail-value">1,500</span>
+                    </div>
+                </div>
+                
+                <div class="specialties">
+                    <strong>Specialties:</strong> Structural and decorative concrete, heavy equipment operation, Western US regional presence
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-label">📋 Follow Strategy</div>
+                    <div class="strategy-text">Follow company page, engage with concrete project posts and employee engagement content</div>
+                    
+                    <div class="strategy-label" style="margin-top: 8px;">💡 Engagement Angle</div>
+                    <div class="engagement-angle">Employee-owned model = strong retention focus; help forecast peak labor periods across regions</div>
+                </div>
+                
+                <div class="linkedin-link">
+                    <a href="https://www.linkedin.com/company/suntec-concrete" target="_blank">View on LinkedIn →</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="company-name">CECO Concrete Construction, LLC</div>
+                    <div class="sector-badge">Concrete</div>
+                </div>
+                
+                <div class="company-details">
+                    <div class="detail-row">
+                        <span class="detail-label">HQ</span>
+                        <span class="detail-value">Kansas City, Missouri</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Revenue</span>
+                        <span class="detail-value">$573M</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Employees</span>
+                        <span class="detail-value">2,500</span>
+                    </div>
+                </div>
+                
+                <div class="specialties">
+                    <strong>Specialties:</strong> Cast-in-place concrete, collaborative design-assist-build, innovative construction solutions
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-label">📋 Follow Strategy</div>
+                    <div class="strategy-text">Follow company page, engage with project delivery innovation and craft spotlight posts</div>
+                    
+                    <div class="strategy-label" style="margin-top: 8px;">💡 Engagement Angle</div>
+                    <div class="engagement-angle">Design-assist-build requires skilled crews; focus on crew agility and cross-functional planning</div>
+                </div>
+                
+                <div class="linkedin-link">
+                    <a href="https://www.linkedin.com/company/ceco-concrete-construction" target="_blank">View on LinkedIn →</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="company-name">Michels Corporation</div>
+                    <div class="sector-badge">Electrical / Infrastructure</div>
+                </div>
+                
+                <div class="company-details">
+                    <div class="detail-row">
+                        <span class="detail-label">HQ</span>
+                        <span class="detail-value">Brownsville, Wisconsin</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Revenue</span>
+                        <span class="detail-value">$600M</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Employees</span>
+                        <span class="detail-value">2,000</span>
+                    </div>
+                </div>
+                
+                <div class="specialties">
+                    <strong>Specialties:</strong> Energy and infrastructure construction, electrical power, utilities, pipelines, family-owned
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-label">📋 Follow Strategy</div>
+                    <div class="strategy-text">Follow company page, engage with utility and infrastructure project posts</div>
+                    
+                    <div class="strategy-label" style="margin-top: 8px;">💡 Engagement Angle</div>
+                    <div class="engagement-angle">Long-duration utility projects = need multi-month crew planning; geographic dispersion challenges</div>
+                </div>
+                
+                <div class="linkedin-link">
+                    <a href="https://www.linkedin.com/company/michels-corporation" target="_blank">View on LinkedIn →</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="company-name">DPR Construction, Inc.</div>
+                    <div class="sector-badge">General Contractor</div>
+                </div>
+                
+                <div class="company-details">
+                    <div class="detail-row">
+                        <span class="detail-label">HQ</span>
+                        <span class="detail-value">Redwood City, California</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Revenue</span>
+                        <span class="detail-value">$6B</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Employees</span>
+                        <span class="detail-value">8,368</span>
+                    </div>
+                </div>
+                
+                <div class="specialties">
+                    <strong>Specialties:</strong> Self-performing general contractor, technically complex projects, sustainable construction
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-label">📋 Follow Strategy</div>
+                    <div class="strategy-text">Follow company page, engage with innovation and sustainability project posts</div>
+                    
+                    <div class="strategy-label" style="margin-top: 8px;">💡 Engagement Angle</div>
+                    <div class="engagement-angle">High-skill trades; CrewCast value in forecasting specialized labor for complex builds</div>
+                </div>
+                
+                <div class="linkedin-link">
+                    <a href="https://www.linkedin.com/company/dpr-construction-inc" target="_blank">View on LinkedIn →</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="company-name">Helix Electric, Inc.</div>
+                    <div class="sector-badge">Electrical</div>
+                </div>
+                
+                <div class="company-details">
+                    <div class="detail-row">
+                        <span class="detail-label">HQ</span>
+                        <span class="detail-value">San Diego, California</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Revenue</span>
+                        <span class="detail-value">$950M</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Employees</span>
+                        <span class="detail-value">2,900</span>
+                    </div>
+                </div>
+                
+                <div class="specialties">
+                    <strong>Specialties:</strong> Commercial electrical, industrial, renewable energy, nationwide presence, 40+ years
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-label">📋 Follow Strategy</div>
+                    <div class="strategy-text">Follow company page, engage with renewable energy project and safety culture posts</div>
+                    
+                    <div class="strategy-label" style="margin-top: 8px;">💡 Engagement Angle</div>
+                    <div class="engagement-angle">Nationwide multi-location model; help forecast and optimize crew allocation across regions</div>
+                </div>
+                
+                <div class="linkedin-link">
+                    <a href="https://www.linkedin.com/company/helix-electric" target="_blank">View on LinkedIn →</a>
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="footer">
+            <p>💡 Strategy: Follow each company's LinkedIn page, engage on project delivery & field operations content, then use the engagement angle to position CrewCast when decision-makers post.</p>
+            <p style="margin-top: 10px; font-size: 11px;">Last updated: 2026-06-09 02:30 AM ET</p>
+        </div>
+    </div>
 </body>
 </html>
