@@ -7,13 +7,13 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f0f4f8;color:#1a202c}
-header{background:#1a202c;color:#fff;padding:20px 32px;display:flex;align-items:center;justify-content:space-between}
+header{background:#1a202c;color:#fff;padding:20px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
 header h1{font-size:20px;font-weight:700}
 .sub{font-size:13px;color:#a0aec0;margin-top:3px}
 .badge{background:#f6ad55;color:#1a202c;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px}
 .wrap{max-width:920px;margin:0 auto;padding:28px 20px}
-.stats{display:flex;gap:12px;margin-bottom:14px}
-.stat{background:#fff;border-radius:10px;padding:16px 20px;flex:1;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.stats{display:flex;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.stat{background:#fff;border-radius:10px;padding:16px 20px;flex:1;min-width:100px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
 .stat .n{font-size:28px;font-weight:800}
 .stat .l{font-size:11px;color:#718096;text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
 .pbar{background:#e2e8f0;border-radius:4px;height:6px;margin-bottom:6px}
@@ -28,7 +28,7 @@ header h1{font-size:20px;font-weight:700}
 .name{font-size:16px;font-weight:700}
 .meta{font-size:13px;color:#718096;margin-top:2px}
 .btns{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.btn-li{background:#0077b5;color:#fff;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none}
+.btn-li{background:#0077b5;color:#fff;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;display:inline-block}
 .btn-li:hover{background:#005e8e}
 .btn-sent{background:#c6f6d5;color:#276749;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none}
 .btn-skip{background:#fed7d7;color:#9b2c2c;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none}
@@ -85,7 +85,7 @@ header h1{font-size:20px;font-weight:700}
       </div>
       <div class="timing" id="ti0">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
     </div>
-    <script>msgs[0] = {1:`Hey Guillermo — 25 years running tilt-up ops at Suntec is seriously impressive. I work with self-perform concrete contractors on craft-level manpower forecasting — making sure the right crew shows up before the pour, not after. Would love to connect.`,2:`Thanks for connecting Guillermo. With the volume of tilt-up Suntec runs, how are you tracking craft availability for each pour sequence before the week starts? The 'headcount looks fine but wrong mix shows up' problem is exactly what CrewCast was built to eliminate. Worth a 15-minute conversation?`,3:`One last reach out — I know ops managers at Suntec's pace stay buried. If craft-level scheduling is still a gap, I'd love 15 minutes to show you what we're doing. [Calendar Link]`};</script>
+    <script>msgs[0]={1:`Hey Guillermo — 25 years running tilt-up ops at Suntec is seriously impressive. I work with self-perform concrete contractors on craft-level manpower forecasting — making sure the right crew shows up before the pour, not after. Would love to connect.`,2:`Thanks for connecting Guillermo. With the volume of tilt-up Suntec runs, how are you tracking craft availability for each pour sequence before the week starts? The 'headcount looks fine but wrong mix shows up' problem is exactly what CrewCast was built to eliminate. Worth a 15-minute conversation?`,3:`One last reach out — I know ops managers at Suntec's pace stay buried. If craft-level scheduling is still a gap, I'd love 15 minutes to show you what we're doing. [Calendar Link]`};</script>
 
     <div class="card" id="card-1">
       <div class="card-header">
@@ -115,7 +115,7 @@ header h1{font-size:20px;font-weight:700}
       </div>
       <div class="timing" id="ti1">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
     </div>
-    <script>msgs[1] = {1:`Hey Steve — I work with self-perform electrical and I&E contractors on craft-level manpower forecasting. Your project controls background at MMR caught my attention — think there's a real overlap with what we're building. Would love to connect.`,2:`Thanks for connecting Steve. In project controls at a firm MMR's scale, I'm curious — how much of your variance is actually a craft mix problem masquerading as a headcount problem? That's the 'Headcount Trap' we see constantly in self-perform. CrewCast was built specifically around it. Worth a conversation?`,3:`Last reach out — I know project controls teams at MMR's scale are constantly firefighting. If trade-specific labor visibility is still a gap heading into Q3, I'd love 15 minutes to show you what we're doing. [Calendar Link]`};</script>
+    <script>msgs[1]={1:`Hey Steve — I work with self-perform electrical and I&E contractors on craft-level manpower forecasting. Your project controls background at MMR caught my attention — think there's a real overlap with what we're building. Would love to connect.`,2:`Thanks for connecting Steve. In project controls at a firm MMR's scale, I'm curious — how much of your variance is actually a craft mix problem masquerading as a headcount problem? That's the 'Headcount Trap' we see constantly in self-perform. CrewCast was built specifically around it. Worth a conversation?`,3:`Last reach out — I know project controls teams at MMR's scale are constantly firefighting. If trade-specific labor visibility is still a gap heading into Q3, I'd love 15 minutes to show you what we're doing. [Calendar Link]`};</script>
 
     <div class="card" id="card-2">
       <div class="card-header">
@@ -145,7 +145,7 @@ header h1{font-size:20px;font-weight:700}
       </div>
       <div class="timing" id="ti2">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
     </div>
-    <script>msgs[2] = {1:`Hey Mike — I work with self-perform electrical contractors on workforce forecasting — connecting the schedule to actual craft availability before the week starts. Your ops background at M.C. Dean caught my attention. Would love to connect.`,2:`Thanks for connecting Mike. With M.C. Dean running complex self-perform electrical across federal and commercial projects simultaneously, how are your teams tracking craft-specific gaps before they become delays? That coordination challenge is exactly what CrewCast was built for. Worth a quick conversation?`,3:`One last reach out — I know SVP roles at M.C. Dean's scale stay moving. If field labor visibility is still a gap heading into Q3, I'd love 15 minutes to show you what we're building. [Calendar Link]`};</script>
+    <script>msgs[2]={1:`Hey Mike — I work with self-perform electrical contractors on workforce forecasting — connecting the schedule to actual craft availability before the week starts. Your ops background at M.C. Dean caught my attention. Would love to connect.`,2:`Thanks for connecting Mike. With M.C. Dean running complex self-perform electrical across federal and commercial projects simultaneously, how are your teams tracking craft-specific gaps before they become delays? That coordination challenge is exactly what CrewCast was built for. Worth a quick conversation?`,3:`One last reach out — I know SVP roles at M.C. Dean's scale stay moving. If field labor visibility is still a gap heading into Q3, I'd love 15 minutes to show you what we're building. [Calendar Link]`};</script>
 
     <div class="card" id="card-3">
       <div class="card-header">
@@ -175,7 +175,7 @@ header h1{font-size:20px;font-weight:700}
       </div>
       <div class="timing" id="ti3">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
     </div>
-    <script>msgs[3] = {1:`Hey Derek — I work with self-perform concrete contractors on craft-level manpower forecasting. Suntec has built an impressive operation in the Southwest — managing tilt-up at that volume is a real scheduling challenge. Would love to connect.`,2:`Thanks for connecting Derek. Quick question — with the tilt-up volume Suntec runs, how are your superintendents tracking whether the right craft mix is confirmed before a pour sequence starts? That morning-of surprise is the exact problem CrewCast was built to eliminate. Worth a 15-minute conversation?`,3:`One last reach out — I know running a concrete operation at Suntec's scale keeps you moving. If craft-level scheduling visibility is still a challenge, I'd love 15 minutes to show you what we're doing. [Calendar Link]`};</script>
+    <script>msgs[3]={1:`Hey Derek — I work with self-perform concrete contractors on craft-level manpower forecasting. Suntec has built an impressive operation in the Southwest — managing tilt-up at that volume is a real scheduling challenge. Would love to connect.`,2:`Thanks for connecting Derek. Quick question — with the tilt-up volume Suntec runs, how are your superintendents tracking whether the right craft mix is confirmed before a pour sequence starts? That morning-of surprise is the exact problem CrewCast was built to eliminate. Worth a 15-minute conversation?`,3:`One last reach out — I know running a concrete operation at Suntec's scale keeps you moving. If craft-level scheduling visibility is still a challenge, I'd love 15 minutes to show you what we're doing. [Calendar Link]`};</script>
 
     <div class="card" id="card-4">
       <div class="card-header">
@@ -205,7 +205,7 @@ header h1{font-size:20px;font-weight:700}
       </div>
       <div class="timing" id="ti4">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
     </div>
-    <script>msgs[4] = {1:`Hey Adam — I work with self-perform electrical contractors on craft-level workforce forecasting. Delivering high-quality electrical construction at Cupertino's scale requires serious labor coordination — would love to connect and share what we're seeing.`,2:`Thanks for connecting Adam. With Cupertino running large-scale electrical projects simultaneously, how are your teams catching the craft mix gaps before they impact a milestone? That's the exact visibility problem CrewCast was built to solve. Worth a quick conversation?`,3:`One more reach out — I know SVP ops at Cupertino's scale keeps you moving. If matching the right trades to the right projects is still a challenge heading into H2, I'd love 15 minutes. [Calendar Link]`};</script>
+    <script>msgs[4]={1:`Hey Adam — I work with self-perform electrical contractors on craft-level workforce forecasting. Delivering high-quality electrical construction at Cupertino's scale requires serious labor coordination — would love to connect and share what we're seeing.`,2:`Thanks for connecting Adam. With Cupertino running large-scale electrical projects simultaneously, how are your teams catching the craft mix gaps before they impact a milestone? That's the exact visibility problem CrewCast was built to solve. Worth a quick conversation?`,3:`One more reach out — I know SVP ops at Cupertino's scale keeps you moving. If matching the right trades to the right projects is still a challenge heading into H2, I'd love 15 minutes. [Calendar Link]`};</script>
 
     <div class="card" id="card-5">
       <div class="card-header">
@@ -235,7 +235,7 @@ header h1{font-size:20px;font-weight:700}
       </div>
       <div class="timing" id="ti5">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
     </div>
-    <script>msgs[5] = {1:`Hey John — congrats on the VP Operations move at Rosendin. I work with self-perform electrical contractors on workforce forecasting — matching craft trades to project demand before the week starts, not the morning of. Would love to connect.`,2:`Thanks for connecting John. Curious what you're seeing on the ops side — when your field teams are managing multiple active projects, how are you catching craft-specific gaps before they become delays? It's the problem we built CrewCast around. Worth a 15-minute conversation?`,3:`Didn't want to let this drop — I know VP ops roles at a firm Rosendin's size keep you buried. If matching the right trades to the right projects is still a challenge, I'd love to show you what we're doing. [Calendar Link]`};</script>
+    <script>msgs[5]={1:`Hey John — congrats on the VP Operations move at Rosendin. I work with self-perform electrical contractors on workforce forecasting — matching craft trades to project demand before the week starts, not the morning of. Would love to connect.`,2:`Thanks for connecting John. Curious what you're seeing on the ops side — when your field teams are managing multiple active projects, how are you catching craft-specific gaps before they become delays? It's the problem we built CrewCast around. Worth a 15-minute conversation?`,3:`Didn't want to let this drop — I know VP ops roles at a firm Rosendin's size keep you buried. If matching the right trades to the right projects is still a challenge, I'd love to show you what we're doing. [Calendar Link]`};</script>
 
     <div class="card" id="card-6">
       <div class="card-header">
@@ -265,7 +265,7 @@ header h1{font-size:20px;font-weight:700}
       </div>
       <div class="timing" id="ti6">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
     </div>
-    <script>msgs[6] = {1:`Hey James — I work with self-perform electrical contractors on manpower forecasting and craft scheduling. 7 years building national construction ops at ArchKey is impressive — would love to connect and share what we're seeing across the industry.`,2:`Thanks for connecting James. With ArchKey running self-perform across so many markets, how are your superintendents staying ahead of craft mix gaps before they hit a milestone? The 'headcount looks fine but wrong trades on site' problem is exactly what CrewCast was built around. Worth a conversation?`,3:`Last reach out — I know ops VP roles at ArchKey's scale stay buried. If trade-specific scheduling visibility is still a gap, I'd love 15 minutes to show you what we're building. [Calendar Link]`};</script>
+    <script>msgs[6]={1:`Hey James — I work with self-perform electrical contractors on manpower forecasting and craft scheduling. 7 years building national construction ops at ArchKey is impressive — would love to connect and share what we're seeing across the industry.`,2:`Thanks for connecting James. With ArchKey running self-perform across so many markets, how are your superintendents staying ahead of craft mix gaps before they hit a milestone? The 'headcount looks fine but wrong trades on site' problem is exactly what CrewCast was built around. Worth a conversation?`,3:`Last reach out — I know ops VP roles at ArchKey's scale stay buried. If trade-specific scheduling visibility is still a gap, I'd love 15 minutes to show you what we're building. [Calendar Link]`};</script>
 
     <div class="card" id="card-7">
       <div class="card-header">
@@ -295,7 +295,7 @@ header h1{font-size:20px;font-weight:700}
       </div>
       <div class="timing" id="ti7">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
     </div>
-    <script>msgs[7] = {1:`Hey Jose — I work with self-perform heavy civil and foundation contractors on workforce forecasting — connecting field operations, project management, and scheduling in one place. Your background bridging ops and management at Keller caught my attention. Would love to connect.`,2:`Thanks for connecting Jose. With Keller managing crews across so many simultaneous foundation projects, I'm curious — how are your teams catching craft availability gaps before they hit the schedule? That coordination between the office and field is exactly what CrewCast was built for. Worth a quick conversation?`,3:`Circling back one more time — I know SVP roles at Keller's scale keep you moving. If field-to-office labor visibility is still a gap heading into H2, I'd love 15 minutes to show you what we're doing. [Calendar Link]`};</script>
+    <script>msgs[7]={1:`Hey Jose — I work with self-perform heavy civil and foundation contractors on workforce forecasting — connecting field operations, project management, and scheduling in one place. Your background bridging ops and management at Keller caught my attention. Would love to connect.`,2:`Thanks for connecting Jose. With Keller managing crews across so many simultaneous foundation projects, I'm curious — how are your teams catching craft availability gaps before they hit the schedule? That coordination between the office and field is exactly what CrewCast was built for. Worth a quick conversation?`,3:`Circling back one more time — I know SVP roles at Keller's scale keep you moving. If field-to-office labor visibility is still a gap heading into H2, I'd love 15 minutes to show you what we're doing. [Calendar Link]`};</script>
 
     <div class="card" id="card-8">
       <div class="card-header">
@@ -325,7 +325,7 @@ header h1{font-size:20px;font-weight:700}
       </div>
       <div class="timing" id="ti8">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
     </div>
-    <script>msgs[8] = {1:`Hey Sam — I work with self-perform electrical contractors on craft-level workforce forecasting across multiple active projects. National ops at a firm ArchKey's scale is a real coordination challenge — would love to connect and share what we're seeing.`,2:`Thanks for connecting Sam. Managing self-perform electrical at a national scale, I'm curious — how are your project teams tracking craft-specific gaps across regions before they become schedule delays? That's the exact problem CrewCast was built to solve. Worth a 15-minute conversation?`,3:`One last reach out — I know national VP ops roles stay busy. If craft-level labor visibility across your regions is still a challenge heading into Q3, I'd love 15 minutes. [Calendar Link]`};</script>
+    <script>msgs[8]={1:`Hey Sam — I work with self-perform electrical contractors on craft-level workforce forecasting across multiple active projects. National ops at a firm ArchKey's scale is a real coordination challenge — would love to connect and share what we're seeing.`,2:`Thanks for connecting Sam. Managing self-perform electrical at a national scale, I'm curious — how are your project teams tracking craft-specific gaps across regions before they become schedule delays? That's the exact problem CrewCast was built to solve. Worth a 15-minute conversation?`,3:`One last reach out — I know national VP ops roles stay busy. If craft-level labor visibility across your regions is still a challenge heading into Q3, I'd love 15 minutes. [Calendar Link]`};</script>
 
     <div class="card" id="card-9">
       <div class="card-header">
@@ -355,7 +355,7 @@ header h1{font-size:20px;font-weight:700}
       </div>
       <div class="timing" id="ti9">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
     </div>
-    <script>msgs[9] = {1:`Hey Brian — I work with self-perform specialty contractors on craft-level manpower forecasting. Employee-owned firms like PCI tend to feel labor inefficiency more directly in the P&L — would love to connect and share what we're seeing.`,2:`Thanks for connecting Brian. At a firm PCI's scale managing specialty trades across so many markets, how are your ops teams staying ahead of craft availability gaps before they hit the schedule? That's exactly the problem CrewCast was built around. Worth a 15-minute conversation?`,3:`Last reach out — I know executive roles at PCI's scale stay busy. If craft-level labor visibility heading into H2 is still a gap, I'd love 15 minutes to show you what we're doing. [Calendar Link]`};</script>
+    <script>msgs[9]={1:`Hey Brian — I work with self-perform specialty contractors on craft-level manpower forecasting. Employee-owned firms like PCI tend to feel labor inefficiency more directly in the P&L — would love to connect and share what we're seeing.`,2:`Thanks for connecting Brian. At a firm PCI's scale managing specialty trades across so many markets, how are your ops teams staying ahead of craft availability gaps before they hit the schedule? That's exactly the problem CrewCast was built around. Worth a 15-minute conversation?`,3:`Last reach out — I know executive roles at PCI's scale stay busy. If craft-level labor visibility heading into H2 is still a gap, I'd love 15 minutes to show you what we're doing. [Calendar Link]`};</script>
 
     <div class="card" id="card-10">
       <div class="card-header">
@@ -385,7 +385,7 @@ header h1{font-size:20px;font-weight:700}
       </div>
       <div class="timing" id="ti10">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
     </div>
-    <script>msgs[10] = {1:`Hey Jason — I work with self-perform electrical contractors on workforce forecasting and operational visibility. Your background bridging technology and construction ops at Everus is exactly the intersection we work in. Would love to connect.`,2:`Thanks for connecting Jason. From the tech side at Everus, I'm curious — how much of your field ops data is actually getting used to make proactive craft scheduling decisions? The gap between what the schedule says and what actually shows up on site is the problem CrewCast was built to close. Worth a conversation?`,3:`One more reach out — I know VP and CIO roles at Everus's scale keep you busy. If connecting field labor data to proactive scheduling decisions is still a gap, I'd love 15 minutes to show you what we're doing. [Calendar Link]`};</script>
+    <script>msgs[10]={1:`Hey Jason — I work with self-perform electrical contractors on workforce forecasting and operational visibility. Your background bridging technology and construction ops at Everus is exactly the intersection we work in. Would love to connect.`,2:`Thanks for connecting Jason. From the tech side at Everus, I'm curious — how much of your field ops data is actually getting used to make proactive craft scheduling decisions? The gap between what the schedule says and what actually shows up on site is the problem CrewCast was built to close. Worth a conversation?`,3:`One more reach out — I know VP and CIO roles at Everus's scale keep you busy. If connecting field labor data to proactive scheduling decisions is still a gap, I'd love 15 minutes to show you what we're doing. [Calendar Link]`};</script>
 
     <div class="card" id="card-11">
       <div class="card-header">
@@ -415,7 +415,7 @@ header h1{font-size:20px;font-weight:700}
       </div>
       <div class="timing" id="ti11">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
     </div>
-    <script>msgs[11] = {1:`Hey David — started as an IBEW apprentice and worked up to SVP Field Operations at Rosendin — that's a career worth connecting with. I work with self-perform electrical contractors on craft-level workforce forecasting. Would love to connect.`,2:`Thanks for connecting David. With 40+ years in the field, I'd love your take on this — how much of the scheduling chaos you see comes down to having the right headcount vs. the right craft mix on the right day? That gap is exactly what CrewCast was built to solve. Worth a quick conversation?`,3:`One more reach out — I know field ops at Rosendin's scale keeps you moving. If labor visibility across projects is still a challenge heading into H2, I'd love 15 minutes. [Calendar Link]`};</script>
+    <script>msgs[11]={1:`Hey David — started as an IBEW apprentice and worked up to SVP Field Operations at Rosendin — that's a career worth connecting with. I work with self-perform electrical contractors on craft-level workforce forecasting. Would love to connect.`,2:`Thanks for connecting David. With 40+ years in the field, I'd love your take on this — how much of the scheduling chaos you see comes down to having the right headcount vs. the right craft mix on the right day? That gap is exactly what CrewCast was built to solve. Worth a quick conversation?`,3:`One more reach out — I know field ops at Rosendin's scale keeps you moving. If labor visibility across projects is still a challenge heading into H2, I'd love 15 minutes. [Calendar Link]`};</script>
 
     <div class="card" id="card-12">
       <div class="card-header">
@@ -445,7 +445,7 @@ header h1{font-size:20px;font-weight:700}
       </div>
       <div class="timing" id="ti12">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
     </div>
-    <script>msgs[12] = {1:`Hey David — I work with self-perform concrete contractors on labor forecasting and operational efficiency. Your background in operational excellence caught my eye. Would love to connect — think there's some interesting overlap in what we're building.`,2:`Thanks for connecting David. Curious — in your operational excellence work, how much of the variance you're chasing comes down to craft mix issues vs. total headcount planning? It's the #1 blind spot we see across self-perform concrete. We built a tool specifically for that gap. Worth a quick conversation?`,3:`Circling back one more time — I know Q2 close is a busy stretch. If labor productivity visibility is still on your radar heading into H2, I'd love 15 minutes to show you what we're doing at CrewCast. [Calendar Link]`};</script>
+    <script>msgs[12]={1:`Hey David — I work with self-perform concrete contractors on labor forecasting and operational efficiency. Your background in operational excellence caught my eye. Would love to connect — think there's some interesting overlap in what we're building.`,2:`Thanks for connecting David. Curious — in your operational excellence work, how much of the variance you're chasing comes down to craft mix issues vs. total headcount planning? It's the #1 blind spot we see across self-perform concrete. We built a tool specifically for that gap. Worth a quick conversation?`,3:`Circling back one more time — I know Q2 close is a busy stretch. If labor productivity visibility is still on your radar heading into H2, I'd love 15 minutes to show you what we're doing at CrewCast. [Calendar Link]`};</script>
 
 </div>
 <script>
