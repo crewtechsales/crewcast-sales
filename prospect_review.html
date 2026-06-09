@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>CrewCast — Daily Prospect Review</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f0f4f8;
+            color: #1a202c;
+        }
+        
+        header {
+            background: #1a202c;
+            color: #fff;
+            padding: 20px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        header h1 {
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .sub {
+            font-size: 13px;
+            color: #a0aec0;
+            margin-top: 3px;
+        }
+        
+        .badge {
+            background: #f6ad55;
+            color: #1a202c;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+        
+        .wrap {
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 28px 20px;
+        }
+        
+        .stats {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            background: #fff;
+            border-radius: 10px;
+            padding: 16px 20px;
+            flex: 1;
+            min-width: 100px;
+            box-shadow: 0 1px 3px rgba(0,0,0,.08);
+        }
+        
+        .stat .n {
+            font-size: 28px;
+            font-weight: 800;
+        }
+        
+        .stat .l {
+            font-size: 11px;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            margin-top: 2px;
+        }
+        
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,.08);
+            border-left: 4px solid #e2e8f0;
+        }
+        
+        .card.new {
+            border-left-color: #48bb78;
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .person {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            font-weight: 700;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .name {
+            font-size: 16px;
+            font-weight: 700;
+        }
+        
+        .meta {
+            font-size: 12px;
+            color: #718096;
+            margin-top: 3px;
+        }
+        
+        .badge-small {
+            display: inline-block;
+            background: #bee3f8;
+            color: #2c5282;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 12px;
+            margin-top: 8px;
+        }
+        
+        .sequence {
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 14px;
+            margin-top: 12px;
+            font-size: 13px;
+            color: #2d3748;
+            line-height: 1.5;
+        }
+        
+        .touch {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .touch:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .touch strong {
+            color: #2d3748;
+            font-weight: 700;
+        }
+        
+        .instructions {
+            background: #edf2f7;
+            border: 1px solid #cbd5e0;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: #2d3748;
+            line-height: 1.6;
+        }
+        
+        .instructions strong {
+            color: #1a202c;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div>
+            <h1>CrewCast — Daily Prospect Review</h1>
+            <div class="sub">LinkedIn Outreach — 3-Touch Sequence</div>
+        </div>
+        <div class="badge">23 prospects</div>
+    </header>
+    
+    <div class="wrap">
+        <div class="stats">
+            <div class="stat">
+                <div class="n">23</div>
+                <div class="l">Total</div>
+            </div>
+            <div class="stat">
+                <div class="n">23</div>
+                <div class="l">Unsent</div>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <strong>How to use this page:</strong><br>
+            For each prospect below:<br>
+            1. <strong>Copy Touch 1</strong> message → Send as LinkedIn connection request<br>
+            2. <strong>Wait 3-5 days</strong> after they accept → Send Touch 2<br>
+            3. <strong>Wait 5-7 days</strong> after Touch 2 → Send Touch 3 (LinkedIn message)<br>
+            Once sent, mark the prospect as complete so they don't show up tomorrow.
+        </div>
+        
+        <div id="contacts">
+
+        <div class="card new">
+            <div class="card-header">
+                <div class="person">
+                    <div class="avatar">J</div>
+                    <div>
+                        <div class="name">James Adamson</div>
+                        <div class="meta">Operations Manager • Southwest Foundation Works</div>
+                        <div class="badge-small">✨ NEW TODAY</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sequence">
+                <div class="touch">
+                    <strong>Touch 1 (Connection Request):</strong><br>
+                    Hey James — I work with self-perform foundation and piling contractors on workforce forecasting — connecting schedule, crew availability, and craft mix before the work starts. Your ops background at Southwest Foundation caught my eye. Would love to connect.
+                </div>
+                <div class="touch">
+                    <strong>Touch 2 (3-5 days after connect):</strong><br>
+                    Thanks for connecting James. Curious — with the foundation and piling work Southwest runs, how do your superintendents track whether they have the right crew composition for each phase of a job? That coordination gap is exactly what CrewCast was built to close. Worth a quick conversation?
+                </div>
+                <div class="touch">
+                    <strong>Touch 3 (5-7 days after Touch 2):</strong><br>
+                    Didn&#x27;t want to let this drop — I know ops teams in foundation work are stretched thin. If crew-level visibility is still a challenge heading into Q3, I&#x27;d love 15 minutes to show you what we&#x27;re doing. [Calendar Link]
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card ">
+            <div class="card-header">
+                <div class="person">
+                    <div class="avatar">J</div>
+                    <div>
+                        <div class="name">Jason Behring</div>
+                        <div class="meta">Vice President &amp; CIO • Everus Construction Group</div>
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card ">
+            <div class="card-header">
+                <div class="person">
+                    <div class="avatar">S</div>
+                    <div>
+                        <div class="name">Steve Bieber</div>
+                        <div class="meta">Director of Project Controls • MMR Group</div>
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card new">
+            <div class="card-header">
+                <div class="person">
+                    <div class="avatar">S</div>
+                    <div>
+                        <div class="name">Stephen Christopherson</div>
+                        <div class="meta">Vice President of Operations • Gulf Coast Construction Services</div>
+                        <div class="badge-small">✨ NEW TODAY</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sequence">
+                <div class="touch">
+                    <strong>Touch 1 (Connection Request):</strong><br>
+                    Hey Stephen — I work with self-perform heavy civil contractors on workforce forecasting — matching craft teams to pipeline and industrial work before the week starts. Your VP operations role at Gulf Coast caught my eye. Would love to connect.
+                </div>
+                <div class="touch">
+                    <strong>Touch 2 (3-5 days after connect):</strong><br>
+                    Thanks for connecting Stephen. With Gulf Coast running pipeline and industrial projects simultaneously, how are you ensuring the right craft mix is confirmed before each phase? That coordination gap is exactly what CrewCast was built to solve. Worth a quick conversation?
+                </div>
+                <div class="touch">
+                    <strong>Touch 3 (5-7 days after Touch 2):</strong><br>
+                    Didn&#x27;t want to let this drop — I know VP ops at Gulf Coast&#x27;s scale keeps you busy. If labor visibility across your projects is still a challenge heading into Q3, I&#x27;d love 15 minutes to show you what we&#x27;re doing. [Calendar Link]
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card new">
+            <div class="card-header">
+                <div class="person">
+                    <div class="avatar">J</div>
+                    <div>
+                        <div class="name">Jaron Combs</div>
+                        <div class="meta">Senior Vice President Operations • Sierra Concrete &amp; Masonry</div>
+                        <div class="badge-small">✨ NEW TODAY</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sequence">
+                <div class="touch">
+                    <strong>Touch 1 (Connection Request):</strong><br>
+                    Hey Jaron — I work with self-perform concrete and masonry contractors on craft-level manpower forecasting. Your field experience paired with SVP operations role at a firm like Sierra is exactly the combination that understands the coordination challenge we solve. Would love to connect.
+                </div>
+                <div class="touch">
+                    <strong>Touch 2 (3-5 days after connect):</strong><br>
+                    Thanks for connecting Jaron. With your field background, I&#x27;m curious — how much of the schedule delays you see come down to craft mix gaps vs. just total crew headcount? That&#x27;s the &#x27;Headcount Trap&#x27; we see constantly in masonry and concrete. CrewCast was built specifically around it. Worth a conversation?
+                </div>
+                <div class="touch">
+                    <strong>Touch 3 (5-7 days after Touch 2):</strong><br>
+                    One more reach out — I know SVP ops roles at Sierra&#x27;s scale stay moving. If craft-level labor visibility heading into Q3 is still a gap, I&#x27;d love 15 minutes to show you what we&#x27;re building. [Calendar Link]
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card ">
+            <div class="card-header">
+                <div class="person">
+                    <div class="avatar">D</div>
+                    <div>
+                        <div class="name">David Elkins</div>
+                        <div class="meta">Senior Vice President of Field Operations • Rosendin Electric</div>
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card new">
+            <div class="card-header">
+                <div class="person">
+                    <div class="avatar">A</div>
+                    <div>
+                        <div class="name">Ashley Hayes</div>
+                        <div class="meta">VP Operations • Southland Electrical Contractors</div>
+                        <div class="badge-small">✨ NEW TODAY</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sequence">
+                <div class="touch">
+                    <strong>Touch 1 (Connection Request):</strong><br>
+                    Hey Ashley — I work with self-perform electrical contractors on craft-level workforce forecasting and labor visibility. Your VP operations background managing commercial electrical at Southland&#x27;s scale is exactly the challenge we solve for. Would love to connect.
+                </div>
+                <div class="touch">
+                    <strong>Touch 2 (3-5 days after connect):</strong><br>
+                    Thanks for connecting Ashley. With electrical projects running simultaneously across multiple locations, how are you staying ahead of craft-specific gaps before they become delays? That&#x27;s the visibility problem CrewCast was built to solve. Worth a quick conversation?
+                </div>
+                <div class="touch">
+                    <strong>Touch 3 (5-7 days after Touch 2):</strong><br>
+                    One more reach out — I know VP ops at Southland&#x27;s scale keeps you moving. If matching the right trades to the right projects is still a challenge heading into Q3, I&#x27;d love 15 minutes. [Calendar Link]
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card ">
+            <div class="card-header">
+                <div class="person">
+                    <div class="avatar">J</div>
+                    <div>
+                        <div class="name">James Jaskolski</div>
+                        <div class="meta">Vice President of Operations • ArchKey Solutions</div>
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card ">
+            <div class="card-header">
+                <div class="person">
+                    <div class="avatar">B</div>
+                    <div>
+                        <div class="name">Brian Kavanagh</div>
+                        <div class="meta">Executive Vice President • Performance Contracting Group</div>
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card ">
+            <div class="card-header">
+                <div class="person">
+                    <div class="avatar">M</div>
+                    <div>
+                        <div class="name">Mike Keatley</div>
+                        <div class="meta">Senior Vice President • M.C. Dean</div>
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card new">
+            <div class="card-header">
+                <div class="person">
+                    <div class="avatar">J</div>
+                    <div>
+                        <div class="name">Jim Koeble</div>
+                        <div class="meta">Vice President Transportation • Midwest Heavy Haulers</div>
+                        <div class="badge-small">✨ NEW TODAY</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sequence">
+                <div class="touch">
+                    <strong>Touch 1 (Connection Request):</strong><br>
+                    Hey Jim — I work with self-perform heavy civil contractors on workforce forecasting — specifically managing craft teams and equipment crews across projects. Your transportation and equipment focus at Midwest Heavy caught my attention. Would love to connect.
+                </div>
+                <div class="touch">
+                    <strong>Touch 2 (3-5 days after connect):</strong><br>
+                    Thanks for connecting Jim. With heavy equipment and excavation crews coordinating across multiple job sites, how are you tracking crew availability and specialty skill gaps before they impact a project schedule? That&#x27;s the exact coordination CrewCast solves. Worth a quick conversation?
+                </div>
+                <div class="touch">
+                    <strong>Touch 3 (5-7 days after Touch 2):</strong><br>
+                    One last reach out — I know transportation and equipment coordination at Midwest&#x27;s scale keeps you busy. If crew-level visibility is still a gap heading into Q3, I&#x27;d love 15 minutes to show you what we&#x27;re building. [Calendar Link]
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card ">
+            <div class="card-header">
+                <div class="person">
+                    <div class="avatar">J</div>
+                    <div>
+                        <div class="name">Jose Martinez</div>
+                        <div class="meta">Senior Vice President • Keller North America</div>
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card ">
+            <div class="card-header">
+                <div class="person">
+                    <div class="avatar">J</div>
+                    <div>
+                        <div class="name">John Messick</div>
+                        <div class="meta">Vice President of Operations • Rosendin Electric</div>
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card new">
+            <div class="card-header">
+                <div class="person">
+                    <div class="avatar">D</div>
+                    <div>
+                        <div class="name">Dan Mistretta</div>
+                        <div class="meta">Vice President Operations • Atlantic Electrical Services</div>
+                        <div class="badge-small">✨ NEW TODAY</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sequence">
+                <div class="touch">
+                    <strong>Touch 1 (Connection Request):</strong><br>
+                    Hey Dan — I work with self-perform electrical contractors on craft-level workforce forecasting and project coordination. Your VP operations background managing complex electrical work at Atlantic caught my eye. Would love to connect.
+                </div>
+                <div class="touch">
+                    <strong>Touch 2 (3-5 days after connect):</strong><br>
+                    Thanks for connecting Dan. With commercial electrical projects running across different scopes and locations, how are your teams catching craft-specific gaps before they hit the critical path? That&#x27;s the visibility problem CrewCast was built around. Worth a quick conversation?
+                </div>
+                <div class="touch">
+                    <strong>Touch 3 (5-7 days after Touch 2):</strong><br>
+                    Last reach out — I know VP ops roles at Atlantic&#x27;s scale stay buried. If labor visibility for craft teams is still a challenge heading into Q3, I&#x27;d love 15 minutes to show you what we&#x27;re doing. [Calendar Link]
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card new">
+            <div class="card-header">
+                <div class="person">
+                    <div class="avatar">S</div>
+                    <div>
+                        <div class="name">Scott Newman</div>
+                        <div class="meta">Vice President of Operations • Reeves Construction Company</div>
+                        <div class="badge-small">✨ NEW TODAY</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sequence">
+                <div class="touch">
+                    <strong>Touch 1 (Connection Request):</strong><br>
+                    Hey Scott — I work with self-perform concrete contractors on craft-level manpower forecasting and operational visibility. Your VP operations role at Reeves — managing structural concrete and tilt-up at that scale — caught my attention. Would love to connect.
+                </div>
+                <div class="touch">
+                    <strong>Touch 2 (3-5 days after connect):</strong><br>
+                    Thanks for connecting Scott. With the volume of concrete work Reeves runs, I&#x27;m curious — how much of your schedule variance comes down to craft mix gaps vs. total headcount planning? That&#x27;s the &#x27;Headcount Trap&#x27; we see constantly in self-perform concrete. CrewCast was built specifically around it. Worth a conversation?
+                </div>
+                <div class="touch">
+                    <strong>Touch 3 (5-7 days after Touch 2):</strong><br>
+                    Last reach out — I know VP ops roles at Reeves&#x27;s scale stay busy. If craft-level labor visibility is still a gap, I&#x27;d love 15 minutes to show you what we&#x27;re building. [Calendar Link]
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card ">
+            <div class="card-header">
+                <div class="person">
+                    <div class="avatar">S</div>
+                    <div>
+                        <div class="name">Sam Potter</div>
+                        <div class="meta">National Vice President of Operations • ArchKey Solutions</div>
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card ">
+            <div class="card-header">
+                <div class="person">
+                    <div class="avatar">D</div>
+                    <div>
+                        <div class="name">David Schoonbeck</div>
+                        <div class="meta">Director of Operational Excellence • Baker Construction Enterprises</div>
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card new">
+            <div class="card-header">
+                <div class="person">
+                    <div class="avatar">J</div>
+                    <div>
+                        <div class="name">Justin Snelling</div>
+                        <div class="meta">President/CEO • Pacific Concrete Solutions</div>
+                        <div class="badge-small">✨ NEW TODAY</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sequence">
+                <div class="touch">
+                    <strong>Touch 1 (Connection Request):</strong><br>
+                    Hey Justin — I work with self-perform concrete contractors on craft-level manpower forecasting. Pacific&#x27;s commercial concrete and parking structure work is the exact scale where labor coordination becomes the bottleneck. Would love to connect and share what we&#x27;re seeing.
+                </div>
+                <div class="touch">
+                    <strong>Touch 2 (3-5 days after connect):</strong><br>
+                    Thanks for connecting Justin. Quick question — when you&#x27;re managing multiple parking structure or commercial concrete projects, how are you tracking whether the right crew composition is confirmed before a pour or phase starts? That gap is exactly what CrewCast was built for. Worth a conversation?
+                </div>
+                <div class="touch">
+                    <strong>Touch 3 (5-7 days after Touch 2):</strong><br>
+                    Circling back — I know running Pacific at the CEO level keeps you moving. If craft-level labor visibility heading into Q3 is still a challenge, I&#x27;d love 15 minutes to show you what we&#x27;re doing. [Calendar Link]
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card ">
+            <div class="card-header">
+                <div class="person">
+                    <div class="avatar">A</div>
+                    <div>
+                        <div class="name">Adam Spillane</div>
+                        <div class="meta">Senior Vice President of Operations • Cupertino Electric</div>
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card new">
+            <div class="card-header">
+                <div class="person">
+                    <div class="avatar">M</div>
+                    <div>
+                        <div class="name">Melissa Thompson</div>
+                        <div class="meta">Vice President Operations • Northeast Electrical Group</div>
+                        <div class="badge-small">✨ NEW TODAY</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sequence">
+                <div class="touch">
+                    <strong>Touch 1 (Connection Request):</strong><br>
+                    Hey Melissa — I work with self-perform electrical contractors on craft-level workforce forecasting and project coordination. Your VP operations background managing commercial electrical and industrial work at Northeast caught my attention. Would love to connect.
+                </div>
+                <div class="touch">
+                    <strong>Touch 2 (3-5 days after connect):</strong><br>
+                    Thanks for connecting Melissa. With multiple electrical projects running across your portfolio, how are you catching craft availability gaps before they impact a project&#x27;s critical path? That&#x27;s the visibility problem CrewCast solves. Worth a quick conversation?
+                </div>
+                <div class="touch">
+                    <strong>Touch 3 (5-7 days after Touch 2):</strong><br>
+                    Last reach out — I know VP ops roles at Northeast&#x27;s scale stay busy. If labor visibility for your trades is still a gap heading into Q3, I&#x27;d love 15 minutes to show you what we&#x27;re building. [Calendar Link]
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card ">
+            <div class="card-header">
+                <div class="person">
+                    <div class="avatar">G</div>
+                    <div>
+                        <div class="name">Guillermo Valdez</div>
+                        <div class="meta">Principal, Tilt-Up Operations Manager • Suntec Concrete</div>
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card new">
+            <div class="card-header">
+                <div class="person">
+                    <div class="avatar">J</div>
+                    <div>
+                        <div class="name">John Washburn</div>
+                        <div class="meta">Chief Operating Officer • Sunbelt Construction</div>
+                        <div class="badge-small">✨ NEW TODAY</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sequence">
+                <div class="touch">
+                    <strong>Touch 1 (Connection Request):</strong><br>
+                    Hey John — I work with self-perform heavy civil contractors on craft-level manpower forecasting. Sunbelt&#x27;s got an impressive footprint across highway and bridge work — managing that level of field coordination is exactly the challenge we solve for. Would love to connect.
+                </div>
+                <div class="touch">
+                    <strong>Touch 2 (3-5 days after connect):</strong><br>
+                    Thanks for connecting John. Quick question — with multiple active projects across different regions, how are you ensuring the right craft mix is confirmed before each phase kicks off? That &#x27;headcount looks fine but wrong trades on site&#x27; gap is the exact problem CrewCast was built around. Worth a 15-minute conversation?
+                </div>
+                <div class="touch">
+                    <strong>Touch 3 (5-7 days after Touch 2):</strong><br>
+                    One last reach out — I know COO roles at firms like Sunbelt keep you buried. If labor visibility across your projects heading into Q3 is still a gap, I&#x27;d love 15 minutes to show you what we&#x27;re building. [Calendar Link]
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card ">
+            <div class="card-header">
+                <div class="person">
+                    <div class="avatar">D</div>
+                    <div>
+                        <div class="name">Derek Wright</div>
+                        <div class="meta">President • Suntec Concrete</div>
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        </div>
+    </div>
+</body>
+</html>
