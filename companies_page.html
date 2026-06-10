@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CrewCast — Company Prospects</title>
+<title>CrewCast &mdash; Company Follow Review</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,sans-serif;background:#f0f4f8;color:#1a202c}
@@ -22,7 +22,10 @@ h1{font-size:18px;font-weight:700}
 .followed{border-left-color:#68d391;opacity:.55}
 .skipped{border-left-color:#fc8181;opacity:.5}
 .ch{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;flex-wrap:wrap;gap:8px}
-.ch h3{font-size:16px;font-weight:700;margin-bottom:4px}
+.person{display:flex;align-items:center;gap:10px}
+.av{width:40px;height:40px;border-radius:10px;color:#fff;font-weight:700;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pi h3{font-size:15px;font-weight:700}
+.pi p{margin-top:4px}
 .tag{display:inline-block;color:#fff;font-size:10px;font-weight:700;padding:2px 9px;border-radius:20px}
 .acts{display:flex;gap:6px;flex-wrap:wrap}
 .btn{padding:7px 13px;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;border:none;text-decoration:none;display:inline-block}
@@ -34,34 +37,45 @@ h1{font-size:18px;font-weight:700}
 .ml{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#718096;margin-bottom:2px}
 .mv{font-size:13px;color:#2d3748;font-weight:500}
 .strat{background:#f7fafc;border-radius:6px;padding:10px 12px;margin-top:8px;font-size:13px;color:#4a5568;line-height:1.5}
+.tlabel{font-size:11px;font-weight:700;color:#718096;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;margin-top:8px}
+.ta{width:100%;border:2px solid #e2e8f0;border-radius:8px;padding:12px;padding-right:90px;font-size:13px;line-height:1.6;font-family:inherit;resize:none;background:#f7fafc;color:#2d3748}
+.ta:focus{border-color:#4299e1;outline:none;background:#ebf8ff}
+.copybtn{position:absolute;top:10px;right:10px;background:#1a202c;color:#fff;border:none;border-radius:6px;padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer;transition:background .15s,transform .1s}
+.copybtn:hover{background:#2d3748}
+.copybtn:active{transform:scale(0.96)}
+.copybtn.ok{background:#38a169}
+.timing{font-size:10px;color:#a0aec0;margin-top:5px}
 .pill{background:#c6f6d5;color:#276749;padding:1px 8px;border-radius:20px;font-size:11px;font-weight:700;margin:0 4px}
-details summary{cursor:pointer;font-size:12px;font-weight:700;color:#718096;text-transform:uppercase;letter-spacing:.5px;margin:20px 0 10px}
+details summary{cursor:pointer;font-size:12px;font-weight:700;color:#718096;text-transform:uppercase;letter-spacing:.5px;margin:20px 0 10px;list-style:none}
 </style>
 </head>
 <body>
 <header>
-  <div><h1>🏢 Company Follow Review</h1><div class="sub">Updated live · 10 to follow</div></div>
+  <div><h1>&#127970; Company Follow Review</h1><div class="sub">CrewCast &middot; 10 to follow &middot; Comments &le;200 chars</div></div>
   <span class="badge">10 To Follow</span>
 </header>
 <div class="wrap">
   <div class="stats">
-    <div class="stat"><div class="n" id="cnU">10</div><div class="l">To Follow</div></div>
-    <div class="stat"><div class="n" id="cnF">0</div><div class="l">Followed</div></div>
-    <div class="stat"><div class="n" id="cnK">0</div><div class="l">Skipped</div></div>
+    <div class="stat"><div class="n" id="nU">10</div><div class="l">To Follow</div></div>
+    <div class="stat"><div class="n" id="nF">0</div><div class="l">Followed Today</div></div>
+    <div class="stat"><div class="n" id="nK">0</div><div class="l">Skipped</div></div>
     <div class="stat"><div class="n">0</div><div class="l">Done Total</div></div>
   </div>
-  <div class="sec">🏢 Companies to Follow (10)</div>
+  <div class="sec">&#127970; Companies to Follow (10)</div>
   
-  <div class="card" id="co0">
+  <div class="card" id="card-0">
     <div class="ch">
-      <div>
-        <h3>Hubbard Construction Company</h3>
-        <span class="tag" style="background:#4299e1">Heavy Civil</span>
+      <div class="person">
+        <div class="av" style="background:linear-gradient(135deg,#4299e1,#4299e1aa)">H</div>
+        <div class="pi">
+          <h3>Hubbard Construction Company</h3>
+          <p><span class="tag" style="background:#4299e1">Heavy Civil</span></p>
+        </div>
       </div>
       <div class="acts">
-        <a href="https://www.linkedin.com/company/hubbard-construction-company" target="_blank" class="btn blue">🔗 LinkedIn</a>
-        <button class="btn green" onclick="coFollow(0,'6a2904fd289260960e37f11f')">✓ Followed</button>
-        <button class="btn red" onclick="coSkip(0,'6a2904fd289260960e37f11f')">✕ Skip</button>
+        <a href="https://www.linkedin.com/company/hubbard-construction-company" target="_blank" class="btn blue">&#128279; LinkedIn</a>
+        <button class="btn green" onclick="markFollowed(0,&apos;6a2904fd289260960e37f11f&apos;)">&#10003; Followed</button>
+        <button class="btn red" onclick="markSkip(0,&apos;6a2904fd289260960e37f11f&apos;)">&#10005; Skip</button>
       </div>
     </div>
     <div class="meta">
@@ -69,20 +83,29 @@ details summary{cursor:pointer;font-size:12px;font-weight:700;color:#718096;text
       <div class="mi"><div class="ml">Revenue</div><div class="mv">$200M - $400M</div></div>
       <div class="mi"><div class="ml">Employees</div><div class="mv">600-800</div></div>
     </div>
-    <div class="strat"><b>Specialties:</b> Asphalt paving, highway construction, heavy civil, design-build, site development</div>
-    <div class="strat"><b>📌 Follow:</b> Track posts on project wins, workforce expansion, and equipment utilization. Watch for mentions of operational efficiency.</div>
-    <div class="strat"><b>💬 Engage:</b> Hubbard is FL's largest heavy civil GC. Engage on posts about managing large crews across multiple project phases with CrewCast workforce forecasting.</div>
+    <div class="strat"><b>&#128204; Follow Strategy:</b> Track posts on project wins, workforce expansion, and equipment utilization.</div>
+    <div style="margin-top:8px">
+      <div class="tlabel">&#128172; Engagement Comment (&#8804;200 chars)</div>
+      <div style="position:relative">
+        <textarea id="ta0" class="ta" rows="3" readonly>Hubbard's multi-phase heavy civil work is exactly where crew forecasting matters most. Would love to follow along and share what we're seeing across self-perform GCs.</textarea>
+        <button class="copybtn" id="cp0" onclick="doCopy(0)">Copy</button>
+      </div>
+      <div class="timing">166 chars &middot; Use as a comment on their LinkedIn posts</div>
+    </div>
   </div>
-  <div class="card" id="co1">
+  <div class="card" id="card-1">
     <div class="ch">
-      <div>
-        <h3>Performance Contractors, Inc.</h3>
-        <span class="tag" style="background:#4299e1">Heavy Civil / Industrial / Electrical</span>
+      <div class="person">
+        <div class="av" style="background:linear-gradient(135deg,#4299e1,#4299e1aa)">P</div>
+        <div class="pi">
+          <h3>Performance Contractors, Inc.</h3>
+          <p><span class="tag" style="background:#4299e1">Heavy Civil / Industrial / Electrical</span></p>
+        </div>
       </div>
       <div class="acts">
-        <a href="https://www.linkedin.com/company/performance-contractors" target="_blank" class="btn blue">🔗 LinkedIn</a>
-        <button class="btn green" onclick="coFollow(1,'6a2904fd289260960e37f120')">✓ Followed</button>
-        <button class="btn red" onclick="coSkip(1,'6a2904fd289260960e37f120')">✕ Skip</button>
+        <a href="https://www.linkedin.com/company/performance-contractors" target="_blank" class="btn blue">&#128279; LinkedIn</a>
+        <button class="btn green" onclick="markFollowed(1,&apos;6a2904fd289260960e37f120&apos;)">&#10003; Followed</button>
+        <button class="btn red" onclick="markSkip(1,&apos;6a2904fd289260960e37f120&apos;)">&#10005; Skip</button>
       </div>
     </div>
     <div class="meta">
@@ -90,41 +113,59 @@ details summary{cursor:pointer;font-size:12px;font-weight:700;color:#718096;text
       <div class="mi"><div class="ml">Revenue</div><div class="mv">$150M - $250M</div></div>
       <div class="mi"><div class="ml">Employees</div><div class="mv">1,000-1,200</div></div>
     </div>
-    <div class="strat"><b>Specialties:</b> Industrial construction, heavy civil, electrical/instrumentation, self-perform (~95%)</div>
-    <div class="strat"><b>📌 Follow:</b> Follow posts on industrial projects, crew recruitment/retention, and self-perform operations.</div>
-    <div class="strat"><b>💬 Engage:</b> High self-perform model = heavy crew management. Engage on posts about recruiting craft labor and managing distributed crews.</div>
+    <div class="strat"><b>&#128204; Follow Strategy:</b> Follow posts on industrial projects, crew recruitment/retention, and self-perform operations.</div>
+    <div style="margin-top:8px">
+      <div class="tlabel">&#128172; Engagement Comment (&#8804;200 chars)</div>
+      <div style="position:relative">
+        <textarea id="ta1" class="ta" rows="3" readonly>95% self-perform is impressive — and a real crew management challenge. Following Performance Contractors to learn more and share what we're building for ops teams.</textarea>
+        <button class="copybtn" id="cp1" onclick="doCopy(1)">Copy</button>
+      </div>
+      <div class="timing">163 chars &middot; Use as a comment on their LinkedIn posts</div>
+    </div>
   </div>
-  <div class="card" id="co2">
+  <div class="card" id="card-2">
     <div class="ch">
-      <div>
-        <h3>Consigli Construction Co., Inc.</h3>
-        <span class="tag" style="background:#667eea">General Contracting / Construction Management</span>
+      <div class="person">
+        <div class="av" style="background:linear-gradient(135deg,#667eea,#667eeaaa)">C</div>
+        <div class="pi">
+          <h3>Consigli Construction Co., Inc.</h3>
+          <p><span class="tag" style="background:#667eea">General Contracting / Construction Management</span></p>
+        </div>
       </div>
       <div class="acts">
-        <a href="https://www.linkedin.com/company/consigli-construction" target="_blank" class="btn blue">🔗 LinkedIn</a>
-        <button class="btn green" onclick="coFollow(2,'6a2904fd289260960e37f121')">✓ Followed</button>
-        <button class="btn red" onclick="coSkip(2,'6a2904fd289260960e37f121')">✕ Skip</button>
+        <a href="https://www.linkedin.com/company/consigli-construction" target="_blank" class="btn blue">&#128279; LinkedIn</a>
+        <button class="btn green" onclick="markFollowed(2,&apos;6a2904fd289260960e37f121&apos;)">&#10003; Followed</button>
+        <button class="btn red" onclick="markSkip(2,&apos;6a2904fd289260960e37f121&apos;)">&#10005; Skip</button>
       </div>
     </div>
     <div class="meta">
       <div class="mi"><div class="ml">HQ</div><div class="mv">Milford, Massachusetts</div></div>
-      <div class="mi"><div class="ml">Revenue</div><div class="mv">$300M - $400M</div></div>
-      <div class="mi"><div class="ml">Employees</div><div class="mv">600-800</div></div>
+      <div class="mi"><div class="ml">Revenue</div><div class="mv">$300M - $500M</div></div>
+      <div class="mi"><div class="ml">Employees</div><div class="mv">800-1,000</div></div>
     </div>
-    <div class="strat"><b>Specialties:</b> Commercial, healthcare, education, mixed-use, design-build, CM, self-perform trades</div>
-    <div class="strat"><b>📌 Follow:</b> Monitor Northeast expansion posts, project deliveries, and craft labor strategies.</div>
-    <div class="strat"><b>💬 Engage:</b> Comment on project announcements with crew forecasting benefits for complex phased projects.</div>
+    <div class="strat"><b>&#128204; Follow Strategy:</b> Monitor Northeast expansion posts, project deliveries, and craft labor strategies.</div>
+    <div style="margin-top:8px">
+      <div class="tlabel">&#128172; Engagement Comment (&#8804;200 chars)</div>
+      <div style="position:relative">
+        <textarea id="ta2" class="ta" rows="3" readonly>Consigli's self-perform model on complex healthcare and mixed-use projects is exactly our target market. Following to stay connected and share relevant insights.</textarea>
+        <button class="copybtn" id="cp2" onclick="doCopy(2)">Copy</button>
+      </div>
+      <div class="timing">161 chars &middot; Use as a comment on their LinkedIn posts</div>
+    </div>
   </div>
-  <div class="card" id="co3">
+  <div class="card" id="card-3">
     <div class="ch">
-      <div>
-        <h3>Orion Group Holdings, Inc.</h3>
-        <span class="tag" style="background:#4299e1">Marine / Heavy Civil / Concrete</span>
+      <div class="person">
+        <div class="av" style="background:linear-gradient(135deg,#4299e1,#4299e1aa)">O</div>
+        <div class="pi">
+          <h3>Orion Group Holdings, Inc.</h3>
+          <p><span class="tag" style="background:#4299e1">Marine / Heavy Civil / Concrete</span></p>
+        </div>
       </div>
       <div class="acts">
-        <a href="https://www.linkedin.com/company/orion-group-holdings" target="_blank" class="btn blue">🔗 LinkedIn</a>
-        <button class="btn green" onclick="coFollow(3,'6a2904fd289260960e37f122')">✓ Followed</button>
-        <button class="btn red" onclick="coSkip(3,'6a2904fd289260960e37f122')">✕ Skip</button>
+        <a href="https://www.linkedin.com/company/orion-group-holdings" target="_blank" class="btn blue">&#128279; LinkedIn</a>
+        <button class="btn green" onclick="markFollowed(3,&apos;6a2904fd289260960e37f122&apos;)">&#10003; Followed</button>
+        <button class="btn red" onclick="markSkip(3,&apos;6a2904fd289260960e37f122&apos;)">&#10005; Skip</button>
       </div>
     </div>
     <div class="meta">
@@ -132,20 +173,29 @@ details summary{cursor:pointer;font-size:12px;font-weight:700;color:#718096;text
       <div class="mi"><div class="ml">Revenue</div><div class="mv">$300M - $500M</div></div>
       <div class="mi"><div class="ml">Employees</div><div class="mv">2,000+</div></div>
     </div>
-    <div class="strat"><b>Specialties:</b> Marine construction, concrete construction (TAS Concrete), heavy civil, self-perform</div>
-    <div class="strat"><b>📌 Follow:</b> Follow posts on marine/infrastructure projects, safety initiatives, and specialty concrete work.</div>
-    <div class="strat"><b>💬 Engage:</b> Engage on concrete construction posts from TAS division. Crew forecasting for complex marine/civil projects.</div>
+    <div class="strat"><b>&#128204; Follow Strategy:</b> Follow posts on marine/infrastructure projects and specialty concrete work.</div>
+    <div style="margin-top:8px">
+      <div class="tlabel">&#128172; Engagement Comment (&#8804;200 chars)</div>
+      <div style="position:relative">
+        <textarea id="ta3" class="ta" rows="3" readonly>TAS Concrete's tilt-up and cast-in-place work at scale is a great fit for what we do. Following Orion to engage on crew scheduling and labor forecasting content.</textarea>
+        <button class="copybtn" id="cp3" onclick="doCopy(3)">Copy</button>
+      </div>
+      <div class="timing">161 chars &middot; Use as a comment on their LinkedIn posts</div>
+    </div>
   </div>
-  <div class="card" id="co4">
+  <div class="card" id="card-4">
     <div class="ch">
-      <div>
-        <h3>Lunda Construction Company</h3>
-        <span class="tag" style="background:#4299e1">Heavy Highway / Civil</span>
+      <div class="person">
+        <div class="av" style="background:linear-gradient(135deg,#4299e1,#4299e1aa)">L</div>
+        <div class="pi">
+          <h3>Lunda Construction Company</h3>
+          <p><span class="tag" style="background:#4299e1">Heavy Highway / Civil</span></p>
+        </div>
       </div>
       <div class="acts">
-        <a href="https://www.linkedin.com/company/lunda-construction" target="_blank" class="btn blue">🔗 LinkedIn</a>
-        <button class="btn green" onclick="coFollow(4,'6a2904fd289260960e37f123')">✓ Followed</button>
-        <button class="btn red" onclick="coSkip(4,'6a2904fd289260960e37f123')">✕ Skip</button>
+        <a href="https://www.linkedin.com/company/lunda-construction" target="_blank" class="btn blue">&#128279; LinkedIn</a>
+        <button class="btn green" onclick="markFollowed(4,&apos;6a2904fd289260960e37f123&apos;)">&#10003; Followed</button>
+        <button class="btn red" onclick="markSkip(4,&apos;6a2904fd289260960e37f123&apos;)">&#10005; Skip</button>
       </div>
     </div>
     <div class="meta">
@@ -153,41 +203,59 @@ details summary{cursor:pointer;font-size:12px;font-weight:700;color:#718096;text
       <div class="mi"><div class="ml">Revenue</div><div class="mv">$300M - $400M</div></div>
       <div class="mi"><div class="ml">Employees</div><div class="mv">600-800</div></div>
     </div>
-    <div class="strat"><b>Specialties:</b> Heavy highway, civil infrastructure, industrial, design-build, CMGC, self-perform</div>
-    <div class="strat"><b>📌 Follow:</b> Monitor Midwest infrastructure posts, equipment utilization, and workforce expansion.</div>
-    <div class="strat"><b>💬 Engage:</b> Midwest regional leader with $400M backlog. Engage on managing crews across multiple concurrent highway/civil projects.</div>
+    <div class="strat"><b>&#128204; Follow Strategy:</b> Monitor Midwest infrastructure posts, equipment utilization, and workforce expansion.</div>
+    <div style="margin-top:8px">
+      <div class="tlabel">&#128172; Engagement Comment (&#8804;200 chars)</div>
+      <div style="position:relative">
+        <textarea id="ta4" class="ta" rows="3" readonly>Lunda's $400M backlog across concurrent Midwest civil projects is a real crew coordination challenge. Following to engage on workforce forecasting content.</textarea>
+        <button class="copybtn" id="cp4" onclick="doCopy(4)">Copy</button>
+      </div>
+      <div class="timing">155 chars &middot; Use as a comment on their LinkedIn posts</div>
+    </div>
   </div>
-  <div class="card" id="co5">
+  <div class="card" id="card-5">
     <div class="ch">
-      <div>
-        <h3>Sundt Construction</h3>
-        <span class="tag" style="background:#4299e1">Heavy Civil / Commercial</span>
+      <div class="person">
+        <div class="av" style="background:linear-gradient(135deg,#4299e1,#4299e1aa)">S</div>
+        <div class="pi">
+          <h3>Sundt Construction</h3>
+          <p><span class="tag" style="background:#4299e1">Heavy Civil / Commercial</span></p>
+        </div>
       </div>
       <div class="acts">
-        <a href="https://www.linkedin.com/company/sundt-construction" target="_blank" class="btn blue">🔗 LinkedIn</a>
-        <button class="btn green" onclick="coFollow(5,'6a2904fd289260960e37f124')">✓ Followed</button>
-        <button class="btn red" onclick="coSkip(5,'6a2904fd289260960e37f124')">✕ Skip</button>
+        <a href="https://www.linkedin.com/company/sundt-construction" target="_blank" class="btn blue">&#128279; LinkedIn</a>
+        <button class="btn green" onclick="markFollowed(5,&apos;6a2904fd289260960e37f124&apos;)">&#10003; Followed</button>
+        <button class="btn red" onclick="markSkip(5,&apos;6a2904fd289260960e37f124&apos;)">&#10005; Skip</button>
       </div>
     </div>
     <div class="meta">
       <div class="mi"><div class="ml">HQ</div><div class="mv">Tempe, Arizona</div></div>
-      <div class="mi"><div class="ml">Revenue</div><div class="mv">$1.3B (employee-owned)</div></div>
+      <div class="mi"><div class="ml">Revenue</div><div class="mv">$1.3B</div></div>
       <div class="mi"><div class="ml">Employees</div><div class="mv">3,000+</div></div>
     </div>
-    <div class="strat"><b>Specialties:</b> Heavy civil, concrete, commercial construction, self-perform, employee-owned</div>
-    <div class="strat"><b>📌 Follow:</b> Follow employee-ownership culture posts, Southwest infrastructure, and self-perform capabilities.</div>
-    <div class="strat"><b>💬 Engage:</b> Employee-owned with strong self-perform. Engage on managing large distributed crews across Arizona/Southwest.</div>
+    <div class="strat"><b>&#128204; Follow Strategy:</b> Follow posts on Southwest infrastructure, employee-ownership culture, and self-perform capabilities.</div>
+    <div style="margin-top:8px">
+      <div class="tlabel">&#128172; Engagement Comment (&#8804;200 chars)</div>
+      <div style="position:relative">
+        <textarea id="ta5" class="ta" rows="3" readonly>Sundt's employee-owned self-perform model is exactly where we work. Following to engage on distributed crew management and labor forecasting across the Southwest.</textarea>
+        <button class="copybtn" id="cp5" onclick="doCopy(5)">Copy</button>
+      </div>
+      <div class="timing">162 chars &middot; Use as a comment on their LinkedIn posts</div>
+    </div>
   </div>
-  <div class="card" id="co6">
+  <div class="card" id="card-6">
     <div class="ch">
-      <div>
-        <h3>Trumbull Corporation</h3>
-        <span class="tag" style="background:#4299e1">Heavy Highway / Civil</span>
+      <div class="person">
+        <div class="av" style="background:linear-gradient(135deg,#4299e1,#4299e1aa)">T</div>
+        <div class="pi">
+          <h3>Trumbull Corporation</h3>
+          <p><span class="tag" style="background:#4299e1">Heavy Highway / Civil</span></p>
+        </div>
       </div>
       <div class="acts">
-        <a href="https://www.linkedin.com/company/pj-dick---trumbull---lindy-paving" target="_blank" class="btn blue">🔗 LinkedIn</a>
-        <button class="btn green" onclick="coFollow(6,'6a2904fd289260960e37f125')">✓ Followed</button>
-        <button class="btn red" onclick="coSkip(6,'6a2904fd289260960e37f125')">✕ Skip</button>
+        <a href="https://www.linkedin.com/company/pj-dick---trumbull---lindy-paving" target="_blank" class="btn blue">&#128279; LinkedIn</a>
+        <button class="btn green" onclick="markFollowed(6,&apos;6a2904fd289260960e37f125&apos;)">&#10003; Followed</button>
+        <button class="btn red" onclick="markSkip(6,&apos;6a2904fd289260960e37f125&apos;)">&#10005; Skip</button>
       </div>
     </div>
     <div class="meta">
@@ -195,20 +263,29 @@ details summary{cursor:pointer;font-size:12px;font-weight:700;color:#718096;text
       <div class="mi"><div class="ml">Revenue</div><div class="mv">$150M - $300M</div></div>
       <div class="mi"><div class="ml">Employees</div><div class="mv">400-600</div></div>
     </div>
-    <div class="strat"><b>Specialties:</b> Heavy highway, bridges, site development, excavation, design-build, self-perform</div>
-    <div class="strat"><b>📌 Follow:</b> Track Mid-Atlantic bridge/highway projects, crew safety, and equipment utilization.</div>
-    <div class="strat"><b>💬 Engage:</b> Regional Mid-Atlantic leader. Engage on complex bridge/highway project sequencing with large crew dependencies.</div>
+    <div class="strat"><b>&#128204; Follow Strategy:</b> Track Mid-Atlantic bridge/highway projects, crew safety, and equipment utilization.</div>
+    <div style="margin-top:8px">
+      <div class="tlabel">&#128172; Engagement Comment (&#8804;200 chars)</div>
+      <div style="position:relative">
+        <textarea id="ta6" class="ta" rows="3" readonly>Trumbull's bridge and highway work in the Mid-Atlantic requires serious crew sequencing. Following to engage on phased project labor forecasting content.</textarea>
+        <button class="copybtn" id="cp6" onclick="doCopy(6)">Copy</button>
+      </div>
+      <div class="timing">153 chars &middot; Use as a comment on their LinkedIn posts</div>
+    </div>
   </div>
-  <div class="card" id="co7">
+  <div class="card" id="card-7">
     <div class="ch">
-      <div>
-        <h3>SumCo Eco-Contracting</h3>
-        <span class="tag" style="background:#4299e1">Heavy / Site / Civil (Environmental)</span>
+      <div class="person">
+        <div class="av" style="background:linear-gradient(135deg,#4299e1,#4299e1aa)">S</div>
+        <div class="pi">
+          <h3>SumCo Eco-Contracting</h3>
+          <p><span class="tag" style="background:#4299e1">Heavy / Site / Civil (Environmental)</span></p>
+        </div>
       </div>
       <div class="acts">
-        <a href="https://www.linkedin.com/company/sumcoeco-contracting" target="_blank" class="btn blue">🔗 LinkedIn</a>
-        <button class="btn green" onclick="coFollow(7,'6a2904fd289260960e37f126')">✓ Followed</button>
-        <button class="btn red" onclick="coSkip(7,'6a2904fd289260960e37f126')">✕ Skip</button>
+        <a href="https://www.linkedin.com/company/sumcoeco-contracting" target="_blank" class="btn blue">&#128279; LinkedIn</a>
+        <button class="btn green" onclick="markFollowed(7,&apos;6a2904fd289260960e37f126&apos;)">&#10003; Followed</button>
+        <button class="btn red" onclick="markSkip(7,&apos;6a2904fd289260960e37f126&apos;)">&#10005; Skip</button>
       </div>
     </div>
     <div class="meta">
@@ -216,20 +293,29 @@ details summary{cursor:pointer;font-size:12px;font-weight:700;color:#718096;text
       <div class="mi"><div class="ml">Revenue</div><div class="mv">$50M - $150M</div></div>
       <div class="mi"><div class="ml">Employees</div><div class="mv">200-350</div></div>
     </div>
-    <div class="strat"><b>Specialties:</b> Environmental site remediation, heavy/site/civil construction, self-perform, ecological restoration</div>
-    <div class="strat"><b>📌 Follow:</b> Monitor environmental projects, sustainability initiatives, and crew expertise.</div>
-    <div class="strat"><b>💬 Engage:</b> Specialized environmental heavy civil. Engage on managing specialized crews for complex remediation projects.</div>
+    <div class="strat"><b>&#128204; Follow Strategy:</b> Monitor environmental projects, sustainability initiatives, and crew expertise.</div>
+    <div style="margin-top:8px">
+      <div class="tlabel">&#128172; Engagement Comment (&#8804;200 chars)</div>
+      <div style="position:relative">
+        <textarea id="ta7" class="ta" rows="3" readonly>SumCo's specialized environmental crews are a unique scheduling challenge. Following to stay connected and share insights on self-perform workforce forecasting.</textarea>
+        <button class="copybtn" id="cp7" onclick="doCopy(7)">Copy</button>
+      </div>
+      <div class="timing">160 chars &middot; Use as a comment on their LinkedIn posts</div>
+    </div>
   </div>
-  <div class="card" id="co8">
+  <div class="card" id="card-8">
     <div class="ch">
-      <div>
-        <h3>Barton Malow Company</h3>
-        <span class="tag" style="background:#4299e1">Commercial / Heavy Civil</span>
+      <div class="person">
+        <div class="av" style="background:linear-gradient(135deg,#4299e1,#4299e1aa)">B</div>
+        <div class="pi">
+          <h3>Barton Malow Company</h3>
+          <p><span class="tag" style="background:#4299e1">Commercial / Heavy Civil</span></p>
+        </div>
       </div>
       <div class="acts">
-        <a href="https://www.linkedin.com/company/barton-malow-company" target="_blank" class="btn blue">🔗 LinkedIn</a>
-        <button class="btn green" onclick="coFollow(8,'6a2904fd289260960e37f127')">✓ Followed</button>
-        <button class="btn red" onclick="coSkip(8,'6a2904fd289260960e37f127')">✕ Skip</button>
+        <a href="https://www.linkedin.com/company/barton-malow-company" target="_blank" class="btn blue">&#128279; LinkedIn</a>
+        <button class="btn green" onclick="markFollowed(8,&apos;6a2904fd289260960e37f127&apos;)">&#10003; Followed</button>
+        <button class="btn red" onclick="markSkip(8,&apos;6a2904fd289260960e37f127&apos;)">&#10005; Skip</button>
       </div>
     </div>
     <div class="meta">
@@ -237,20 +323,29 @@ details summary{cursor:pointer;font-size:12px;font-weight:700;color:#718096;text
       <div class="mi"><div class="ml">Revenue</div><div class="mv">$200M - $400M</div></div>
       <div class="mi"><div class="ml">Employees</div><div class="mv">1,000+</div></div>
     </div>
-    <div class="strat"><b>Specialties:</b> Commercial, healthcare, industrial, heavy civil, self-perform trades, design-build</div>
-    <div class="strat"><b>📌 Follow:</b> Monitor Michigan/Midwest projects, self-perform capabilities, and healthcare construction.</div>
-    <div class="strat"><b>💬 Engage:</b> Major Midwest GC with strong self-perform. Engage on managing large mixed-use/healthcare projects.</div>
+    <div class="strat"><b>&#128204; Follow Strategy:</b> Monitor Michigan/Midwest projects, self-perform capabilities, and healthcare construction.</div>
+    <div style="margin-top:8px">
+      <div class="tlabel">&#128172; Engagement Comment (&#8804;200 chars)</div>
+      <div style="position:relative">
+        <textarea id="ta8" class="ta" rows="3" readonly>Barton Malow's self-perform trades on large healthcare and industrial projects is our sweet spot. Following to engage on crew forecasting and labor coordination.</textarea>
+        <button class="copybtn" id="cp8" onclick="doCopy(8)">Copy</button>
+      </div>
+      <div class="timing">161 chars &middot; Use as a comment on their LinkedIn posts</div>
+    </div>
   </div>
-  <div class="card" id="co9">
+  <div class="card" id="card-9">
     <div class="ch">
-      <div>
-        <h3>Reeves Construction Company</h3>
-        <span class="tag" style="background:#4299e1">Heavy Civil / Asphalt Paving</span>
+      <div class="person">
+        <div class="av" style="background:linear-gradient(135deg,#4299e1,#4299e1aa)">R</div>
+        <div class="pi">
+          <h3>Reeves Construction Company</h3>
+          <p><span class="tag" style="background:#4299e1">Heavy Civil / Asphalt Paving</span></p>
+        </div>
       </div>
       <div class="acts">
-        <a href="https://www.linkedin.com/company/reeves-construction-company" target="_blank" class="btn blue">🔗 LinkedIn</a>
-        <button class="btn green" onclick="coFollow(9,'6a2904fd289260960e37f129')">✓ Followed</button>
-        <button class="btn red" onclick="coSkip(9,'6a2904fd289260960e37f129')">✕ Skip</button>
+        <a href="https://www.linkedin.com/company/reeves-construction-company" target="_blank" class="btn blue">&#128279; LinkedIn</a>
+        <button class="btn green" onclick="markFollowed(9,&apos;6a2904fd289260960e37f129&apos;)">&#10003; Followed</button>
+        <button class="btn red" onclick="markSkip(9,&apos;6a2904fd289260960e37f129&apos;)">&#10005; Skip</button>
       </div>
     </div>
     <div class="meta">
@@ -258,33 +353,50 @@ details summary{cursor:pointer;font-size:12px;font-weight:700;color:#718096;text
       <div class="mi"><div class="ml">Revenue</div><div class="mv">$75M - $150M</div></div>
       <div class="mi"><div class="ml">Employees</div><div class="mv">350-450</div></div>
     </div>
-    <div class="strat"><b>Specialties:</b> Transportation infrastructure, asphalt paving, concrete flatwork, site development</div>
-    <div class="strat"><b>📌 Follow:</b> Monitor infrastructure posts, crew performance, and equipment innovations.</div>
-    <div class="strat"><b>💬 Engage:</b> Comment on project updates with CrewCast crew forecasting for large paving operations.</div>
+    <div class="strat"><b>&#128204; Follow Strategy:</b> Monitor infrastructure posts, crew performance, and equipment innovations.</div>
+    <div style="margin-top:8px">
+      <div class="tlabel">&#128172; Engagement Comment (&#8804;200 chars)</div>
+      <div style="position:relative">
+        <textarea id="ta9" class="ta" rows="3" readonly>Reeves runs large paving crews across multiple regions — exactly the operational challenge we help solve. Following to engage on crew forecasting content.</textarea>
+        <button class="copybtn" id="cp9" onclick="doCopy(9)">Copy</button>
+      </div>
+      <div class="timing">154 chars &middot; Use as a comment on their LinkedIn posts</div>
+    </div>
   </div>
   
 </div>
 <script>
-const CAPI='https://base44.app/api/apps/6a274334d6b0962f39294123/functions/companyReview';
-let cf=0,ck=0,ctot=10;
-async function coFollow(i,id){
-  const c=document.getElementById('co'+i);
-  c.classList.add('followed');
-  c.querySelectorAll('button').forEach(b=>b.disabled=true);
-  cf++; cupd();
-  try{await fetch(CAPI+'?action=updateStatus&id='+id+'&status=FOLLOWED');}catch(e){}
+const M={"0": "Hubbard's multi-phase heavy civil work is exactly where crew forecasting matters most. Would love to follow along and share what we're seeing across self-perform GCs.", "1": "95% self-perform is impressive \u2014 and a real crew management challenge. Following Performance Contractors to learn more and share what we're building for ops teams.", "2": "Consigli's self-perform model on complex healthcare and mixed-use projects is exactly our target market. Following to stay connected and share relevant insights.", "3": "TAS Concrete's tilt-up and cast-in-place work at scale is a great fit for what we do. Following Orion to engage on crew scheduling and labor forecasting content.", "4": "Lunda's $400M backlog across concurrent Midwest civil projects is a real crew coordination challenge. Following to engage on workforce forecasting content.", "5": "Sundt's employee-owned self-perform model is exactly where we work. Following to engage on distributed crew management and labor forecasting across the Southwest.", "6": "Trumbull's bridge and highway work in the Mid-Atlantic requires serious crew sequencing. Following to engage on phased project labor forecasting content.", "7": "SumCo's specialized environmental crews are a unique scheduling challenge. Following to stay connected and share insights on self-perform workforce forecasting.", "8": "Barton Malow's self-perform trades on large healthcare and industrial projects is our sweet spot. Following to engage on crew forecasting and labor coordination.", "9": "Reeves runs large paving crews across multiple regions \u2014 exactly the operational challenge we help solve. Following to engage on crew forecasting content."};
+let nf=0,nk=0,tot=10;
+function doCopy(i){
+  const text=M[i]||'';
+  const btn=document.getElementById('cp'+i);
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(()=>flash(btn)).catch(()=>fallback(i,btn));
+  }else{fallback(i,btn);}
 }
-async function coSkip(i,id){
-  const c=document.getElementById('co'+i);
-  c.classList.add('skipped');
-  c.querySelectorAll('button').forEach(b=>b.disabled=true);
-  ck++; cupd();
-  try{await fetch(CAPI+'?action=updateStatus&id='+id+'&status=SKIPPED');}catch(e){}
+function fallback(i,btn){
+  const ta=document.getElementById('ta'+i);
+  if(ta){ta.select();ta.setSelectionRange(0,99999);document.execCommand('copy');flash(btn);}
 }
-function cupd(){
-  document.getElementById('cnF').textContent=cf;
-  document.getElementById('cnK').textContent=ck;
-  document.getElementById('cnU').textContent=Math.max(0,ctot-cf-ck);
+function flash(btn){
+  btn.textContent='Copied!';btn.classList.add('ok');
+  setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('ok');},2000);
+}
+function markFollowed(i,id){
+  const c=document.getElementById('card-'+i);
+  c.classList.add('followed');c.querySelectorAll('button').forEach(b=>b.disabled=true);
+  nf++;upd();
+}
+function markSkip(i,id){
+  const c=document.getElementById('card-'+i);
+  c.classList.add('skipped');c.querySelectorAll('button').forEach(b=>b.disabled=true);
+  nk++;upd();
+}
+function upd(){
+  document.getElementById('nF').textContent=nf;
+  document.getElementById('nK').textContent=nk;
+  document.getElementById('nU').textContent=Math.max(0,tot-nf-nk);
 }
 </script>
 </body>
