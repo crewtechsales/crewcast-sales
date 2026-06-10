@@ -121,7 +121,7 @@ Deno.serve(async (req) => {
     .touch-tab { padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; background: #edf2f7; color: #4a5568; border: none; }
     .touch-tab.active { background: #ebf4ff; color: #2b6cb0; }
     .message-box { position: relative; }
-    .message-text { background: #f7fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 50px 14px 16px; font-size: 14px; line-height: 1.6; color: #2d3748; min-height: 80px; white-space: pre-wrap; }
+    .message-text { background: #f7fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 50px 14px 16px; font-size: 14px; line-height: 1.6; color: #2d3748; min-height: 80px; white-space: pre-wrap; width: 100%; resize: none; font-family: inherit; cursor: text; }
     .copy-btn { position: absolute; top: 10px; right: 10px; background: #1a202c; color: white; border: none; border-radius: 6px; padding: 5px 12px; font-size: 12px; font-weight: 600; cursor: pointer; }
     .copy-btn.copied { background: #38a169; }
     .timing { font-size: 11px; color: #a0aec0; margin-top: 6px; }
@@ -179,10 +179,10 @@ Deno.serve(async (req) => {
           <button class="touch-tab" onclick="showTouch(${i}, 3, this)">Touch 3 · Follow-up</button>
         </div>
         <div class="message-box">
-          <div class="message-text" id="msg-${i}-1">${c.touch1 || '(no message)'}</div>
-          <div class="message-text" id="msg-${i}-2" style="display:none">${c.touch2 || '(no message)'}</div>
-          <div class="message-text" id="msg-${i}-3" style="display:none">${c.touch3 || '(no message)'}</div>
-          <button class="copy-btn" id="copy-${i}" onclick="copyMessage(${i})">Copy</button>
+          <textarea class="message-text" id="msg-${i}-1" readonly rows="4">${c.touch1 || '(no message)'}</textarea>
+          <textarea class="message-text" id="msg-${i}-2" style="display:none" readonly rows="4">${c.touch2 || '(no message)'}</textarea>
+          <textarea class="message-text" id="msg-${i}-3" style="display:none" readonly rows="4">${c.touch3 || '(no message)'}</textarea>
+          <button class="copy-btn" id="copy-${i}" onclick="copyMessage(${i})">Select All ✓</button>
         </div>
         <div class="timing" id="timing-${i}">Send Touch 1 now · Touch 2 in 3-5 days after they accept · Touch 3 in 5-7 days if no reply</div>
       </div>`).join('')}
@@ -229,28 +229,21 @@ Deno.serve(async (req) => {
   }
 
   function copyMessage(cardIdx) {
-    const activeTouchBtn = [...document.getElementById('card-' + cardIdx).querySelectorAll('.touch-tab')].find(b => b.classList.contains('active'));
-    const touch = activeTouchBtn ? [...document.getElementById('card-' + cardIdx).querySelectorAll('.touch-tab')].indexOf(activeTouchBtn) + 1 : 1;
-    const text = messages[cardIdx]?.[touch] || '';
-    navigator.clipboard.writeText(text).then(() => {
-      const btn = document.getElementById('copy-' + cardIdx);
-      btn.textContent = 'Copied!';
-      btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
-    }).catch(() => {
-      // Fallback for browsers that block clipboard
-      const ta = document.createElement('textarea');
-      ta.value = text;
-      document.body.appendChild(ta);
+    const tabs = [...document.getElementById('card-' + cardIdx).querySelectorAll('.touch-tab')];
+    const activeIdx = tabs.findIndex(b => b.classList.contains('active'));
+    const touch = activeIdx >= 0 ? activeIdx + 1 : 1;
+    const ta = document.getElementById('msg-' + cardIdx + '-' + touch);
+    if (ta) {
+      ta.focus();
       ta.select();
-      document.execCommand('copy');
-      document.body.removeChild(ta);
-      const btn = document.getElementById('copy-' + cardIdx);
-      btn.textContent = 'Copied!';
-      btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
-    });
+      ta.setSelectionRange(0, 99999);
+    }
+    const btn = document.getElementById('copy-' + cardIdx);
+    btn.textContent = 'Selected! Ctrl+C';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Select All ✓'; btn.classList.remove('copied'); }, 3000);
   }
+
 
   async function markSent(cardIdx, contactId) {
     const card = document.getElementById('card-' + cardIdx);
