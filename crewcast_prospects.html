@@ -1,477 +1,539 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CrewCast &mdash; Daily Prospect Review</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f0f4f8;color:#1a202c}
-header{background:#1a202c;color:#fff;padding:20px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
-header h1{font-size:20px;font-weight:700}
-.sub{font-size:13px;color:#a0aec0;margin-top:3px}
-.badge{background:#f6ad55;color:#1a202c;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px}
-.wrap{max-width:920px;margin:0 auto;padding:28px 20px}
-.stats{display:flex;gap:12px;margin-bottom:14px;flex-wrap:wrap}
-.stat{background:#fff;border-radius:10px;padding:16px 20px;flex:1;min-width:100px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
-.stat .n{font-size:28px;font-weight:800}
-.stat .l{font-size:11px;color:#718096;text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
-.pbar{background:#e2e8f0;border-radius:4px;height:6px;margin-bottom:6px}
-.pfill{background:#48bb78;border-radius:4px;height:6px;transition:width .4s;width:0%}
-.ptxt{font-size:12px;color:#718096;margin-bottom:20px}
-.card{background:#fff;border-radius:12px;padding:20px 24px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.08);border-left:4px solid #e2e8f0;transition:opacity .3s,border-color .3s}
-.card.sent{border-left-color:#68d391;opacity:.6}
-.card.skipped{border-left-color:#fc8181;opacity:.5}
-.card-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px}
-.person{display:flex;align-items:center;gap:12px}
-.avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-weight:700;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.name{font-size:16px;font-weight:700}
-.meta{font-size:13px;color:#718096;margin-top:2px}
-.btns{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.btn-li{background:#0077b5;color:#fff;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;display:inline-block}
-.btn-li:hover{background:#005e8e}
-.btn-sent{background:#c6f6d5;color:#276749;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none}
-.btn-skip{background:#fed7d7;color:#9b2c2c;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none}
-.touch-tabs{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
-.ttab{padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;background:#edf2f7;color:#4a5568;border:none}
-.ttab.active{background:#ebf4ff;color:#2b6cb0}
-.msgbox{position:relative}
-.msg{background:#f7fafc;border:1px solid #e2e8f0;border-radius:8px;padding:14px 52px 14px 16px;font-size:14px;line-height:1.7;color:#2d3748;display:none;white-space:pre-wrap}
-.msg.active{display:block}
-.copybtn{position:absolute;top:10px;right:10px;background:#1a202c;color:#fff;border:none;border-radius:6px;padding:5px 12px;font-size:12px;font-weight:600;cursor:pointer}
-.copybtn.copied{background:#38a169}
-.timing{font-size:11px;color:#a0aec0;margin-top:6px}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CrewCast Daily Prospect Review</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.5em;
+        }
+        .header p {
+            margin: 5px 0;
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+        .content {
+            padding: 40px;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .stat {
+            background: #f5f7fa;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        .stat-label {
+            color: #666;
+            margin-top: 5px;
+            font-size: 0.95em;
+        }
+        .contacts-section h2 {
+            margin-top: 0;
+            color: #333;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        .contact-card {
+            background: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+        .contact-card:hover {
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+            border-color: #667eea;
+        }
+        .contact-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 10px;
+        }
+        .contact-name {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #333;
+        }
+        .contact-title {
+            color: #667eea;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        .contact-company {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 5px;
+        }
+        .contact-location {
+            color: #999;
+            font-size: 0.95em;
+        }
+        .footer {
+            background: #f5f7fa;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+            border-top: 1px solid #e0e0e0;
+        }
+    </style>
 </head>
 <body>
-<header>
-  <div><h1>&#127959; CrewCast &mdash; Daily Prospect Review</h1><div class="sub">Tuesday, June 09, 2026</div></div>
-  <div class="badge">13 Prospects Ready</div>
-</header>
-<div class="wrap">
-  <div class="stats">
-    <div class="stat"><div class="n" id="tot">13</div><div class="l">Total Prospects</div></div>
-    <div class="stat"><div class="n" id="snt">0</div><div class="l">Sent Today</div></div>
-    <div class="stat"><div class="n" id="rem">13</div><div class="l">Remaining</div></div>
-  </div>
-  <div class="pbar"><div class="pfill" id="pf"></div></div>
-  <div class="ptxt" id="pt">0/13 sent</div>
-  
-    <div class="card" id="card-0">
-      <div class="card-header">
-        <div class="person">
-          <div class="avatar">G</div>
-          <div class="info">
-            <div class="name">Guillermo Valdez</div>
-            <div class="meta">Principal, Tilt-Up Operations Manager &middot; Suntec Concrete</div>
-          </div>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 CrewCast Daily Prospect Review</h1>
+            <p>Unsent Outreach Contacts</p>
+            <p style="font-size: 0.9em; margin-top: 15px;">Generated: June 10, 2026 at 06:03 AM</p>
         </div>
-        <div class="btns">
-          <a href="https://www.linkedin.com/in/guillermo-valdez-bab778103" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
-          <button class="btn-sent" onclick="markSent(0)">&#10003; Sent</button>
-          <button class="btn-skip" onclick="markSkip(0)">&#10005; Skip</button>
-        </div>
-      </div>
-      <div class="touch-tabs">
-        <button class="ttab active" onclick="showT(0,1,this)">Touch 1 &middot; Connection Request</button>
-        <button class="ttab" onclick="showT(0,2,this)">Touch 2 &middot; Value Message</button>
-        <button class="ttab" onclick="showT(0,3,this)">Touch 3 &middot; Follow-up</button>
-      </div>
-      <div class="msgbox">
-        <div class="msg active" id="m01">Hey Guillermo — 25 years running tilt-up ops at Suntec is seriously impressive. I work with self-perform concrete contractors on craft-level manpower forecasting — making sure the right crew shows up before the pour, not after. Would love to connect.</div>
-        <div class="msg" id="m02">Thanks for connecting Guillermo. With the volume of tilt-up Suntec runs, how are you tracking craft availability for each pour sequence before the week starts? The 'headcount looks fine but wrong mix shows up' problem is exactly what CrewCast was built to eliminate. Worth a 15-minute conversation?</div>
-        <div class="msg" id="m03">One last reach out — I know ops managers at Suntec's pace stay buried. If craft-level scheduling is still a gap, I'd love 15 minutes to show you what we're doing. [Calendar Link]</div>
-        <button class="copybtn" id="cp0" onclick="copyMsg(0)">Copy</button>
-      </div>
-      <div class="timing" id="ti0">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
-    </div>
-    <script>msgs[0]={1:`Hey Guillermo — 25 years running tilt-up ops at Suntec is seriously impressive. I work with self-perform concrete contractors on craft-level manpower forecasting — making sure the right crew shows up before the pour, not after. Would love to connect.`,2:`Thanks for connecting Guillermo. With the volume of tilt-up Suntec runs, how are you tracking craft availability for each pour sequence before the week starts? The 'headcount looks fine but wrong mix shows up' problem is exactly what CrewCast was built to eliminate. Worth a 15-minute conversation?`,3:`One last reach out — I know ops managers at Suntec's pace stay buried. If craft-level scheduling is still a gap, I'd love 15 minutes to show you what we're doing. [Calendar Link]`};</script>
+        
+        <div class="content">
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number">36</div>
+                    <div class="stat-label">Unsent Prospects</div>
+                </div>
+            </div>
+            
+            <div class="contacts-section">
+                <h2>Prospects Ready for Outreach</h2>
 
-    <div class="card" id="card-1">
-      <div class="card-header">
-        <div class="person">
-          <div class="avatar">S</div>
-          <div class="info">
-            <div class="name">Steve Bieber</div>
-            <div class="meta">Director of Project Controls &middot; MMR Group</div>
-          </div>
-        </div>
-        <div class="btns">
-          <a href="https://www.linkedin.com/in/steve-bieber-8129b137" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
-          <button class="btn-sent" onclick="markSent(1)">&#10003; Sent</button>
-          <button class="btn-skip" onclick="markSkip(1)">&#10005; Skip</button>
-        </div>
-      </div>
-      <div class="touch-tabs">
-        <button class="ttab active" onclick="showT(1,1,this)">Touch 1 &middot; Connection Request</button>
-        <button class="ttab" onclick="showT(1,2,this)">Touch 2 &middot; Value Message</button>
-        <button class="ttab" onclick="showT(1,3,this)">Touch 3 &middot; Follow-up</button>
-      </div>
-      <div class="msgbox">
-        <div class="msg active" id="m11">Hey Steve — I work with self-perform electrical and I&amp;E contractors on craft-level manpower forecasting. Your project controls background at MMR caught my attention — think there's a real overlap with what we're building. Would love to connect.</div>
-        <div class="msg" id="m12">Thanks for connecting Steve. In project controls at a firm MMR's scale, I'm curious — how much of your variance is actually a craft mix problem masquerading as a headcount problem? That's the 'Headcount Trap' we see constantly in self-perform. CrewCast was built specifically around it. Worth a conversation?</div>
-        <div class="msg" id="m13">Last reach out — I know project controls teams at MMR's scale are constantly firefighting. If trade-specific labor visibility is still a gap heading into Q3, I'd love 15 minutes to show you what we're doing. [Calendar Link]</div>
-        <button class="copybtn" id="cp1" onclick="copyMsg(1)">Copy</button>
-      </div>
-      <div class="timing" id="ti1">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
-    </div>
-    <script>msgs[1]={1:`Hey Steve — I work with self-perform electrical and I&E contractors on craft-level manpower forecasting. Your project controls background at MMR caught my attention — think there's a real overlap with what we're building. Would love to connect.`,2:`Thanks for connecting Steve. In project controls at a firm MMR's scale, I'm curious — how much of your variance is actually a craft mix problem masquerading as a headcount problem? That's the 'Headcount Trap' we see constantly in self-perform. CrewCast was built specifically around it. Worth a conversation?`,3:`Last reach out — I know project controls teams at MMR's scale are constantly firefighting. If trade-specific labor visibility is still a gap heading into Q3, I'd love 15 minutes to show you what we're doing. [Calendar Link]`};</script>
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#1. Guillermo Valdez</div>
+                            <div class="contact-title">Principal, Tilt-Up Operations Manager</div>
+                            <div class="contact-company">Suntec Concrete</div>
+                            <div class="contact-location">📍 Phoenix, AZ</div>
+                        </div>
+                    </div>
+                </div>
 
-    <div class="card" id="card-2">
-      <div class="card-header">
-        <div class="person">
-          <div class="avatar">M</div>
-          <div class="info">
-            <div class="name">Mike Keatley</div>
-            <div class="meta">Senior Vice President &middot; M.C. Dean</div>
-          </div>
-        </div>
-        <div class="btns">
-          <a href="https://www.linkedin.com/in/mike-keatley-bb057929" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
-          <button class="btn-sent" onclick="markSent(2)">&#10003; Sent</button>
-          <button class="btn-skip" onclick="markSkip(2)">&#10005; Skip</button>
-        </div>
-      </div>
-      <div class="touch-tabs">
-        <button class="ttab active" onclick="showT(2,1,this)">Touch 1 &middot; Connection Request</button>
-        <button class="ttab" onclick="showT(2,2,this)">Touch 2 &middot; Value Message</button>
-        <button class="ttab" onclick="showT(2,3,this)">Touch 3 &middot; Follow-up</button>
-      </div>
-      <div class="msgbox">
-        <div class="msg active" id="m21">Hey Mike — I work with self-perform electrical contractors on workforce forecasting — connecting the schedule to actual craft availability before the week starts. Your ops background at M.C. Dean caught my attention. Would love to connect.</div>
-        <div class="msg" id="m22">Thanks for connecting Mike. With M.C. Dean running complex self-perform electrical across federal and commercial projects simultaneously, how are your teams tracking craft-specific gaps before they become delays? That coordination challenge is exactly what CrewCast was built for. Worth a quick conversation?</div>
-        <div class="msg" id="m23">One last reach out — I know SVP roles at M.C. Dean's scale stay moving. If field labor visibility is still a gap heading into Q3, I'd love 15 minutes to show you what we're building. [Calendar Link]</div>
-        <button class="copybtn" id="cp2" onclick="copyMsg(2)">Copy</button>
-      </div>
-      <div class="timing" id="ti2">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
-    </div>
-    <script>msgs[2]={1:`Hey Mike — I work with self-perform electrical contractors on workforce forecasting — connecting the schedule to actual craft availability before the week starts. Your ops background at M.C. Dean caught my attention. Would love to connect.`,2:`Thanks for connecting Mike. With M.C. Dean running complex self-perform electrical across federal and commercial projects simultaneously, how are your teams tracking craft-specific gaps before they become delays? That coordination challenge is exactly what CrewCast was built for. Worth a quick conversation?`,3:`One last reach out — I know SVP roles at M.C. Dean's scale stay moving. If field labor visibility is still a gap heading into Q3, I'd love 15 minutes to show you what we're building. [Calendar Link]`};</script>
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#2. Steve Bieber</div>
+                            <div class="contact-title">Director of Project Controls</div>
+                            <div class="contact-company">MMR Group</div>
+                            <div class="contact-location">📍 Baton Rouge, LA</div>
+                        </div>
+                    </div>
+                </div>
 
-    <div class="card" id="card-3">
-      <div class="card-header">
-        <div class="person">
-          <div class="avatar">D</div>
-          <div class="info">
-            <div class="name">Derek Wright</div>
-            <div class="meta">President &middot; Suntec Concrete</div>
-          </div>
-        </div>
-        <div class="btns">
-          <a href="https://www.linkedin.com/in/derekwright1" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
-          <button class="btn-sent" onclick="markSent(3)">&#10003; Sent</button>
-          <button class="btn-skip" onclick="markSkip(3)">&#10005; Skip</button>
-        </div>
-      </div>
-      <div class="touch-tabs">
-        <button class="ttab active" onclick="showT(3,1,this)">Touch 1 &middot; Connection Request</button>
-        <button class="ttab" onclick="showT(3,2,this)">Touch 2 &middot; Value Message</button>
-        <button class="ttab" onclick="showT(3,3,this)">Touch 3 &middot; Follow-up</button>
-      </div>
-      <div class="msgbox">
-        <div class="msg active" id="m31">Hey Derek — I work with self-perform concrete contractors on craft-level manpower forecasting. Suntec has built an impressive operation in the Southwest — managing tilt-up at that volume is a real scheduling challenge. Would love to connect.</div>
-        <div class="msg" id="m32">Thanks for connecting Derek. Quick question — with the tilt-up volume Suntec runs, how are your superintendents tracking whether the right craft mix is confirmed before a pour sequence starts? That morning-of surprise is the exact problem CrewCast was built to eliminate. Worth a 15-minute conversation?</div>
-        <div class="msg" id="m33">One last reach out — I know running a concrete operation at Suntec's scale keeps you moving. If craft-level scheduling visibility is still a challenge, I'd love 15 minutes to show you what we're doing. [Calendar Link]</div>
-        <button class="copybtn" id="cp3" onclick="copyMsg(3)">Copy</button>
-      </div>
-      <div class="timing" id="ti3">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
-    </div>
-    <script>msgs[3]={1:`Hey Derek — I work with self-perform concrete contractors on craft-level manpower forecasting. Suntec has built an impressive operation in the Southwest — managing tilt-up at that volume is a real scheduling challenge. Would love to connect.`,2:`Thanks for connecting Derek. Quick question — with the tilt-up volume Suntec runs, how are your superintendents tracking whether the right craft mix is confirmed before a pour sequence starts? That morning-of surprise is the exact problem CrewCast was built to eliminate. Worth a 15-minute conversation?`,3:`One last reach out — I know running a concrete operation at Suntec's scale keeps you moving. If craft-level scheduling visibility is still a challenge, I'd love 15 minutes to show you what we're doing. [Calendar Link]`};</script>
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#3. Mike Keatley</div>
+                            <div class="contact-title">Senior Vice President</div>
+                            <div class="contact-company">M.C. Dean</div>
+                            <div class="contact-location">📍 Tysons, VA</div>
+                        </div>
+                    </div>
+                </div>
 
-    <div class="card" id="card-4">
-      <div class="card-header">
-        <div class="person">
-          <div class="avatar">A</div>
-          <div class="info">
-            <div class="name">Adam Spillane</div>
-            <div class="meta">Senior Vice President of Operations &middot; Cupertino Electric</div>
-          </div>
-        </div>
-        <div class="btns">
-          <a href="https://www.linkedin.com/in/adam-spillane" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
-          <button class="btn-sent" onclick="markSent(4)">&#10003; Sent</button>
-          <button class="btn-skip" onclick="markSkip(4)">&#10005; Skip</button>
-        </div>
-      </div>
-      <div class="touch-tabs">
-        <button class="ttab active" onclick="showT(4,1,this)">Touch 1 &middot; Connection Request</button>
-        <button class="ttab" onclick="showT(4,2,this)">Touch 2 &middot; Value Message</button>
-        <button class="ttab" onclick="showT(4,3,this)">Touch 3 &middot; Follow-up</button>
-      </div>
-      <div class="msgbox">
-        <div class="msg active" id="m41">Hey Adam — I work with self-perform electrical contractors on craft-level workforce forecasting. Delivering high-quality electrical construction at Cupertino's scale requires serious labor coordination — would love to connect and share what we're seeing.</div>
-        <div class="msg" id="m42">Thanks for connecting Adam. With Cupertino running large-scale electrical projects simultaneously, how are your teams catching the craft mix gaps before they impact a milestone? That's the exact visibility problem CrewCast was built to solve. Worth a quick conversation?</div>
-        <div class="msg" id="m43">One more reach out — I know SVP ops at Cupertino's scale keeps you moving. If matching the right trades to the right projects is still a challenge heading into H2, I'd love 15 minutes. [Calendar Link]</div>
-        <button class="copybtn" id="cp4" onclick="copyMsg(4)">Copy</button>
-      </div>
-      <div class="timing" id="ti4">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
-    </div>
-    <script>msgs[4]={1:`Hey Adam — I work with self-perform electrical contractors on craft-level workforce forecasting. Delivering high-quality electrical construction at Cupertino's scale requires serious labor coordination — would love to connect and share what we're seeing.`,2:`Thanks for connecting Adam. With Cupertino running large-scale electrical projects simultaneously, how are your teams catching the craft mix gaps before they impact a milestone? That's the exact visibility problem CrewCast was built to solve. Worth a quick conversation?`,3:`One more reach out — I know SVP ops at Cupertino's scale keeps you moving. If matching the right trades to the right projects is still a challenge heading into H2, I'd love 15 minutes. [Calendar Link]`};</script>
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#4. Derek Wright</div>
+                            <div class="contact-title">President</div>
+                            <div class="contact-company">Suntec Concrete</div>
+                            <div class="contact-location">📍 Phoenix, AZ</div>
+                        </div>
+                    </div>
+                </div>
 
-    <div class="card" id="card-5">
-      <div class="card-header">
-        <div class="person">
-          <div class="avatar">J</div>
-          <div class="info">
-            <div class="name">John Messick</div>
-            <div class="meta">Vice President of Operations &middot; Rosendin Electric</div>
-          </div>
-        </div>
-        <div class="btns">
-          <a href="https://www.linkedin.com/in/john-messick-74596862" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
-          <button class="btn-sent" onclick="markSent(5)">&#10003; Sent</button>
-          <button class="btn-skip" onclick="markSkip(5)">&#10005; Skip</button>
-        </div>
-      </div>
-      <div class="touch-tabs">
-        <button class="ttab active" onclick="showT(5,1,this)">Touch 1 &middot; Connection Request</button>
-        <button class="ttab" onclick="showT(5,2,this)">Touch 2 &middot; Value Message</button>
-        <button class="ttab" onclick="showT(5,3,this)">Touch 3 &middot; Follow-up</button>
-      </div>
-      <div class="msgbox">
-        <div class="msg active" id="m51">Hey John — congrats on the VP Operations move at Rosendin. I work with self-perform electrical contractors on workforce forecasting — matching craft trades to project demand before the week starts, not the morning of. Would love to connect.</div>
-        <div class="msg" id="m52">Thanks for connecting John. Curious what you're seeing on the ops side — when your field teams are managing multiple active projects, how are you catching craft-specific gaps before they become delays? It's the problem we built CrewCast around. Worth a 15-minute conversation?</div>
-        <div class="msg" id="m53">Didn't want to let this drop — I know VP ops roles at a firm Rosendin's size keep you buried. If matching the right trades to the right projects is still a challenge, I'd love to show you what we're doing. [Calendar Link]</div>
-        <button class="copybtn" id="cp5" onclick="copyMsg(5)">Copy</button>
-      </div>
-      <div class="timing" id="ti5">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
-    </div>
-    <script>msgs[5]={1:`Hey John — congrats on the VP Operations move at Rosendin. I work with self-perform electrical contractors on workforce forecasting — matching craft trades to project demand before the week starts, not the morning of. Would love to connect.`,2:`Thanks for connecting John. Curious what you're seeing on the ops side — when your field teams are managing multiple active projects, how are you catching craft-specific gaps before they become delays? It's the problem we built CrewCast around. Worth a 15-minute conversation?`,3:`Didn't want to let this drop — I know VP ops roles at a firm Rosendin's size keep you buried. If matching the right trades to the right projects is still a challenge, I'd love to show you what we're doing. [Calendar Link]`};</script>
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#5. Adam Spillane</div>
+                            <div class="contact-title">Senior Vice President of Operations</div>
+                            <div class="contact-company">Cupertino Electric</div>
+                            <div class="contact-location">📍 San Jose, CA</div>
+                        </div>
+                    </div>
+                </div>
 
-    <div class="card" id="card-6">
-      <div class="card-header">
-        <div class="person">
-          <div class="avatar">J</div>
-          <div class="info">
-            <div class="name">James Jaskolski</div>
-            <div class="meta">Vice President of Operations &middot; ArchKey Solutions</div>
-          </div>
-        </div>
-        <div class="btns">
-          <a href="https://www.linkedin.com/in/james-jaskolski-75062b12" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
-          <button class="btn-sent" onclick="markSent(6)">&#10003; Sent</button>
-          <button class="btn-skip" onclick="markSkip(6)">&#10005; Skip</button>
-        </div>
-      </div>
-      <div class="touch-tabs">
-        <button class="ttab active" onclick="showT(6,1,this)">Touch 1 &middot; Connection Request</button>
-        <button class="ttab" onclick="showT(6,2,this)">Touch 2 &middot; Value Message</button>
-        <button class="ttab" onclick="showT(6,3,this)">Touch 3 &middot; Follow-up</button>
-      </div>
-      <div class="msgbox">
-        <div class="msg active" id="m61">Hey James — I work with self-perform electrical contractors on manpower forecasting and craft scheduling. 7 years building national construction ops at ArchKey is impressive — would love to connect and share what we're seeing across the industry.</div>
-        <div class="msg" id="m62">Thanks for connecting James. With ArchKey running self-perform across so many markets, how are your superintendents staying ahead of craft mix gaps before they hit a milestone? The 'headcount looks fine but wrong trades on site' problem is exactly what CrewCast was built around. Worth a conversation?</div>
-        <div class="msg" id="m63">Last reach out — I know ops VP roles at ArchKey's scale stay buried. If trade-specific scheduling visibility is still a gap, I'd love 15 minutes to show you what we're building. [Calendar Link]</div>
-        <button class="copybtn" id="cp6" onclick="copyMsg(6)">Copy</button>
-      </div>
-      <div class="timing" id="ti6">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
-    </div>
-    <script>msgs[6]={1:`Hey James — I work with self-perform electrical contractors on manpower forecasting and craft scheduling. 7 years building national construction ops at ArchKey is impressive — would love to connect and share what we're seeing across the industry.`,2:`Thanks for connecting James. With ArchKey running self-perform across so many markets, how are your superintendents staying ahead of craft mix gaps before they hit a milestone? The 'headcount looks fine but wrong trades on site' problem is exactly what CrewCast was built around. Worth a conversation?`,3:`Last reach out — I know ops VP roles at ArchKey's scale stay buried. If trade-specific scheduling visibility is still a gap, I'd love 15 minutes to show you what we're building. [Calendar Link]`};</script>
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#6. John Messick</div>
+                            <div class="contact-title">Vice President of Operations</div>
+                            <div class="contact-company">Rosendin Electric</div>
+                            <div class="contact-location">📍 San Jose, CA</div>
+                        </div>
+                    </div>
+                </div>
 
-    <div class="card" id="card-7">
-      <div class="card-header">
-        <div class="person">
-          <div class="avatar">J</div>
-          <div class="info">
-            <div class="name">Jose Martinez</div>
-            <div class="meta">Senior Vice President &middot; Keller North America</div>
-          </div>
-        </div>
-        <div class="btns">
-          <a href="https://www.linkedin.com/in/jose-a-martinez-657ba52" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
-          <button class="btn-sent" onclick="markSent(7)">&#10003; Sent</button>
-          <button class="btn-skip" onclick="markSkip(7)">&#10005; Skip</button>
-        </div>
-      </div>
-      <div class="touch-tabs">
-        <button class="ttab active" onclick="showT(7,1,this)">Touch 1 &middot; Connection Request</button>
-        <button class="ttab" onclick="showT(7,2,this)">Touch 2 &middot; Value Message</button>
-        <button class="ttab" onclick="showT(7,3,this)">Touch 3 &middot; Follow-up</button>
-      </div>
-      <div class="msgbox">
-        <div class="msg active" id="m71">Hey Jose — I work with self-perform heavy civil and foundation contractors on workforce forecasting — connecting field operations, project management, and scheduling in one place. Your background bridging ops and management at Keller caught my attention. Would love to connect.</div>
-        <div class="msg" id="m72">Thanks for connecting Jose. With Keller managing crews across so many simultaneous foundation projects, I'm curious — how are your teams catching craft availability gaps before they hit the schedule? That coordination between the office and field is exactly what CrewCast was built for. Worth a quick conversation?</div>
-        <div class="msg" id="m73">Circling back one more time — I know SVP roles at Keller's scale keep you moving. If field-to-office labor visibility is still a gap heading into H2, I'd love 15 minutes to show you what we're doing. [Calendar Link]</div>
-        <button class="copybtn" id="cp7" onclick="copyMsg(7)">Copy</button>
-      </div>
-      <div class="timing" id="ti7">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
-    </div>
-    <script>msgs[7]={1:`Hey Jose — I work with self-perform heavy civil and foundation contractors on workforce forecasting — connecting field operations, project management, and scheduling in one place. Your background bridging ops and management at Keller caught my attention. Would love to connect.`,2:`Thanks for connecting Jose. With Keller managing crews across so many simultaneous foundation projects, I'm curious — how are your teams catching craft availability gaps before they hit the schedule? That coordination between the office and field is exactly what CrewCast was built for. Worth a quick conversation?`,3:`Circling back one more time — I know SVP roles at Keller's scale keep you moving. If field-to-office labor visibility is still a gap heading into H2, I'd love 15 minutes to show you what we're doing. [Calendar Link]`};</script>
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#7. James Jaskolski</div>
+                            <div class="contact-title">Vice President of Operations</div>
+                            <div class="contact-company">ArchKey Solutions</div>
+                            <div class="contact-location">📍 St. Louis, MO</div>
+                        </div>
+                    </div>
+                </div>
 
-    <div class="card" id="card-8">
-      <div class="card-header">
-        <div class="person">
-          <div class="avatar">S</div>
-          <div class="info">
-            <div class="name">Sam Potter</div>
-            <div class="meta">National Vice President of Operations &middot; ArchKey Solutions</div>
-          </div>
-        </div>
-        <div class="btns">
-          <a href="https://www.linkedin.com/in/sam-potter-15a9a86" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
-          <button class="btn-sent" onclick="markSent(8)">&#10003; Sent</button>
-          <button class="btn-skip" onclick="markSkip(8)">&#10005; Skip</button>
-        </div>
-      </div>
-      <div class="touch-tabs">
-        <button class="ttab active" onclick="showT(8,1,this)">Touch 1 &middot; Connection Request</button>
-        <button class="ttab" onclick="showT(8,2,this)">Touch 2 &middot; Value Message</button>
-        <button class="ttab" onclick="showT(8,3,this)">Touch 3 &middot; Follow-up</button>
-      </div>
-      <div class="msgbox">
-        <div class="msg active" id="m81">Hey Sam — I work with self-perform electrical contractors on craft-level workforce forecasting across multiple active projects. National ops at a firm ArchKey's scale is a real coordination challenge — would love to connect and share what we're seeing.</div>
-        <div class="msg" id="m82">Thanks for connecting Sam. Managing self-perform electrical at a national scale, I'm curious — how are your project teams tracking craft-specific gaps across regions before they become schedule delays? That's the exact problem CrewCast was built to solve. Worth a 15-minute conversation?</div>
-        <div class="msg" id="m83">One last reach out — I know national VP ops roles stay busy. If craft-level labor visibility across your regions is still a challenge heading into Q3, I'd love 15 minutes. [Calendar Link]</div>
-        <button class="copybtn" id="cp8" onclick="copyMsg(8)">Copy</button>
-      </div>
-      <div class="timing" id="ti8">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
-    </div>
-    <script>msgs[8]={1:`Hey Sam — I work with self-perform electrical contractors on craft-level workforce forecasting across multiple active projects. National ops at a firm ArchKey's scale is a real coordination challenge — would love to connect and share what we're seeing.`,2:`Thanks for connecting Sam. Managing self-perform electrical at a national scale, I'm curious — how are your project teams tracking craft-specific gaps across regions before they become schedule delays? That's the exact problem CrewCast was built to solve. Worth a 15-minute conversation?`,3:`One last reach out — I know national VP ops roles stay busy. If craft-level labor visibility across your regions is still a challenge heading into Q3, I'd love 15 minutes. [Calendar Link]`};</script>
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#8. Jose Martinez</div>
+                            <div class="contact-title">Senior Vice President</div>
+                            <div class="contact-company">Keller North America</div>
+                            <div class="contact-location">📍 Hanover, MD</div>
+                        </div>
+                    </div>
+                </div>
 
-    <div class="card" id="card-9">
-      <div class="card-header">
-        <div class="person">
-          <div class="avatar">B</div>
-          <div class="info">
-            <div class="name">Brian Kavanagh</div>
-            <div class="meta">Executive Vice President &middot; Performance Contracting Group</div>
-          </div>
-        </div>
-        <div class="btns">
-          <a href="https://www.linkedin.com/in/brian-kavanagh-085b9aa4" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
-          <button class="btn-sent" onclick="markSent(9)">&#10003; Sent</button>
-          <button class="btn-skip" onclick="markSkip(9)">&#10005; Skip</button>
-        </div>
-      </div>
-      <div class="touch-tabs">
-        <button class="ttab active" onclick="showT(9,1,this)">Touch 1 &middot; Connection Request</button>
-        <button class="ttab" onclick="showT(9,2,this)">Touch 2 &middot; Value Message</button>
-        <button class="ttab" onclick="showT(9,3,this)">Touch 3 &middot; Follow-up</button>
-      </div>
-      <div class="msgbox">
-        <div class="msg active" id="m91">Hey Brian — I work with self-perform specialty contractors on craft-level manpower forecasting. Employee-owned firms like PCI tend to feel labor inefficiency more directly in the P&amp;L — would love to connect and share what we're seeing.</div>
-        <div class="msg" id="m92">Thanks for connecting Brian. At a firm PCI's scale managing specialty trades across so many markets, how are your ops teams staying ahead of craft availability gaps before they hit the schedule? That's exactly the problem CrewCast was built around. Worth a 15-minute conversation?</div>
-        <div class="msg" id="m93">Last reach out — I know executive roles at PCI's scale stay busy. If craft-level labor visibility heading into H2 is still a gap, I'd love 15 minutes to show you what we're doing. [Calendar Link]</div>
-        <button class="copybtn" id="cp9" onclick="copyMsg(9)">Copy</button>
-      </div>
-      <div class="timing" id="ti9">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
-    </div>
-    <script>msgs[9]={1:`Hey Brian — I work with self-perform specialty contractors on craft-level manpower forecasting. Employee-owned firms like PCI tend to feel labor inefficiency more directly in the P&L — would love to connect and share what we're seeing.`,2:`Thanks for connecting Brian. At a firm PCI's scale managing specialty trades across so many markets, how are your ops teams staying ahead of craft availability gaps before they hit the schedule? That's exactly the problem CrewCast was built around. Worth a 15-minute conversation?`,3:`Last reach out — I know executive roles at PCI's scale stay busy. If craft-level labor visibility heading into H2 is still a gap, I'd love 15 minutes to show you what we're doing. [Calendar Link]`};</script>
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#9. Sam Potter</div>
+                            <div class="contact-title">National Vice President of Operations</div>
+                            <div class="contact-company">ArchKey Solutions</div>
+                            <div class="contact-location">📍 St. Louis, MO</div>
+                        </div>
+                    </div>
+                </div>
 
-    <div class="card" id="card-10">
-      <div class="card-header">
-        <div class="person">
-          <div class="avatar">J</div>
-          <div class="info">
-            <div class="name">Jason Behring</div>
-            <div class="meta">Vice President & CIO &middot; Everus Construction Group</div>
-          </div>
-        </div>
-        <div class="btns">
-          <a href="https://www.linkedin.com/in/jason-behring-149526188" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
-          <button class="btn-sent" onclick="markSent(10)">&#10003; Sent</button>
-          <button class="btn-skip" onclick="markSkip(10)">&#10005; Skip</button>
-        </div>
-      </div>
-      <div class="touch-tabs">
-        <button class="ttab active" onclick="showT(10,1,this)">Touch 1 &middot; Connection Request</button>
-        <button class="ttab" onclick="showT(10,2,this)">Touch 2 &middot; Value Message</button>
-        <button class="ttab" onclick="showT(10,3,this)">Touch 3 &middot; Follow-up</button>
-      </div>
-      <div class="msgbox">
-        <div class="msg active" id="m101">Hey Jason — I work with self-perform electrical contractors on workforce forecasting and operational visibility. Your background bridging technology and construction ops at Everus is exactly the intersection we work in. Would love to connect.</div>
-        <div class="msg" id="m102">Thanks for connecting Jason. From the tech side at Everus, I'm curious — how much of your field ops data is actually getting used to make proactive craft scheduling decisions? The gap between what the schedule says and what actually shows up on site is the problem CrewCast was built to close. Worth a conversation?</div>
-        <div class="msg" id="m103">One more reach out — I know VP and CIO roles at Everus's scale keep you busy. If connecting field labor data to proactive scheduling decisions is still a gap, I'd love 15 minutes to show you what we're doing. [Calendar Link]</div>
-        <button class="copybtn" id="cp10" onclick="copyMsg(10)">Copy</button>
-      </div>
-      <div class="timing" id="ti10">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
-    </div>
-    <script>msgs[10]={1:`Hey Jason — I work with self-perform electrical contractors on workforce forecasting and operational visibility. Your background bridging technology and construction ops at Everus is exactly the intersection we work in. Would love to connect.`,2:`Thanks for connecting Jason. From the tech side at Everus, I'm curious — how much of your field ops data is actually getting used to make proactive craft scheduling decisions? The gap between what the schedule says and what actually shows up on site is the problem CrewCast was built to close. Worth a conversation?`,3:`One more reach out — I know VP and CIO roles at Everus's scale keep you busy. If connecting field labor data to proactive scheduling decisions is still a gap, I'd love 15 minutes to show you what we're doing. [Calendar Link]`};</script>
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#10. Brian Kavanagh</div>
+                            <div class="contact-title">Executive Vice President</div>
+                            <div class="contact-company">Performance Contracting Group</div>
+                            <div class="contact-location">📍 Lenexa, KS</div>
+                        </div>
+                    </div>
+                </div>
 
-    <div class="card" id="card-11">
-      <div class="card-header">
-        <div class="person">
-          <div class="avatar">D</div>
-          <div class="info">
-            <div class="name">David Elkins</div>
-            <div class="meta">Senior Vice President of Field Operations &middot; Rosendin Electric</div>
-          </div>
-        </div>
-        <div class="btns">
-          <a href="https://www.linkedin.com/in/david-elkins-5170554a" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
-          <button class="btn-sent" onclick="markSent(11)">&#10003; Sent</button>
-          <button class="btn-skip" onclick="markSkip(11)">&#10005; Skip</button>
-        </div>
-      </div>
-      <div class="touch-tabs">
-        <button class="ttab active" onclick="showT(11,1,this)">Touch 1 &middot; Connection Request</button>
-        <button class="ttab" onclick="showT(11,2,this)">Touch 2 &middot; Value Message</button>
-        <button class="ttab" onclick="showT(11,3,this)">Touch 3 &middot; Follow-up</button>
-      </div>
-      <div class="msgbox">
-        <div class="msg active" id="m111">Hey David — started as an IBEW apprentice and worked up to SVP Field Operations at Rosendin — that's a career worth connecting with. I work with self-perform electrical contractors on craft-level workforce forecasting. Would love to connect.</div>
-        <div class="msg" id="m112">Thanks for connecting David. With 40+ years in the field, I'd love your take on this — how much of the scheduling chaos you see comes down to having the right headcount vs. the right craft mix on the right day? That gap is exactly what CrewCast was built to solve. Worth a quick conversation?</div>
-        <div class="msg" id="m113">One more reach out — I know field ops at Rosendin's scale keeps you moving. If labor visibility across projects is still a challenge heading into H2, I'd love 15 minutes. [Calendar Link]</div>
-        <button class="copybtn" id="cp11" onclick="copyMsg(11)">Copy</button>
-      </div>
-      <div class="timing" id="ti11">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
-    </div>
-    <script>msgs[11]={1:`Hey David — started as an IBEW apprentice and worked up to SVP Field Operations at Rosendin — that's a career worth connecting with. I work with self-perform electrical contractors on craft-level workforce forecasting. Would love to connect.`,2:`Thanks for connecting David. With 40+ years in the field, I'd love your take on this — how much of the scheduling chaos you see comes down to having the right headcount vs. the right craft mix on the right day? That gap is exactly what CrewCast was built to solve. Worth a quick conversation?`,3:`One more reach out — I know field ops at Rosendin's scale keeps you moving. If labor visibility across projects is still a challenge heading into H2, I'd love 15 minutes. [Calendar Link]`};</script>
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#11. Jason Behring</div>
+                            <div class="contact-title">Vice President & CIO</div>
+                            <div class="contact-company">Everus Construction Group</div>
+                            <div class="contact-location">📍 Bismarck, ND</div>
+                        </div>
+                    </div>
+                </div>
 
-    <div class="card" id="card-12">
-      <div class="card-header">
-        <div class="person">
-          <div class="avatar">D</div>
-          <div class="info">
-            <div class="name">David Schoonbeck</div>
-            <div class="meta">Director of Operational Excellence &middot; Baker Construction Enterprises</div>
-          </div>
-        </div>
-        <div class="btns">
-          <a href="https://www.linkedin.com/in/david-schoonbeck-9a89a59" target="_blank" class="btn-li">&#128279; Open LinkedIn</a>
-          <button class="btn-sent" onclick="markSent(12)">&#10003; Sent</button>
-          <button class="btn-skip" onclick="markSkip(12)">&#10005; Skip</button>
-        </div>
-      </div>
-      <div class="touch-tabs">
-        <button class="ttab active" onclick="showT(12,1,this)">Touch 1 &middot; Connection Request</button>
-        <button class="ttab" onclick="showT(12,2,this)">Touch 2 &middot; Value Message</button>
-        <button class="ttab" onclick="showT(12,3,this)">Touch 3 &middot; Follow-up</button>
-      </div>
-      <div class="msgbox">
-        <div class="msg active" id="m121">Hey David — I work with self-perform concrete contractors on labor forecasting and operational efficiency. Your background in operational excellence caught my eye. Would love to connect — think there's some interesting overlap in what we're building.</div>
-        <div class="msg" id="m122">Thanks for connecting David. Curious — in your operational excellence work, how much of the variance you're chasing comes down to craft mix issues vs. total headcount planning? It's the #1 blind spot we see across self-perform concrete. We built a tool specifically for that gap. Worth a quick conversation?</div>
-        <div class="msg" id="m123">Circling back one more time — I know Q2 close is a busy stretch. If labor productivity visibility is still on your radar heading into H2, I'd love 15 minutes to show you what we're doing at CrewCast. [Calendar Link]</div>
-        <button class="copybtn" id="cp12" onclick="copyMsg(12)">Copy</button>
-      </div>
-      <div class="timing" id="ti12">Send Touch 1 now &rarr; Touch 2 in 3-5 days after connect &rarr; Touch 3 in 5-7 days if no reply</div>
-    </div>
-    <script>msgs[12]={1:`Hey David — I work with self-perform concrete contractors on labor forecasting and operational efficiency. Your background in operational excellence caught my eye. Would love to connect — think there's some interesting overlap in what we're building.`,2:`Thanks for connecting David. Curious — in your operational excellence work, how much of the variance you're chasing comes down to craft mix issues vs. total headcount planning? It's the #1 blind spot we see across self-perform concrete. We built a tool specifically for that gap. Worth a quick conversation?`,3:`Circling back one more time — I know Q2 close is a busy stretch. If labor productivity visibility is still on your radar heading into H2, I'd love 15 minutes to show you what we're doing at CrewCast. [Calendar Link]`};</script>
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#12. David Elkins</div>
+                            <div class="contact-title">Senior Vice President of Field Operations</div>
+                            <div class="contact-company">Rosendin Electric</div>
+                            <div class="contact-location">📍 San Jose, CA</div>
+                        </div>
+                    </div>
+                </div>
 
-</div>
-<script>
-var msgs={};var sent=0;var total=13;
-var timings=['Send Touch 1 now → Touch 2 in 3-5 days after connect → Touch 3 in 5-7 days if no reply','Send after they accept your connection (3-5 days later)','Send if no reply to Touch 2 (5-7 days later)'];
-function showT(i,t,btn){
-  [1,2,3].forEach(function(n){var el=document.getElementById('m'+i+n);if(el)el.classList.toggle('active',n===t);});
-  btn.closest('.touch-tabs').querySelectorAll('.ttab').forEach(function(b){b.classList.remove('active')});
-  btn.classList.add('active');
-  document.getElementById('ti'+i).textContent=timings[t-1];
-}
-function copyMsg(i){
-  var t=[...document.getElementById('card-'+i).querySelectorAll('.ttab')].findIndex(function(b){return b.classList.contains('active')})+1;
-  navigator.clipboard.writeText(msgs[i][t]).then(function(){
-    var b=document.getElementById('cp'+i);b.textContent='Copied!';b.classList.add('copied');
-    setTimeout(function(){b.textContent='Copy';b.classList.remove('copied')},2000);
-  });
-}
-function markSent(i){document.getElementById('card-'+i).classList.add('sent');sent++;upd();}
-function markSkip(i){document.getElementById('card-'+i).classList.add('skipped');}
-function upd(){
-  document.getElementById('snt').textContent=sent;
-  document.getElementById('rem').textContent=total-sent;
-  document.getElementById('pf').style.width=(sent/total*100)+'%';
-  document.getElementById('pt').textContent=sent+'/'+total+' sent';
-}
-</script>
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#13. David Schoonbeck</div>
+                            <div class="contact-title">Director of Operational Excellence</div>
+                            <div class="contact-company">Baker Construction Enterprises</div>
+                            <div class="contact-location">📍 Monroe, OH</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#14. Ashley Hayes</div>
+                            <div class="contact-title">VP Operations</div>
+                            <div class="contact-company">Southland Electrical Contractors</div>
+                            <div class="contact-location">📍 None, None</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#15. Stephen Christopherson</div>
+                            <div class="contact-title">Vice President of Operations</div>
+                            <div class="contact-company">Gulf Coast Construction Services</div>
+                            <div class="contact-location">📍 None, None</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#16. Justin Snelling</div>
+                            <div class="contact-title">President/CEO</div>
+                            <div class="contact-company">Pacific Concrete Solutions</div>
+                            <div class="contact-location">📍 None, None</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#17. Scott Newman</div>
+                            <div class="contact-title">Vice President of Operations</div>
+                            <div class="contact-company">Reeves Construction Company</div>
+                            <div class="contact-location">📍 None, None</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#18. James Adamson</div>
+                            <div class="contact-title">Operations Manager</div>
+                            <div class="contact-company">Southwest Foundation Works</div>
+                            <div class="contact-location">📍 None, None</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#19. Jaron Combs</div>
+                            <div class="contact-title">Senior Vice President Operations</div>
+                            <div class="contact-company">Sierra Concrete & Masonry</div>
+                            <div class="contact-location">📍 None, None</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#20. John Washburn</div>
+                            <div class="contact-title">Chief Operating Officer</div>
+                            <div class="contact-company">Sunbelt Construction</div>
+                            <div class="contact-location">📍 None, None</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#21. Melissa Thompson</div>
+                            <div class="contact-title">Vice President Operations</div>
+                            <div class="contact-company">Northeast Electrical Group</div>
+                            <div class="contact-location">📍 None, None</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#22. Dan Mistretta</div>
+                            <div class="contact-title">Vice President Operations</div>
+                            <div class="contact-company">Atlantic Electrical Services</div>
+                            <div class="contact-location">📍 None, None</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#23. Jim Koeble</div>
+                            <div class="contact-title">Vice President Transportation</div>
+                            <div class="contact-company">Midwest Heavy Haulers</div>
+                            <div class="contact-location">📍 None, None</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#24. Michael Garcia</div>
+                            <div class="contact-title">Project Controls Manager</div>
+                            <div class="contact-company">Gilbane Building Company</div>
+                            <div class="contact-location">📍 Austin, TX</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#25. Test Contact</div>
+                            <div class="contact-title">VP Operations</div>
+                            <div class="contact-company">Test Corp</div>
+                            <div class="contact-location">📍 Austin, TX</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#26. Test2 User</div>
+                            <div class="contact-title">Director</div>
+                            <div class="contact-company">Acme</div>
+                            <div class="contact-location">📍 Austin, TX</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#27. Anthony Taylor</div>
+                            <div class="contact-title">VP of Operations</div>
+                            <div class="contact-company">Boral Limited (US Division)</div>
+                            <div class="contact-location">📍 Houston, TX</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#28. David Johnson</div>
+                            <div class="contact-title">VP of Operations</div>
+                            <div class="contact-company">Sunbelt Construction Services</div>
+                            <div class="contact-location">📍 Atlanta, GA</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#29. Test Contact</div>
+                            <div class="contact-title">VP Operations</div>
+                            <div class="contact-company">Test Corp</div>
+                            <div class="contact-location">📍 Austin, TX</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#30. Jennifer Williams</div>
+                            <div class="contact-title">Senior Superintendent</div>
+                            <div class="contact-company">Aplin Group Holdings</div>
+                            <div class="contact-location">📍 Charlotte, NC</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#31. Anthony Williams</div>
+                            <div class="contact-title">Project Controls Manager</div>
+                            <div class="contact-company">Southland Holdings</div>
+                            <div class="contact-location">📍 Denver, CO</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#32. Matthew Garcia</div>
+                            <div class="contact-title">VP of Operations</div>
+                            <div class="contact-company">Sunbelt Construction Services</div>
+                            <div class="contact-location">📍 Austin, TX</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#33. Jennifer Davis</div>
+                            <div class="contact-title">VP of Operations</div>
+                            <div class="contact-company">Zachry Holdings</div>
+                            <div class="contact-location">📍 San Antonio, TX</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#34. Daniel Martinez</div>
+                            <div class="contact-title">VP Operations</div>
+                            <div class="contact-company">Boral Limited (US Division)</div>
+                            <div class="contact-location">📍 Austin, TX</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#35. Matthew Taylor</div>
+                            <div class="contact-title">Project Controls Manager</div>
+                            <div class="contact-company">Power Construction</div>
+                            <div class="contact-location">📍 Miami, FL</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">#36. Christopher Brown</div>
+                            <div class="contact-title">Senior Superintendent</div>
+                            <div class="contact-company">Zachry Holdings</div>
+                            <div class="contact-location">📍 Charlotte, NC</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Review these prospects and send 1-touch LinkedIn messages. Mark as sent in HubSpot when complete.</p>
+        </div>
+    </div>
 </body>
 </html>
