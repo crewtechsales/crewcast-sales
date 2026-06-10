@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CrewCast — Individual Prospects</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,sans-serif;background:#f0f4f8;color:#1a202c}
+header{background:#1a202c;color:#fff;padding:18px 24px;display:flex;justify-content:space-between;align-items:center}
+h1{font-size:18px;font-weight:700}
+.sub{font-size:12px;color:#a0aec0;margin-top:2px}
+.badge{background:#f6ad55;color:#1a202c;font-size:12px;font-weight:700;padding:3px 10px;border-radius:20px}
+.wrap{max-width:860px;margin:0 auto;padding:20px 16px}
+.stats{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.stat{background:#fff;border-radius:10px;padding:14px 18px;flex:1;min-width:100px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.stat .n{font-size:26px;font-weight:800}
+.stat .l{font-size:10px;color:#718096;text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.sec{font-size:12px;font-weight:700;color:#718096;text-transform:uppercase;letter-spacing:.5px;margin:20px 0 10px}
+.card{background:#fff;border-radius:10px;padding:18px 20px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.08);border-left:4px solid #cbd5e0}
+.card.dim{opacity:.5;border-left-color:#e2e8f0;padding:12px 16px}
+.sent{border-left-color:#68d391;opacity:.55}
+.skipped{border-left-color:#fc8181;opacity:.5}
+.ch{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;flex-wrap:wrap;gap:8px}
+.person{display:flex;align-items:center;gap:10px}
+.av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pi h3{font-size:15px;font-weight:700}
+.pi p{font-size:12px;color:#718096;margin-top:1px}
+.acts{display:flex;gap:6px;flex-wrap:wrap}
+.btn{padding:7px 13px;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;border:none;text-decoration:none;display:inline-block}
+.blue{background:#0077b5;color:#fff}
+.green{background:#c6f6d5;color:#276749}
+.red{background:#fed7d7;color:#9b2c2c}
+.tabs{display:flex;gap:5px;margin-bottom:8px}
+.tab{padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;background:#edf2f7;color:#4a5568;border:none}
+.tab.active{background:#ebf4ff;color:#2b6cb0}
+.ta{width:100%;border:2px solid #e2e8f0;border-radius:8px;padding:12px;font-size:13px;line-height:1.6;font-family:inherit;resize:vertical;cursor:text;background:#f7fafc;color:#2d3748}
+.ta:focus{border-color:#4299e1;outline:none;background:#ebf8ff}
+.hint{font-size:10px;color:#a0aec0;margin-top:4px}
+.pill{background:#c6f6d5;color:#276749;padding:1px 8px;border-radius:20px;font-size:11px;font-weight:700;margin:0 4px}
+details summary{cursor:pointer;font-size:12px;font-weight:700;color:#718096;text-transform:uppercase;letter-spacing:.5px;margin:20px 0 10px}
+</style>
+</head>
+<body>
+<header>
+  <div><h1>🏗️ Individual Prospect Review</h1><div class="sub">Updated live · 13 unsent</div></div>
+  <span class="badge">13 To Send</span>
+</header>
+<div class="wrap">
+  <div class="stats">
+    <div class="stat"><div class="n" id="nU">13</div><div class="l">Unsent</div></div>
+    <div class="stat"><div class="n" id="nS">0</div><div class="l">Sent</div></div>
+    <div class="stat"><div class="n" id="nK">0</div><div class="l">Skipped</div></div>
+    <div class="stat"><div class="n">0</div><div class="l">Done Total</div></div>
+  </div>
+  <div class="sec">📬 Unsent (13)</div>
+  
+  <div class="card" id="card-0">
+    <div class="ch">
+      <div class="person">
+        <div class="av">G</div>
+        <div class="pi">
+          <h3>Guillermo Valdez</h3>
+          <p>Principal, Tilt-Up Operations Manager  ·  Suntec Concrete</p>
+        </div>
+      </div>
+      <div class="acts">
+        <a href="https://www.linkedin.com/in/guillermo-valdez-bab778103" target="_blank" class="btn blue">🔗 LinkedIn</a>
+        <button class="btn green" onclick="markSent(0,'498895402697')">✓ Sent</button>
+        <button class="btn red" onclick="markSkip(0,'498895402697')">✕ Skip</button>
+      </div>
+    </div>
+    <div class="tabs">
+      <button class="tab active" onclick="sw(0,1,this)">Touch 1</button>
+      <button class="tab" onclick="sw(0,2,this)">Touch 2</button>
+      <button class="tab" onclick="sw(0,3,this)">Touch 3</button>
+    </div>
+    <textarea id="ta0-1" class="ta" rows="5" readonly onclick="this.select()">Hey Guillermo — 25 years running tilt-up ops at Suntec is seriously impressive. I work with self-perform concrete contractors on craft-level manpower forecasting — making sure the right crew shows up before the pour, not after. Would love to connect.</textarea>
+    <textarea id="ta0-2" class="ta" rows="5" readonly onclick="this.select()" style="display:none">Thanks for connecting Guillermo. With the volume of tilt-up Suntec runs, how are you tracking craft availability for each pour sequence before the week starts? The 'headcount looks fine but wrong mix shows up' problem is exactly what CrewCast was built to eliminate. Worth a 15-minute conversation?</textarea>
+    <textarea id="ta0-3" class="ta" rows="5" readonly onclick="this.select()" style="display:none">One last reach out — I know ops managers at Suntec's pace stay buried. If craft-level scheduling is still a gap, I'd love 15 minutes to show you what we're doing. [Calendar Link]</textarea>
+    <div class="hint">Tap text → ⌘A / Select All → ⌘C to copy</div>
+  </div>
+  <div class="card" id="card-1">
+    <div class="ch">
+      <div class="person">
+        <div class="av">S</div>
+        <div class="pi">
+          <h3>Steve Bieber</h3>
+          <p>Director of Project Controls  ·  MMR Group</p>
+        </div>
+      </div>
+      <div class="acts">
+        <a href="https://www.linkedin.com/in/steve-bieber-8129b137" target="_blank" class="btn blue">🔗 LinkedIn</a>
+        <button class="btn green" onclick="markSent(1,'499066832588')">✓ Sent</button>
+        <button class="btn red" onclick="markSkip(1,'499066832588')">✕ Skip</button>
+      </div>
+    </div>
+    <div class="tabs">
+      <button class="tab active" onclick="sw(1,1,this)">Touch 1</button>
+      <button class="tab" onclick="sw(1,2,this)">Touch 2</button>
+      <button class="tab" onclick="sw(1,3,this)">Touch 3</button>
+    </div>
+    <textarea id="ta1-1" class="ta" rows="5" readonly onclick="this.select()">Hey Steve — I work with self-perform electrical and I&amp;E contractors on craft-level manpower forecasting. Your project controls background at MMR caught my attention — think there's a real overlap with what we're building. Would love to connect.</textarea>
+    <textarea id="ta1-2" class="ta" rows="5" readonly onclick="this.select()" style="display:none">Thanks for connecting Steve. In project controls at a firm MMR's scale, I'm curious — how much of your variance is actually a craft mix problem masquerading as a headcount problem? That's the 'Headcount Trap' we see constantly in self-perform. CrewCast was built specifically around it. Worth a conversation?</textarea>
+    <textarea id="ta1-3" class="ta" rows="5" readonly onclick="this.select()" style="display:none">Last reach out — I know project controls teams at MMR's scale are constantly firefighting. If trade-specific labor visibility is still a gap heading into Q3, I'd love 15 minutes to show you what we're doing. [Calendar Link]</textarea>
+    <div class="hint">Tap text → ⌘A / Select All → ⌘C to copy</div>
+  </div>
+  <div class="card" id="card-2">
+    <div class="ch">
+      <div class="person">
+        <div class="av">M</div>
+        <div class="pi">
+          <h3>Mike Keatley</h3>
+          <p>Senior Vice President  ·  M.C. Dean</p>
+        </div>
+      </div>
+      <div class="acts">
+        <a href="https://www.linkedin.com/in/mike-keatley-bb057929" target="_blank" class="btn blue">🔗 LinkedIn</a>
+        <button class="btn green" onclick="markSent(2,'499068080887')">✓ Sent</button>
+        <button class="btn red" onclick="markSkip(2,'499068080887')">✕ Skip</button>
+      </div>
+    </div>
+    <div class="tabs">
+      <button class="tab active" onclick="sw(2,1,this)">Touch 1</button>
+      <button class="tab" onclick="sw(2,2,this)">Touch 2</button>
+      <button class="tab" onclick="sw(2,3,this)">Touch 3</button>
+    </div>
+    <textarea id="ta2-1" class="ta" rows="5" readonly onclick="this.select()">Hey Mike — I work with self-perform electrical contractors on workforce forecasting — connecting the schedule to actual craft availability before the week starts. Your ops background at M.C. Dean caught my attention. Would love to connect.</textarea>
+    <textarea id="ta2-2" class="ta" rows="5" readonly onclick="this.select()" style="display:none">Thanks for connecting Mike. With M.C. Dean running complex self-perform electrical across federal and commercial projects simultaneously, how are your teams tracking craft-specific gaps before they become delays? That coordination challenge is exactly what CrewCast was built for. Worth a quick conversation?</textarea>
+    <textarea id="ta2-3" class="ta" rows="5" readonly onclick="this.select()" style="display:none">One last reach out — I know SVP roles at M.C. Dean's scale stay moving. If field labor visibility is still a gap heading into Q3, I'd love 15 minutes to show you what we're building. [Calendar Link]</textarea>
+    <div class="hint">Tap text → ⌘A / Select All → ⌘C to copy</div>
+  </div>
+  <div class="card" id="card-3">
+    <div class="ch">
+      <div class="person">
+        <div class="av">D</div>
+        <div class="pi">
+          <h3>Derek Wright</h3>
+          <p>President  ·  Suntec Concrete</p>
+        </div>
+      </div>
+      <div class="acts">
+        <a href="https://www.linkedin.com/in/derekwright1" target="_blank" class="btn blue">🔗 LinkedIn</a>
+        <button class="btn green" onclick="markSent(3,'499077745360')">✓ Sent</button>
+        <button class="btn red" onclick="markSkip(3,'499077745360')">✕ Skip</button>
+      </div>
+    </div>
+    <div class="tabs">
+      <button class="tab active" onclick="sw(3,1,this)">Touch 1</button>
+      <button class="tab" onclick="sw(3,2,this)">Touch 2</button>
+      <button class="tab" onclick="sw(3,3,this)">Touch 3</button>
+    </div>
+    <textarea id="ta3-1" class="ta" rows="5" readonly onclick="this.select()">Hey Derek — I work with self-perform concrete contractors on craft-level manpower forecasting. Suntec has built an impressive operation in the Southwest — managing tilt-up at that volume is a real scheduling challenge. Would love to connect.</textarea>
+    <textarea id="ta3-2" class="ta" rows="5" readonly onclick="this.select()" style="display:none">Thanks for connecting Derek. Quick question — with the tilt-up volume Suntec runs, how are your superintendents tracking whether the right craft mix is confirmed before a pour sequence starts? That morning-of surprise is the exact problem CrewCast was built to eliminate. Worth a 15-minute conversation?</textarea>
+    <textarea id="ta3-3" class="ta" rows="5" readonly onclick="this.select()" style="display:none">One last reach out — I know running a concrete operation at Suntec's scale keeps you moving. If craft-level scheduling visibility is still a challenge, I'd love 15 minutes to show you what we're doing. [Calendar Link]</textarea>
+    <div class="hint">Tap text → ⌘A / Select All → ⌘C to copy</div>
+  </div>
+  <div class="card" id="card-4">
+    <div class="ch">
+      <div class="person">
+        <div class="av">A</div>
+        <div class="pi">
+          <h3>Adam Spillane</h3>
+          <p>Senior Vice President of Operations  ·  Cupertino Electric</p>
+        </div>
+      </div>
+      <div class="acts">
+        <a href="https://www.linkedin.com/in/adam-spillane" target="_blank" class="btn blue">🔗 LinkedIn</a>
+        <button class="btn green" onclick="markSent(4,'499080393464')">✓ Sent</button>
+        <button class="btn red" onclick="markSkip(4,'499080393464')">✕ Skip</button>
+      </div>
+    </div>
+    <div class="tabs">
+      <button class="tab active" onclick="sw(4,1,this)">Touch 1</button>
+      <button class="tab" onclick="sw(4,2,this)">Touch 2</button>
+      <button class="tab" onclick="sw(4,3,this)">Touch 3</button>
+    </div>
+    <textarea id="ta4-1" class="ta" rows="5" readonly onclick="this.select()">Hey Adam — I work with self-perform electrical contractors on craft-level workforce forecasting. Delivering high-quality electrical construction at Cupertino's scale requires serious labor coordination — would love to connect and share what we're seeing.</textarea>
+    <textarea id="ta4-2" class="ta" rows="5" readonly onclick="this.select()" style="display:none">Thanks for connecting Adam. With Cupertino running large-scale electrical projects simultaneously, how are your teams catching the craft mix gaps before they impact a milestone? That's the exact visibility problem CrewCast was built to solve. Worth a quick conversation?</textarea>
+    <textarea id="ta4-3" class="ta" rows="5" readonly onclick="this.select()" style="display:none">One more reach out — I know SVP ops at Cupertino's scale keeps you moving. If matching the right trades to the right projects is still a challenge heading into H2, I'd love 15 minutes. [Calendar Link]</textarea>
+    <div class="hint">Tap text → ⌘A / Select All → ⌘C to copy</div>
+  </div>
+  <div class="card" id="card-5">
+    <div class="ch">
+      <div class="person">
+        <div class="av">J</div>
+        <div class="pi">
+          <h3>John Messick</h3>
+          <p>Vice President of Operations  ·  Rosendin Electric</p>
+        </div>
+      </div>
+      <div class="acts">
+        <a href="https://www.linkedin.com/in/john-messick-74596862" target="_blank" class="btn blue">🔗 LinkedIn</a>
+        <button class="btn green" onclick="markSent(5,'499086556900')">✓ Sent</button>
+        <button class="btn red" onclick="markSkip(5,'499086556900')">✕ Skip</button>
+      </div>
+    </div>
+    <div class="tabs">
+      <button class="tab active" onclick="sw(5,1,this)">Touch 1</button>
+      <button class="tab" onclick="sw(5,2,this)">Touch 2</button>
+      <button class="tab" onclick="sw(5,3,this)">Touch 3</button>
+    </div>
+    <textarea id="ta5-1" class="ta" rows="5" readonly onclick="this.select()">Hey John — congrats on the VP Operations move at Rosendin. I work with self-perform electrical contractors on workforce forecasting — matching craft trades to project demand before the week starts, not the morning of. Would love to connect.</textarea>
+    <textarea id="ta5-2" class="ta" rows="5" readonly onclick="this.select()" style="display:none">Thanks for connecting John. Curious what you're seeing on the ops side — when your field teams are managing multiple active projects, how are you catching craft-specific gaps before they become delays? It's the problem we built CrewCast around. Worth a 15-minute conversation?</textarea>
+    <textarea id="ta5-3" class="ta" rows="5" readonly onclick="this.select()" style="display:none">Didn't want to let this drop — I know VP ops roles at a firm Rosendin's size keep you buried. If matching the right trades to the right projects is still a challenge, I'd love to show you what we're doing. [Calendar Link]</textarea>
+    <div class="hint">Tap text → ⌘A / Select All → ⌘C to copy</div>
+  </div>
+  <div class="card" id="card-6">
+    <div class="ch">
+      <div class="person">
+        <div class="av">J</div>
+        <div class="pi">
+          <h3>James Jaskolski</h3>
+          <p>Vice President of Operations  ·  ArchKey Solutions</p>
+        </div>
+      </div>
+      <div class="acts">
+        <a href="https://www.linkedin.com/in/james-jaskolski-75062b12" target="_blank" class="btn blue">🔗 LinkedIn</a>
+        <button class="btn green" onclick="markSent(6,'499086556906')">✓ Sent</button>
+        <button class="btn red" onclick="markSkip(6,'499086556906')">✕ Skip</button>
+      </div>
+    </div>
+    <div class="tabs">
+      <button class="tab active" onclick="sw(6,1,this)">Touch 1</button>
+      <button class="tab" onclick="sw(6,2,this)">Touch 2</button>
+      <button class="tab" onclick="sw(6,3,this)">Touch 3</button>
+    </div>
+    <textarea id="ta6-1" class="ta" rows="5" readonly onclick="this.select()">Hey James — I work with self-perform electrical contractors on manpower forecasting and craft scheduling. 7 years building national construction ops at ArchKey is impressive — would love to connect and share what we're seeing across the industry.</textarea>
+    <textarea id="ta6-2" class="ta" rows="5" readonly onclick="this.select()" style="display:none">Thanks for connecting James. With ArchKey running self-perform across so many markets, how are your superintendents staying ahead of craft mix gaps before they hit a milestone? The 'headcount looks fine but wrong trades on site' problem is exactly what CrewCast was built around. Worth a conversation?</textarea>
+    <textarea id="ta6-3" class="ta" rows="5" readonly onclick="this.select()" style="display:none">Last reach out — I know ops VP roles at ArchKey's scale stay buried. If trade-specific scheduling visibility is still a gap, I'd love 15 minutes to show you what we're building. [Calendar Link]</textarea>
+    <div class="hint">Tap text → ⌘A / Select All → ⌘C to copy</div>
+  </div>
+  <div class="card" id="card-7">
+    <div class="ch">
+      <div class="person">
+        <div class="av">J</div>
+        <div class="pi">
+          <h3>Jose Martinez</h3>
+          <p>Senior Vice President  ·  Keller North America</p>
+        </div>
+      </div>
+      <div class="acts">
+        <a href="https://www.linkedin.com/in/jose-a-martinez-657ba52" target="_blank" class="btn blue">🔗 LinkedIn</a>
+        <button class="btn green" onclick="markSent(7,'499088841451')">✓ Sent</button>
+        <button class="btn red" onclick="markSkip(7,'499088841451')">✕ Skip</button>
+      </div>
+    </div>
+    <div class="tabs">
+      <button class="tab active" onclick="sw(7,1,this)">Touch 1</button>
+      <button class="tab" onclick="sw(7,2,this)">Touch 2</button>
+      <button class="tab" onclick="sw(7,3,this)">Touch 3</button>
+    </div>
+    <textarea id="ta7-1" class="ta" rows="5" readonly onclick="this.select()">Hey Jose — I work with self-perform heavy civil and foundation contractors on workforce forecasting — connecting field operations, project management, and scheduling in one place. Your background bridging ops and management at Keller caught my attention. Would love to connect.</textarea>
+    <textarea id="ta7-2" class="ta" rows="5" readonly onclick="this.select()" style="display:none">Thanks for connecting Jose. With Keller managing crews across so many simultaneous foundation projects, I'm curious — how are your teams catching craft availability gaps before they hit the schedule? That coordination between the office and field is exactly what CrewCast was built for. Worth a quick conversation?</textarea>
+    <textarea id="ta7-3" class="ta" rows="5" readonly onclick="this.select()" style="display:none">Circling back one more time — I know SVP roles at Keller's scale keep you moving. If field-to-office labor visibility is still a gap heading into H2, I'd love 15 minutes to show you what we're doing. [Calendar Link]</textarea>
+    <div class="hint">Tap text → ⌘A / Select All → ⌘C to copy</div>
+  </div>
+  <div class="card" id="card-8">
+    <div class="ch">
+      <div class="person">
+        <div class="av">S</div>
+        <div class="pi">
+          <h3>Sam Potter</h3>
+          <p>National Vice President of Operations  ·  ArchKey Solutions</p>
+        </div>
+      </div>
+      <div class="acts">
+        <a href="https://www.linkedin.com/in/sam-potter-15a9a86" target="_blank" class="btn blue">🔗 LinkedIn</a>
+        <button class="btn green" onclick="markSent(8,'499103465149')">✓ Sent</button>
+        <button class="btn red" onclick="markSkip(8,'499103465149')">✕ Skip</button>
+      </div>
+    </div>
+    <div class="tabs">
+      <button class="tab active" onclick="sw(8,1,this)">Touch 1</button>
+      <button class="tab" onclick="sw(8,2,this)">Touch 2</button>
+      <button class="tab" onclick="sw(8,3,this)">Touch 3</button>
+    </div>
+    <textarea id="ta8-1" class="ta" rows="5" readonly onclick="this.select()">Hey Sam — I work with self-perform electrical contractors on craft-level workforce forecasting across multiple active projects. National ops at a firm ArchKey's scale is a real coordination challenge — would love to connect and share what we're seeing.</textarea>
+    <textarea id="ta8-2" class="ta" rows="5" readonly onclick="this.select()" style="display:none">Thanks for connecting Sam. Managing self-perform electrical at a national scale, I'm curious — how are your project teams tracking craft-specific gaps across regions before they become schedule delays? That's the exact problem CrewCast was built to solve. Worth a 15-minute conversation?</textarea>
+    <textarea id="ta8-3" class="ta" rows="5" readonly onclick="this.select()" style="display:none">One last reach out — I know national VP ops roles stay busy. If craft-level labor visibility across your regions is still a challenge heading into Q3, I'd love 15 minutes. [Calendar Link]</textarea>
+    <div class="hint">Tap text → ⌘A / Select All → ⌘C to copy</div>
+  </div>
+  <div class="card" id="card-9">
+    <div class="ch">
+      <div class="person">
+        <div class="av">B</div>
+        <div class="pi">
+          <h3>Brian Kavanagh</h3>
+          <p>Executive Vice President  ·  Performance Contracting Group</p>
+        </div>
+      </div>
+      <div class="acts">
+        <a href="https://www.linkedin.com/in/brian-kavanagh-085b9aa4" target="_blank" class="btn blue">🔗 LinkedIn</a>
+        <button class="btn green" onclick="markSent(9,'499103465151')">✓ Sent</button>
+        <button class="btn red" onclick="markSkip(9,'499103465151')">✕ Skip</button>
+      </div>
+    </div>
+    <div class="tabs">
+      <button class="tab active" onclick="sw(9,1,this)">Touch 1</button>
+      <button class="tab" onclick="sw(9,2,this)">Touch 2</button>
+      <button class="tab" onclick="sw(9,3,this)">Touch 3</button>
+    </div>
+    <textarea id="ta9-1" class="ta" rows="5" readonly onclick="this.select()">Hey Brian — I work with self-perform specialty contractors on craft-level manpower forecasting. Employee-owned firms like PCI tend to feel labor inefficiency more directly in the P&amp;L — would love to connect and share what we're seeing.</textarea>
+    <textarea id="ta9-2" class="ta" rows="5" readonly onclick="this.select()" style="display:none">Thanks for connecting Brian. At a firm PCI's scale managing specialty trades across so many markets, how are your ops teams staying ahead of craft availability gaps before they hit the schedule? That's exactly the problem CrewCast was built around. Worth a 15-minute conversation?</textarea>
+    <textarea id="ta9-3" class="ta" rows="5" readonly onclick="this.select()" style="display:none">Last reach out — I know executive roles at PCI's scale stay busy. If craft-level labor visibility heading into H2 is still a gap, I'd love 15 minutes to show you what we're doing. [Calendar Link]</textarea>
+    <div class="hint">Tap text → ⌘A / Select All → ⌘C to copy</div>
+  </div>
+  <div class="card" id="card-10">
+    <div class="ch">
+      <div class="person">
+        <div class="av">J</div>
+        <div class="pi">
+          <h3>Jason Behring</h3>
+          <p>Vice President &amp; CIO  ·  Everus Construction Group</p>
+        </div>
+      </div>
+      <div class="acts">
+        <a href="https://www.linkedin.com/in/jason-behring-149526188" target="_blank" class="btn blue">🔗 LinkedIn</a>
+        <button class="btn green" onclick="markSent(10,'499103465154')">✓ Sent</button>
+        <button class="btn red" onclick="markSkip(10,'499103465154')">✕ Skip</button>
+      </div>
+    </div>
+    <div class="tabs">
+      <button class="tab active" onclick="sw(10,1,this)">Touch 1</button>
+      <button class="tab" onclick="sw(10,2,this)">Touch 2</button>
+      <button class="tab" onclick="sw(10,3,this)">Touch 3</button>
+    </div>
+    <textarea id="ta10-1" class="ta" rows="5" readonly onclick="this.select()">Hey Jason — I work with self-perform electrical contractors on workforce forecasting and operational visibility. Your background bridging technology and construction ops at Everus is exactly the intersection we work in. Would love to connect.</textarea>
+    <textarea id="ta10-2" class="ta" rows="5" readonly onclick="this.select()" style="display:none">Thanks for connecting Jason. From the tech side at Everus, I'm curious — how much of your field ops data is actually getting used to make proactive craft scheduling decisions? The gap between what the schedule says and what actually shows up on site is the problem CrewCast was built to close. Worth a conversation?</textarea>
+    <textarea id="ta10-3" class="ta" rows="5" readonly onclick="this.select()" style="display:none">One more reach out — I know VP and CIO roles at Everus's scale keep you busy. If connecting field labor data to proactive scheduling decisions is still a gap, I'd love 15 minutes to show you what we're doing. [Calendar Link]</textarea>
+    <div class="hint">Tap text → ⌘A / Select All → ⌘C to copy</div>
+  </div>
+  <div class="card" id="card-11">
+    <div class="ch">
+      <div class="person">
+        <div class="av">D</div>
+        <div class="pi">
+          <h3>David Elkins</h3>
+          <p>Senior Vice President of Field Operations  ·  Rosendin Electric</p>
+        </div>
+      </div>
+      <div class="acts">
+        <a href="https://www.linkedin.com/in/david-elkins-5170554a" target="_blank" class="btn blue">🔗 LinkedIn</a>
+        <button class="btn green" onclick="markSent(11,'499103922925')">✓ Sent</button>
+        <button class="btn red" onclick="markSkip(11,'499103922925')">✕ Skip</button>
+      </div>
+    </div>
+    <div class="tabs">
+      <button class="tab active" onclick="sw(11,1,this)">Touch 1</button>
+      <button class="tab" onclick="sw(11,2,this)">Touch 2</button>
+      <button class="tab" onclick="sw(11,3,this)">Touch 3</button>
+    </div>
+    <textarea id="ta11-1" class="ta" rows="5" readonly onclick="this.select()">Hey David — started as an IBEW apprentice and worked up to SVP Field Operations at Rosendin — that's a career worth connecting with. I work with self-perform electrical contractors on craft-level workforce forecasting. Would love to connect.</textarea>
+    <textarea id="ta11-2" class="ta" rows="5" readonly onclick="this.select()" style="display:none">Thanks for connecting David. With 40+ years in the field, I'd love your take on this — how much of the scheduling chaos you see comes down to having the right headcount vs. the right craft mix on the right day? That gap is exactly what CrewCast was built to solve. Worth a quick conversation?</textarea>
+    <textarea id="ta11-3" class="ta" rows="5" readonly onclick="this.select()" style="display:none">One more reach out — I know field ops at Rosendin's scale keeps you moving. If labor visibility across projects is still a challenge heading into H2, I'd love 15 minutes. [Calendar Link]</textarea>
+    <div class="hint">Tap text → ⌘A / Select All → ⌘C to copy</div>
+  </div>
+  <div class="card" id="card-12">
+    <div class="ch">
+      <div class="person">
+        <div class="av">D</div>
+        <div class="pi">
+          <h3>David Schoonbeck</h3>
+          <p>Director of Operational Excellence  ·  Baker Construction Enterprises</p>
+        </div>
+      </div>
+      <div class="acts">
+        <a href="https://www.linkedin.com/in/david-schoonbeck-9a89a59" target="_blank" class="btn blue">🔗 LinkedIn</a>
+        <button class="btn green" onclick="markSent(12,'499104634610')">✓ Sent</button>
+        <button class="btn red" onclick="markSkip(12,'499104634610')">✕ Skip</button>
+      </div>
+    </div>
+    <div class="tabs">
+      <button class="tab active" onclick="sw(12,1,this)">Touch 1</button>
+      <button class="tab" onclick="sw(12,2,this)">Touch 2</button>
+      <button class="tab" onclick="sw(12,3,this)">Touch 3</button>
+    </div>
+    <textarea id="ta12-1" class="ta" rows="5" readonly onclick="this.select()">Hey David — I work with self-perform concrete contractors on labor forecasting and operational efficiency. Your background in operational excellence caught my eye. Would love to connect — think there's some interesting overlap in what we're building.</textarea>
+    <textarea id="ta12-2" class="ta" rows="5" readonly onclick="this.select()" style="display:none">Thanks for connecting David. Curious — in your operational excellence work, how much of the variance you're chasing comes down to craft mix issues vs. total headcount planning? It's the #1 blind spot we see across self-perform concrete. We built a tool specifically for that gap. Worth a quick conversation?</textarea>
+    <textarea id="ta12-3" class="ta" rows="5" readonly onclick="this.select()" style="display:none">Circling back one more time — I know Q2 close is a busy stretch. If labor productivity visibility is still on your radar heading into H2, I'd love 15 minutes to show you what we're doing at CrewCast. [Calendar Link]</textarea>
+    <div class="hint">Tap text → ⌘A / Select All → ⌘C to copy</div>
+  </div>
+  
+</div>
+<script>
+const API='https://base44.app/api/apps/6a274334d6b0962f39294123/functions/dailyProspects';
+const M={"0": {"1": "Hey Guillermo \u2014 25 years running tilt-up ops at Suntec is seriously impressive. I work with self-perform concrete contractors on craft-level manpower forecasting \u2014 making sure the right crew shows up before the pour, not after. Would love to connect.", "2": "Thanks for connecting Guillermo. With the volume of tilt-up Suntec runs, how are you tracking craft availability for each pour sequence before the week starts? The 'headcount looks fine but wrong mix shows up' problem is exactly what CrewCast was built to eliminate. Worth a 15-minute conversation?", "3": "One last reach out \u2014 I know ops managers at Suntec's pace stay buried. If craft-level scheduling is still a gap, I'd love 15 minutes to show you what we're doing. [Calendar Link]"}, "1": {"1": "Hey Steve \u2014 I work with self-perform electrical and I&E contractors on craft-level manpower forecasting. Your project controls background at MMR caught my attention \u2014 think there's a real overlap with what we're building. Would love to connect.", "2": "Thanks for connecting Steve. In project controls at a firm MMR's scale, I'm curious \u2014 how much of your variance is actually a craft mix problem masquerading as a headcount problem? That's the 'Headcount Trap' we see constantly in self-perform. CrewCast was built specifically around it. Worth a conversation?", "3": "Last reach out \u2014 I know project controls teams at MMR's scale are constantly firefighting. If trade-specific labor visibility is still a gap heading into Q3, I'd love 15 minutes to show you what we're doing. [Calendar Link]"}, "2": {"1": "Hey Mike \u2014 I work with self-perform electrical contractors on workforce forecasting \u2014 connecting the schedule to actual craft availability before the week starts. Your ops background at M.C. Dean caught my attention. Would love to connect.", "2": "Thanks for connecting Mike. With M.C. Dean running complex self-perform electrical across federal and commercial projects simultaneously, how are your teams tracking craft-specific gaps before they become delays? That coordination challenge is exactly what CrewCast was built for. Worth a quick conversation?", "3": "One last reach out \u2014 I know SVP roles at M.C. Dean's scale stay moving. If field labor visibility is still a gap heading into Q3, I'd love 15 minutes to show you what we're building. [Calendar Link]"}, "3": {"1": "Hey Derek \u2014 I work with self-perform concrete contractors on craft-level manpower forecasting. Suntec has built an impressive operation in the Southwest \u2014 managing tilt-up at that volume is a real scheduling challenge. Would love to connect.", "2": "Thanks for connecting Derek. Quick question \u2014 with the tilt-up volume Suntec runs, how are your superintendents tracking whether the right craft mix is confirmed before a pour sequence starts? That morning-of surprise is the exact problem CrewCast was built to eliminate. Worth a 15-minute conversation?", "3": "One last reach out \u2014 I know running a concrete operation at Suntec's scale keeps you moving. If craft-level scheduling visibility is still a challenge, I'd love 15 minutes to show you what we're doing. [Calendar Link]"}, "4": {"1": "Hey Adam \u2014 I work with self-perform electrical contractors on craft-level workforce forecasting. Delivering high-quality electrical construction at Cupertino's scale requires serious labor coordination \u2014 would love to connect and share what we're seeing.", "2": "Thanks for connecting Adam. With Cupertino running large-scale electrical projects simultaneously, how are your teams catching the craft mix gaps before they impact a milestone? That's the exact visibility problem CrewCast was built to solve. Worth a quick conversation?", "3": "One more reach out \u2014 I know SVP ops at Cupertino's scale keeps you moving. If matching the right trades to the right projects is still a challenge heading into H2, I'd love 15 minutes. [Calendar Link]"}, "5": {"1": "Hey John \u2014 congrats on the VP Operations move at Rosendin. I work with self-perform electrical contractors on workforce forecasting \u2014 matching craft trades to project demand before the week starts, not the morning of. Would love to connect.", "2": "Thanks for connecting John. Curious what you're seeing on the ops side \u2014 when your field teams are managing multiple active projects, how are you catching craft-specific gaps before they become delays? It's the problem we built CrewCast around. Worth a 15-minute conversation?", "3": "Didn't want to let this drop \u2014 I know VP ops roles at a firm Rosendin's size keep you buried. If matching the right trades to the right projects is still a challenge, I'd love to show you what we're doing. [Calendar Link]"}, "6": {"1": "Hey James \u2014 I work with self-perform electrical contractors on manpower forecasting and craft scheduling. 7 years building national construction ops at ArchKey is impressive \u2014 would love to connect and share what we're seeing across the industry.", "2": "Thanks for connecting James. With ArchKey running self-perform across so many markets, how are your superintendents staying ahead of craft mix gaps before they hit a milestone? The 'headcount looks fine but wrong trades on site' problem is exactly what CrewCast was built around. Worth a conversation?", "3": "Last reach out \u2014 I know ops VP roles at ArchKey's scale stay buried. If trade-specific scheduling visibility is still a gap, I'd love 15 minutes to show you what we're building. [Calendar Link]"}, "7": {"1": "Hey Jose \u2014 I work with self-perform heavy civil and foundation contractors on workforce forecasting \u2014 connecting field operations, project management, and scheduling in one place. Your background bridging ops and management at Keller caught my attention. Would love to connect.", "2": "Thanks for connecting Jose. With Keller managing crews across so many simultaneous foundation projects, I'm curious \u2014 how are your teams catching craft availability gaps before they hit the schedule? That coordination between the office and field is exactly what CrewCast was built for. Worth a quick conversation?", "3": "Circling back one more time \u2014 I know SVP roles at Keller's scale keep you moving. If field-to-office labor visibility is still a gap heading into H2, I'd love 15 minutes to show you what we're doing. [Calendar Link]"}, "8": {"1": "Hey Sam \u2014 I work with self-perform electrical contractors on craft-level workforce forecasting across multiple active projects. National ops at a firm ArchKey's scale is a real coordination challenge \u2014 would love to connect and share what we're seeing.", "2": "Thanks for connecting Sam. Managing self-perform electrical at a national scale, I'm curious \u2014 how are your project teams tracking craft-specific gaps across regions before they become schedule delays? That's the exact problem CrewCast was built to solve. Worth a 15-minute conversation?", "3": "One last reach out \u2014 I know national VP ops roles stay busy. If craft-level labor visibility across your regions is still a challenge heading into Q3, I'd love 15 minutes. [Calendar Link]"}, "9": {"1": "Hey Brian \u2014 I work with self-perform specialty contractors on craft-level manpower forecasting. Employee-owned firms like PCI tend to feel labor inefficiency more directly in the P&L \u2014 would love to connect and share what we're seeing.", "2": "Thanks for connecting Brian. At a firm PCI's scale managing specialty trades across so many markets, how are your ops teams staying ahead of craft availability gaps before they hit the schedule? That's exactly the problem CrewCast was built around. Worth a 15-minute conversation?", "3": "Last reach out \u2014 I know executive roles at PCI's scale stay busy. If craft-level labor visibility heading into H2 is still a gap, I'd love 15 minutes to show you what we're doing. [Calendar Link]"}, "10": {"1": "Hey Jason \u2014 I work with self-perform electrical contractors on workforce forecasting and operational visibility. Your background bridging technology and construction ops at Everus is exactly the intersection we work in. Would love to connect.", "2": "Thanks for connecting Jason. From the tech side at Everus, I'm curious \u2014 how much of your field ops data is actually getting used to make proactive craft scheduling decisions? The gap between what the schedule says and what actually shows up on site is the problem CrewCast was built to close. Worth a conversation?", "3": "One more reach out \u2014 I know VP and CIO roles at Everus's scale keep you busy. If connecting field labor data to proactive scheduling decisions is still a gap, I'd love 15 minutes to show you what we're doing. [Calendar Link]"}, "11": {"1": "Hey David \u2014 started as an IBEW apprentice and worked up to SVP Field Operations at Rosendin \u2014 that's a career worth connecting with. I work with self-perform electrical contractors on craft-level workforce forecasting. Would love to connect.", "2": "Thanks for connecting David. With 40+ years in the field, I'd love your take on this \u2014 how much of the scheduling chaos you see comes down to having the right headcount vs. the right craft mix on the right day? That gap is exactly what CrewCast was built to solve. Worth a quick conversation?", "3": "One more reach out \u2014 I know field ops at Rosendin's scale keeps you moving. If labor visibility across projects is still a challenge heading into H2, I'd love 15 minutes. [Calendar Link]"}, "12": {"1": "Hey David \u2014 I work with self-perform concrete contractors on labor forecasting and operational efficiency. Your background in operational excellence caught my eye. Would love to connect \u2014 think there's some interesting overlap in what we're building.", "2": "Thanks for connecting David. Curious \u2014 in your operational excellence work, how much of the variance you're chasing comes down to craft mix issues vs. total headcount planning? It's the #1 blind spot we see across self-perform concrete. We built a tool specifically for that gap. Worth a quick conversation?", "3": "Circling back one more time \u2014 I know Q2 close is a busy stretch. If labor productivity visibility is still on your radar heading into H2, I'd love 15 minutes to show you what we're doing at CrewCast. [Calendar Link]"}};
+let ns=0,nk=0,tot=13;
+
+function sw(i,t,btn){
+  [1,2,3].forEach(n=>{
+    const e=document.getElementById('ta'+i+'-'+n);
+    if(e) e.style.display=n===t?'block':'none';
+  });
+  btn.closest('.tabs').querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+async function markSent(i,id){
+  const c=document.getElementById('card-'+i);
+  c.classList.add('sent');
+  c.querySelectorAll('button').forEach(b=>b.disabled=true);
+  ns++; upd();
+  try{await fetch(API+'?action=updateStatus&id='+id+'&status=SENT');}catch(e){}
+}
+
+async function markSkip(i,id){
+  const c=document.getElementById('card-'+i);
+  c.classList.add('skipped');
+  c.querySelectorAll('button').forEach(b=>b.disabled=true);
+  nk++; upd();
+  try{await fetch(API+'?action=updateStatus&id='+id+'&status=SKIPPED');}catch(e){}
+}
+
+function upd(){
+  document.getElementById('nS').textContent=ns;
+  document.getElementById('nK').textContent=nk;
+  document.getElementById('nU').textContent=Math.max(0,tot-ns-nk);
+}
+</script>
+</body>
+</html>

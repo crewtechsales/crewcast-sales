@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CrewCast — Company Prospects</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,sans-serif;background:#f0f4f8;color:#1a202c}
+header{background:#1a202c;color:#fff;padding:18px 24px;display:flex;justify-content:space-between;align-items:center}
+h1{font-size:18px;font-weight:700}
+.sub{font-size:12px;color:#a0aec0;margin-top:2px}
+.badge{background:#f6ad55;color:#1a202c;font-size:12px;font-weight:700;padding:3px 10px;border-radius:20px}
+.wrap{max-width:860px;margin:0 auto;padding:20px 16px}
+.stats{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.stat{background:#fff;border-radius:10px;padding:14px 18px;flex:1;min-width:100px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.stat .n{font-size:26px;font-weight:800}
+.stat .l{font-size:10px;color:#718096;text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.sec{font-size:12px;font-weight:700;color:#718096;text-transform:uppercase;letter-spacing:.5px;margin:20px 0 10px}
+.card{background:#fff;border-radius:10px;padding:18px 20px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.08);border-left:4px solid #cbd5e0}
+.card.dim{opacity:.5;border-left-color:#e2e8f0;padding:12px 16px}
+.followed{border-left-color:#68d391;opacity:.55}
+.skipped{border-left-color:#fc8181;opacity:.5}
+.ch{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;flex-wrap:wrap;gap:8px}
+.ch h3{font-size:16px;font-weight:700;margin-bottom:4px}
+.tag{display:inline-block;color:#fff;font-size:10px;font-weight:700;padding:2px 9px;border-radius:20px}
+.acts{display:flex;gap:6px;flex-wrap:wrap}
+.btn{padding:7px 13px;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;border:none;text-decoration:none;display:inline-block}
+.blue{background:#0077b5;color:#fff}
+.green{background:#c6f6d5;color:#276749}
+.red{background:#fed7d7;color:#9b2c2c}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:10px 0}
+.mi{background:#f7fafc;border-radius:6px;padding:8px 12px}
+.ml{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#718096;margin-bottom:2px}
+.mv{font-size:13px;color:#2d3748;font-weight:500}
+.strat{background:#f7fafc;border-radius:6px;padding:10px 12px;margin-top:8px;font-size:13px;color:#4a5568;line-height:1.5}
+.pill{background:#c6f6d5;color:#276749;padding:1px 8px;border-radius:20px;font-size:11px;font-weight:700;margin:0 4px}
+details summary{cursor:pointer;font-size:12px;font-weight:700;color:#718096;text-transform:uppercase;letter-spacing:.5px;margin:20px 0 10px}
+</style>
+</head>
+<body>
+<header>
+  <div><h1>🏢 Company Follow Review</h1><div class="sub">Updated live · 10 to follow</div></div>
+  <span class="badge">10 To Follow</span>
+</header>
+<div class="wrap">
+  <div class="stats">
+    <div class="stat"><div class="n" id="cnU">10</div><div class="l">To Follow</div></div>
+    <div class="stat"><div class="n" id="cnF">0</div><div class="l">Followed</div></div>
+    <div class="stat"><div class="n" id="cnK">0</div><div class="l">Skipped</div></div>
+    <div class="stat"><div class="n">0</div><div class="l">Done Total</div></div>
+  </div>
+  <div class="sec">🏢 Companies to Follow (10)</div>
+  
+  <div class="card" id="co0">
+    <div class="ch">
+      <div>
+        <h3>Hubbard Construction Company</h3>
+        <span class="tag" style="background:#4299e1">Heavy Civil</span>
+      </div>
+      <div class="acts">
+        <a href="https://www.linkedin.com/company/hubbard-construction-company" target="_blank" class="btn blue">🔗 LinkedIn</a>
+        <button class="btn green" onclick="coFollow(0,'6a2904fd289260960e37f11f')">✓ Followed</button>
+        <button class="btn red" onclick="coSkip(0,'6a2904fd289260960e37f11f')">✕ Skip</button>
+      </div>
+    </div>
+    <div class="meta">
+      <div class="mi"><div class="ml">HQ</div><div class="mv">Winter Park, Florida</div></div>
+      <div class="mi"><div class="ml">Revenue</div><div class="mv">$200M - $400M</div></div>
+      <div class="mi"><div class="ml">Employees</div><div class="mv">600-800</div></div>
+    </div>
+    <div class="strat"><b>Specialties:</b> Asphalt paving, highway construction, heavy civil, design-build, site development</div>
+    <div class="strat"><b>📌 Follow:</b> Track posts on project wins, workforce expansion, and equipment utilization. Watch for mentions of operational efficiency.</div>
+    <div class="strat"><b>💬 Engage:</b> Hubbard is FL's largest heavy civil GC. Engage on posts about managing large crews across multiple project phases with CrewCast workforce forecasting.</div>
+  </div>
+  <div class="card" id="co1">
+    <div class="ch">
+      <div>
+        <h3>Performance Contractors, Inc.</h3>
+        <span class="tag" style="background:#4299e1">Heavy Civil / Industrial / Electrical</span>
+      </div>
+      <div class="acts">
+        <a href="https://www.linkedin.com/company/performance-contractors" target="_blank" class="btn blue">🔗 LinkedIn</a>
+        <button class="btn green" onclick="coFollow(1,'6a2904fd289260960e37f120')">✓ Followed</button>
+        <button class="btn red" onclick="coSkip(1,'6a2904fd289260960e37f120')">✕ Skip</button>
+      </div>
+    </div>
+    <div class="meta">
+      <div class="mi"><div class="ml">HQ</div><div class="mv">Baton Rouge, Louisiana</div></div>
+      <div class="mi"><div class="ml">Revenue</div><div class="mv">$150M - $250M</div></div>
+      <div class="mi"><div class="ml">Employees</div><div class="mv">1,000-1,200</div></div>
+    </div>
+    <div class="strat"><b>Specialties:</b> Industrial construction, heavy civil, electrical/instrumentation, self-perform (~95%)</div>
+    <div class="strat"><b>📌 Follow:</b> Follow posts on industrial projects, crew recruitment/retention, and self-perform operations.</div>
+    <div class="strat"><b>💬 Engage:</b> High self-perform model = heavy crew management. Engage on posts about recruiting craft labor and managing distributed crews.</div>
+  </div>
+  <div class="card" id="co2">
+    <div class="ch">
+      <div>
+        <h3>Consigli Construction Co., Inc.</h3>
+        <span class="tag" style="background:#667eea">General Contracting / Construction Management</span>
+      </div>
+      <div class="acts">
+        <a href="https://www.linkedin.com/company/consigli-construction" target="_blank" class="btn blue">🔗 LinkedIn</a>
+        <button class="btn green" onclick="coFollow(2,'6a2904fd289260960e37f121')">✓ Followed</button>
+        <button class="btn red" onclick="coSkip(2,'6a2904fd289260960e37f121')">✕ Skip</button>
+      </div>
+    </div>
+    <div class="meta">
+      <div class="mi"><div class="ml">HQ</div><div class="mv">Milford, Massachusetts</div></div>
+      <div class="mi"><div class="ml">Revenue</div><div class="mv">$300M - $400M</div></div>
+      <div class="mi"><div class="ml">Employees</div><div class="mv">600-800</div></div>
+    </div>
+    <div class="strat"><b>Specialties:</b> Commercial, healthcare, education, mixed-use, design-build, CM, self-perform trades</div>
+    <div class="strat"><b>📌 Follow:</b> Monitor Northeast expansion posts, project deliveries, and craft labor strategies.</div>
+    <div class="strat"><b>💬 Engage:</b> Comment on project announcements with crew forecasting benefits for complex phased projects.</div>
+  </div>
+  <div class="card" id="co3">
+    <div class="ch">
+      <div>
+        <h3>Orion Group Holdings, Inc.</h3>
+        <span class="tag" style="background:#4299e1">Marine / Heavy Civil / Concrete</span>
+      </div>
+      <div class="acts">
+        <a href="https://www.linkedin.com/company/orion-group-holdings" target="_blank" class="btn blue">🔗 LinkedIn</a>
+        <button class="btn green" onclick="coFollow(3,'6a2904fd289260960e37f122')">✓ Followed</button>
+        <button class="btn red" onclick="coSkip(3,'6a2904fd289260960e37f122')">✕ Skip</button>
+      </div>
+    </div>
+    <div class="meta">
+      <div class="mi"><div class="ml">HQ</div><div class="mv">New Orleans, Louisiana</div></div>
+      <div class="mi"><div class="ml">Revenue</div><div class="mv">$300M - $500M</div></div>
+      <div class="mi"><div class="ml">Employees</div><div class="mv">2,000+</div></div>
+    </div>
+    <div class="strat"><b>Specialties:</b> Marine construction, concrete construction (TAS Concrete), heavy civil, self-perform</div>
+    <div class="strat"><b>📌 Follow:</b> Follow posts on marine/infrastructure projects, safety initiatives, and specialty concrete work.</div>
+    <div class="strat"><b>💬 Engage:</b> Engage on concrete construction posts from TAS division. Crew forecasting for complex marine/civil projects.</div>
+  </div>
+  <div class="card" id="co4">
+    <div class="ch">
+      <div>
+        <h3>Lunda Construction Company</h3>
+        <span class="tag" style="background:#4299e1">Heavy Highway / Civil</span>
+      </div>
+      <div class="acts">
+        <a href="https://www.linkedin.com/company/lunda-construction" target="_blank" class="btn blue">🔗 LinkedIn</a>
+        <button class="btn green" onclick="coFollow(4,'6a2904fd289260960e37f123')">✓ Followed</button>
+        <button class="btn red" onclick="coSkip(4,'6a2904fd289260960e37f123')">✕ Skip</button>
+      </div>
+    </div>
+    <div class="meta">
+      <div class="mi"><div class="ml">HQ</div><div class="mv">Black River Falls, Wisconsin</div></div>
+      <div class="mi"><div class="ml">Revenue</div><div class="mv">$300M - $400M</div></div>
+      <div class="mi"><div class="ml">Employees</div><div class="mv">600-800</div></div>
+    </div>
+    <div class="strat"><b>Specialties:</b> Heavy highway, civil infrastructure, industrial, design-build, CMGC, self-perform</div>
+    <div class="strat"><b>📌 Follow:</b> Monitor Midwest infrastructure posts, equipment utilization, and workforce expansion.</div>
+    <div class="strat"><b>💬 Engage:</b> Midwest regional leader with $400M backlog. Engage on managing crews across multiple concurrent highway/civil projects.</div>
+  </div>
+  <div class="card" id="co5">
+    <div class="ch">
+      <div>
+        <h3>Sundt Construction</h3>
+        <span class="tag" style="background:#4299e1">Heavy Civil / Commercial</span>
+      </div>
+      <div class="acts">
+        <a href="https://www.linkedin.com/company/sundt-construction" target="_blank" class="btn blue">🔗 LinkedIn</a>
+        <button class="btn green" onclick="coFollow(5,'6a2904fd289260960e37f124')">✓ Followed</button>
+        <button class="btn red" onclick="coSkip(5,'6a2904fd289260960e37f124')">✕ Skip</button>
+      </div>
+    </div>
+    <div class="meta">
+      <div class="mi"><div class="ml">HQ</div><div class="mv">Tempe, Arizona</div></div>
+      <div class="mi"><div class="ml">Revenue</div><div class="mv">$1.3B (employee-owned)</div></div>
+      <div class="mi"><div class="ml">Employees</div><div class="mv">3,000+</div></div>
+    </div>
+    <div class="strat"><b>Specialties:</b> Heavy civil, concrete, commercial construction, self-perform, employee-owned</div>
+    <div class="strat"><b>📌 Follow:</b> Follow employee-ownership culture posts, Southwest infrastructure, and self-perform capabilities.</div>
+    <div class="strat"><b>💬 Engage:</b> Employee-owned with strong self-perform. Engage on managing large distributed crews across Arizona/Southwest.</div>
+  </div>
+  <div class="card" id="co6">
+    <div class="ch">
+      <div>
+        <h3>Trumbull Corporation</h3>
+        <span class="tag" style="background:#4299e1">Heavy Highway / Civil</span>
+      </div>
+      <div class="acts">
+        <a href="https://www.linkedin.com/company/pj-dick---trumbull---lindy-paving" target="_blank" class="btn blue">🔗 LinkedIn</a>
+        <button class="btn green" onclick="coFollow(6,'6a2904fd289260960e37f125')">✓ Followed</button>
+        <button class="btn red" onclick="coSkip(6,'6a2904fd289260960e37f125')">✕ Skip</button>
+      </div>
+    </div>
+    <div class="meta">
+      <div class="mi"><div class="ml">HQ</div><div class="mv">Pittsburgh, Pennsylvania</div></div>
+      <div class="mi"><div class="ml">Revenue</div><div class="mv">$150M - $300M</div></div>
+      <div class="mi"><div class="ml">Employees</div><div class="mv">400-600</div></div>
+    </div>
+    <div class="strat"><b>Specialties:</b> Heavy highway, bridges, site development, excavation, design-build, self-perform</div>
+    <div class="strat"><b>📌 Follow:</b> Track Mid-Atlantic bridge/highway projects, crew safety, and equipment utilization.</div>
+    <div class="strat"><b>💬 Engage:</b> Regional Mid-Atlantic leader. Engage on complex bridge/highway project sequencing with large crew dependencies.</div>
+  </div>
+  <div class="card" id="co7">
+    <div class="ch">
+      <div>
+        <h3>SumCo Eco-Contracting</h3>
+        <span class="tag" style="background:#4299e1">Heavy / Site / Civil (Environmental)</span>
+      </div>
+      <div class="acts">
+        <a href="https://www.linkedin.com/company/sumcoeco-contracting" target="_blank" class="btn blue">🔗 LinkedIn</a>
+        <button class="btn green" onclick="coFollow(7,'6a2904fd289260960e37f126')">✓ Followed</button>
+        <button class="btn red" onclick="coSkip(7,'6a2904fd289260960e37f126')">✕ Skip</button>
+      </div>
+    </div>
+    <div class="meta">
+      <div class="mi"><div class="ml">HQ</div><div class="mv">Northeast (Regional)</div></div>
+      <div class="mi"><div class="ml">Revenue</div><div class="mv">$50M - $150M</div></div>
+      <div class="mi"><div class="ml">Employees</div><div class="mv">200-350</div></div>
+    </div>
+    <div class="strat"><b>Specialties:</b> Environmental site remediation, heavy/site/civil construction, self-perform, ecological restoration</div>
+    <div class="strat"><b>📌 Follow:</b> Monitor environmental projects, sustainability initiatives, and crew expertise.</div>
+    <div class="strat"><b>💬 Engage:</b> Specialized environmental heavy civil. Engage on managing specialized crews for complex remediation projects.</div>
+  </div>
+  <div class="card" id="co8">
+    <div class="ch">
+      <div>
+        <h3>Barton Malow Company</h3>
+        <span class="tag" style="background:#4299e1">Commercial / Heavy Civil</span>
+      </div>
+      <div class="acts">
+        <a href="https://www.linkedin.com/company/barton-malow-company" target="_blank" class="btn blue">🔗 LinkedIn</a>
+        <button class="btn green" onclick="coFollow(8,'6a2904fd289260960e37f127')">✓ Followed</button>
+        <button class="btn red" onclick="coSkip(8,'6a2904fd289260960e37f127')">✕ Skip</button>
+      </div>
+    </div>
+    <div class="meta">
+      <div class="mi"><div class="ml">HQ</div><div class="mv">Detroit, Michigan</div></div>
+      <div class="mi"><div class="ml">Revenue</div><div class="mv">$200M - $400M</div></div>
+      <div class="mi"><div class="ml">Employees</div><div class="mv">1,000+</div></div>
+    </div>
+    <div class="strat"><b>Specialties:</b> Commercial, healthcare, industrial, heavy civil, self-perform trades, design-build</div>
+    <div class="strat"><b>📌 Follow:</b> Monitor Michigan/Midwest projects, self-perform capabilities, and healthcare construction.</div>
+    <div class="strat"><b>💬 Engage:</b> Major Midwest GC with strong self-perform. Engage on managing large mixed-use/healthcare projects.</div>
+  </div>
+  <div class="card" id="co9">
+    <div class="ch">
+      <div>
+        <h3>Reeves Construction Company</h3>
+        <span class="tag" style="background:#4299e1">Heavy Civil / Asphalt Paving</span>
+      </div>
+      <div class="acts">
+        <a href="https://www.linkedin.com/company/reeves-construction-company" target="_blank" class="btn blue">🔗 LinkedIn</a>
+        <button class="btn green" onclick="coFollow(9,'6a2904fd289260960e37f129')">✓ Followed</button>
+        <button class="btn red" onclick="coSkip(9,'6a2904fd289260960e37f129')">✕ Skip</button>
+      </div>
+    </div>
+    <div class="meta">
+      <div class="mi"><div class="ml">HQ</div><div class="mv">Statesboro, Georgia</div></div>
+      <div class="mi"><div class="ml">Revenue</div><div class="mv">$75M - $150M</div></div>
+      <div class="mi"><div class="ml">Employees</div><div class="mv">350-450</div></div>
+    </div>
+    <div class="strat"><b>Specialties:</b> Transportation infrastructure, asphalt paving, concrete flatwork, site development</div>
+    <div class="strat"><b>📌 Follow:</b> Monitor infrastructure posts, crew performance, and equipment innovations.</div>
+    <div class="strat"><b>💬 Engage:</b> Comment on project updates with CrewCast crew forecasting for large paving operations.</div>
+  </div>
+  
+</div>
+<script>
+const CAPI='https://base44.app/api/apps/6a274334d6b0962f39294123/functions/companyReview';
+let cf=0,ck=0,ctot=10;
+async function coFollow(i,id){
+  const c=document.getElementById('co'+i);
+  c.classList.add('followed');
+  c.querySelectorAll('button').forEach(b=>b.disabled=true);
+  cf++; cupd();
+  try{await fetch(CAPI+'?action=updateStatus&id='+id+'&status=FOLLOWED');}catch(e){}
+}
+async function coSkip(i,id){
+  const c=document.getElementById('co'+i);
+  c.classList.add('skipped');
+  c.querySelectorAll('button').forEach(b=>b.disabled=true);
+  ck++; cupd();
+  try{await fetch(CAPI+'?action=updateStatus&id='+id+'&status=SKIPPED');}catch(e){}
+}
+function cupd(){
+  document.getElementById('cnF').textContent=cf;
+  document.getElementById('cnK').textContent=ck;
+  document.getElementById('cnU').textContent=Math.max(0,ctot-cf-ck);
+}
+</script>
+</body>
+</html>
