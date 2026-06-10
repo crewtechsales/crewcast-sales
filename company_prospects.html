@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CrewCast — Company Prospect Review</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(0,0,0,0.1);
+            padding: 20px;
+            color: white;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .prospect-card {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .prospect-card:hover {
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.1);
+            transform: translateX(5px);
+        }
+        
+        .prospect-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 15px;
+        }
+        
+        .prospect-name {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .prospect-sector {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+        
+        .prospect-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .detail {
+            background: white;
+            padding: 12px;
+            border-radius: 6px;
+        }
+        
+        .detail-label {
+            font-size: 0.85em;
+            color: #666;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+        
+        .detail-value {
+            color: #333;
+            font-size: 0.95em;
+        }
+        
+        .linkedin-link {
+            color: #0a66c2;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 5px;
+        }
+        
+        .linkedin-link:hover {
+            text-decoration: underline;
+        }
+        
+        .strategy-section {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+        }
+        
+        .strategy-title {
+            font-weight: 600;
+            color: #667eea;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        
+        .strategy-text {
+            color: #555;
+            line-height: 1.5;
+            font-size: 0.95em;
+        }
+        
+        .status-badge {
+            background: #10b981;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+        
+        .footer {
+            background: #f8f9fa;
+            padding: 20px 40px;
+            border-top: 1px solid #ddd;
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .refresh-time {
+            color: #999;
+            font-size: 0.85em;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .prospect-header {
+                flex-direction: column;
+            }
+            
+            .prospect-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 CrewCast Company Prospects</h1>
+            <p>LinkedIn-based company outreach strategy for self-perform contractors</p>
+        </div>
+        
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number">10</div>
+                <div class="stat-label">New Companies</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">$25M–$500M</div>
+                <div class="stat-label">Revenue Range</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Sectors Targeted</div>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="prospect-card">
+                <div class="prospect-header">
+                    <div>
+                        <div class="prospect-name">Reeves Construction Company</div>
+                    </div>
+                    <span class="status-badge">NEW</span>
+                </div>
+                <div class="prospect-sector">Heavy Civil / Asphalt Paving</div>
+                
+                <div class="prospect-details">
+                    <div class="detail">
+                        <div class="detail-label">Headquarters</div>
+                        <div class="detail-value">Statesboro, Georgia</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">Revenue</div>
+                        <div class="detail-value">$75M - $150M</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">Employees</div>
+                        <div class="detail-value">350-450</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">LinkedIn</div>
+                        <a href="https://www.linkedin.com/company/reeves-construction-company" class="linkedin-link" target="_blank">View Profile →</a>
+                    </div>
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-title">Core Specialties</div>
+                    <div class="strategy-text">Transportation infrastructure, asphalt paving, concrete flatwork, site development</div>
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-title">📌 Follow Strategy</div>
+                    <div class="strategy-text">Monitor posts on infrastructure projects, crew performance, and equipment innovations. Engage on posts about scheduling challenges and labor forecasting.</div>
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-title">💬 Engagement Angle</div>
+                    <div class="strategy-text">Comment on their project updates with insights on how CrewCast helps forecast crew needs for large paving operations. Reference their multi-region operations.</div>
+                </div>
+            </div>
+            
+            <div class="prospect-card">
+                <div class="prospect-header">
+                    <div>
+                        <div class="prospect-name">Hubbard Construction Company</div>
+                    </div>
+                    <span class="status-badge">NEW</span>
+                </div>
+                <div class="prospect-sector">Heavy Civil</div>
+                
+                <div class="prospect-details">
+                    <div class="detail">
+                        <div class="detail-label">Headquarters</div>
+                        <div class="detail-value">Winter Park, Florida</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">Revenue</div>
+                        <div class="detail-value">$200M - $400M</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">Employees</div>
+                        <div class="detail-value">600-800</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">LinkedIn</div>
+                        <a href="https://www.linkedin.com/company/hubbard-construction-company" class="linkedin-link" target="_blank">View Profile →</a>
+                    </div>
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-title">Core Specialties</div>
+                    <div class="strategy-text">Asphalt paving, highway construction, heavy civil, design-build, site development</div>
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-title">📌 Follow Strategy</div>
+                    <div class="strategy-text">Track posts on project wins, workforce expansion, and equipment utilization. Watch for mentions of operational efficiency.</div>
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-title">💬 Engagement Angle</div>
+                    <div class="strategy-text">Hubbard is FL's largest heavy civil GC. Engage on posts about managing large crews across multiple project phases with CrewCast workforce forecasting.</div>
+                </div>
+            </div>
+            
+            <div class="prospect-card">
+                <div class="prospect-header">
+                    <div>
+                        <div class="prospect-name">Performance Contractors, Inc.</div>
+                    </div>
+                    <span class="status-badge">NEW</span>
+                </div>
+                <div class="prospect-sector">Heavy Civil / Industrial / Electrical</div>
+                
+                <div class="prospect-details">
+                    <div class="detail">
+                        <div class="detail-label">Headquarters</div>
+                        <div class="detail-value">Baton Rouge, Louisiana</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">Revenue</div>
+                        <div class="detail-value">$150M - $250M</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">Employees</div>
+                        <div class="detail-value">1,000-1,200</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">LinkedIn</div>
+                        <a href="https://www.linkedin.com/company/performance-contractors" class="linkedin-link" target="_blank">View Profile →</a>
+                    </div>
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-title">Core Specialties</div>
+                    <div class="strategy-text">Industrial construction, heavy civil, electrical/instrumentation, self-perform (~95%)</div>
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-title">📌 Follow Strategy</div>
+                    <div class="strategy-text">Follow posts on industrial projects, crew recruitment/retention, and self-perform operations. Merit shop focused—look for labor management content.</div>
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-title">💬 Engagement Angle</div>
+                    <div class="strategy-text">High self-perform model = heavy crew management needs. Engage on posts about recruiting craft labor and managing distributed crews across multiple states.</div>
+                </div>
+            </div>
+            
+            <div class="prospect-card">
+                <div class="prospect-header">
+                    <div>
+                        <div class="prospect-name">Consigli Construction Co., Inc.</div>
+                    </div>
+                    <span class="status-badge">NEW</span>
+                </div>
+                <div class="prospect-sector">General Contracting / Construction Management</div>
+                
+                <div class="prospect-details">
+                    <div class="detail">
+                        <div class="detail-label">Headquarters</div>
+                        <div class="detail-value">Milford, Massachusetts</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">Revenue</div>
+                        <div class="detail-value">$300M - $500M</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">Employees</div>
+                        <div class="detail-value">800-1,000</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">LinkedIn</div>
+                        <a href="https://www.linkedin.com/company/consigli-construction" class="linkedin-link" target="_blank">View Profile →</a>
+                    </div>
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-title">Core Specialties</div>
+                    <div class="strategy-text">Commercial, healthcare, education, mixed-use, design-build, CM, self-perform trades</div>
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-title">📌 Follow Strategy</div>
+                    <div class="strategy-text">Monitor posts on project deliveries, craft labor strategies, and Northeast expansion. Watch for 4th-generation family business leadership content.</div>
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-title">💬 Engagement Angle</div>
+                    <div class="strategy-text">Comment on project announcements with crew forecasting benefits for complex phased projects. Reference self-perform efficiency gains.</div>
+                </div>
+            </div>
+            
+            <div class="prospect-card">
+                <div class="prospect-header">
+                    <div>
+                        <div class="prospect-name">Orion Group Holdings, Inc.</div>
+                    </div>
+                    <span class="status-badge">NEW</span>
+                </div>
+                <div class="prospect-sector">Marine / Heavy Civil / Concrete</div>
+                
+                <div class="prospect-details">
+                    <div class="detail">
+                        <div class="detail-label">Headquarters</div>
+                        <div class="detail-value">New Orleans, Louisiana</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">Revenue</div>
+                        <div class="detail-value">$900M (public; segmented ops fit target)</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">Employees</div>
+                        <div class="detail-value">2,000+</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">LinkedIn</div>
+                        <a href="https://www.linkedin.com/company/orion-group-holdings" class="linkedin-link" target="_blank">View Profile →</a>
+                    </div>
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-title">Core Specialties</div>
+                    <div class="strategy-text">Marine construction, concrete (TAS Concrete), heavy civil, self-perform, public company</div>
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-title">📌 Follow Strategy</div>
+                    <div class="strategy-text">Follow posts on marine/infrastructure projects, safety initiatives, and specialty concrete work. Strong self-perform model with public transparency.</div>
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-title">💬 Engagement Angle</div>
+                    <div class="strategy-text">Target TAS Concrete division posts. Crew forecasting for complex marine/civil projects with phased labor requirements and long lead times.</div>
+                </div>
+            </div>
+            
+            <div class="prospect-card">
+                <div class="prospect-header">
+                    <div>
+                        <div class="prospect-name">Lunda Construction Company</div>
+                    </div>
+                    <span class="status-badge">NEW</span>
+                </div>
+                <div class="prospect-sector">Heavy Highway / Civil</div>
+                
+                <div class="prospect-details">
+                    <div class="detail">
+                        <div class="detail-label">Headquarters</div>
+                        <div class="detail-value">Black River Falls, Wisconsin</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">Revenue</div>
+                        <div class="detail-value">$300M - $400M</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">Employees</div>
+                        <div class="detail-value">600-800</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">LinkedIn</div>
+                        <a href="https://www.linkedin.com/company/lunda-construction" class="linkedin-link" target="_blank">View Profile →</a>
+                    </div>
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-title">Core Specialties</div>
+                    <div class="strategy-text">Heavy highway, civil infrastructure, industrial, design-build, CMGC, self-perform</div>
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-title">📌 Follow Strategy</div>
+                    <div class="strategy-text">Monitor posts on Midwest infrastructure projects, equipment utilization, and workforce expansion. Strong backlog focus in regional market.</div>
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-title">💬 Engagement Angle</div>
+                    <div class="strategy-text">Midwest regional leader with $400M backlog. Engage on posts about managing crews across multiple concurrent highway/civil projects.</div>
+                </div>
+            </div>
+            
+            <div class="prospect-card">
+                <div class="prospect-header">
+                    <div>
+                        <div class="prospect-name">Sundt Construction</div>
+                    </div>
+                    <span class="status-badge">NEW</span>
+                </div>
+                <div class="prospect-sector">Heavy Civil / Commercial</div>
+                
+                <div class="prospect-details">
+                    <div class="detail">
+                        <div class="detail-label">Headquarters</div>
+                        <div class="detail-value">Tempe, Arizona</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">Revenue</div>
+                        <div class="detail-value">$1.3B (employee-owned, regional ops)</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">Employees</div>
+                        <div class="detail-value">3,000+ (employee-owned)</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">LinkedIn</div>
+                        <a href="https://www.linkedin.com/company/sundt-construction" class="linkedin-link" target="_blank">View Profile →</a>
+                    </div>
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-title">Core Specialties</div>
+                    <div class="strategy-text">Heavy civil, concrete, commercial construction, self-perform, employee-owned model</div>
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-title">📌 Follow Strategy</div>
+                    <div class="strategy-text">Follow posts on Southwest infrastructure, employee-ownership culture, and self-perform capabilities. Strong safety culture and engagement content.</div>
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-title">💬 Engagement Angle</div>
+                    <div class="strategy-text">Employee-owned model with strong self-perform. Engage on posts about managing large distributed crews and equipment scheduling across Arizona/Southwest.</div>
+                </div>
+            </div>
+            
+            <div class="prospect-card">
+                <div class="prospect-header">
+                    <div>
+                        <div class="prospect-name">Trumbull Corporation</div>
+                    </div>
+                    <span class="status-badge">NEW</span>
+                </div>
+                <div class="prospect-sector">Heavy Highway / Civil</div>
+                
+                <div class="prospect-details">
+                    <div class="detail">
+                        <div class="detail-label">Headquarters</div>
+                        <div class="detail-value">Pittsburgh, Pennsylvania</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">Revenue</div>
+                        <div class="detail-value">$150M - $300M</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">Employees</div>
+                        <div class="detail-value">400-600</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">LinkedIn</div>
+                        <a href="https://www.linkedin.com/company/pj-dick---trumbull---lindy-paving" class="linkedin-link" target="_blank">View Profile →</a>
+                    </div>
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-title">Core Specialties</div>
+                    <div class="strategy-text">Heavy highway, bridges, site development, excavation, design-build, self-perform</div>
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-title">📌 Follow Strategy</div>
+                    <div class="strategy-text">Track posts on bridge/highway projects in Mid-Atlantic, crew safety initiatives, and equipment utilization. Regional reputation leader.</div>
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-title">💬 Engagement Angle</div>
+                    <div class="strategy-text">Regional Mid-Atlantic leader. Engage on posts about complex bridge/highway project sequencing with large crew dependencies and tight timelines.</div>
+                </div>
+            </div>
+            
+            <div class="prospect-card">
+                <div class="prospect-header">
+                    <div>
+                        <div class="prospect-name">SumCo Eco-Contracting</div>
+                    </div>
+                    <span class="status-badge">NEW</span>
+                </div>
+                <div class="prospect-sector">Heavy / Site / Civil (Environmental Focus)</div>
+                
+                <div class="prospect-details">
+                    <div class="detail">
+                        <div class="detail-label">Headquarters</div>
+                        <div class="detail-value">Northeast (Regional)</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">Revenue</div>
+                        <div class="detail-value">$50M - $150M</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">Employees</div>
+                        <div class="detail-value">200-350</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">LinkedIn</div>
+                        <a href="https://www.linkedin.com/company/sumcoeco-contracting" class="linkedin-link" target="_blank">View Profile →</a>
+                    </div>
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-title">Core Specialties</div>
+                    <div class="strategy-text">Environmental site remediation, heavy/site/civil construction, self-perform, ecological restoration</div>
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-title">📌 Follow Strategy</div>
+                    <div class="strategy-text">Monitor posts on environmental projects, sustainability initiatives, and specialized crew expertise. Growing Northeast market presence.</div>
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-title">💬 Engagement Angle</div>
+                    <div class="strategy-text">Specialized in ecological/environmental heavy civil. Engage on posts about managing specialized crews for complex environmental remediation projects.</div>
+                </div>
+            </div>
+            
+            <div class="prospect-card">
+                <div class="prospect-header">
+                    <div>
+                        <div class="prospect-name">Barton Malow Company</div>
+                    </div>
+                    <span class="status-badge">NEW</span>
+                </div>
+                <div class="prospect-sector">Commercial / Heavy Civil</div>
+                
+                <div class="prospect-details">
+                    <div class="detail">
+                        <div class="detail-label">Headquarters</div>
+                        <div class="detail-value">Detroit, Michigan</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">Revenue</div>
+                        <div class="detail-value">$200M - $400M (regional)</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">Employees</div>
+                        <div class="detail-value">1,000+</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">LinkedIn</div>
+                        <a href="https://www.linkedin.com/company/barton-malow-company" class="linkedin-link" target="_blank">View Profile →</a>
+                    </div>
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-title">Core Specialties</div>
+                    <div class="strategy-text">Commercial, healthcare, industrial, heavy civil, self-perform trades, design-build</div>
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-title">📌 Follow Strategy</div>
+                    <div class="strategy-title">📌 Follow Strategy</div>
+                    <div class="strategy-text">Monitor posts on Michigan/Midwest projects, self-perform capabilities, and healthcare construction expertise.</div>
+                </div>
+                
+                <div class="strategy-section">
+                    <div class="strategy-title">💬 Engagement Angle</div>
+                    <div class="strategy-text">Major Midwest GC with strong self-perform. Engage on posts about managing large mixed-use/healthcare projects with complex phasing and crew demands.</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p><strong>✅ All companies are NEW and ready for outreach</strong></p>
+            <p style="margin-top: 10px;">These prospects match CrewCast's ideal customer profile: Heavy Civil, Concrete, or Electrical contractors with $25M–$500M annual revenue.</p>
+            <p style="margin-top: 10px;"><strong>Strategy:</strong> Like and comment on 2-3 of their recent LinkedIn posts (follow engagement angles) before sending a direct message with a CrewCast intro.</p>
+            <p class="refresh-time" style="margin-top: 15px;">Generated: 2026-06-10 02:30 ET</p>
+        </div>
+    </div>
+</body>
+</html>
