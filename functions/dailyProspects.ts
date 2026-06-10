@@ -182,7 +182,7 @@ Deno.serve(async (req) => {
           <textarea class="message-text" id="msg-${i}-1" readonly rows="4">${c.touch1 || '(no message)'}</textarea>
           <textarea class="message-text" id="msg-${i}-2" style="display:none" readonly rows="4">${c.touch2 || '(no message)'}</textarea>
           <textarea class="message-text" id="msg-${i}-3" style="display:none" readonly rows="4">${c.touch3 || '(no message)'}</textarea>
-          <button class="copy-btn" id="copy-${i}" onclick="copyMessage(${i})">Select All ✓</button>
+          <button class="copy-btn" id="copy-${i}" onclick="copyMessage(${i})">Copy</button>
         </div>
         <div class="timing" id="timing-${i}">Send Touch 1 now · Touch 2 in 3-5 days after they accept · Touch 3 in 5-7 days if no reply</div>
       </div>`).join('')}
@@ -233,15 +233,45 @@ Deno.serve(async (req) => {
     const activeIdx = tabs.findIndex(b => b.classList.contains('active'));
     const touch = activeIdx >= 0 ? activeIdx + 1 : 1;
     const ta = document.getElementById('msg-' + cardIdx + '-' + touch);
-    if (ta) {
-      ta.focus();
-      ta.select();
-      ta.setSelectionRange(0, 99999);
-    }
+    const text = ta ? ta.value : '';
     const btn = document.getElementById('copy-' + cardIdx);
-    btn.textContent = 'Selected! Ctrl+C';
-    btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = 'Select All ✓'; btn.classList.remove('copied'); }, 3000);
+
+    // Try modern clipboard API first
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = '✓ Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+      }).catch(() => fallbackCopy(text, btn));
+    } else {
+      fallbackCopy(text, btn);
+    }
+  }
+
+  function fallbackCopy(text, btn) {
+    // Create off-screen textarea, select, execCommand — works on all browsers on user click
+    const el = document.createElement('textarea');
+    el.value = text;
+    el.setAttribute('readonly', '');
+    el.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0;';
+    document.body.appendChild(el);
+    el.focus();
+    el.select();
+    el.setSelectionRange(0, 99999);
+    let success = false;
+    try { success = document.execCommand('copy'); } catch(e) {}
+    document.body.removeChild(el);
+    if (success) {
+      btn.textContent = '✓ Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+    } else {
+      // Last resort: select in-place so user can Ctrl+C
+      const ta2 = document.getElementById(btn.id.replace('copy-', 'msg-') + '-' + (parseInt(btn.closest('.prospect-card').querySelector('.touch-tab.active')?.textContent) || 1));
+      if (ta2) { ta2.focus(); ta2.select(); }
+      btn.textContent = 'Press Ctrl+C';
+      setTimeout(() => { btn.textContent = 'Copy'; }, 3000);
+    }
   }
 
 
