@@ -1,1747 +1,460 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CrewCast — Prospect Review</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,sans-serif;background:#f0f4f8;color:#1a202c}
-header{background:#1a202c;color:#fff;padding:18px 24px;display:flex;justify-content:space-between;align-items:center}
-h1{font-size:18px;font-weight:700}
-.sub{font-size:12px;color:#a0aec0;margin-top:2px}
-.badge{background:#f6ad55;color:#1a202c;font-size:12px;font-weight:700;padding:3px 10px;border-radius:20px}
-.wrap{max-width:860px;margin:0 auto;padding:20px 16px}
-.stats{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
-.stat{background:#fff;border-radius:10px;padding:14px 18px;flex:1;min-width:100px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
-.stat .n{font-size:26px;font-weight:800}
-.stat .l{font-size:10px;color:#718096;text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
-.sec{font-size:12px;font-weight:700;color:#718096;text-transform:uppercase;letter-spacing:.5px;margin:20px 0 10px}
-.card{background:#fff;border-radius:10px;padding:18px 20px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.08);border-left:4px solid #cbd5e0}
-.card.dim{opacity:.5;border-left-color:#e2e8f0;padding:12px 16px}
-.contacted{border-left-color:#68d391;opacity:.55}
-.skipped{border-left-color:#fc8181;opacity:.5}
-.ch{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;flex-wrap:wrap;gap:8px}
-.person{display:flex;align-items:center;gap:10px}
-.av{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#667eea,#667eeaaa);color:#fff;font-weight:700;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.pi h3{font-size:15px;font-weight:700}
-.pi p{margin-top:4px}
-.tag{display:inline-block;color:#fff;background:#667eea;font-size:10px;font-weight:700;padding:2px 9px;border-radius:20px}
-.acts{display:flex;gap:6px;flex-wrap:wrap}
-.btn{padding:7px 13px;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;border:none;text-decoration:none;display:inline-block}
-.green{background:#c6f6d5;color:#276749}
-.red{background:#fed7d7;color:#9b2c2c}
-.meta{background:#f7fafc;border-radius:6px;padding:8px 12px;margin:10px 0}
-.mi{display:flex;justify-content:space-between}
-.ml{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#718096}
-.mv{font-size:13px;color:#2d3748;font-weight:500}
-.tlabel{font-size:11px;font-weight:700;color:#718096;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
-.ta{width:100%;border:2px solid #e2e8f0;border-radius:8px;padding:12px;padding-right:90px;font-size:13px;line-height:1.6;font-family:inherit;resize:none;background:#f7fafc;color:#2d3748}
-.ta:focus{border-color:#4299e1;outline:none;background:#ebf8ff}
-.copybtn{position:absolute;top:10px;right:10px;background:#1a202c;color:#fff;border:none;border-radius:6px;padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer;transition:background .15s}
-.copybtn:hover{background:#2d3748}
-.copybtn.ok{background:#38a169}
-.timing{font-size:10px;color:#a0aec0;margin-top:5px}
-.pill{background:#c6f6d5;color:#276749;padding:1px 8px;border-radius:20px;font-size:11px;font-weight:700;margin:0 4px}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CrewCast Sales - Individual Prospects</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; padding: 20px; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 8px; margin-bottom: 30px; }
+    h1 { font-size: 32px; margin-bottom: 10px; }
+    .subtitle { font-size: 16px; opacity: 0.95; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; }
+    .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .card h3 { color: #667eea; font-size: 18px; margin-bottom: 5px; }
+    .title { color: #666; font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+    .company { color: #999; font-size: 13px; margin-bottom: 15px; }
+    .touches { border-top: 1px solid #eee; padding-top: 15px; }
+    .touch { margin-bottom: 12px; padding: 10px; background: #f9f9f9; border-left: 3px solid #667eea; border-radius: 4px; }
+    .touch-label { color: #667eea; font-weight: 600; font-size: 12px; }
+    .touch-text { color: #333; font-size: 13px; margin-top: 5px; line-height: 1.4; }
+    .copy-btn { background: #667eea; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; margin-top: 8px; }
+    .copy-btn:hover { background: #5568d3; }
+  </style>
 </head>
 <body>
-<header>
-  <div><h1>👥 Prospect Review</h1><div class="sub">CrewCast · 46 new prospects · 3-touch messaging</div></div>
-  <span class="badge">46 New</span>
-</header>
-<div class="wrap">
-  <div class="stats">
-    <div class="stat"><div class="n" id="nU">46</div><div class="l">To Contact</div></div>
-    <div class="stat"><div class="n" id="nC">0</div><div class="l">Contacted Today</div></div>
-    <div class="stat"><div class="n" id="nK">0</div><div class="l">Skipped</div></div>
-    <div class="stat"><div class="n">0</div><div class="l">Done Total</div></div>
-  </div>
-  <div class="sec">👥 Prospects (46)</div>
-  
-  <div class="card" id="card-0">
-    <div class="ch">
-      <div class="person">
-        <div class="av">G</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+  <div class="container">
+    <header>
+      <h1>CrewCast Sales Pipeline</h1>
+      <p class="subtitle">Individual Prospect Outreach — 6/12/2026</p>
+    </header>
+    <div class="grid">
+
+      <div class="card">
+        <h3>Guillermo Valdez</h3>
+        <div class="title">Principal, Tilt-Up Operations Manager</div>
+        <div class="company">Suntec Concrete</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-1">
-    <div class="ch">
-      <div class="person">
-        <div class="av">S</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Steve Bieber</h3>
+        <div class="title">Director of Project Controls</div>
+        <div class="company">MMR Group</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-2">
-    <div class="ch">
-      <div class="person">
-        <div class="av">M</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Mike Keatley</h3>
+        <div class="title">Senior Vice President</div>
+        <div class="company">M.C. Dean</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-3">
-    <div class="ch">
-      <div class="person">
-        <div class="av">D</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Derek Wright</h3>
+        <div class="title">President</div>
+        <div class="company">Suntec Concrete</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-4">
-    <div class="ch">
-      <div class="person">
-        <div class="av">A</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Adam Spillane</h3>
+        <div class="title">Senior Vice President of Operations</div>
+        <div class="company">Cupertino Electric</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-5">
-    <div class="ch">
-      <div class="person">
-        <div class="av">J</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>John Messick</h3>
+        <div class="title">Vice President of Operations</div>
+        <div class="company">Rosendin Electric</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-6">
-    <div class="ch">
-      <div class="person">
-        <div class="av">J</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>James Jaskolski</h3>
+        <div class="title">Vice President of Operations</div>
+        <div class="company">ArchKey Solutions</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-7">
-    <div class="ch">
-      <div class="person">
-        <div class="av">J</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Jose Martinez</h3>
+        <div class="title">Senior Vice President</div>
+        <div class="company">Keller North America</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-8">
-    <div class="ch">
-      <div class="person">
-        <div class="av">S</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Sam Potter</h3>
+        <div class="title">National Vice President of Operations</div>
+        <div class="company">ArchKey Solutions</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-9">
-    <div class="ch">
-      <div class="person">
-        <div class="av">B</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Brian Kavanagh</h3>
+        <div class="title">Executive Vice President</div>
+        <div class="company">Performance Contracting Group</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-10">
-    <div class="ch">
-      <div class="person">
-        <div class="av">J</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Jason Behring</h3>
+        <div class="title">Vice President & CIO</div>
+        <div class="company">Everus Construction Group</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-11">
-    <div class="ch">
-      <div class="person">
-        <div class="av">D</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>David Elkins</h3>
+        <div class="title">Senior Vice President of Field Operations</div>
+        <div class="company">Rosendin Electric</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-12">
-    <div class="ch">
-      <div class="person">
-        <div class="av">D</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>David Schoonbeck</h3>
+        <div class="title">Director of Operational Excellence</div>
+        <div class="company">Baker Construction Enterprises</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-13">
-    <div class="ch">
-      <div class="person">
-        <div class="av">A</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Ashley Hayes</h3>
+        <div class="title">VP Operations</div>
+        <div class="company">Southland Electrical Contractors</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-14">
-    <div class="ch">
-      <div class="person">
-        <div class="av">S</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Stephen Christopherson</h3>
+        <div class="title">Vice President of Operations</div>
+        <div class="company">Gulf Coast Construction Services</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-15">
-    <div class="ch">
-      <div class="person">
-        <div class="av">J</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Justin Snelling</h3>
+        <div class="title">President/CEO</div>
+        <div class="company">Pacific Concrete Solutions</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-16">
-    <div class="ch">
-      <div class="person">
-        <div class="av">S</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Scott Newman</h3>
+        <div class="title">Vice President of Operations</div>
+        <div class="company">Reeves Construction Company</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-17">
-    <div class="ch">
-      <div class="person">
-        <div class="av">J</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>James Adamson</h3>
+        <div class="title">Operations Manager</div>
+        <div class="company">Southwest Foundation Works</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-18">
-    <div class="ch">
-      <div class="person">
-        <div class="av">J</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Jaron Combs</h3>
+        <div class="title">Senior Vice President Operations</div>
+        <div class="company">Sierra Concrete & Masonry</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-19">
-    <div class="ch">
-      <div class="person">
-        <div class="av">J</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>John Washburn</h3>
+        <div class="title">Chief Operating Officer</div>
+        <div class="company">Sunbelt Construction</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-20">
-    <div class="ch">
-      <div class="person">
-        <div class="av">M</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Melissa Thompson</h3>
+        <div class="title">Vice President Operations</div>
+        <div class="company">Northeast Electrical Group</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-21">
-    <div class="ch">
-      <div class="person">
-        <div class="av">D</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Dan Mistretta</h3>
+        <div class="title">Vice President Operations</div>
+        <div class="company">Atlantic Electrical Services</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-22">
-    <div class="ch">
-      <div class="person">
-        <div class="av">J</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Jim Koeble</h3>
+        <div class="title">Vice President Transportation</div>
+        <div class="company">Midwest Heavy Haulers</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-23">
-    <div class="ch">
-      <div class="person">
-        <div class="av">M</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Michael Garcia</h3>
+        <div class="title">Project Controls Manager</div>
+        <div class="company">Gilbane Building Company</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-24">
-    <div class="ch">
-      <div class="person">
-        <div class="av">T</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Test Contact</h3>
+        <div class="title">VP Operations</div>
+        <div class="company">Test Corp</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-25">
-    <div class="ch">
-      <div class="person">
-        <div class="av">T</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Test2 User</h3>
+        <div class="title">Director</div>
+        <div class="company">Acme</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-26">
-    <div class="ch">
-      <div class="person">
-        <div class="av">A</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Anthony Taylor</h3>
+        <div class="title">VP of Operations</div>
+        <div class="company">Boral Limited (US Division)</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-27">
-    <div class="ch">
-      <div class="person">
-        <div class="av">D</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>David Johnson</h3>
+        <div class="title">VP of Operations</div>
+        <div class="company">Sunbelt Construction Services</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-28">
-    <div class="ch">
-      <div class="person">
-        <div class="av">T</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Test Contact</h3>
+        <div class="title">VP Operations</div>
+        <div class="company">Test Corp</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-29">
-    <div class="ch">
-      <div class="person">
-        <div class="av">J</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Jennifer Williams</h3>
+        <div class="title">Senior Superintendent</div>
+        <div class="company">Aplin Group Holdings</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-30">
-    <div class="ch">
-      <div class="person">
-        <div class="av">A</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Anthony Williams</h3>
+        <div class="title">Project Controls Manager</div>
+        <div class="company">Southland Holdings</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-31">
-    <div class="ch">
-      <div class="person">
-        <div class="av">M</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Matthew Garcia</h3>
+        <div class="title">VP of Operations</div>
+        <div class="company">Sunbelt Construction Services</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-32">
-    <div class="ch">
-      <div class="person">
-        <div class="av">J</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Jennifer Davis</h3>
+        <div class="title">VP of Operations</div>
+        <div class="company">Zachry Holdings</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-33">
-    <div class="ch">
-      <div class="person">
-        <div class="av">D</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Daniel Martinez</h3>
+        <div class="title">VP Operations</div>
+        <div class="company">Boral Limited (US Division)</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-34">
-    <div class="ch">
-      <div class="person">
-        <div class="av">M</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Matthew Taylor</h3>
+        <div class="title">Project Controls Manager</div>
+        <div class="company">Power Construction</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-35">
-    <div class="ch">
-      <div class="person">
-        <div class="av">C</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Christopher Brown</h3>
+        <div class="title">Senior Superintendent</div>
+        <div class="company">Zachry Holdings</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-36">
-    <div class="ch">
-      <div class="person">
-        <div class="av">E</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Emily Morales</h3>
+        <div class="title">Project Controls Director</div>
+        <div class="company">Trumbull Corporation</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-37">
-    <div class="ch">
-      <div class="person">
-        <div class="av">S</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Steven Crawford</h3>
+        <div class="title">Operations Director</div>
+        <div class="company">Reeves Construction</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-38">
-    <div class="ch">
-      <div class="person">
-        <div class="av">A</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Angela Sutton</h3>
+        <div class="title">Senior Superintendent</div>
+        <div class="company">Consigli Construction</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-39">
-    <div class="ch">
-      <div class="person">
-        <div class="av">M</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Marcus Hendricks</h3>
+        <div class="title">VP of Operations</div>
+        <div class="company">Orion Group Holdings</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-40">
-    <div class="ch">
-      <div class="person">
-        <div class="av">R</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Robert Gonzalez</h3>
+        <div class="title">Construction Manager</div>
+        <div class="company">Barton Malow</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-41">
-    <div class="ch">
-      <div class="person">
-        <div class="av">D</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>David Olson</h3>
+        <div class="title">Operations Manager</div>
+        <div class="company">Performance Contractors</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-42">
-    <div class="ch">
-      <div class="person">
-        <div class="av">T</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Tom Bodenhamer</h3>
+        <div class="title">VP Operations</div>
+        <div class="company">Lunda Construction</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-43">
-    <div class="ch">
-      <div class="person">
-        <div class="av">K</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Kevin Pritchard</h3>
+        <div class="title">VP of Field Operations</div>
+        <div class="company">Hubbard Construction</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-44">
-    <div class="ch">
-      <div class="person">
-        <div class="av">R</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Rachel Chen</h3>
+        <div class="title">Senior Project Controls Manager</div>
+        <div class="company">Sundt Construction</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
-    </div>
-  </div>
-  <div class="card" id="card-45">
-    <div class="ch">
-      <div class="person">
-        <div class="av">L</div>
-        <div class="pi">
-          <h3>{esc(p['name'])}</h3>
-          <p><span class="tag">{esc(p['title'])}</span></p>
+
+      <div class="card">
+        <h3>Lisa Yamamoto</h3>
+        <div class="title">Senior Operations Manager</div>
+        <div class="company">SumCo Eco-Contracting</div>
+        <div class="touches">
+
         </div>
       </div>
-      <div class="acts">
-        <button class="btn green" onclick="markContacted({i})">✓ Contacted</button>
-        <button class="btn red" onclick="markSkip({i})">✕ Skip</button>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="mi"><div class="ml">Company</div><div class="mv">{esc(p['company'])}</div></div>
-    </div>
-    <div style="margin-top:8px">
-      <div class="tlabel">💬 Touch 1 — Connection Request (≤200 chars)</div>
-      <div style="position:relative">
-        <textarea id="ta{i}" class="ta" rows="3" readonly>{esc(p['touch1'])}</textarea>
-        <button class="copybtn" id="cp{i}" onclick="doCopy({i})">Copy</button>
-      </div>
-      <div class="timing">{t1_len} chars · Paste into LinkedIn connection request message</div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 2 — Initial Comment</div>
-      <textarea id="ta2_{i}" class="ta" rows="2" readonly>{esc(p['touch2'])}</textarea>
-      <button class="copybtn" onclick="doCopy2({i})">Copy</button>
-    </div>
-    <div style="margin-top:12px">
-      <div class="tlabel">💬 Touch 3 — Deeper Engagement</div>
-      <textarea id="ta3_{i}" class="ta" rows="2" readonly>{esc(p['touch3'])}</textarea>
-      <button class="copybtn" onclick="doCopy3({i})">Copy</button>
+
     </div>
   </div>
-  
-</div>
-<script>
-const T={"0": ["", "", ""], "1": ["", "", ""], "2": ["", "", ""], "3": ["", "", ""], "4": ["", "", ""], "5": ["", "", ""], "6": ["", "", ""], "7": ["", "", ""], "8": ["", "", ""], "9": ["", "", ""], "10": ["", "", ""], "11": ["", "", ""], "12": ["", "", ""], "13": ["", "", ""], "14": ["", "", ""], "15": ["", "", ""], "16": ["", "", ""], "17": ["", "", ""], "18": ["", "", ""], "19": ["", "", ""], "20": ["", "", ""], "21": ["", "", ""], "22": ["", "", ""], "23": ["", "", ""], "24": ["", "", ""], "25": ["", "", ""], "26": ["", "", ""], "27": ["", "", ""], "28": ["", "", ""], "29": ["", "", ""], "30": ["", "", ""], "31": ["", "", ""], "32": ["", "", ""], "33": ["", "", ""], "34": ["", "", ""], "35": ["", "", ""], "36": ["Emily, Trumbull's bridge and highway sequencing in the Mid-Atlantic is complex crew work. CrewCast forecasting gives you real advantage.", "Following your infrastructure projects. Your phased labor coordination is exactly what we help optimize.", "Saw your recent bridge project post. Let's discuss crew forecasting for labor needs on complex phasing."], "37": ["Steven, running large paving crews across regions is where crew forecasting solves real problems. Let's connect.", "Following your paving operations. Your multi-region labor coordination is a perfect CrewCast fit.", "Impressed by Reeves' operational scale. Let's discuss crew forecasting for efficient regional crew management."], "38": ["Angela, managing self-perform trades on Consigli's healthcare projects requires serious crew coordination. CrewCast is built for that challenge.", "Following your team's project work. Your expertise with phased self-perform operations is exactly our target use case.", "Your healthcare project updates are impressive. Let's explore crew forecasting for your labor planning."], "39": ["Marcus, your marine ops at Orion are a scheduling masterpiece. Would love to connect and explore how CrewCast helps coordinate distributed crews.", "Following your team's concrete and marine projects. Would be valuable to discuss crew forecasting for your complex phased operations.", "Saw Orion's latest marine project. Your ability to manage large self-perform operations is exactly what CrewCast partners with. Let's chat."], "40": ["Robert, Barton Malow's healthcare and mixed-use projects require serious self-perform crew coordination. CrewCast is designed for this.", "Following your team's complex project work. Your phased labor management is exactly our target use case.", "Impressed by Barton Malow's capabilities. Let's discuss crew forecasting for your workforce planning."], "41": ["David, your 95% self-perform model at Performance is exactly where crew forecasting matters most. Let's connect on labor strategy.", "Following your industrial operations. Your distributed crew management across states is a perfect fit for CrewCast.", "Impressed by Performance's self-perform capabilities. Would love crew forecasting for your complex projects."], "42": ["Tom, Lunda's $400M backlog across concurrent Midwest highway projects is a real crew management challenge. Crew forecasting is built for this.", "Following Lunda's infrastructure work. Your multi-project labor sequencing is exactly what we help solve.", "Impressed by Lunda's Midwest leadership. Let's discuss crew forecasting optimizes your labor coordination."], "43": ["Kevin, Hubbard's multi-phase heavy civil work across Florida is exactly where crew forecasting matters. Let's explore how we help.", "Following your team's project work. Your large-scale crew coordination is a perfect CrewCast use case.", "Impressed by Hubbard's operational scale. Let's discuss crew forecasting for your workforce across projects."], "44": ["Rachel, managing Sundt's scale of self-perform operations across the Southwest is impressive. Curious if crew forecasting helps with labor needs.", "Your project controls background aligns with CrewCast. Following to engage on workforce planning content.", "Saw your Southwest infrastructure post. Sundt's self-perform model is our sweet spot. Would value exploring how we help."], "45": ["Lisa, SumCo's specialized environmental remediation work is a unique crew scheduling challenge. CrewCast is built for specialized crews.", "Following your environmental projects. Your specialized crew management is exactly what we help forecast.", "Impressed by SumCo's environmental expertise. Let's discuss crew forecasting for specialized labor."]};
-let nc=0,nk=0,tot=46;
-function doCopy(i){const t=T[i][0];copy(t);}
-function doCopy2(i){const t=T[i][1];copy(t);}
-function doCopy3(i){const t=T[i][2];copy(t);}
-function copy(text){
-  if(navigator.clipboard)navigator.clipboard.writeText(text);
-  else{const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);}
-}
-function markContacted(i){
-  document.getElementById('card-'+i).classList.add('contacted');
-  document.getElementById('card-'+i).querySelectorAll('button').forEach(b=>b.disabled=true);
-  nc++;upd();
-}
-function markSkip(i){
-  document.getElementById('card-'+i).classList.add('skipped');
-  document.getElementById('card-'+i).querySelectorAll('button').forEach(b=>b.disabled=true);
-  nk++;upd();
-}
-function upd(){
-  document.getElementById('nU').textContent=Math.max(0,tot-nc-nk);
-  document.getElementById('nC').textContent=nc;
-  document.getElementById('nK').textContent=nk;
-}
-</script>
+  <script>
+    function copyToClipboard(text, btn) {
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = 'Copy', 2000);
+      });
+    }
+  </script>
 </body>
 </html>
