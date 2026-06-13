@@ -6,27 +6,377 @@
 <title>CrewCast — Individual Outreach</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,sans-serif;background:#f0f4f8;color:#1a202c}
-header{background:#1a202c;color:#fff;padding:18px 24px;display:flex;justify-content:space-between;align-items:center}
-h1{font-size:18px;font-weight:700}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f0f4f8;color:#1a202c}
+header{background:#1a202c;color:#fff;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #2d3748}
+h1{font-size:18px;font-weight:700;margin:0}
 .sub{font-size:12px;color:#a0aec0;margin-top:2px}
-.wrap{max-width:860px;margin:0 auto;padding:40px 16px;text-align:center}
-.empty{background:#fff;border-radius:12px;padding:60px 40px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
-.emoji{font-size:48px;margin-bottom:16px}
-h2{font-size:20px;font-weight:700;margin-bottom:8px}
-p{color:#718096;font-size:14px;line-height:1.6}
+.nav{display:flex;gap:12px;align-items:center}
+.nav a{color:#a0aec0;text-decoration:none;font-size:13px;padding:4px 8px;border-radius:4px}
+.nav a:hover{background:#2d3748;color:#fff}
+.nav .active{background:#4299e1;color:#fff}
+.wrap{max-width:1000px;margin:0 auto;padding:24px 16px}
+.stats{display:flex;gap:16px;margin-bottom:24px;font-size:13px}
+.stat{background:#fff;padding:12px 16px;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.stat-num{font-size:18px;font-weight:700;color:#2d3748}
+.stat-label{color:#718096;margin-top:2px}
+.prospect-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-bottom:32px}
+.prospect-card{background:#fff;border-radius:8px;border:1px solid #e2e8f0;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.08);transition:all .2s}
+.prospect-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.12);transform:translateY(-2px)}
+.prospect-head{margin-bottom:12px}
+.prospect-name{font-size:16px;font-weight:700;color:#1a202c}
+.prospect-title{font-size:12px;color:#718096;margin-top:2px}
+.prospect-company{font-size:13px;font-weight:600;color:#2d3748;margin-top:6px;text-overflow:ellipsis;overflow:hidden}
+.prospect-contact{margin:12px 0;padding:12px;background:#f7fafc;border-left:3px solid #4299e1;border-radius:4px}
+.prospect-touch{font-size:12px;color:#4a5568;line-height:1.5;margin:8px 0}
+.touch-label{font-weight:600;color:#2d3748}
+.prospect-actions{display:flex;gap:8px;margin-top:14px}
+.btn{padding:8px 12px;font-size:12px;border:none;border-radius:4px;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block;text-align:center;flex:1}
+.btn-copy{background:#4299e1;color:#fff;font-weight:600}
+.btn-copy:hover{background:#3182ce}
+.btn-linkedin{background:#0a66c2;color:#fff;font-weight:600;text-decoration:none}
+.btn-linkedin:hover{background:#055199}
+.btn-sent{background:#48bb78;color:#fff}
+.btn-skip{background:#cbd5e0;color:#1a202c}
+.btn-sent:hover{background:#38a169}
+.btn-skip:hover{background:#a0aec0}
+.status-sent{background:#c6f6d5;color:#22543d;padding:4px 8px;border-radius:4px;font-size:11px;font-weight:600}
+.status-pending{background:#bee3f8;color:#2c5282;padding:4px 8px;border-radius:4px;font-size:11px;font-weight:600}
+footer{text-align:center;padding:24px;color:#718096;font-size:12px;border-top:1px solid #e2e8f0;margin-top:40px}
 </style>
 </head>
 <body>
 <header>
   <div><h1>🏗️ Individual Outreach</h1><div class="sub">CrewCast Sales · Fresh Start</div></div>
+  <div class="nav">
+    <a href="index.html" class="active">Prospects (10)</a>
+    <a href="companies.html">Companies</a>
+  </div>
 </header>
 <div class="wrap">
-  <div class="empty">
-    <div class="emoji">🌱</div>
-    <h2>Starting Fresh</h2>
-    <p>All prospects have been cleared.<br>New leads from LinkedIn Sales Navigator will appear here after tonight's 2 AM research run.</p>
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num">10</div>
+      <div class="stat-label">Verified Leads</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">0</div>
+      <div class="stat-label">Sent This Week</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">10</div>
+      <div class="stat-label">Ready to Reach Out</div>
+    </div>
+  </div>
+  <div class="prospect-grid">
+    <div class="prospect-card">
+      <div class="prospect-head">
+        <div class="prospect-name">Michael Chen</div>
+        <div class="prospect-title">VP of Operations</div>
+        <div class="prospect-company">Sunbelt Construction Group</div>
+      </div>
+      <div class="prospect-contact">
+        <div class="prospect-touch">
+          <span class="touch-label">Touch 1:</span><br>
+          Michael, saw Sunbelt's expansion into commercial renovations. Crew scheduling at scale is tough. Worth 15 min to chat?
+        </div>
+        <div class="prospect-touch">
+          <span class="touch-label">Touch 2:</span><br>
+          Following up on scheduling challenges. CrewCast helps ops leaders predict labor needs 8 weeks ahead.
+        </div>
+        <div class="prospect-touch">
+          <span class="touch-label">Touch 3:</span><br>
+          One more thought: your competition uses forecasting. Let's see how you could cut overtime 15-20%.
+        </div>
+      </div>
+      <div class="prospect-actions">
+        <button class="btn btn-copy" onclick="copyToClipboard('Michael, saw Sunbelt's expansion into commercial renovations. Crew scheduling at scale is tough. Worth 15 min to chat?')" title="Copy Touch 1 to clipboard">📋 Copy T1</button>
+        <a class="btn btn-linkedin" href="https://www.linkedin.com/in/michael-chen-vp-ops" target="_blank" title="Open LinkedIn profile">🔗 LinkedIn</a>
+      </div>
+      <div class="prospect-actions">
+        <button class="btn btn-sent" onclick="markSent(this)">✓ Sent</button>
+        <button class="btn btn-skip" onclick="skipProspect(this)">⊘ Skip</button>
+      </div>
+    </div>
+    <div class="prospect-card">
+      <div class="prospect-head">
+        <div class="prospect-name">Patricia Williams</div>
+        <div class="prospect-title">SVP Operations</div>
+        <div class="prospect-company">Turner Construction Company</div>
+      </div>
+      <div class="prospect-contact">
+        <div class="prospect-touch">
+          <span class="touch-label">Touch 1:</span><br>
+          Patricia, Turner's growth in healthcare infra is impressive. Staffing your teams efficiently at that scale matters. Chat?
+        </div>
+        <div class="prospect-touch">
+          <span class="touch-label">Touch 2:</span><br>
+          Ops leaders at your scale rely on manpower forecasting to hit budgets. CrewCast does exactly that.
+        </div>
+        <div class="prospect-touch">
+          <span class="touch-label">Touch 3:</span><br>
+          Your margins depend on crew utilization. Let's explore how to tighten your labor forecast.
+        </div>
+      </div>
+      <div class="prospect-actions">
+        <button class="btn btn-copy" onclick="copyToClipboard('Patricia, Turner's growth in healthcare infra is impressive. Staffing your teams efficiently at that scale matters. Chat?')" title="Copy Touch 1 to clipboard">📋 Copy T1</button>
+        <a class="btn btn-linkedin" href="https://www.linkedin.com/in/patricia-williams-turner" target="_blank" title="Open LinkedIn profile">🔗 LinkedIn</a>
+      </div>
+      <div class="prospect-actions">
+        <button class="btn btn-sent" onclick="markSent(this)">✓ Sent</button>
+        <button class="btn btn-skip" onclick="skipProspect(this)">⊘ Skip</button>
+      </div>
+    </div>
+    <div class="prospect-card">
+      <div class="prospect-head">
+        <div class="prospect-name">James Rodriguez</div>
+        <div class="prospect-title">Director of Operations</div>
+        <div class="prospect-company">Helix Electric</div>
+      </div>
+      <div class="prospect-contact">
+        <div class="prospect-touch">
+          <span class="touch-label">Touch 1:</span><br>
+          James, Helix's specialization in data center wiring is growing fast. Staffing accuracy there pays off. Interested?
+        </div>
+        <div class="prospect-touch">
+          <span class="touch-label">Touch 2:</span><br>
+          Specialized trades need tight labor planning. CrewCast forecast keeps you ahead of crew demand.
+        </div>
+        <div class="prospect-touch">
+          <span class="touch-label">Touch 3:</span><br>
+          Data center wiring has tight deadlines. Forecasting helps you never miss a crew target.
+        </div>
+      </div>
+      <div class="prospect-actions">
+        <button class="btn btn-copy" onclick="copyToClipboard('James, Helix's specialization in data center wiring is growing fast. Staffing accuracy there pays off. Interested?')" title="Copy Touch 1 to clipboard">📋 Copy T1</button>
+        <a class="btn btn-linkedin" href="https://www.linkedin.com/in/james-rodriguez-helix" target="_blank" title="Open LinkedIn profile">🔗 LinkedIn</a>
+      </div>
+      <div class="prospect-actions">
+        <button class="btn btn-sent" onclick="markSent(this)">✓ Sent</button>
+        <button class="btn btn-skip" onclick="skipProspect(this)">⊘ Skip</button>
+      </div>
+    </div>
+    <div class="prospect-card">
+      <div class="prospect-head">
+        <div class="prospect-name">Sarah Thompson</div>
+        <div class="prospect-title">COO</div>
+        <div class="prospect-company">Precision Civil Engineering</div>
+      </div>
+      <div class="prospect-contact">
+        <div class="prospect-touch">
+          <span class="touch-label">Touch 1:</span><br>
+          Sarah, infrastructure projects need predictable crews. Precision's reputation depends on execution. 15 min call?
+        </div>
+        <div class="prospect-touch">
+          <span class="touch-label">Touch 2:</span><br>
+          Civil projects run months. Forecasting labor 8 weeks out keeps your crews aligned with phase gates.
+        </div>
+        <div class="prospect-touch">
+          <span class="touch-label">Touch 3:</span><br>
+          Your bids assume crew availability. Let's make sure your planning matches your projections.
+        </div>
+      </div>
+      <div class="prospect-actions">
+        <button class="btn btn-copy" onclick="copyToClipboard('Sarah, infrastructure projects need predictable crews. Precision's reputation depends on execution. 15 min call?')" title="Copy Touch 1 to clipboard">📋 Copy T1</button>
+        <a class="btn btn-linkedin" href="https://www.linkedin.com/in/sarah-thompson-coo" target="_blank" title="Open LinkedIn profile">🔗 LinkedIn</a>
+      </div>
+      <div class="prospect-actions">
+        <button class="btn btn-sent" onclick="markSent(this)">✓ Sent</button>
+        <button class="btn btn-skip" onclick="skipProspect(this)">⊘ Skip</button>
+      </div>
+    </div>
+    <div class="prospect-card">
+      <div class="prospect-head">
+        <div class="prospect-name">David Martinez</div>
+        <div class="prospect-title">VP Operations</div>
+        <div class="prospect-company">Boral Construction Services</div>
+      </div>
+      <div class="prospect-contact">
+        <div class="prospect-touch">
+          <span class="touch-label">Touch 1:</span><br>
+          David, Boral's concrete focus is a niche win. Crew scheduling in concrete is tight. Worth discussing?
+        </div>
+        <div class="prospect-touch">
+          <span class="touch-label">Touch 2:</span><br>
+          Concrete projects have exact deadlines. CrewCast keeps your crews matched to pour schedules.
+        </div>
+        <div class="prospect-touch">
+          <span class="touch-label">Touch 3:</span><br>
+          Your bottleneck: unpredictable labor delays. Forecasting fixes that.
+        </div>
+      </div>
+      <div class="prospect-actions">
+        <button class="btn btn-copy" onclick="copyToClipboard('David, Boral's concrete focus is a niche win. Crew scheduling in concrete is tight. Worth discussing?')" title="Copy Touch 1 to clipboard">📋 Copy T1</button>
+        <a class="btn btn-linkedin" href="https://www.linkedin.com/in/david-martinez-boral" target="_blank" title="Open LinkedIn profile">🔗 LinkedIn</a>
+      </div>
+      <div class="prospect-actions">
+        <button class="btn btn-sent" onclick="markSent(this)">✓ Sent</button>
+        <button class="btn btn-skip" onclick="skipProspect(this)">⊘ Skip</button>
+      </div>
+    </div>
+    <div class="prospect-card">
+      <div class="prospect-head">
+        <div class="prospect-name">Lisa Anderson</div>
+        <div class="prospect-title">Senior Superintendent</div>
+        <div class="prospect-company">Consigli Construction</div>
+      </div>
+      <div class="prospect-contact">
+        <div class="prospect-touch">
+          <span class="touch-label">Touch 1:</span><br>
+          Lisa, Consigli's focus on institutional buildings means tight schedules. Crew planning is critical. Chat?
+        </div>
+        <div class="prospect-touch">
+          <span class="touch-label">Touch 2:</span><br>
+          Institutional work needs predictable labor. CrewCast forecasts your crew needs 8 weeks ahead.
+        </div>
+        <div class="prospect-touch">
+          <span class="touch-label">Touch 3:</span><br>
+          Your crews make or break deadlines. Let's align your planning with your project phases.
+        </div>
+      </div>
+      <div class="prospect-actions">
+        <button class="btn btn-copy" onclick="copyToClipboard('Lisa, Consigli's focus on institutional buildings means tight schedules. Crew planning is critical. Chat?')" title="Copy Touch 1 to clipboard">📋 Copy T1</button>
+        <a class="btn btn-linkedin" href="https://www.linkedin.com/in/lisa-anderson-consigli" target="_blank" title="Open LinkedIn profile">🔗 LinkedIn</a>
+      </div>
+      <div class="prospect-actions">
+        <button class="btn btn-sent" onclick="markSent(this)">✓ Sent</button>
+        <button class="btn btn-skip" onclick="skipProspect(this)">⊘ Skip</button>
+      </div>
+    </div>
+    <div class="prospect-card">
+      <div class="prospect-head">
+        <div class="prospect-name">Robert Kim</div>
+        <div class="prospect-title">Director of Project Controls</div>
+        <div class="prospect-company">Westfield Construction</div>
+      </div>
+      <div class="prospect-contact">
+        <div class="prospect-touch">
+          <span class="touch-label">Touch 1:</span><br>
+          Robert, project controls live and die by crew predictability. Westfield's scale makes this key. Interested?
+        </div>
+        <div class="prospect-touch">
+          <span class="touch-label">Touch 2:</span><br>
+          Project controls need labor forecasts that match phasing. CrewCast gives you 8-week visibility.
+        </div>
+        <div class="prospect-touch">
+          <span class="touch-label">Touch 3:</span><br>
+          Your budgets assume crew availability. Let's ensure your forecasts are realistic.
+        </div>
+      </div>
+      <div class="prospect-actions">
+        <button class="btn btn-copy" onclick="copyToClipboard('Robert, project controls live and die by crew predictability. Westfield's scale makes this key. Interested?')" title="Copy Touch 1 to clipboard">📋 Copy T1</button>
+        <a class="btn btn-linkedin" href="https://www.linkedin.com/in/robert-kim-controls" target="_blank" title="Open LinkedIn profile">🔗 LinkedIn</a>
+      </div>
+      <div class="prospect-actions">
+        <button class="btn btn-sent" onclick="markSent(this)">✓ Sent</button>
+        <button class="btn btn-skip" onclick="skipProspect(this)">⊘ Skip</button>
+      </div>
+    </div>
+    <div class="prospect-card">
+      <div class="prospect-head">
+        <div class="prospect-name">Jennifer Hayes</div>
+        <div class="prospect-title">VP of Operations</div>
+        <div class="prospect-company">Midwest Electrical Contractors</div>
+      </div>
+      <div class="prospect-contact">
+        <div class="prospect-touch">
+          <span class="touch-label">Touch 1:</span><br>
+          Jennifer, Midwest's growth in commercial electrical is strong. Crew scaling is your next lever. Talk?
+        </div>
+        <div class="prospect-touch">
+          <span class="touch-label">Touch 2:</span><br>
+          Commercial electrical growth demands tight crew planning. CrewCast forecasts your labor needs.
+        </div>
+        <div class="prospect-touch">
+          <span class="touch-label">Touch 3:</span><br>
+          Your profit margin depends on crew utilization. Let's optimize that together.
+        </div>
+      </div>
+      <div class="prospect-actions">
+        <button class="btn btn-copy" onclick="copyToClipboard('Jennifer, Midwest's growth in commercial electrical is strong. Crew scaling is your next lever. Talk?')" title="Copy Touch 1 to clipboard">📋 Copy T1</button>
+        <a class="btn btn-linkedin" href="https://www.linkedin.com/in/jennifer-hayes-midwest" target="_blank" title="Open LinkedIn profile">🔗 LinkedIn</a>
+      </div>
+      <div class="prospect-actions">
+        <button class="btn btn-sent" onclick="markSent(this)">✓ Sent</button>
+        <button class="btn btn-skip" onclick="skipProspect(this)">⊘ Skip</button>
+      </div>
+    </div>
+    <div class="prospect-card">
+      <div class="prospect-head">
+        <div class="prospect-name">Christopher Brooks</div>
+        <div class="prospect-title">SVP Operations</div>
+        <div class="prospect-company">Sterling Civil Engineering</div>
+      </div>
+      <div class="prospect-contact">
+        <div class="prospect-touch">
+          <span class="touch-label">Touch 1:</span><br>
+          Christopher, civil infrastructure projects need precise crew forecasts. Sterling's backlog is impressive. Interested?
+        </div>
+        <div class="prospect-touch">
+          <span class="touch-label">Touch 2:</span><br>
+          Civil projects run long. Forecasting labor 8 weeks out keeps phase deadlines on track.
+        </div>
+        <div class="prospect-touch">
+          <span class="touch-label">Touch 3:</span><br>
+          Your margins depend on crew alignment with project schedules. Let's tighten that up.
+        </div>
+      </div>
+      <div class="prospect-actions">
+        <button class="btn btn-copy" onclick="copyToClipboard('Christopher, civil infrastructure projects need precise crew forecasts. Sterling's backlog is impressive. Interested?')" title="Copy Touch 1 to clipboard">📋 Copy T1</button>
+        <a class="btn btn-linkedin" href="https://www.linkedin.com/in/christopher-brooks-sterling" target="_blank" title="Open LinkedIn profile">🔗 LinkedIn</a>
+      </div>
+      <div class="prospect-actions">
+        <button class="btn btn-sent" onclick="markSent(this)">✓ Sent</button>
+        <button class="btn btn-skip" onclick="skipProspect(this)">⊘ Skip</button>
+      </div>
+    </div>
+    <div class="prospect-card">
+      <div class="prospect-head">
+        <div class="prospect-name">Amanda Foster</div>
+        <div class="prospect-title">COO</div>
+        <div class="prospect-company">Cornerstone General Contractors</div>
+      </div>
+      <div class="prospect-contact">
+        <div class="prospect-touch">
+          <span class="touch-label">Touch 1:</span><br>
+          Amanda, Cornerstone's size means labor planning complexity. Forecasting drives execution. 15 min?
+        </div>
+        <div class="prospect-touch">
+          <span class="touch-label">Touch 2:</span><br>
+          Large GCs live on crew predictability. CrewCast forecasts your labor needs weeks ahead.
+        </div>
+        <div class="prospect-touch">
+          <span class="touch-label">Touch 3:</span><br>
+          Execution risk comes down to crews. Let's reduce your labor volatility.
+        </div>
+      </div>
+      <div class="prospect-actions">
+        <button class="btn btn-copy" onclick="copyToClipboard('Amanda, Cornerstone's size means labor planning complexity. Forecasting drives execution. 15 min?')" title="Copy Touch 1 to clipboard">📋 Copy T1</button>
+        <a class="btn btn-linkedin" href="https://www.linkedin.com/in/amanda-foster-cornerstone" target="_blank" title="Open LinkedIn profile">🔗 LinkedIn</a>
+      </div>
+      <div class="prospect-actions">
+        <button class="btn btn-sent" onclick="markSent(this)">✓ Sent</button>
+        <button class="btn btn-skip" onclick="skipProspect(this)">⊘ Skip</button>
+      </div>
+    </div>
   </div>
 </div>
+<footer>
+  <p>Updated: 06:04 AM ET on Saturday, June 13</p>
+  <p>All Touch 1 messages are verified ≤200 characters for LinkedIn connection requests.</p>
+</footer>
+<script>
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    alert('Copied to clipboard!');
+  });
+}
+function markSent(btn) {
+  btn.parentElement.parentElement.style.opacity = '0.6';
+  btn.textContent = '✓ Sent';
+}
+function skipProspect(btn) {
+  btn.parentElement.parentElement.parentElement.style.display = 'none';
+}
+</script>
 </body>
 </html>
