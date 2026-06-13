@@ -6,27 +6,184 @@
 <title>CrewCast — Company Follow</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,sans-serif;background:#f0f4f8;color:#1a202c}
-header{background:#1a202c;color:#fff;padding:18px 24px;display:flex;justify-content:space-between;align-items:center}
-h1{font-size:18px;font-weight:700}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f0f4f8;color:#1a202c}
+header{background:#1a202c;color:#fff;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #2d3748}
+h1{font-size:18px;font-weight:700;margin:0}
 .sub{font-size:12px;color:#a0aec0;margin-top:2px}
-.wrap{max-width:860px;margin:0 auto;padding:40px 16px;text-align:center}
-.empty{background:#fff;border-radius:12px;padding:60px 40px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
-.emoji{font-size:48px;margin-bottom:16px}
-h2{font-size:20px;font-weight:700;margin-bottom:8px}
-p{color:#718096;font-size:14px;line-height:1.6}
+.nav{display:flex;gap:12px;align-items:center}
+.nav a{color:#a0aec0;text-decoration:none;font-size:13px;padding:4px 8px;border-radius:4px}
+.nav a:hover{background:#2d3748;color:#fff}
+.nav .active{background:#4299e1;color:#fff}
+.wrap{max-width:1000px;margin:0 auto;padding:24px 16px}
+.stats{display:flex;gap:16px;margin-bottom:24px;font-size:13px}
+.stat{background:#fff;padding:12px 16px;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.stat-num{font-size:18px;font-weight:700;color:#2d3748}
+.stat-label{color:#718096;margin-top:2px}
+.company-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:32px}
+.company-card{background:#fff;border-radius:8px;border:1px solid #e2e8f0;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.08);transition:all .2s}
+.company-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.12);transform:translateY(-2px)}
+.company-name{font-size:16px;font-weight:700;color:#1a202c;margin-bottom:8px}
+.company-info{font-size:12px;color:#718096;line-height:1.6;margin-bottom:12px}
+.company-info-row{margin:6px 0}
+.info-label{font-weight:600;color:#2d3748}
+.company-actions{display:flex;gap:8px}
+.btn{padding:8px 12px;font-size:12px;border:none;border-radius:4px;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block;flex:1;text-align:center}
+.btn-primary{background:#4299e1;color:#fff;font-weight:600}
+.btn-primary:hover{background:#3182ce}
+.btn-secondary{background:#cbd5e0;color:#1a202c}
+.btn-secondary:hover{background:#a0aec0}
+footer{text-align:center;padding:24px;color:#718096;font-size:12px;border-top:1px solid #e2e8f0;margin-top:40px}
 </style>
 </head>
 <body>
 <header>
-  <div><h1>🏢 Company Follow</h1><div class="sub">CrewCast Sales · Fresh Start</div></div>
+  <div><h1>🏢 Company Follow</h1><div class="sub">CrewCast Sales · Account Planning</div></div>
+  <div class="nav">
+    <a href="index.html">Prospects</a>
+    <a href="companies.html" class="active">Companies (10)</a>
+  </div>
 </header>
 <div class="wrap">
-  <div class="empty">
-    <div class="emoji">🌱</div>
-    <h2>Starting Fresh</h2>
-    <p>All companies have been cleared.<br>New targets from LinkedIn Sales Navigator will appear here after tonight's 2 AM research run.</p>
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num">10</div>
+      <div class="stat-label">Target Companies</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">10</div>
+      <div class="stat-label">Known Contacts</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">0</div>
+      <div class="stat-label">Companies Engaged</div>
+    </div>
+  </div>
+  <div class="company-grid">
+    <div class="company-card">
+      <div class="company-name">Sunbelt Construction Group</div>
+      <div class="company-info">
+        <div class="company-info-row"><span class="info-label">Contacts:</span> 1</div>
+        <div class="company-info-row"><span class="info-label">Primary:</span> Michael Chen</div>
+        <div class="company-info-row"><span class="info-label">Title:</span> VP of Operations</div>
+      </div>
+      <div class="company-actions">
+        <button class="btn btn-primary" onclick="alert('Research this company...')">📊 Research</button>
+        <button class="btn btn-secondary" onclick="alert('Engagement strategy...')">📋 Strategy</button>
+      </div>
+    </div>
+    <div class="company-card">
+      <div class="company-name">Turner Construction Company</div>
+      <div class="company-info">
+        <div class="company-info-row"><span class="info-label">Contacts:</span> 1</div>
+        <div class="company-info-row"><span class="info-label">Primary:</span> Patricia Williams</div>
+        <div class="company-info-row"><span class="info-label">Title:</span> SVP Operations</div>
+      </div>
+      <div class="company-actions">
+        <button class="btn btn-primary" onclick="alert('Research this company...')">📊 Research</button>
+        <button class="btn btn-secondary" onclick="alert('Engagement strategy...')">📋 Strategy</button>
+      </div>
+    </div>
+    <div class="company-card">
+      <div class="company-name">Helix Electric</div>
+      <div class="company-info">
+        <div class="company-info-row"><span class="info-label">Contacts:</span> 1</div>
+        <div class="company-info-row"><span class="info-label">Primary:</span> James Rodriguez</div>
+        <div class="company-info-row"><span class="info-label">Title:</span> Director of Operations</div>
+      </div>
+      <div class="company-actions">
+        <button class="btn btn-primary" onclick="alert('Research this company...')">📊 Research</button>
+        <button class="btn btn-secondary" onclick="alert('Engagement strategy...')">📋 Strategy</button>
+      </div>
+    </div>
+    <div class="company-card">
+      <div class="company-name">Precision Civil Engineering</div>
+      <div class="company-info">
+        <div class="company-info-row"><span class="info-label">Contacts:</span> 1</div>
+        <div class="company-info-row"><span class="info-label">Primary:</span> Sarah Thompson</div>
+        <div class="company-info-row"><span class="info-label">Title:</span> COO</div>
+      </div>
+      <div class="company-actions">
+        <button class="btn btn-primary" onclick="alert('Research this company...')">📊 Research</button>
+        <button class="btn btn-secondary" onclick="alert('Engagement strategy...')">📋 Strategy</button>
+      </div>
+    </div>
+    <div class="company-card">
+      <div class="company-name">Boral Construction Services</div>
+      <div class="company-info">
+        <div class="company-info-row"><span class="info-label">Contacts:</span> 1</div>
+        <div class="company-info-row"><span class="info-label">Primary:</span> David Martinez</div>
+        <div class="company-info-row"><span class="info-label">Title:</span> VP Operations</div>
+      </div>
+      <div class="company-actions">
+        <button class="btn btn-primary" onclick="alert('Research this company...')">📊 Research</button>
+        <button class="btn btn-secondary" onclick="alert('Engagement strategy...')">📋 Strategy</button>
+      </div>
+    </div>
+    <div class="company-card">
+      <div class="company-name">Consigli Construction</div>
+      <div class="company-info">
+        <div class="company-info-row"><span class="info-label">Contacts:</span> 1</div>
+        <div class="company-info-row"><span class="info-label">Primary:</span> Lisa Anderson</div>
+        <div class="company-info-row"><span class="info-label">Title:</span> Senior Superintendent</div>
+      </div>
+      <div class="company-actions">
+        <button class="btn btn-primary" onclick="alert('Research this company...')">📊 Research</button>
+        <button class="btn btn-secondary" onclick="alert('Engagement strategy...')">📋 Strategy</button>
+      </div>
+    </div>
+    <div class="company-card">
+      <div class="company-name">Westfield Construction</div>
+      <div class="company-info">
+        <div class="company-info-row"><span class="info-label">Contacts:</span> 1</div>
+        <div class="company-info-row"><span class="info-label">Primary:</span> Robert Kim</div>
+        <div class="company-info-row"><span class="info-label">Title:</span> Director of Project Controls</div>
+      </div>
+      <div class="company-actions">
+        <button class="btn btn-primary" onclick="alert('Research this company...')">📊 Research</button>
+        <button class="btn btn-secondary" onclick="alert('Engagement strategy...')">📋 Strategy</button>
+      </div>
+    </div>
+    <div class="company-card">
+      <div class="company-name">Midwest Electrical Contractors</div>
+      <div class="company-info">
+        <div class="company-info-row"><span class="info-label">Contacts:</span> 1</div>
+        <div class="company-info-row"><span class="info-label">Primary:</span> Jennifer Hayes</div>
+        <div class="company-info-row"><span class="info-label">Title:</span> VP of Operations</div>
+      </div>
+      <div class="company-actions">
+        <button class="btn btn-primary" onclick="alert('Research this company...')">📊 Research</button>
+        <button class="btn btn-secondary" onclick="alert('Engagement strategy...')">📋 Strategy</button>
+      </div>
+    </div>
+    <div class="company-card">
+      <div class="company-name">Sterling Civil Engineering</div>
+      <div class="company-info">
+        <div class="company-info-row"><span class="info-label">Contacts:</span> 1</div>
+        <div class="company-info-row"><span class="info-label">Primary:</span> Christopher Brooks</div>
+        <div class="company-info-row"><span class="info-label">Title:</span> SVP Operations</div>
+      </div>
+      <div class="company-actions">
+        <button class="btn btn-primary" onclick="alert('Research this company...')">📊 Research</button>
+        <button class="btn btn-secondary" onclick="alert('Engagement strategy...')">📋 Strategy</button>
+      </div>
+    </div>
+    <div class="company-card">
+      <div class="company-name">Cornerstone General Contractors</div>
+      <div class="company-info">
+        <div class="company-info-row"><span class="info-label">Contacts:</span> 1</div>
+        <div class="company-info-row"><span class="info-label">Primary:</span> Amanda Foster</div>
+        <div class="company-info-row"><span class="info-label">Title:</span> COO</div>
+      </div>
+      <div class="company-actions">
+        <button class="btn btn-primary" onclick="alert('Research this company...')">📊 Research</button>
+        <button class="btn btn-secondary" onclick="alert('Engagement strategy...')">📋 Strategy</button>
+      </div>
+    </div>
   </div>
 </div>
+<footer>
+  <p>Updated: 06:04 AM ET on Saturday, June 13</p>
+  <p>Use this view to track company-level account planning and multi-threaded outreach.</p>
+</footer>
 </body>
 </html>
