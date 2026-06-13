@@ -6,184 +6,282 @@
 <title>CrewCast — Company Follow</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f0f4f8;color:#1a202c}
-header{background:#1a202c;color:#fff;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #2d3748}
-h1{font-size:18px;font-weight:700;margin:0}
+body{font-family:-apple-system,sans-serif;background:#f0f4f8;color:#1a202c;overflow-x:hidden}
+header{background:#1a202c;color:#fff;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
+h1{font-size:18px;font-weight:700}
 .sub{font-size:12px;color:#a0aec0;margin-top:2px}
-.nav{display:flex;gap:12px;align-items:center}
-.nav a{color:#a0aec0;text-decoration:none;font-size:13px;padding:4px 8px;border-radius:4px}
-.nav a:hover{background:#2d3748;color:#fff}
-.nav .active{background:#4299e1;color:#fff}
-.wrap{max-width:1000px;margin:0 auto;padding:24px 16px}
-.stats{display:flex;gap:16px;margin-bottom:24px;font-size:13px}
-.stat{background:#fff;padding:12px 16px;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
-.stat-num{font-size:18px;font-weight:700;color:#2d3748}
-.stat-label{color:#718096;margin-top:2px}
-.company-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:32px}
-.company-card{background:#fff;border-radius:8px;border:1px solid #e2e8f0;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.08);transition:all .2s}
-.company-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.12);transform:translateY(-2px)}
-.company-name{font-size:16px;font-weight:700;color:#1a202c;margin-bottom:8px}
-.company-info{font-size:12px;color:#718096;line-height:1.6;margin-bottom:12px}
-.company-info-row{margin:6px 0}
-.info-label{font-weight:600;color:#2d3748}
-.company-actions{display:flex;gap:8px}
-.btn{padding:8px 12px;font-size:12px;border:none;border-radius:4px;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block;flex:1;text-align:center}
-.btn-primary{background:#4299e1;color:#fff;font-weight:600}
-.btn-primary:hover{background:#3182ce}
-.btn-secondary{background:#cbd5e0;color:#1a202c}
-.btn-secondary:hover{background:#a0aec0}
-footer{text-align:center;padding:24px;color:#718096;font-size:12px;border-top:1px solid #e2e8f0;margin-top:40px}
+.wrap{max-width:920px;margin:0 auto;padding:24px 16px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:24px}
+.stat{background:#fff;border-radius:8px;padding:12px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.stat-num{font-size:24px;font-weight:700;color:#1a202c}
+.stat-label{font-size:11px;color:#718096;margin-top:4px;text-transform:uppercase}
+.grid{display:grid;gap:16px}
+.card{background:#fff;border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,.08);padding:20px;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start}
+.card-info h3{font-size:16px;font-weight:700;margin-bottom:8px}
+.card-meta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.meta-badge{background:#edf2f7;border-radius:4px;padding:4px 8px;font-size:11px;color:#4a5568;font-weight:500}
+.card-angle{color:#718096;font-size:13px;line-height:1.5;margin-bottom:12px}
+.card-follow{color:#666;font-size:12px;line-height:1.5;margin-bottom:12px}
+.card-actions{display:flex;gap:8px;margin-top:12px}
+.btn{border:none;border-radius:6px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap}
+.btn-copy{background:#edf2f7;color:#1a202c;border:1px solid #cbd5e0}
+.btn-copy:hover{background:#e2e8f0;box-shadow:0 2px 4px rgba(0,0,0,.1)}
+.btn-copy.copied{background:#48bb78;color:#fff;border-color:#38a169}
+.btn-link{background:#3182ce;color:#fff;border:none}
+.btn-link:hover{background:#2c5aa0;box-shadow:0 2px 4px rgba(0,0,0,.15)}
+.btn-skip{background:#fed7d7;color:#c53030}
+.btn-skip:hover{background:#fc8787}
+.card-right{display:flex;flex-direction:column;gap:8px;align-items:flex-end;min-width:160px}
+.status-badge{padding:6px 12px;border-radius:6px;font-size:11px;font-weight:600;text-align:center;width:100%;background:#fef3c7;color:#92400e}
+.status-badge.followed{background:#d1fae5;color:#065f46}
+.status-badge.skipped{background:#fee2e2;color:#7f1d1d}
+@media(max-width:768px){.card{grid-template-columns:1fr}.card-right{flex-direction:row;align-items:center;justify-content:space-between;width:100%;min-width:auto}}
 </style>
 </head>
 <body>
 <header>
-  <div><h1>🏢 Company Follow</h1><div class="sub">CrewCast Sales · Account Planning</div></div>
-  <div class="nav">
-    <a href="index.html">Prospects</a>
-    <a href="companies.html" class="active">Companies (10)</a>
-  </div>
+  <div><h1>🏢 Company Follow</h1><div class="sub">CrewCast Sales · Research Portal</div></div>
 </header>
 <div class="wrap">
   <div class="stats">
-    <div class="stat">
-      <div class="stat-num">10</div>
-      <div class="stat-label">Target Companies</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">10</div>
-      <div class="stat-label">Known Contacts</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">0</div>
-      <div class="stat-label">Companies Engaged</div>
-    </div>
+    <div class="stat"><div class="stat-num">10</div><div class="stat-label">Companies</div></div>
+    <div class="stat"><div class="stat-num">0</div><div class="stat-label">Followed</div></div>
+    <div class="stat"><div class="stat-num">10</div><div class="stat-label">Unsent</div></div>
   </div>
-  <div class="company-grid">
-    <div class="company-card">
-      <div class="company-name">Sunbelt Construction Group</div>
-      <div class="company-info">
-        <div class="company-info-row"><span class="info-label">Contacts:</span> 1</div>
-        <div class="company-info-row"><span class="info-label">Primary:</span> Michael Chen</div>
-        <div class="company-info-row"><span class="info-label">Title:</span> VP of Operations</div>
+  
+  <div class="grid">
+    <div class="card">
+      <div class="card-info">
+        <h3>Granite Construction Company</h3>
+        <div class="card-meta">
+          <span class="meta-badge">Heavy Civil Infrastructure</span>
+          <span class="meta-badge">$250M-$500M</span>
+          <span class="meta-badge">Watsonville, CA</span>
+        </div>
+        <div class="card-angle"><strong>Angle:</strong> Granite's recent $67M highway projects & CAP expansion = heavy ops scaling. CrewCast forecasting helps manage growing labor needs.</div>
+        <div class="card-follow"><strong>Follow:</strong> Monitor new CAP additions & Kenny Seng integration; reach out on ops scaling & labor planning.</div>
+        <div class="card-actions">
+          <button class="btn btn-link" onclick="window.open('https://www.linkedin.com/company/granite-construction-inc/','_blank')">→ LinkedIn</button>
+        </div>
       </div>
-      <div class="company-actions">
-        <button class="btn btn-primary" onclick="alert('Research this company...')">📊 Research</button>
-        <button class="btn btn-secondary" onclick="alert('Engagement strategy...')">📋 Strategy</button>
-      </div>
-    </div>
-    <div class="company-card">
-      <div class="company-name">Turner Construction Company</div>
-      <div class="company-info">
-        <div class="company-info-row"><span class="info-label">Contacts:</span> 1</div>
-        <div class="company-info-row"><span class="info-label">Primary:</span> Patricia Williams</div>
-        <div class="company-info-row"><span class="info-label">Title:</span> SVP Operations</div>
-      </div>
-      <div class="company-actions">
-        <button class="btn btn-primary" onclick="alert('Research this company...')">📊 Research</button>
-        <button class="btn btn-secondary" onclick="alert('Engagement strategy...')">📋 Strategy</button>
+      <div class="card-right">
+        <div class="status-badge">NEW</div>
+        <button class="btn btn-copy" onclick="copyToClipboard('Granite Construction focused on ops scaling. CrewCast helps forecast labor across $67M+ highway portfolio.', this)">📋 Copy</button>
+        <button class="btn btn-skip" onclick="markSkipped(this)">Skip</button>
       </div>
     </div>
-    <div class="company-card">
-      <div class="company-name">Helix Electric</div>
-      <div class="company-info">
-        <div class="company-info-row"><span class="info-label">Contacts:</span> 1</div>
-        <div class="company-info-row"><span class="info-label">Primary:</span> James Rodriguez</div>
-        <div class="company-info-row"><span class="info-label">Title:</span> Director of Operations</div>
+
+    <div class="card">
+      <div class="card-info">
+        <h3>Webcor Builders</h3>
+        <div class="card-meta">
+          <span class="meta-badge">Commercial General Contracting</span>
+          <span class="meta-badge">$150M-$300M</span>
+          <span class="meta-badge">San Francisco, CA</span>
+        </div>
+        <div class="card-angle"><strong>Angle:</strong> Webcor's active hiring for schedulers & project roles signals growth. CrewCast optimizes labor allocation across multiple concurrent projects.</div>
+        <div class="card-follow"><strong>Follow:</strong> Engage on hiring momentum & ops scale; pitch workforce forecasting for project staffing.</div>
+        <div class="card-actions">
+          <button class="btn btn-link" onclick="window.open('https://www.linkedin.com/company/webcor/','_blank')">→ LinkedIn</button>
+        </div>
       </div>
-      <div class="company-actions">
-        <button class="btn btn-primary" onclick="alert('Research this company...')">📊 Research</button>
-        <button class="btn btn-secondary" onclick="alert('Engagement strategy...')">📋 Strategy</button>
-      </div>
-    </div>
-    <div class="company-card">
-      <div class="company-name">Precision Civil Engineering</div>
-      <div class="company-info">
-        <div class="company-info-row"><span class="info-label">Contacts:</span> 1</div>
-        <div class="company-info-row"><span class="info-label">Primary:</span> Sarah Thompson</div>
-        <div class="company-info-row"><span class="info-label">Title:</span> COO</div>
-      </div>
-      <div class="company-actions">
-        <button class="btn btn-primary" onclick="alert('Research this company...')">📊 Research</button>
-        <button class="btn btn-secondary" onclick="alert('Engagement strategy...')">📋 Strategy</button>
+      <div class="card-right">
+        <div class="status-badge">NEW</div>
+        <button class="btn btn-copy" onclick="copyToClipboard('Webcor scaling hiring. CrewCast optimizes labor allocation across concurrent commercial projects.', this)">📋 Copy</button>
+        <button class="btn btn-skip" onclick="markSkipped(this)">Skip</button>
       </div>
     </div>
-    <div class="company-card">
-      <div class="company-name">Boral Construction Services</div>
-      <div class="company-info">
-        <div class="company-info-row"><span class="info-label">Contacts:</span> 1</div>
-        <div class="company-info-row"><span class="info-label">Primary:</span> David Martinez</div>
-        <div class="company-info-row"><span class="info-label">Title:</span> VP Operations</div>
+
+    <div class="card">
+      <div class="card-info">
+        <h3>DPR Construction</h3>
+        <div class="card-meta">
+          <span class="meta-badge">Commercial General Contracting</span>
+          <span class="meta-badge">$300M-$500M</span>
+          <span class="meta-badge">Redwood City, CA</span>
+        </div>
+        <div class="card-angle"><strong>Angle:</strong> DPR's hyperscale data center boom & shared leadership model = complex ops. CrewCast helps forecast labor across portfolio.</div>
+        <div class="card-follow"><strong>Follow:</strong> Target Carolyn Hunter (VP Ops) on workforce forecasting for multi-site hyperscale projects.</div>
+        <div class="card-actions">
+          <button class="btn btn-link" onclick="window.open('https://www.linkedin.com/company/dpr-construction/','_blank')">→ LinkedIn</button>
+        </div>
       </div>
-      <div class="company-actions">
-        <button class="btn btn-primary" onclick="alert('Research this company...')">📊 Research</button>
-        <button class="btn btn-secondary" onclick="alert('Engagement strategy...')">📋 Strategy</button>
-      </div>
-    </div>
-    <div class="company-card">
-      <div class="company-name">Consigli Construction</div>
-      <div class="company-info">
-        <div class="company-info-row"><span class="info-label">Contacts:</span> 1</div>
-        <div class="company-info-row"><span class="info-label">Primary:</span> Lisa Anderson</div>
-        <div class="company-info-row"><span class="info-label">Title:</span> Senior Superintendent</div>
-      </div>
-      <div class="company-actions">
-        <button class="btn btn-primary" onclick="alert('Research this company...')">📊 Research</button>
-        <button class="btn btn-secondary" onclick="alert('Engagement strategy...')">📋 Strategy</button>
+      <div class="card-right">
+        <div class="status-badge">NEW</div>
+        <button class="btn btn-copy" onclick="copyToClipboard('DPR hyperscale boom = complex labor planning. CrewCast forecasts workforce across multi-site portfolio.', this)">📋 Copy</button>
+        <button class="btn btn-skip" onclick="markSkipped(this)">Skip</button>
       </div>
     </div>
-    <div class="company-card">
-      <div class="company-name">Westfield Construction</div>
-      <div class="company-info">
-        <div class="company-info-row"><span class="info-label">Contacts:</span> 1</div>
-        <div class="company-info-row"><span class="info-label">Primary:</span> Robert Kim</div>
-        <div class="company-info-row"><span class="info-label">Title:</span> Director of Project Controls</div>
+
+    <div class="card">
+      <div class="card-info">
+        <h3>Anderson Columbia Co., Inc.</h3>
+        <div class="card-meta">
+          <span class="meta-badge">Heavy Highway Construction</span>
+          <span class="meta-badge">$100M-$250M</span>
+          <span class="meta-badge">Portland, OR</span>
+        </div>
+        <div class="card-angle"><strong>Angle:</strong> Anderson's I-395/I-94 projects & multi-state ops = complex scheduling. CrewCast visibility into labor capacity across regions.</div>
+        <div class="card-follow"><strong>Follow:</strong> Engage on highway project scaling; pitch labor forecasting for multiple concurrent contracts.</div>
+        <div class="card-actions">
+          <button class="btn btn-link" onclick="window.open('https://www.linkedin.com/company/anderson-columbia-co-inc/','_blank')">→ LinkedIn</button>
+        </div>
       </div>
-      <div class="company-actions">
-        <button class="btn btn-primary" onclick="alert('Research this company...')">📊 Research</button>
-        <button class="btn btn-secondary" onclick="alert('Engagement strategy...')">📋 Strategy</button>
-      </div>
-    </div>
-    <div class="company-card">
-      <div class="company-name">Midwest Electrical Contractors</div>
-      <div class="company-info">
-        <div class="company-info-row"><span class="info-label">Contacts:</span> 1</div>
-        <div class="company-info-row"><span class="info-label">Primary:</span> Jennifer Hayes</div>
-        <div class="company-info-row"><span class="info-label">Title:</span> VP of Operations</div>
-      </div>
-      <div class="company-actions">
-        <button class="btn btn-primary" onclick="alert('Research this company...')">📊 Research</button>
-        <button class="btn btn-secondary" onclick="alert('Engagement strategy...')">📋 Strategy</button>
+      <div class="card-right">
+        <div class="status-badge">NEW</div>
+        <button class="btn btn-copy" onclick="copyToClipboard('Anderson Columbia managing multi-state highway projects. CrewCast forecasts crew availability across regions.', this)">📋 Copy</button>
+        <button class="btn btn-skip" onclick="markSkipped(this)">Skip</button>
       </div>
     </div>
-    <div class="company-card">
-      <div class="company-name">Sterling Civil Engineering</div>
-      <div class="company-info">
-        <div class="company-info-row"><span class="info-label">Contacts:</span> 1</div>
-        <div class="company-info-row"><span class="info-label">Primary:</span> Christopher Brooks</div>
-        <div class="company-info-row"><span class="info-label">Title:</span> SVP Operations</div>
+
+    <div class="card">
+      <div class="card-info">
+        <h3>Consigli Construction Co., Inc.</h3>
+        <div class="card-meta">
+          <span class="meta-badge">Commercial General Contracting</span>
+          <span class="meta-badge">$150M-$350M</span>
+          <span class="meta-badge">Glastonbury, CT</span>
+        </div>
+        <div class="card-angle"><strong>Angle:</strong> Josh Sylvester's new CT ops role + Ed's 30yr tenure = strong ops foundation. CrewCast scales forecasting across regions.</div>
+        <div class="card-follow"><strong>Follow:</strong> Reach Josh Sylvester on ops scaling; pitch workforce planning for multi-project healthcare/education portfolio.</div>
+        <div class="card-actions">
+          <button class="btn btn-link" onclick="window.open('https://www.linkedin.com/company/consigli-construction/','_blank')">→ LinkedIn</button>
+        </div>
       </div>
-      <div class="company-actions">
-        <button class="btn btn-primary" onclick="alert('Research this company...')">📊 Research</button>
-        <button class="btn btn-secondary" onclick="alert('Engagement strategy...')">📋 Strategy</button>
+      <div class="card-right">
+        <div class="status-badge">NEW</div>
+        <button class="btn btn-copy" onclick="copyToClipboard('Consigli ops scaling under Josh Sylvester. CrewCast optimizes healthcare/education project portfolio.', this)">📋 Copy</button>
+        <button class="btn btn-skip" onclick="markSkipped(this)">Skip</button>
       </div>
     </div>
-    <div class="company-card">
-      <div class="company-name">Cornerstone General Contractors</div>
-      <div class="company-info">
-        <div class="company-info-row"><span class="info-label">Contacts:</span> 1</div>
-        <div class="company-info-row"><span class="info-label">Primary:</span> Amanda Foster</div>
-        <div class="company-info-row"><span class="info-label">Title:</span> COO</div>
+
+    <div class="card">
+      <div class="card-info">
+        <h3>Lunda Construction Company</h3>
+        <div class="card-meta">
+          <span class="meta-badge">Heavy Highway & Civil Construction</span>
+          <span class="meta-badge">$80M-$200M</span>
+          <span class="meta-badge">Minneapolis, MN</span>
+        </div>
+        <div class="card-angle"><strong>Angle:</strong> Lunda's $67.2M I-94/I-394 award shows strong backlog. CrewCast forecasting helps allocate crews across large contracts.</div>
+        <div class="card-follow"><strong>Follow:</strong> Engage Joseph Larson (President) on highway project labor planning & crew scheduling.</div>
+        <div class="card-actions">
+          <button class="btn btn-link" onclick="window.open('https://www.linkedin.com/company/lunda-construction/','_blank')">→ LinkedIn</button>
+        </div>
       </div>
-      <div class="company-actions">
-        <button class="btn btn-primary" onclick="alert('Research this company...')">📊 Research</button>
-        <button class="btn btn-secondary" onclick="alert('Engagement strategy...')">📋 Strategy</button>
+      <div class="card-right">
+        <div class="status-badge">NEW</div>
+        <button class="btn btn-copy" onclick="copyToClipboard('Lunda awarded $67.2M highway contract. CrewCast allocates crews across major project portfolio.', this)">📋 Copy</button>
+        <button class="btn btn-skip" onclick="markSkipped(this)">Skip</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-info">
+        <h3>Pepper Construction</h3>
+        <div class="card-meta">
+          <span class="meta-badge">Commercial General Contracting</span>
+          <span class="meta-badge">$120M-$280M</span>
+          <span class="meta-badge">Chicago, IL</span>
+        </div>
+        <div class="card-angle"><strong>Angle:</strong> Pepper's complex project portfolio (aerospace testing, community centers) = high coordination needs. CrewCast solves labor complexity.</div>
+        <div class="card-follow"><strong>Follow:</strong> Target ops team on workforce planning for complex, concurrent commercial projects.</div>
+        <div class="card-actions">
+          <button class="btn btn-link" onclick="window.open('https://www.linkedin.com/company/pepper-construction-company/','_blank')">→ LinkedIn</button>
+        </div>
+      </div>
+      <div class="card-right">
+        <div class="status-badge">NEW</div>
+        <button class="btn btn-copy" onclick="copyToClipboard('Pepper managing complex aerospace & commercial projects. CrewCast solves concurrent project labor planning.', this)">📋 Copy</button>
+        <button class="btn btn-skip" onclick="markSkipped(this)">Skip</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-info">
+        <h3>Helix Electric, Inc.</h3>
+        <div class="card-meta">
+          <span class="meta-badge">Electrical Contracting</span>
+          <span class="meta-badge">$400M-$600M</span>
+          <span class="meta-badge">Las Vegas, NV</span>
+        </div>
+        <div class="card-angle"><strong>Angle:</strong> Victor Fuchs' growth in water-treatment + nationwide expansion = massive labor scaling. CrewCast forecasts labor across regions.</div>
+        <div class="card-follow"><strong>Follow:</strong> Engage Casey Long (COO) on workforce scaling for nationwide electrical projects & emerging verticals.</div>
+        <div class="card-actions">
+          <button class="btn btn-link" onclick="window.open('https://www.linkedin.com/company/helix-electric/','_blank')">→ LinkedIn</button>
+        </div>
+      </div>
+      <div class="card-right">
+        <div class="status-badge">NEW</div>
+        <button class="btn btn-copy" onclick="copyToClipboard('Helix Electric scaling nationwide + water-treatment growth. CrewCast forecasts labor for regional expansion.', this)">📋 Copy</button>
+        <button class="btn btn-skip" onclick="markSkipped(this)">Skip</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-info">
+        <h3>Sundt Construction</h3>
+        <div class="card-meta">
+          <span class="meta-badge">General Contracting & Building</span>
+          <span class="meta-badge">$250M-$450M</span>
+          <span class="meta-badge">Tucson, AZ</span>
+        </div>
+        <div class="card-angle"><strong>Angle:</strong> Shawn Blubaum's new Tucson region leadership + portfolio across AZ = coordinated labor strategy. CrewCast optimizes forecasting.</div>
+        <div class="card-follow"><strong>Follow:</strong> Reach Shawn Blubaum on regional ops scaling; pitch labor forecasting across AZ building projects.</div>
+        <div class="card-actions">
+          <button class="btn btn-link" onclick="window.open('https://www.linkedin.com/company/sundt-construction/','_blank')">→ LinkedIn</button>
+        </div>
+      </div>
+      <div class="card-right">
+        <div class="status-badge">NEW</div>
+        <button class="btn btn-copy" onclick="copyToClipboard('Sundt new AZ regional leadership under Shawn Blubaum. CrewCast optimizes labor across building portfolio.', this)">📋 Copy</button>
+        <button class="btn btn-skip" onclick="markSkipped(this)">Skip</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-info">
+        <h3>Barton Malow Company</h3>
+        <div class="card-meta">
+          <span class="meta-badge">General Contracting</span>
+          <span class="meta-badge">$200M-$400M</span>
+          <span class="meta-badge">Livonia, MI</span>
+        </div>
+        <div class="card-angle"><strong>Angle:</strong> Ryan Maibach (CEO) + Chuck Binkowski (COO) + 100yr history = mature ops. CrewCast adds precision forecasting.</div>
+        <div class="card-follow"><strong>Follow:</strong> Target operations team on labor optimization for mature multi-project healthcare/education portfolio.</div>
+        <div class="card-actions">
+          <button class="btn btn-link" onclick="window.open('https://www.linkedin.com/company/bartonmalow/','_blank')">→ LinkedIn</button>
+        </div>
+      </div>
+      <div class="card-right">
+        <div class="status-badge">NEW</div>
+        <button class="btn btn-copy" onclick="copyToClipboard('Barton Malow 100yr+ leader with mature ops. CrewCast adds precision labor forecasting.', this)">📋 Copy</button>
+        <button class="btn btn-skip" onclick="markSkipped(this)">Skip</button>
       </div>
     </div>
   </div>
 </div>
-<footer>
-  <p>Updated: 06:04 AM ET on Saturday, June 13</p>
-  <p>Use this view to track company-level account planning and multi-threaded outreach.</p>
-</footer>
+
+<script>
+function copyToClipboard(text, btn) {
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = '✓ Copied';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = '📋 Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+function markSkipped(btn) {
+  const card = btn.closest('.card');
+  card.style.opacity = '0.4';
+  btn.disabled = true;
+  const badge = card.querySelector('.status-badge');
+  badge.textContent = 'SKIPPED';
+  badge.classList.add('skipped');
+}
+</script>
 </body>
 </html>
