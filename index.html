@@ -7,11 +7,10 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f0f4f8;color:#1a202c}
-header{background:#1a202c;color:#fff;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #2d3748;position:sticky;top:0;z-index:100}
-h1{font-size:18px;font-weight:700;margin:0}
+header{background:#1a202c;color:#fff;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
+h1{font-size:18px;font-weight:700}
 .sub{font-size:12px;color:#a0aec0;margin-top:2px}
-.nav{display:flex;gap:12px;align-items:center}
-.nav a{color:#a0aec0;text-decoration:none;font-size:13px;padding:4px 10px;border-radius:4px}
+.nav a{color:#a0aec0;text-decoration:none;font-size:13px;padding:4px 10px;border-radius:4px;margin-left:8px}
 .nav a:hover{background:#2d3748;color:#fff}
 .nav .active{background:#4299e1;color:#fff}
 .wrap{max-width:1000px;margin:0 auto;padding:24px 16px}
@@ -19,51 +18,57 @@ h1{font-size:18px;font-weight:700;margin:0}
 .stat{background:#fff;padding:12px 16px;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.08);text-align:center}
 .stat-num{font-size:22px;font-weight:700;color:#2d3748}
 .stat-label{color:#718096;font-size:11px;margin-top:2px;text-transform:uppercase}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-bottom:32px}
-.card{background:#fff;border-radius:8px;border:1px solid #e2e8f0;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.08);transition:all .2s;display:flex;flex-direction:column}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;margin-bottom:32px}
+.card{background:#fff;border-radius:10px;border:1px solid #e2e8f0;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.08);transition:all .2s;display:flex;flex-direction:column}
 .card:hover{box-shadow:0 4px 12px rgba(0,0,0,.12);transform:translateY(-2px)}
-.card.skipped{opacity:0.45}
-.card.off-base{border:2px solid #f6ad55;opacity:0.55}
-.card.bad-link{border:2px solid #fc8181}
-.card-head{margin-bottom:10px;display:flex;justify-content:space-between;align-items:flex-start}
-.prospect-name{font-size:15px;font-weight:700;color:#1a202c}
+.card.done{opacity:0.4}
+.card.off-base{border:2px solid #f6ad55;opacity:0.5}
+.card.bad-link{border:2px solid #fc8181;opacity:0.6}
+.card-head{margin-bottom:12px;display:flex;justify-content:space-between;align-items:flex-start}
+.prospect-name{font-size:15px;font-weight:700}
 .prospect-title{font-size:11px;color:#718096;margin-top:2px}
 .prospect-company{font-size:12px;font-weight:600;color:#4299e1;margin-top:4px}
-.status-badge{padding:3px 8px;border-radius:4px;font-size:10px;font-weight:700;white-space:nowrap;margin-left:8px;flex-shrink:0}
-.status-badge.new{background:#bee3f8;color:#2c5282}
-.status-badge.sent{background:#c6f6d5;color:#22543d}
-.status-badge.skipped{background:#e2e8f0;color:#4a5568}
-.status-badge.off-base{background:#feebc8;color:#c05621}
-.status-badge.bad-link{background:#fed7d7;color:#c53030}
-.touch-block{margin:8px 0;padding:10px;background:#f7fafc;border-left:3px solid #4299e1;border-radius:0 4px 4px 0;font-size:12px;color:#4a5568;line-height:1.5}
-.touch-block.t2{border-left-color:#9f7aea}
-.touch-block.t3{border-left-color:#ed8936}
-.touch-label{font-weight:700;color:#2d3748;font-size:11px;margin-bottom:3px}
-.touch-label.t2{color:#553c9a}
-.touch-label.t3{color:#7b341e}
-.char-count{font-size:10px;color:#718096;text-align:right;margin-top:3px}
+/* Stage pill */
+.stage-pill{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap;margin-left:8px;flex-shrink:0}
+.stage-pill.t1-ready{background:#bee3f8;color:#2c5282}
+.stage-pill.t2-ready{background:#d6bcfa;color:#44337a}
+.stage-pill.t2-waiting{background:#fefcbf;color:#7b6c00}
+.stage-pill.t3-ready{background:#fbd38d;color:#7b341e}
+.stage-pill.t3-waiting{background:#fefcbf;color:#7b6c00}
+.stage-pill.complete{background:#c6f6d5;color:#22543d}
+.stage-pill.off-base{background:#feebc8;color:#c05621}
+.stage-pill.bad-link{background:#fed7d7;color:#c53030}
+.stage-pill.skipped{background:#e2e8f0;color:#4a5568}
+/* Touch block */
+.touch-block{margin:0;padding:12px 14px;background:#f7fafc;border-left:4px solid #4299e1;border-radius:0 6px 6px 0;font-size:13px;color:#2d3748;line-height:1.55;flex:1}
+.touch-block.t2{border-left-color:#9f7aea;background:#faf5ff}
+.touch-block.t3{border-left-color:#ed8936;background:#fffaf0}
+.touch-stage-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;color:#718096}
+.touch-stage-label.t1{color:#2b6cb0}
+.touch-stage-label.t2{color:#553c9a}
+.touch-stage-label.t3{color:#c05621}
+.char-count{font-size:10px;color:#a0aec0;text-align:right;margin-top:4px}
 .char-count.over{color:#e53e3e;font-weight:700}
-.card-actions{display:flex;gap:6px;margin-top:auto;padding-top:12px;flex-wrap:wrap}
-.btn{padding:7px 10px;font-size:11px;border:none;border-radius:4px;cursor:pointer;transition:all .2s;font-weight:600;white-space:nowrap}
-.btn:disabled{opacity:0.5;cursor:not-allowed}
+/* Waiting overlay */
+.waiting-msg{font-size:12px;color:#b7791f;background:#fefcbf;border-radius:6px;padding:10px 12px;text-align:center;font-weight:600}
+/* Actions */
+.card-actions{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
+.btn{padding:8px 12px;font-size:12px;border:none;border-radius:5px;cursor:pointer;transition:all .15s;font-weight:600;white-space:nowrap}
 .btn-copy{background:#4299e1;color:#fff;flex:1}
-.btn-copy:hover:not(:disabled){background:#3182ce}
+.btn-copy:hover{background:#3182ce}
 .btn-copy.copied{background:#48bb78}
 .btn-linkedin{background:#0a66c2;color:#fff}
-.btn-linkedin:hover:not(:disabled){background:#055199}
-.btn-sent{background:#48bb78;color:#fff}
-.btn-sent:hover:not(:disabled){background:#38a169}
-.btn-sent.done{background:#276749}
+.btn-linkedin:hover{background:#055199}
+.btn-sent{background:#48bb78;color:#fff;flex:1}
+.btn-sent:hover{background:#38a169}
 .btn-skip{background:#e2e8f0;color:#4a5568}
-.btn-skip:hover:not(:disabled){background:#cbd5e0}
+.btn-skip:hover{background:#cbd5e0}
 .btn-offbase{background:#fff;color:#c05621;border:1px solid #f6ad55}
-.btn-offbase:hover:not(:disabled){background:#feebc8}
-.btn-offbase.flagged{background:#feebc8;color:#7b341e;border-color:#ed8936}
-.btn-badlink{background:#fff;color:#c53030;border:1px solid #fc8181;font-size:10px}
-.btn-badlink:hover:not(:disabled){background:#fff5f5}
-.btn-badlink.flagged{background:#fff5f5;color:#9b2c2c}
+.btn-offbase:hover{background:#feebc8}
+.btn-badlink{background:#fff;color:#c53030;border:1px solid #fc8181;font-size:11px}
+.btn-badlink:hover{background:#fff5f5}
 .loading{text-align:center;padding:60px;color:#718096;font-size:14px;grid-column:1/-1}
-footer{text-align:center;padding:24px;color:#718096;font-size:12px;border-top:1px solid #e2e8f0;margin-top:16px}
+footer{text-align:center;padding:24px;color:#718096;font-size:12px;border-top:1px solid #e2e8f0;margin-top:8px}
 </style>
 </head>
 <body>
@@ -76,19 +81,21 @@ footer{text-align:center;padding:24px;color:#718096;font-size:12px;border-top:1p
 </header>
 <div class="wrap">
   <div class="stats">
-    <div class="stat"><div class="stat-num" id="stat-total">—</div><div class="stat-label">Prospects</div></div>
-    <div class="stat"><div class="stat-num" id="stat-sent">—</div><div class="stat-label">Sent</div></div>
-    <div class="stat"><div class="stat-num" id="stat-unsent">—</div><div class="stat-label">Unsent</div></div>
-    <div class="stat"><div class="stat-num" id="stat-offbase">—</div><div class="stat-label">Off Base</div></div>
-    <div class="stat"><div class="stat-num" id="stat-badlink">—</div><div class="stat-label">Bad Links</div></div>
+    <div class="stat"><div class="stat-num" id="s-total">—</div><div class="stat-label">Total</div></div>
+    <div class="stat"><div class="stat-num" id="s-t1">—</div><div class="stat-label">Need T1</div></div>
+    <div class="stat"><div class="stat-num" id="s-t2ready">—</div><div class="stat-label">T2 Ready</div></div>
+    <div class="stat"><div class="stat-num" id="s-t3ready">—</div><div class="stat-label">T3 Ready</div></div>
+    <div class="stat"><div class="stat-num" id="s-done">—</div><div class="stat-label">Complete</div></div>
   </div>
-  <div class="grid" id="cards-container">
-    <div class="loading">Loading prospects...</div>
-  </div>
+  <div class="grid" id="cards"></div>
 </div>
 <footer>CrewCast Sales · Daily Outreach Portal · <a href="companies.html" style="color:#4299e1">Company Follow →</a></footer>
+
 <script>
-const API_BASE = 'https://superagent-39294123.base44.app/functions';
+const API = 'https://superagent-39294123.base44.app/functions';
+const T2_WAIT = 3; // days after T1 before T2 is ready
+const T3_WAIT = 5; // days after T2 before T3 is ready
+
 const PROSPECTS = [
   {
     hubspot_id: '501106903762',
@@ -222,90 +229,166 @@ const PROSPECTS = [
   }
 ];
 
-let statuses = {};
+let statusMap = {}; // hubspot_id -> full status record
 
-async function loadStatuses() {
-  try {
-    const r = await fetch(`${API_BASE}/getProspectStatuses`, {method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});
-    const d = await r.json();
-    if (d.statuses) d.statuses.forEach(s => statuses[s.hubspot_id] = s.status);
-  } catch(e) { console.log('Status load failed:', e); }
+function daysSince(dateStr) {
+  if (!dateStr) return null;
+  const diff = Date.now() - new Date(dateStr).getTime();
+  return Math.floor(diff / 86400000);
 }
 
-function getStatus(hid) { return statuses[hid] || 'NEW'; }
+function getStage(hid) {
+  const r = statusMap[hid] || {};
+  const s = r.status || 'NEW';
+  if (s === 'OFF_BASE') return { code: 'off-base', label: '🚫 Off Base' };
+  if (s === 'BAD_LINK') return { code: 'bad-link', label: '🚩 Bad Link' };
+  if (s === 'SKIPPED')  return { code: 'skipped',  label: 'Skipped' };
+  if (s === 'SENT_T3')  return { code: 'complete',  label: '✅ Complete' };
+
+  if (s === 'SENT_T2') {
+    const days = daysSince(r.t2_sent_date);
+    if (days === null || days < T3_WAIT) {
+      const left = T3_WAIT - (days || 0);
+      return { code: 't3-waiting', label: `⏳ T3 in ${left}d`, touch: 3, waiting: true, daysLeft: left };
+    }
+    return { code: 't3-ready', label: '🟠 Send T3', touch: 3, waiting: false };
+  }
+
+  if (s === 'SENT_T1') {
+    const days = daysSince(r.t1_sent_date);
+    if (days === null || days < T2_WAIT) {
+      const left = T2_WAIT - (days || 0);
+      return { code: 't2-waiting', label: `⏳ T2 in ${left}d`, touch: 2, waiting: true, daysLeft: left };
+    }
+    return { code: 't2-ready', label: '🟣 Send T2', touch: 2, waiting: false };
+  }
+
+  // NEW or unrecognized
+  return { code: 't1-ready', label: '🔵 Send T1', touch: 1, waiting: false };
+}
 
 function updateStats() {
   const total = PROSPECTS.length;
-  const sent = PROSPECTS.filter(p => getStatus(p.hubspot_id) === 'SENT').length;
-  const offbase = PROSPECTS.filter(p => getStatus(p.hubspot_id) === 'OFF_BASE').length;
-  const badlink = PROSPECTS.filter(p => getStatus(p.hubspot_id) === 'BAD_LINK').length;
-  const skipped = PROSPECTS.filter(p => getStatus(p.hubspot_id) === 'SKIPPED').length;
-  const unsent = total - sent - offbase - badlink - skipped;
-  document.getElementById('stat-total').textContent = total;
-  document.getElementById('stat-sent').textContent = sent;
-  document.getElementById('stat-unsent').textContent = Math.max(0, unsent);
-  document.getElementById('stat-offbase').textContent = offbase;
-  document.getElementById('stat-badlink').textContent = badlink;
-}
-
-function statusLabel(s) {
-  const map = {NEW:'New',SENT:'Sent ✓',SKIPPED:'Skipped',OFF_BASE:'Off Base',BAD_LINK:'Bad Link'};
-  return map[s] || s;
-}
-
-function renderCards() {
-  const container = document.getElementById('cards-container');
-  container.innerHTML = '';
+  let t1 = 0, t2ready = 0, t3ready = 0, done = 0;
   PROSPECTS.forEach(p => {
-    const s = getStatus(p.hubspot_id);
-    const t1len = p.touch1.length;
-    const card = document.createElement('div');
-    card.className = `card ${s==='SKIPPED'?'skipped':s==='OFF_BASE'?'off-base':s==='BAD_LINK'?'bad-link':''}`;
-    card.id = `card-${p.hubspot_id}`;
-    card.innerHTML = `
-      <div class="card-head">
-        <div>
-          <div class="prospect-name">${p.name}</div>
-          <div class="prospect-title">${p.title}</div>
-          <div class="prospect-company">${p.company}</div>
-        </div>
-        <span class="status-badge ${s.toLowerCase().replace('_','-')}">${statusLabel(s)}</span>
-      </div>
-      <div class="touch-block">
-        <div class="touch-label">Touch 1 — Connection Request</div>
-        ${p.touch1}
-        <div class="char-count ${t1len > 200 ? 'over' : ''}">${t1len}/200 chars${t1len > 200 ? ' ⚠️ OVER LIMIT' : ' ✓'}</div>
-      </div>
-      <div class="touch-block t2">
-        <div class="touch-label t2">Touch 2 — Value Message</div>
-        ${p.touch2}
-      </div>
-      <div class="touch-block t3">
-        <div class="touch-label t3">Touch 3 — Follow-up</div>
-        ${p.touch3}
-      </div>
-      <div class="card-actions">
-        <button class="btn btn-copy" onclick="copyTouch(this,'${p.hubspot_id}',1)">📋 Copy T1</button>
-        <button class="btn btn-copy" onclick="copyTouch(this,'${p.hubspot_id}',2)" style="background:#9f7aea">📋 T2</button>
-        <button class="btn btn-copy" onclick="copyTouch(this,'${p.hubspot_id}',3)" style="background:#ed8936">📋 T3</button>
-        <button class="btn btn-linkedin" onclick="openLinkedIn('${p.linkedin_url}','${p.hubspot_id}')">🔗 LinkedIn</button>
-      </div>
-      <div class="card-actions" style="margin-top:6px">
-        <button class="btn btn-sent ${s==='SENT'?'done':''}" onclick="setStatus('${p.hubspot_id}','SENT',this)">✓ Sent</button>
-        <button class="btn btn-skip" onclick="setStatus('${p.hubspot_id}','SKIPPED',this)">Skip</button>
-        <button class="btn btn-offbase ${s==='OFF_BASE'?'flagged':''}" onclick="setStatus('${p.hubspot_id}','OFF_BASE',this)">🚫 Off Base</button>
-        <button class="btn btn-badlink ${s==='BAD_LINK'?'flagged':''}" onclick="setStatus('${p.hubspot_id}','BAD_LINK',this)">🚩 Bad Link</button>
-      </div>`;
-    container.appendChild(card);
+    const st = getStage(p.hubspot_id);
+    if (st.code === 't1-ready') t1++;
+    else if (st.code === 't2-ready') t2ready++;
+    else if (st.code === 't3-ready') t3ready++;
+    else if (st.code === 'complete') done++;
   });
+  document.getElementById('s-total').textContent = total;
+  document.getElementById('s-t1').textContent = t1;
+  document.getElementById('s-t2ready').textContent = t2ready;
+  document.getElementById('s-t3ready').textContent = t3ready;
+  document.getElementById('s-done').textContent = done;
+}
+
+const pMap = {};
+PROSPECTS.forEach(p => pMap[p.hubspot_id] = p);
+
+function renderCard(p) {
+  const st = getStage(p.hubspot_id);
+  const card = document.createElement('div');
+  card.id = 'card-' + p.hubspot_id;
+
+  const fadeClass = ['complete','off-base','bad-link','skipped'].includes(st.code) ? 'done' : '';
+  const borderClass = st.code === 'off-base' ? 'off-base' : st.code === 'bad-link' ? 'bad-link' : '';
+  card.className = `card ${fadeClass} ${borderClass}`.trim();
+
+  // Determine which touch message to show
+  let touchHtml = '';
+  if (st.code === 't1-ready') {
+    const t1 = p.touch1;
+    const over = t1.length > 200;
+    touchHtml = `<div class="touch-block">
+      <div class="touch-stage-label t1">Touch 1 — Connection Request</div>
+      ${t1}
+      <div class="char-count ${over ? 'over' : ''}">${t1.length}/200 chars${over ? ' ⚠️ OVER LIMIT' : ' ✓'}</div>
+    </div>`;
+  } else if (st.code === 't2-ready') {
+    touchHtml = `<div class="touch-block t2">
+      <div class="touch-stage-label t2">Touch 2 — Value Message</div>
+      ${p.touch2}
+    </div>`;
+  } else if (st.code === 't2-waiting') {
+    touchHtml = `<div class="waiting-msg">⏳ T1 sent — T2 unlocks in ${st.daysLeft} day${st.daysLeft !== 1 ? 's' : ''} (${T2_WAIT}-day cadence)</div>`;
+  } else if (st.code === 't3-ready') {
+    touchHtml = `<div class="touch-block t3">
+      <div class="touch-stage-label t3">Touch 3 — Follow-up</div>
+      ${p.touch3}
+    </div>`;
+  } else if (st.code === 't3-waiting') {
+    touchHtml = `<div class="waiting-msg">⏳ T2 sent — T3 unlocks in ${st.daysLeft} day${st.daysLeft !== 1 ? 's' : ''} (${T3_WAIT}-day cadence)</div>`;
+  } else if (st.code === 'complete') {
+    touchHtml = `<div class="waiting-msg" style="background:#c6f6d5;color:#22543d">✅ Full 3-touch sequence complete</div>`;
+  } else if (st.code === 'off-base') {
+    touchHtml = `<div class="waiting-msg" style="background:#feebc8;color:#c05621">🚫 Flagged as off ICP — excluded from future research</div>`;
+  } else if (st.code === 'bad-link') {
+    touchHtml = `<div class="waiting-msg" style="background:#fed7d7;color:#c53030">🚩 LinkedIn URL flagged as broken</div>`;
+  } else if (st.code === 'skipped') {
+    touchHtml = `<div class="waiting-msg" style="background:#e2e8f0;color:#4a5568">⏭️ Skipped</div>`;
+  }
+
+  // Action buttons — only show relevant ones per stage
+  let actionButtons = '';
+  if (st.code === 't1-ready') {
+    actionButtons = `
+      <button class="btn btn-copy" onclick="copyMsg(this,'${p.hubspot_id}',1)">📋 Copy T1</button>
+      <button class="btn btn-linkedin" onclick="openLI('${p.linkedin_url}','${p.hubspot_id}')">🔗 LinkedIn</button>
+      <button class="btn btn-sent" onclick="markSent('${p.hubspot_id}','SENT_T1')">✓ T1 Sent</button>`;
+  } else if (st.code === 't2-ready') {
+    actionButtons = `
+      <button class="btn btn-copy" style="background:#9f7aea" onclick="copyMsg(this,'${p.hubspot_id}',2)">📋 Copy T2</button>
+      <button class="btn btn-linkedin" onclick="openLI('${p.linkedin_url}','${p.hubspot_id}')">🔗 LinkedIn</button>
+      <button class="btn btn-sent" style="background:#9f7aea" onclick="markSent('${p.hubspot_id}','SENT_T2')">✓ T2 Sent</button>`;
+  } else if (st.code === 't3-ready') {
+    actionButtons = `
+      <button class="btn btn-copy" style="background:#ed8936" onclick="copyMsg(this,'${p.hubspot_id}',3)">📋 Copy T3</button>
+      <button class="btn btn-linkedin" onclick="openLI('${p.linkedin_url}','${p.hubspot_id}')">🔗 LinkedIn</button>
+      <button class="btn btn-sent" style="background:#ed8936" onclick="markSent('${p.hubspot_id}','SENT_T3')">✓ T3 Sent</button>`;
+  }
+
+  // Secondary buttons — always show skip/off-base/bad-link unless already actioned
+  let secondaryButtons = '';
+  const inactive = ['complete','off-base','bad-link','skipped'].includes(st.code);
+  if (!inactive) {
+    secondaryButtons = `
+      <button class="btn btn-skip" onclick="markSent('${p.hubspot_id}','SKIPPED')">Skip</button>
+      <button class="btn btn-offbase" onclick="markSent('${p.hubspot_id}','OFF_BASE')">🚫 Off Base</button>
+      <button class="btn btn-badlink" onclick="markSent('${p.hubspot_id}','BAD_LINK')">🚩 Bad Link</button>`;
+  }
+
+  card.innerHTML = `
+    <div class="card-head">
+      <div>
+        <div class="prospect-name">${p.name}</div>
+        <div class="prospect-title">${p.title}</div>
+        <div class="prospect-company">${p.company}</div>
+      </div>
+      <span class="stage-pill ${st.code}">${st.label}</span>
+    </div>
+    ${touchHtml}
+    ${actionButtons ? '<div class="card-actions">' + actionButtons + '</div>' : ''}
+    ${secondaryButtons ? '<div class="card-actions" style="margin-top:4px">' + secondaryButtons + '</div>' : ''}
+  `;
+  return card;
+}
+
+function renderAll() {
+  const container = document.getElementById('cards');
+  container.innerHTML = '';
+
+  // Sort: action-needed first (T1, T2-ready, T3-ready), then waiting, then done
+  const order = { 't1-ready':0, 't2-ready':1, 't3-ready':2, 't2-waiting':3, 't3-waiting':4, 'complete':5, 'skipped':6, 'off-base':7, 'bad-link':8 };
+  const sorted = [...PROSPECTS].sort((a,b) => (order[getStage(a.hubspot_id).code]||9) - (order[getStage(b.hubspot_id).code]||9));
+
+  sorted.forEach(p => container.appendChild(renderCard(p)));
   updateStats();
 }
 
-const touchMap = {};
-PROSPECTS.forEach(p => { touchMap[p.hubspot_id] = p; });
-
-async function copyTouch(btn, hid, num) {
-  const p = touchMap[hid];
+async function copyMsg(btn, hid, num) {
+  const p = pMap[hid];
   const text = num===1 ? p.touch1 : num===2 ? p.touch2 : p.touch3;
   try {
     await navigator.clipboard.writeText(text);
@@ -313,43 +396,48 @@ async function copyTouch(btn, hid, num) {
     btn.textContent = '✅ Copied!';
     btn.classList.add('copied');
     setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 1500);
-  } catch(e) {
-    prompt('Copy this message:', text);
-  }
+  } catch(e) { prompt('Copy this:', text); }
 }
 
-function openLinkedIn(url, hid) {
+function openLI(url, hid) {
   if (!url || !url.includes('/in/')) {
-    setStatus(hid, 'BAD_LINK', null);
+    markSent(hid, 'BAD_LINK');
     alert('LinkedIn URL looks invalid — marked as Bad Link.');
     return;
   }
   window.open(url, '_blank');
 }
 
-async function setStatus(hid, status, btn) {
-  statuses[hid] = status;
-  const card = document.getElementById(`card-${hid}`);
-  if (card) {
-    card.className = `card ${status==='SKIPPED'?'skipped':status==='OFF_BASE'?'off-base':status==='BAD_LINK'?'bad-link':''}`;
-    card.querySelectorAll('.status-badge').forEach(b => {
-      b.className = `status-badge ${status.toLowerCase().replace('_','-')}`;
-      b.textContent = statusLabel(status);
-    });
-  }
+async function markSent(hid, status) {
+  if (!statusMap[hid]) statusMap[hid] = {};
+  statusMap[hid].status = status;
+  const today = new Date().toISOString().split('T')[0];
+  if (status === 'SENT_T1') statusMap[hid].t1_sent_date = today;
+  if (status === 'SENT_T2') statusMap[hid].t2_sent_date = today;
+  if (status === 'SENT_T3') statusMap[hid].t3_sent_date = today;
+
+  // Re-render just this card in place
+  const old = document.getElementById('card-' + hid);
+  if (old) old.replaceWith(renderCard(pMap[hid]));
   updateStats();
+
+  // Persist to backend
   try {
-    await fetch(`${API_BASE}/updateProspectStatus`, {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({hubspot_id: hid, status})
+    await fetch(`${API}/updateProspectStatus`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ hubspot_id: hid, status })
     });
-  } catch(e) { console.log('Status save failed:', e); }
+  } catch(e) { console.log('Save failed:', e); }
 }
 
 (async () => {
-  await loadStatuses();
-  renderCards();
+  try {
+    const r = await fetch(`${API}/getProspectStatuses`, { method:'POST', headers:{'Content-Type':'application/json'}, body:'{}' });
+    const d = await r.json();
+    if (d.statuses) d.statuses.forEach(s => { statusMap[s.hubspot_id] = s; });
+  } catch(e) { console.log('Load failed:', e); }
+  renderAll();
 })();
 </script>
 </body>
