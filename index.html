@@ -23,7 +23,7 @@ h1{font-size:18px;font-weight:700;margin:0}
 .card{background:#fff;border-radius:8px;border:1px solid #e2e8f0;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.08);transition:all .2s;display:flex;flex-direction:column}
 .card:hover{box-shadow:0 4px 12px rgba(0,0,0,.12);transform:translateY(-2px)}
 .card.skipped{opacity:0.45}
-.card.off-base{border:2px solid #f6ad55;opacity:0.5}
+.card.off-base{border:2px solid #f6ad55;opacity:0.55}
 .card.bad-link{border:2px solid #fc8181}
 .card-head{margin-bottom:10px;display:flex;justify-content:space-between;align-items:flex-start}
 .prospect-name{font-size:15px;font-weight:700;color:#1a202c}
@@ -41,6 +41,8 @@ h1{font-size:18px;font-weight:700;margin:0}
 .touch-label{font-weight:700;color:#2d3748;font-size:11px;margin-bottom:3px}
 .touch-label.t2{color:#553c9a}
 .touch-label.t3{color:#7b341e}
+.char-count{font-size:10px;color:#718096;text-align:right;margin-top:3px}
+.char-count.over{color:#e53e3e;font-weight:700}
 .card-actions{display:flex;gap:6px;margin-top:auto;padding-top:12px;flex-wrap:wrap}
 .btn{padding:7px 10px;font-size:11px;border:none;border-radius:4px;cursor:pointer;transition:all .2s;font-weight:600;white-space:nowrap}
 .btn:disabled{opacity:0.5;cursor:not-allowed}
@@ -49,7 +51,6 @@ h1{font-size:18px;font-weight:700;margin:0}
 .btn-copy.copied{background:#48bb78}
 .btn-linkedin{background:#0a66c2;color:#fff}
 .btn-linkedin:hover:not(:disabled){background:#055199}
-.btn-linkedin.bad{background:#fc8181}
 .btn-sent{background:#48bb78;color:#fff}
 .btn-sent:hover:not(:disabled){background:#38a169}
 .btn-sent.done{background:#276749}
@@ -57,11 +58,10 @@ h1{font-size:18px;font-weight:700;margin:0}
 .btn-skip:hover:not(:disabled){background:#cbd5e0}
 .btn-offbase{background:#fff;color:#c05621;border:1px solid #f6ad55}
 .btn-offbase:hover:not(:disabled){background:#feebc8}
-.btn-offbase.flagged{background:#feebc8;color:#7b341e;border-color:#ed8936;cursor:not-allowed}
+.btn-offbase.flagged{background:#feebc8;color:#7b341e;border-color:#ed8936}
 .btn-badlink{background:#fff;color:#c53030;border:1px solid #fc8181;font-size:10px}
 .btn-badlink:hover:not(:disabled){background:#fff5f5}
-.btn-badlink.flagged{background:#fff5f5;color:#9b2c2c;cursor:not-allowed}
-.error-msg{background:#fed7d7;color:#c53030;padding:12px 16px;border-radius:8px;margin-bottom:16px;font-size:13px}
+.btn-badlink.flagged{background:#fff5f5;color:#9b2c2c}
 .loading{text-align:center;padding:60px;color:#718096;font-size:14px;grid-column:1/-1}
 footer{text-align:center;padding:24px;color:#718096;font-size:12px;border-top:1px solid #e2e8f0;margin-top:16px}
 </style>
@@ -82,116 +82,143 @@ footer{text-align:center;padding:24px;color:#718096;font-size:12px;border-top:1p
     <div class="stat"><div class="stat-num" id="stat-offbase">—</div><div class="stat-label">Off Base</div></div>
     <div class="stat"><div class="stat-num" id="stat-badlink">—</div><div class="stat-label">Bad Links</div></div>
   </div>
-  <div id="error-container"></div>
   <div class="grid" id="cards-container">
     <div class="loading">Loading prospects...</div>
   </div>
 </div>
 <footer>CrewCast Sales · Daily Outreach Portal · <a href="companies.html" style="color:#4299e1">Company Follow →</a></footer>
-
 <script>
 const API_BASE = 'https://superagent-39294123.base44.app/functions';
-
 const PROSPECTS = [
   {
-    hubspot_id: '501104648944',
-    name: 'Michael Chen',
-    title: 'VP of Operations',
-    company: 'Sunbelt Construction Group',
-    linkedin_url: 'https://www.linkedin.com/in/michael-chen-vp-ops',
-    touch1: "Michael, saw Sunbelt's expansion into commercial renovations. Crew scheduling at scale is tough. Worth 15 min to chat?",
-    touch2: "Michael, following up — CrewCast helps ops teams forecast labor weeks ahead. Happy to show you a quick demo.",
-    touch3: "Michael, last note — if crew predictability is on your radar at Sunbelt, I'd love to connect. No pressure."
+    hubspot_id: '501106903762',
+    name: 'Guillermo Valdez',
+    title: 'Principal, Tilt-Up Operations Manager',
+    company: 'Suntec Concrete',
+    linkedin_url: 'https://www.linkedin.com/in/guillermo-valdez-bab778103',
+    touch1: `Guillermo, impressed by Suntec's scale! I know crew mix gaps before tilt-up pours can be costly. Would love to connect.`,
+    touch2: `Thanks for connecting Guillermo. With the volume of tilt-up Suntec runs, how are you tracking craft availability for each pour sequence before the week starts? The 'headcount looks fine but wrong mix shows up' problem is exactly what CrewCast was built to eliminate. Worth a 15-minute conversation?`,
+    touch3: `One last reach out — I know ops managers at Suntec's pace stay buried. If craft-level scheduling is still a gap, I'd love 15 minutes to show you what we're doing. [Calendar Link]`
   },
   {
-    hubspot_id: '501104648945',
-    name: 'Patricia Williams',
-    title: 'SVP Operations',
-    company: 'Turner Construction Company',
-    linkedin_url: 'https://www.linkedin.com/in/patricia-williams-turner',
-    touch1: "Patricia, Turner's growth in healthcare infra is impressive. Staffing your teams efficiently at that scale matters. Chat?",
-    touch2: "Patricia, wanted to follow up — CrewCast helps SVPs like you get ahead of labor gaps before they hit schedules.",
-    touch3: "Patricia, one last reach — workforce forecasting for Turner's scale could be a real differentiator. Interested?"
-  },
-  {
-    hubspot_id: '501131574009',
-    name: 'James Rodriguez',
-    title: 'Director of Operations',
-    company: 'Helix Electric',
-    linkedin_url: 'https://www.linkedin.com/in/james-rodriguez-helix',
-    touch1: "James, Helix's specialization in data center wiring is growing fast. Staffing accuracy there pays off. Interested?",
-    touch2: "James, following up — CrewCast forecasts crew needs by trade and project phase. Could save Helix real time.",
-    touch3: "James, last touch — if labor planning for data center projects is a pain point, I'd love to show you CrewCast."
-  },
-  {
-    hubspot_id: '501177976521',
-    name: 'Sarah Thompson',
-    title: 'COO',
-    company: 'Precision Civil Engineering',
-    linkedin_url: 'https://www.linkedin.com/in/sarah-thompson-coo',
-    touch1: "Sarah, infrastructure projects need predictable crews. Precision's reputation depends on execution. 15 min call?",
-    touch2: "Sarah, following up — CrewCast helps civil COOs forecast labor demand and avoid last-minute scrambles.",
-    touch3: "Sarah, final note — if crew predictability matters at Precision Civil, happy to do a quick demo. No obligation."
-  },
-  {
-    hubspot_id: '501105388261',
-    name: 'David Martinez',
-    title: 'VP Operations',
-    company: 'Boral Construction Services',
-    linkedin_url: 'https://www.linkedin.com/in/david-martinez-boral',
-    touch1: "David, Boral's concrete focus is a niche win. Crew scheduling in concrete is tight. Worth discussing?",
-    touch2: "David, wanted to follow up — CrewCast is built for specialty contractors like Boral. Happy to walk you through it.",
-    touch3: "David, last outreach — if concrete crew scheduling is a challenge, CrewCast could be the fix. Interested?"
-  },
-  {
-    hubspot_id: '501104394947',
-    name: 'Lisa Anderson',
-    title: 'Senior Superintendent',
-    company: 'Consigli Construction',
-    linkedin_url: 'https://www.linkedin.com/in/lisa-anderson-consigli',
-    touch1: "Lisa, Consigli's focus on institutional buildings means tight schedules. Crew planning is critical. Chat?",
-    touch2: "Lisa, following up — superintendents using CrewCast cut reactive hiring by forecasting 3-4 weeks out.",
-    touch3: "Lisa, last note — if managing crews across Consigli's institutional projects is complex, I'd love to connect."
-  },
-  {
-    hubspot_id: '501131695865',
-    name: 'Robert Kim',
+    hubspot_id: '501270247155',
+    name: 'Steve Bieber',
     title: 'Director of Project Controls',
-    company: 'Westfield Construction',
-    linkedin_url: 'https://www.linkedin.com/in/robert-kim-controls',
-    touch1: "Robert, project controls live and die by crew predictability. Westfield's scale makes this key. Interested?",
-    touch2: "Robert, following up — CrewCast integrates with project controls workflows to give you labor visibility weeks out.",
-    touch3: "Robert, final reach — if crew forecast accuracy is a gap at Westfield, CrewCast solves it. Worth a look?"
+    company: 'MMR Group',
+    linkedin_url: 'https://www.linkedin.com/in/steve-bieber-8129b137',
+    touch1: `Steve, I know craft mix issues on industrial I&E projects can really impact project controls variance. Sounds like something you deal with at MMR. Would love to connect.`,
+    touch2: `Thanks for connecting Steve. In project controls at a firm MMR's scale, I'm curious — how much of your variance is actually a craft mix problem masquerading as a headcount problem? That's the 'Headcount Trap' we see constantly in self-perform. CrewCast was built specifically around it. Worth a conversation?`,
+    touch3: `Last reach out — I know project controls teams at MMR's scale are constantly firefighting. If trade-specific labor visibility is still a gap heading into Q3, I'd love 15 minutes to show you what we're doing. [Calendar Link]`
   },
   {
-    hubspot_id: '501080315581',
-    name: 'Jennifer Hayes',
-    title: 'VP of Operations',
-    company: 'Midwest Electrical Contractors',
-    linkedin_url: 'https://www.linkedin.com/in/jennifer-hayes-midwest',
-    touch1: "Jennifer, Midwest's growth in commercial electrical is strong. Crew scaling is your next lever. Talk?",
-    touch2: "Jennifer, following up — CrewCast helps electrical VPs forecast journeyman and apprentice needs by project.",
-    touch3: "Jennifer, last touch — if scaling crews across commercial electrical is a challenge, happy to show CrewCast."
+    hubspot_id: '501284771533',
+    name: 'Mike Keatley',
+    title: 'Senior Vice President',
+    company: 'M.C. Dean',
+    linkedin_url: 'https://www.linkedin.com/in/mike-keatley-bb057929',
+    touch1: `Mike, impressive work at M.C. Dean in federal/commercial electrical self-perform. Navigating trade mix for security projects is complex. Would love to connect.`,
+    touch2: `Thanks for connecting Mike. With M.C. Dean running complex self-perform electrical across federal and commercial projects simultaneously, how are your teams tracking craft-specific gaps before they become delays? That coordination challenge is exactly what CrewCast was built for. Worth a quick conversation?`,
+    touch3: `One last reach out — I know SVP roles at M.C. Dean's scale stay moving. If field labor visibility is still a gap heading into Q3, I'd love 15 minutes to show you what we're building. [Calendar Link]`
   },
   {
-    hubspot_id: '501098431187',
-    name: 'Christopher Brooks',
-    title: 'SVP Operations',
-    company: 'Sterling Civil Engineering',
-    linkedin_url: 'https://www.linkedin.com/in/christopher-brooks-sterling',
-    touch1: "Christopher, civil infrastructure projects need precise crew forecasts. Sterling's backlog is impressive. Interested?",
-    touch2: "Christopher, following up — CrewCast gives civil SVPs visibility into labor capacity before contract awards.",
-    touch3: "Christopher, final note — if forecasting crews for Sterling's growing backlog is a challenge, I'd love to connect."
+    hubspot_id: '501111277269',
+    name: 'Derek Wright',
+    title: 'President',
+    company: 'Suntec Concrete',
+    linkedin_url: 'https://www.linkedin.com/in/derekwright1',
+    touch1: `Derek, Suntec's work in tilt-up is impressive. Crew mix gaps before concrete pours can be costly headaches. Would love to connect.`,
+    touch2: `Thanks for connecting Derek. Quick question — with the tilt-up volume Suntec runs, how are your superintendents tracking whether the right craft mix is confirmed before a pour sequence starts? That morning-of surprise is the exact problem CrewCast was built to eliminate. Worth a 15-minute conversation?`,
+    touch3: `One last reach out — I know running a concrete operation at Suntec's scale keeps you moving. If craft-level scheduling visibility is still a challenge, I'd love 15 minutes to show you what we're doing. [Calendar Link]`
   },
   {
-    hubspot_id: '501139027646',
-    name: 'Amanda Foster',
-    title: 'COO',
-    company: 'Cornerstone General Contractors',
-    linkedin_url: 'https://www.linkedin.com/in/amanda-foster-cornerstone',
-    touch1: "Amanda, Cornerstone's size means labor planning complexity. Forecasting drives execution. 15 min?",
-    touch2: "Amanda, following up — CrewCast helps GC COOs manage labor across multiple concurrent projects in real time.",
-    touch3: "Amanda, last reach — workforce forecasting at Cornerstone's scale is a real edge. Happy to show you CrewCast."
+    hubspot_id: '501286967010',
+    name: 'Adam Spillane',
+    title: 'Senior Vice President of Operations',
+    company: 'Cupertino Electric',
+    linkedin_url: 'https://www.linkedin.com/in/adam-spillane',
+    touch1: `Adam, managing crew mix for Cupertino Electric's complex electrical projects is a beast. Your SVP Ops perspective is valuable. Would love to connect.`,
+    touch2: `Thanks for connecting Adam. With Cupertino running large-scale electrical projects simultaneously, how are your teams catching the craft mix gaps before they impact a milestone? That's the exact visibility problem CrewCast was built to solve. Worth a quick conversation?`,
+    touch3: `One more reach out — I know SVP ops at Cupertino's scale keeps you moving. If matching the right trades to the right projects is still a challenge heading into H2, I'd love 15 minutes. [Calendar Link]`
+  },
+  {
+    hubspot_id: '501286967012',
+    name: 'John Messick',
+    title: 'Vice President of Operations',
+    company: 'Rosendin Electric',
+    linkedin_url: 'https://www.linkedin.com/in/john-messick-74596862',
+    touch1: `John, managing trade mix across Rosendin's projects must be complex. Would love to connect.`,
+    touch2: `Thanks for connecting John. Curious what you're seeing on the ops side — when your field teams are managing multiple active projects, how are you catching craft-specific gaps before they become delays? It's the problem we built CrewCast around. Worth a 15-minute conversation?`,
+    touch3: `Didn't want to let this drop — I know VP ops roles at a firm Rosendin's size keep you buried. If matching the right trades to the right projects is still a challenge, I'd love to show you what we're doing. [Calendar Link]`
+  },
+  {
+    hubspot_id: '501284771534',
+    name: 'James Jaskolski',
+    title: 'Vice President of Operations',
+    company: 'ArchKey Solutions',
+    linkedin_url: 'https://www.linkedin.com/in/james-jaskolski-75062b12',
+    touch1: `James, your ArchKey VP Ops role managing national electrical self-perform with regional crew coordination complexity is impressive. Would love to connect.`,
+    touch2: `Thanks for connecting James. With ArchKey running self-perform across so many markets, how are your superintendents staying ahead of craft mix gaps before they hit a milestone? The 'headcount looks fine but wrong trades on site' problem is exactly what CrewCast was built around. Worth a conversation?`,
+    touch3: `Last reach out — I know ops VP roles at ArchKey's scale stay buried. If trade-specific scheduling visibility is still a gap, I'd love 15 minutes to show you what we're building. [Calendar Link]`
+  },
+  {
+    hubspot_id: '501305694960',
+    name: 'Jose Martinez',
+    title: 'Senior Vice President',
+    company: 'Keller North America',
+    linkedin_url: 'https://www.linkedin.com/in/jose-a-martinez-657ba52',
+    touch1: `Jose, with Keller's specialized foundation crews, optimizing trade mix is crucial. I understand the challenge. Would love to connect.`,
+    touch2: `Thanks for connecting Jose. With Keller managing crews across so many simultaneous foundation projects, I'm curious — how are your teams catching craft availability gaps before they hit the schedule? That coordination between the office and field is exactly what CrewCast was built for. Worth a quick conversation?`,
+    touch3: `Circling back one more time — I know SVP roles at Keller's scale keep you moving. If field-to-office labor visibility is still a gap heading into H2, I'd love 15 minutes to show you what we're doing. [Calendar Link]`
+  },
+  {
+    hubspot_id: '501141010129',
+    name: 'Sam Potter',
+    title: 'National Vice President of Operations',
+    company: 'ArchKey Solutions',
+    linkedin_url: 'https://www.linkedin.com/in/sam-potter-15a9a86',
+    touch1: `Sam, national electrical self-perform ops and balancing crew trade mix is tough. I get it. Would love to connect.`,
+    touch2: `Thanks for connecting Sam. Managing self-perform electrical at a national scale, I'm curious — how are your project teams tracking craft-specific gaps across regions before they become schedule delays? That's the exact problem CrewCast was built to solve. Worth a 15-minute conversation?`,
+    touch3: `One last reach out — I know national VP ops roles stay busy. If craft-level labor visibility across your regions is still a challenge heading into Q3, I'd love 15 minutes. [Calendar Link]`
+  },
+  {
+    hubspot_id: '501305626357',
+    name: 'Brian Kavanagh',
+    title: 'Executive Vice President',
+    company: 'Performance Contracting Group',
+    linkedin_url: 'https://www.linkedin.com/in/brian-kavanagh-085b9aa4',
+    touch1: `Brian, as an EVP at an employee-owned specialty contractor, getting the right trade mix is critical to the P&L. Would love to connect.`,
+    touch2: `Thanks for connecting Brian. At a firm PCI's scale managing specialty trades across so many markets, how are your ops teams staying ahead of craft availability gaps before they hit the schedule? That's exactly the problem CrewCast was built around. Worth a 15-minute conversation?`,
+    touch3: `Last reach out — I know executive roles at PCI's scale stay busy. If craft-level labor visibility heading into H2 is still a gap, I'd love 15 minutes to show you what we're doing. [Calendar Link]`
+  },
+  {
+    hubspot_id: '501282201322',
+    name: 'Jason Behring',
+    title: 'Vice President & CIO',
+    company: 'Everus Construction Group',
+    linkedin_url: 'https://www.linkedin.com/in/jason-behring-149526188',
+    touch1: `Jason, your self-perform electrical work at Everus for energy projects is impressive. Workforce forecasting for that scale is complex. Would love to connect.`,
+    touch2: `Thanks for connecting Jason. From the tech side at Everus, I'm curious — how much of your field ops data is actually getting used to make proactive craft scheduling decisions? The gap between what the schedule says and what actually shows up on site is the problem CrewCast was built to close. Worth a conversation?`,
+    touch3: `One more reach out — I know VP and CIO roles at Everus's scale keep you busy. If connecting field labor data to proactive scheduling decisions is still a gap, I'd love 15 minutes to show you what we're doing. [Calendar Link]`
+  },
+  {
+    hubspot_id: '501281929969',
+    name: 'David Elkins',
+    title: 'Senior Vice President of Field Operations',
+    company: 'Rosendin Electric',
+    linkedin_url: 'https://www.linkedin.com/in/david-elkins-5170554a',
+    touch1: `David, navigating complex field ops for Rosendin's massive electrical projects is a challenge I understand. Would love to connect.`,
+    touch2: `Thanks for connecting David. With 40+ years in the field, I'd love your take on this — how much of the scheduling chaos you see comes down to having the right headcount vs. the right craft mix on the right day? That gap is exactly what CrewCast was built to solve. Worth a quick conversation?`,
+    touch3: `One more reach out — I know field ops at Rosendin's scale keeps you moving. If labor visibility across projects is still a challenge heading into H2, I'd love 15 minutes. [Calendar Link]`
+  },
+  {
+    hubspot_id: '501293950712',
+    name: 'David Schoonbeck',
+    title: 'Director of Operational Excellence',
+    company: 'Baker Construction Enterprises',
+    linkedin_url: 'https://www.linkedin.com/in/david-schoonbeck-9a89a59',
+    touch1: `David, your focus on OpEx for concrete pours at Baker is interesting. We often see crew mix challenges impact sequencing. Would love to connect.`,
+    touch2: `Thanks for connecting David. Curious — in your operational excellence work, how much of the variance you're chasing comes down to craft mix issues vs. total headcount planning? It's the #1 blind spot we see across self-perform concrete. We built a tool specifically for that gap. Worth a quick conversation?`,
+    touch3: `Circling back one more time — I know Q2 close is a busy stretch. If labor productivity visibility is still on your radar heading into H2, I'd love 15 minutes to show you what we're doing at CrewCast. [Calendar Link]`
   }
 ];
 
@@ -199,195 +226,131 @@ let statuses = {};
 
 async function loadStatuses() {
   try {
-    const res = await fetch(`${API_BASE}/getProspectStatuses`, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({})
-    });
-    if (res.ok) {
-      const data = await res.json();
-      statuses = data.statuses || {};
-    }
-  } catch(e) { /* fallback: all NEW */ }
-  renderCards();
+    const r = await fetch(`${API_BASE}/getProspectStatuses`, {method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});
+    const d = await r.json();
+    if (d.statuses) d.statuses.forEach(s => statuses[s.hubspot_id] = s.status);
+  } catch(e) { console.log('Status load failed:', e); }
 }
 
-async function updateStatus(hubspot_id, status) {
-  try {
-    const res = await fetch(`${API_BASE}/updateProspectStatus`, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ hubspot_id, status })
-    });
-    if (!res.ok) throw new Error('Server error');
-    statuses[hubspot_id] = status;
-    return true;
-  } catch(e) {
-    showError('Could not save status. Check your connection and try again.');
-    return false;
-  }
+function getStatus(hid) { return statuses[hid] || 'NEW'; }
+
+function updateStats() {
+  const total = PROSPECTS.length;
+  const sent = PROSPECTS.filter(p => getStatus(p.hubspot_id) === 'SENT').length;
+  const offbase = PROSPECTS.filter(p => getStatus(p.hubspot_id) === 'OFF_BASE').length;
+  const badlink = PROSPECTS.filter(p => getStatus(p.hubspot_id) === 'BAD_LINK').length;
+  const skipped = PROSPECTS.filter(p => getStatus(p.hubspot_id) === 'SKIPPED').length;
+  const unsent = total - sent - offbase - badlink - skipped;
+  document.getElementById('stat-total').textContent = total;
+  document.getElementById('stat-sent').textContent = sent;
+  document.getElementById('stat-unsent').textContent = Math.max(0, unsent);
+  document.getElementById('stat-offbase').textContent = offbase;
+  document.getElementById('stat-badlink').textContent = badlink;
 }
 
-function showError(msg) {
-  const el = document.getElementById('error-container');
-  el.innerHTML = `<div class="error-msg">⚠️ ${msg}</div>`;
-  setTimeout(() => el.innerHTML = '', 4000);
+function statusLabel(s) {
+  const map = {NEW:'New',SENT:'Sent ✓',SKIPPED:'Skipped',OFF_BASE:'Off Base',BAD_LINK:'Bad Link'};
+  return map[s] || s;
 }
 
 function renderCards() {
   const container = document.getElementById('cards-container');
   container.innerHTML = '';
-
-  let sent = 0, skipped = 0, offbase = 0, badlinks = 0;
-
   PROSPECTS.forEach(p => {
-    const status = (statuses[p.hubspot_id] || 'NEW').toUpperCase();
-    if (status === 'SENT') sent++;
-    if (status === 'SKIPPED') skipped++;
-    if (status === 'OFF_BASE') offbase++;
-    if (status === 'BAD_LINK') badlinks++;
-
-    const badgeMap = {
-      'NEW': 'status-badge new', 'SENT': 'status-badge sent',
-      'SKIPPED': 'status-badge skipped', 'OFF_BASE': 'status-badge off-base',
-      'BAD_LINK': 'status-badge bad-link'
-    };
-    const badgeTextMap = {
-      'NEW': 'NEW', 'SENT': 'SENT', 'SKIPPED': 'SKIPPED',
-      'OFF_BASE': '🚫 OFF BASE', 'BAD_LINK': '⚠ BAD LINK'
-    };
-    const cardClassMap = {
-      'NEW': 'card', 'SENT': 'card', 'SKIPPED': 'card skipped',
-      'OFF_BASE': 'card off-base', 'BAD_LINK': 'card bad-link'
-    };
-
-    const isActioned = ['SENT','SKIPPED','OFF_BASE','BAD_LINK'].includes(status);
-    const isSent = status === 'SENT';
-    const isOffBase = status === 'OFF_BASE';
-    const isBadLink = status === 'BAD_LINK';
-
-    container.innerHTML += `
-    <div class="${cardClassMap[status] || 'card'}" id="card-${p.hubspot_id}">
+    const s = getStatus(p.hubspot_id);
+    const t1len = p.touch1.length;
+    const card = document.createElement('div');
+    card.className = `card ${s==='SKIPPED'?'skipped':s==='OFF_BASE'?'off-base':s==='BAD_LINK'?'bad-link':''}`;
+    card.id = `card-${p.hubspot_id}`;
+    card.innerHTML = `
       <div class="card-head">
-        <div style="flex:1;min-width:0">
+        <div>
           <div class="prospect-name">${p.name}</div>
           <div class="prospect-title">${p.title}</div>
           <div class="prospect-company">${p.company}</div>
         </div>
-        <div class="${badgeMap[status] || 'status-badge new'}" id="badge-${p.hubspot_id}">${badgeTextMap[status] || 'NEW'}</div>
+        <span class="status-badge ${s.toLowerCase().replace('_','-')}">${statusLabel(s)}</span>
       </div>
       <div class="touch-block">
-        <div class="touch-label">Touch 1 · Connection Request</div>
-        <div>${p.touch1}</div>
+        <div class="touch-label">Touch 1 — Connection Request</div>
+        ${p.touch1}
+        <div class="char-count ${t1len > 200 ? 'over' : ''}">${t1len}/200 chars${t1len > 200 ? ' ⚠️ OVER LIMIT' : ' ✓'}</div>
       </div>
       <div class="touch-block t2">
-        <div class="touch-label t2">Touch 2 · Value Message</div>
-        <div>${p.touch2}</div>
+        <div class="touch-label t2">Touch 2 — Value Message</div>
+        ${p.touch2}
       </div>
       <div class="touch-block t3">
-        <div class="touch-label t3">Touch 3 · Follow-up</div>
-        <div>${p.touch3}</div>
+        <div class="touch-label t3">Touch 3 — Follow-up</div>
+        ${p.touch3}
       </div>
       <div class="card-actions">
-        <button class="btn btn-copy" onclick="copyText('${p.touch1.replace(/'/g,"\\'")}', this)">📋 Copy T1</button>
-        <a class="btn btn-linkedin${isBadLink ? ' bad' : ''}" id="linkedin-${p.hubspot_id}" href="${p.linkedin_url}" target="_blank">${isBadLink ? '⚠ Bad Link' : '→ LinkedIn'}</a>
-        <button class="btn btn-sent${isSent ? ' done' : ''}" id="sent-${p.hubspot_id}" onclick="doSent('${p.hubspot_id}')" ${isActioned ? 'disabled' : ''}>✓ Sent</button>
-        <button class="btn btn-skip" id="skip-${p.hubspot_id}" onclick="doSkip('${p.hubspot_id}')" ${isActioned ? 'disabled' : ''}>Skip</button>
-        <button class="btn btn-offbase${isOffBase ? ' flagged' : ''}" id="offbase-${p.hubspot_id}" onclick="doOffBase('${p.hubspot_id}')" ${isOffBase ? 'disabled' : ''}>🚫 ${isOffBase ? 'Off Base' : 'Off Base'}</button>
-        <button class="btn btn-badlink${isBadLink ? ' flagged' : ''}" id="badlink-${p.hubspot_id}" onclick="doBadLink('${p.hubspot_id}')" ${isBadLink ? 'disabled' : ''}>🚩 ${isBadLink ? 'Flagged' : 'Bad Link'}</button>
+        <button class="btn btn-copy" onclick="copyTouch(this,'${p.hubspot_id}',1)">📋 Copy T1</button>
+        <button class="btn btn-copy" onclick="copyTouch(this,'${p.hubspot_id}',2)" style="background:#9f7aea">📋 T2</button>
+        <button class="btn btn-copy" onclick="copyTouch(this,'${p.hubspot_id}',3)" style="background:#ed8936">📋 T3</button>
+        <button class="btn btn-linkedin" onclick="openLinkedIn('${p.linkedin_url}','${p.hubspot_id}')">🔗 LinkedIn</button>
       </div>
-    </div>`;
+      <div class="card-actions" style="margin-top:6px">
+        <button class="btn btn-sent ${s==='SENT'?'done':''}" onclick="setStatus('${p.hubspot_id}','SENT',this)">✓ Sent</button>
+        <button class="btn btn-skip" onclick="setStatus('${p.hubspot_id}','SKIPPED',this)">Skip</button>
+        <button class="btn btn-offbase ${s==='OFF_BASE'?'flagged':''}" onclick="setStatus('${p.hubspot_id}','OFF_BASE',this)">🚫 Off Base</button>
+        <button class="btn btn-badlink ${s==='BAD_LINK'?'flagged':''}" onclick="setStatus('${p.hubspot_id}','BAD_LINK',this)">🚩 Bad Link</button>
+      </div>`;
+    container.appendChild(card);
   });
-
-  const total = PROSPECTS.length;
-  document.getElementById('stat-total').textContent = total;
-  document.getElementById('stat-sent').textContent = sent;
-  document.getElementById('stat-unsent').textContent = total - sent - skipped - offbase - badlinks;
-  document.getElementById('stat-offbase').textContent = offbase;
-  document.getElementById('stat-badlink').textContent = badlinks;
+  updateStats();
 }
 
-function copyText(text, btn) {
-  navigator.clipboard.writeText(text).then(() => {
-    btn.textContent = '✓ Copied!';
+const touchMap = {};
+PROSPECTS.forEach(p => { touchMap[p.hubspot_id] = p; });
+
+async function copyTouch(btn, hid, num) {
+  const p = touchMap[hid];
+  const text = num===1 ? p.touch1 : num===2 ? p.touch2 : p.touch3;
+  try {
+    await navigator.clipboard.writeText(text);
+    const orig = btn.textContent;
+    btn.textContent = '✅ Copied!';
     btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = '📋 Copy T1'; btn.classList.remove('copied'); }, 2000);
-  });
+    setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 1500);
+  } catch(e) {
+    prompt('Copy this message:', text);
+  }
 }
 
-async function doSent(id) {
-  const btn = document.getElementById(`sent-${id}`);
-  btn.textContent = 'Saving...'; btn.disabled = true;
-  const ok = await updateStatus(id, 'SENT');
-  if (ok) {
-    document.getElementById(`badge-${id}`).className = 'status-badge sent';
-    document.getElementById(`badge-${id}`).textContent = 'SENT';
-    ['skip','offbase','badlink'].forEach(b => document.getElementById(`${b}-${id}`).disabled = true);
-    btn.textContent = '✓ Sent'; btn.classList.add('done');
-    updateStatCounts();
-  } else { btn.textContent = '✓ Sent'; btn.disabled = false; }
+function openLinkedIn(url, hid) {
+  if (!url || !url.includes('/in/')) {
+    setStatus(hid, 'BAD_LINK', null);
+    alert('LinkedIn URL looks invalid — marked as Bad Link.');
+    return;
+  }
+  window.open(url, '_blank');
 }
 
-async function doSkip(id) {
-  const btn = document.getElementById(`skip-${id}`);
-  btn.textContent = 'Saving...'; btn.disabled = true;
-  const ok = await updateStatus(id, 'SKIPPED');
-  if (ok) {
-    document.getElementById(`badge-${id}`).className = 'status-badge skipped';
-    document.getElementById(`badge-${id}`).textContent = 'SKIPPED';
-    document.getElementById(`card-${id}`).classList.add('skipped');
-    ['sent','offbase','badlink'].forEach(b => document.getElementById(`${b}-${id}`).disabled = true);
-    updateStatCounts();
-  } else { btn.textContent = 'Skip'; btn.disabled = false; }
+async function setStatus(hid, status, btn) {
+  statuses[hid] = status;
+  const card = document.getElementById(`card-${hid}`);
+  if (card) {
+    card.className = `card ${status==='SKIPPED'?'skipped':status==='OFF_BASE'?'off-base':status==='BAD_LINK'?'bad-link':''}`;
+    card.querySelectorAll('.status-badge').forEach(b => {
+      b.className = `status-badge ${status.toLowerCase().replace('_','-')}`;
+      b.textContent = statusLabel(status);
+    });
+  }
+  updateStats();
+  try {
+    await fetch(`${API_BASE}/updateProspectStatus`, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({hubspot_id: hid, status})
+    });
+  } catch(e) { console.log('Status save failed:', e); }
 }
 
-async function doOffBase(id) {
-  const btn = document.getElementById(`offbase-${id}`);
-  btn.textContent = 'Saving...'; btn.disabled = true;
-  const ok = await updateStatus(id, 'OFF_BASE');
-  if (ok) {
-    document.getElementById(`badge-${id}`).className = 'status-badge off-base';
-    document.getElementById(`badge-${id}`).textContent = '🚫 OFF BASE';
-    document.getElementById(`card-${id}`).classList.add('off-base');
-    ['sent','skip','badlink'].forEach(b => document.getElementById(`${b}-${id}`).disabled = true);
-    btn.textContent = '🚫 Off Base'; btn.classList.add('flagged');
-    updateStatCounts();
-  } else { btn.textContent = '🚫 Off Base'; btn.disabled = false; }
-}
-
-async function doBadLink(id) {
-  const btn = document.getElementById(`badlink-${id}`);
-  btn.textContent = 'Saving...'; btn.disabled = true;
-  const ok = await updateStatus(id, 'BAD_LINK');
-  if (ok) {
-    document.getElementById(`badge-${id}`).className = 'status-badge bad-link';
-    document.getElementById(`badge-${id}`).textContent = '⚠ BAD LINK';
-    document.getElementById(`card-${id}`).classList.add('bad-link');
-    const lnBtn = document.getElementById(`linkedin-${id}`);
-    if (lnBtn) { lnBtn.classList.add('bad'); lnBtn.textContent = '⚠ Bad Link'; }
-    ['sent','skip','offbase'].forEach(b => document.getElementById(`${b}-${id}`).disabled = true);
-    btn.textContent = '🚩 Flagged'; btn.classList.add('flagged');
-    updateStatCounts();
-  } else { btn.textContent = '🚩 Bad Link'; btn.disabled = false; }
-}
-
-function updateStatCounts() {
-  let sent = 0, skipped = 0, offbase = 0, badlinks = 0;
-  PROSPECTS.forEach(p => {
-    const s = (statuses[p.hubspot_id] || 'NEW').toUpperCase();
-    if (s === 'SENT') sent++;
-    if (s === 'SKIPPED') skipped++;
-    if (s === 'OFF_BASE') offbase++;
-    if (s === 'BAD_LINK') badlinks++;
-  });
-  const total = PROSPECTS.length;
-  document.getElementById('stat-sent').textContent = sent;
-  document.getElementById('stat-unsent').textContent = total - sent - skipped - offbase - badlinks;
-  document.getElementById('stat-offbase').textContent = offbase;
-  document.getElementById('stat-badlink').textContent = badlinks;
-}
-
-loadStatuses();
+(async () => {
+  await loadStatuses();
+  renderCards();
+})();
 </script>
 </body>
 </html>
