@@ -31,6 +31,12 @@ h1{font-size:18px;font-weight:700}
 .btn-link:hover{background:#2c5aa0;box-shadow:0 2px 4px rgba(0,0,0,.15)}
 .btn-skip{background:#fed7d7;color:#c53030}
 .btn-skip:hover{background:#fc8787}
+.btn-followed{background:#d1fae5;color:#065f46;border:1px solid #6ee7b7}
+.btn-followed:hover{background:#a7f3d0}
+.btn-followed.done{background:#065f46;color:#fff;border-color:#065f46}
+.btn-flag{background:#fff;color:#d97706;border:1px solid #fcd34d;font-size:11px}
+.btn-flag:hover{background:#fef3c7}
+.btn-flag.flagged{background:#fef3c7;color:#92400e;border-color:#f59e0b}
 .card-right{display:flex;flex-direction:column;gap:8px;align-items:flex-end;min-width:160px}
 .status-badge{padding:6px 12px;border-radius:6px;font-size:11px;font-weight:600;text-align:center;width:100%;background:#fef3c7;color:#92400e}
 .status-badge.followed{background:#d1fae5;color:#065f46}
@@ -67,7 +73,9 @@ h1{font-size:18px;font-weight:700}
       <div class="card-right">
         <div class="status-badge">NEW</div>
         <button class="btn btn-copy" onclick="copyToClipboard('Granite Construction focused on ops scaling. CrewCast helps forecast labor across $67M+ highway portfolio.', this)">📋 Copy</button>
+        <button class="btn btn-followed" onclick="markFollowed(this)">✓ Followed</button>
         <button class="btn btn-skip" onclick="markSkipped(this)">Skip</button>
+        <button class="btn btn-flag" onclick="flagBadLink(this)">🚩 Bad Link</button>
       </div>
     </div>
 
@@ -88,7 +96,9 @@ h1{font-size:18px;font-weight:700}
       <div class="card-right">
         <div class="status-badge">NEW</div>
         <button class="btn btn-copy" onclick="copyToClipboard('Webcor scaling hiring. CrewCast optimizes labor allocation across concurrent commercial projects.', this)">📋 Copy</button>
+        <button class="btn btn-followed" onclick="markFollowed(this)">✓ Followed</button>
         <button class="btn btn-skip" onclick="markSkipped(this)">Skip</button>
+        <button class="btn btn-flag" onclick="flagBadLink(this)">🚩 Bad Link</button>
       </div>
     </div>
 
@@ -109,7 +119,9 @@ h1{font-size:18px;font-weight:700}
       <div class="card-right">
         <div class="status-badge">NEW</div>
         <button class="btn btn-copy" onclick="copyToClipboard('DPR hyperscale boom = complex labor planning. CrewCast forecasts workforce across multi-site portfolio.', this)">📋 Copy</button>
+        <button class="btn btn-followed" onclick="markFollowed(this)">✓ Followed</button>
         <button class="btn btn-skip" onclick="markSkipped(this)">Skip</button>
+        <button class="btn btn-flag" onclick="flagBadLink(this)">🚩 Bad Link</button>
       </div>
     </div>
 
@@ -130,7 +142,9 @@ h1{font-size:18px;font-weight:700}
       <div class="card-right">
         <div class="status-badge">NEW</div>
         <button class="btn btn-copy" onclick="copyToClipboard('Anderson Columbia managing multi-state highway projects. CrewCast forecasts crew availability across regions.', this)">📋 Copy</button>
+        <button class="btn btn-followed" onclick="markFollowed(this)">✓ Followed</button>
         <button class="btn btn-skip" onclick="markSkipped(this)">Skip</button>
+        <button class="btn btn-flag" onclick="flagBadLink(this)">🚩 Bad Link</button>
       </div>
     </div>
 
@@ -151,7 +165,9 @@ h1{font-size:18px;font-weight:700}
       <div class="card-right">
         <div class="status-badge">NEW</div>
         <button class="btn btn-copy" onclick="copyToClipboard('Consigli ops scaling under Josh Sylvester. CrewCast optimizes healthcare/education project portfolio.', this)">📋 Copy</button>
+        <button class="btn btn-followed" onclick="markFollowed(this)">✓ Followed</button>
         <button class="btn btn-skip" onclick="markSkipped(this)">Skip</button>
+        <button class="btn btn-flag" onclick="flagBadLink(this)">🚩 Bad Link</button>
       </div>
     </div>
 
@@ -172,7 +188,9 @@ h1{font-size:18px;font-weight:700}
       <div class="card-right">
         <div class="status-badge">NEW</div>
         <button class="btn btn-copy" onclick="copyToClipboard('Lunda awarded $67.2M highway contract. CrewCast allocates crews across major project portfolio.', this)">📋 Copy</button>
+        <button class="btn btn-followed" onclick="markFollowed(this)">✓ Followed</button>
         <button class="btn btn-skip" onclick="markSkipped(this)">Skip</button>
+        <button class="btn btn-flag" onclick="flagBadLink(this)">🚩 Bad Link</button>
       </div>
     </div>
 
@@ -193,7 +211,9 @@ h1{font-size:18px;font-weight:700}
       <div class="card-right">
         <div class="status-badge">NEW</div>
         <button class="btn btn-copy" onclick="copyToClipboard('Pepper managing complex aerospace & commercial projects. CrewCast solves concurrent project labor planning.', this)">📋 Copy</button>
+        <button class="btn btn-followed" onclick="markFollowed(this)">✓ Followed</button>
         <button class="btn btn-skip" onclick="markSkipped(this)">Skip</button>
+        <button class="btn btn-flag" onclick="flagBadLink(this)">🚩 Bad Link</button>
       </div>
     </div>
 
@@ -214,7 +234,9 @@ h1{font-size:18px;font-weight:700}
       <div class="card-right">
         <div class="status-badge">NEW</div>
         <button class="btn btn-copy" onclick="copyToClipboard('Helix Electric scaling nationwide + water-treatment growth. CrewCast forecasts labor for regional expansion.', this)">📋 Copy</button>
+        <button class="btn btn-followed" onclick="markFollowed(this)">✓ Followed</button>
         <button class="btn btn-skip" onclick="markSkipped(this)">Skip</button>
+        <button class="btn btn-flag" onclick="flagBadLink(this)">🚩 Bad Link</button>
       </div>
     </div>
 
@@ -235,7 +257,9 @@ h1{font-size:18px;font-weight:700}
       <div class="card-right">
         <div class="status-badge">NEW</div>
         <button class="btn btn-copy" onclick="copyToClipboard('Sundt new AZ regional leadership under Shawn Blubaum. CrewCast optimizes labor across building portfolio.', this)">📋 Copy</button>
+        <button class="btn btn-followed" onclick="markFollowed(this)">✓ Followed</button>
         <button class="btn btn-skip" onclick="markSkipped(this)">Skip</button>
+        <button class="btn btn-flag" onclick="flagBadLink(this)">🚩 Bad Link</button>
       </div>
     </div>
 
@@ -256,7 +280,9 @@ h1{font-size:18px;font-weight:700}
       <div class="card-right">
         <div class="status-badge">NEW</div>
         <button class="btn btn-copy" onclick="copyToClipboard('Barton Malow 100yr+ leader with mature ops. CrewCast adds precision labor forecasting.', this)">📋 Copy</button>
+        <button class="btn btn-followed" onclick="markFollowed(this)">✓ Followed</button>
         <button class="btn btn-skip" onclick="markSkipped(this)">Skip</button>
+        <button class="btn btn-flag" onclick="flagBadLink(this)">🚩 Bad Link</button>
       </div>
     </div>
   </div>
@@ -274,13 +300,62 @@ function copyToClipboard(text, btn) {
   });
 }
 
+function markFollowed(btn) {
+  const card = btn.closest('.card');
+  const badge = card.querySelector('.status-badge');
+  badge.textContent = 'FOLLOWED';
+  badge.classList.add('followed');
+  badge.classList.remove('skipped');
+  btn.textContent = '✓ Followed';
+  btn.classList.add('done');
+  btn.disabled = true;
+  card.querySelector('.btn-skip').disabled = true;
+  updateStats();
+}
+
 function markSkipped(btn) {
   const card = btn.closest('.card');
-  card.style.opacity = '0.4';
-  btn.disabled = true;
   const badge = card.querySelector('.status-badge');
   badge.textContent = 'SKIPPED';
   badge.classList.add('skipped');
+  badge.classList.remove('followed');
+  card.style.opacity = '0.4';
+  btn.disabled = true;
+  card.querySelector('.btn-followed').disabled = true;
+  updateStats();
+}
+
+function flagBadLink(btn) {
+  btn.textContent = '🚩 Flagged';
+  btn.classList.add('flagged');
+  btn.disabled = true;
+  const card = btn.closest('.card');
+  const company = card.querySelector('h3').textContent;
+  const linkedinBtn = card.querySelector('.btn-link');
+  if (linkedinBtn) {
+    linkedinBtn.style.background = '#fc8181';
+    linkedinBtn.textContent = '⚠ Bad Link';
+  }
+  // Copy flag info to clipboard for easy reporting
+  navigator.clipboard.writeText('Bad LinkedIn link flagged: ' + company).catch(() => {});
+  alert('Bad link flagged for: ' + company + '
+This will be noted for the next nightly refresh.');
+}
+
+function updateStats() {
+  const cards = document.querySelectorAll('.card');
+  let followed = 0, skipped = 0;
+  cards.forEach(c => {
+    const badge = c.querySelector('.status-badge');
+    if (badge.classList.contains('followed')) followed++;
+    if (badge.classList.contains('skipped')) skipped++;
+  });
+  const total = cards.length;
+  const unsent = total - followed - skipped;
+  const statNums = document.querySelectorAll('.stat-num');
+  statNums[0].textContent = total;
+  statNums[1].textContent = followed;
+  statNums[2].textContent = unsent;
 }
 </script>
 </body>
