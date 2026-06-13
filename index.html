@@ -15,26 +15,32 @@ h1{font-size:18px;font-weight:700;margin:0}
 .nav a:hover{background:#2d3748;color:#fff}
 .nav .active{background:#4299e1;color:#fff}
 .wrap{max-width:1000px;margin:0 auto;padding:24px 16px}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:24px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:12px;margin-bottom:24px}
 .stat{background:#fff;padding:12px 16px;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.08);text-align:center}
 .stat-num{font-size:22px;font-weight:700;color:#2d3748}
 .stat-label{color:#718096;font-size:11px;margin-top:2px;text-transform:uppercase}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-bottom:32px}
 .card{background:#fff;border-radius:8px;border:1px solid #e2e8f0;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.08);transition:all .2s;display:flex;flex-direction:column}
 .card:hover{box-shadow:0 4px 12px rgba(0,0,0,.12);transform:translateY(-2px)}
-.card.skipped{opacity:0.4}
+.card.skipped{opacity:0.45}
+.card.off-base{border:2px solid #f6ad55;opacity:0.5}
 .card.bad-link{border:2px solid #fc8181}
 .card-head{margin-bottom:10px;display:flex;justify-content:space-between;align-items:flex-start}
 .prospect-name{font-size:15px;font-weight:700;color:#1a202c}
 .prospect-title{font-size:11px;color:#718096;margin-top:2px}
 .prospect-company{font-size:12px;font-weight:600;color:#4299e1;margin-top:4px}
-.status-badge{padding:3px 8px;border-radius:4px;font-size:10px;font-weight:700;white-space:nowrap;margin-left:8px}
+.status-badge{padding:3px 8px;border-radius:4px;font-size:10px;font-weight:700;white-space:nowrap;margin-left:8px;flex-shrink:0}
 .status-badge.new{background:#bee3f8;color:#2c5282}
 .status-badge.sent{background:#c6f6d5;color:#22543d}
-.status-badge.skipped{background:#fed7d7;color:#7f1d1d}
+.status-badge.skipped{background:#e2e8f0;color:#4a5568}
+.status-badge.off-base{background:#feebc8;color:#c05621}
 .status-badge.bad-link{background:#fed7d7;color:#c53030}
-.touch-block{margin:10px 0;padding:10px;background:#f7fafc;border-left:3px solid #4299e1;border-radius:0 4px 4px 0;font-size:12px;color:#4a5568;line-height:1.5}
-.touch-label{font-weight:700;color:#2d3748;font-size:11px;margin-bottom:4px}
+.touch-block{margin:8px 0;padding:10px;background:#f7fafc;border-left:3px solid #4299e1;border-radius:0 4px 4px 0;font-size:12px;color:#4a5568;line-height:1.5}
+.touch-block.t2{border-left-color:#9f7aea}
+.touch-block.t3{border-left-color:#ed8936}
+.touch-label{font-weight:700;color:#2d3748;font-size:11px;margin-bottom:3px}
+.touch-label.t2{color:#553c9a}
+.touch-label.t3{color:#7b341e}
 .card-actions{display:flex;gap:6px;margin-top:auto;padding-top:12px;flex-wrap:wrap}
 .btn{padding:7px 10px;font-size:11px;border:none;border-radius:4px;cursor:pointer;transition:all .2s;font-weight:600;white-space:nowrap}
 .btn:disabled{opacity:0.5;cursor:not-allowed}
@@ -49,9 +55,12 @@ h1{font-size:18px;font-weight:700;margin:0}
 .btn-sent.done{background:#276749}
 .btn-skip{background:#e2e8f0;color:#4a5568}
 .btn-skip:hover:not(:disabled){background:#cbd5e0}
-.btn-flag{background:#fff;color:#d97706;border:1px solid #fcd34d;font-size:10px}
-.btn-flag:hover:not(:disabled){background:#fef3c7}
-.btn-flag.flagged{background:#fef3c7;color:#92400e;border-color:#f59e0b;cursor:not-allowed}
+.btn-offbase{background:#fff;color:#c05621;border:1px solid #f6ad55}
+.btn-offbase:hover:not(:disabled){background:#feebc8}
+.btn-offbase.flagged{background:#feebc8;color:#7b341e;border-color:#ed8936;cursor:not-allowed}
+.btn-badlink{background:#fff;color:#c53030;border:1px solid #fc8181;font-size:10px}
+.btn-badlink:hover:not(:disabled){background:#fff5f5}
+.btn-badlink.flagged{background:#fff5f5;color:#9b2c2c;cursor:not-allowed}
 .error-msg{background:#fed7d7;color:#c53030;padding:12px 16px;border-radius:8px;margin-bottom:16px;font-size:13px}
 .loading{text-align:center;padding:60px;color:#718096;font-size:14px;grid-column:1/-1}
 footer{text-align:center;padding:24px;color:#718096;font-size:12px;border-top:1px solid #e2e8f0;margin-top:16px}
@@ -70,6 +79,7 @@ footer{text-align:center;padding:24px;color:#718096;font-size:12px;border-top:1p
     <div class="stat"><div class="stat-num" id="stat-total">—</div><div class="stat-label">Prospects</div></div>
     <div class="stat"><div class="stat-num" id="stat-sent">—</div><div class="stat-label">Sent</div></div>
     <div class="stat"><div class="stat-num" id="stat-unsent">—</div><div class="stat-label">Unsent</div></div>
+    <div class="stat"><div class="stat-num" id="stat-offbase">—</div><div class="stat-label">Off Base</div></div>
     <div class="stat"><div class="stat-num" id="stat-badlink">—</div><div class="stat-label">Bad Links</div></div>
   </div>
   <div id="error-container"></div>
@@ -198,9 +208,7 @@ async function loadStatuses() {
       const data = await res.json();
       statuses = data.statuses || {};
     }
-  } catch(e) {
-    // fallback: all NEW
-  }
+  } catch(e) { /* fallback: all NEW */ }
   renderCards();
 }
 
@@ -230,52 +238,63 @@ function renderCards() {
   const container = document.getElementById('cards-container');
   container.innerHTML = '';
 
-  let sent = 0, skipped = 0, badlinks = 0;
+  let sent = 0, skipped = 0, offbase = 0, badlinks = 0;
 
   PROSPECTS.forEach(p => {
     const status = (statuses[p.hubspot_id] || 'NEW').toUpperCase();
     if (status === 'SENT') sent++;
     if (status === 'SKIPPED') skipped++;
+    if (status === 'OFF_BASE') offbase++;
     if (status === 'BAD_LINK') badlinks++;
 
-    const badgeClass = status === 'SENT' ? 'status-badge sent' : status === 'SKIPPED' ? 'status-badge skipped' : status === 'BAD_LINK' ? 'status-badge bad-link' : 'status-badge new';
-    const badgeText = status === 'BAD_LINK' ? '⚠ BAD LINK' : status;
-    const cardClass = status === 'SKIPPED' ? 'card skipped' : status === 'BAD_LINK' ? 'card bad-link' : 'card';
-    const linkedinClass = status === 'BAD_LINK' ? 'btn btn-linkedin bad' : 'btn btn-linkedin';
-    const linkedinText = status === 'BAD_LINK' ? '⚠ Bad Link' : '→ LinkedIn';
+    const badgeMap = {
+      'NEW': 'status-badge new', 'SENT': 'status-badge sent',
+      'SKIPPED': 'status-badge skipped', 'OFF_BASE': 'status-badge off-base',
+      'BAD_LINK': 'status-badge bad-link'
+    };
+    const badgeTextMap = {
+      'NEW': 'NEW', 'SENT': 'SENT', 'SKIPPED': 'SKIPPED',
+      'OFF_BASE': '🚫 OFF BASE', 'BAD_LINK': '⚠ BAD LINK'
+    };
+    const cardClassMap = {
+      'NEW': 'card', 'SENT': 'card', 'SKIPPED': 'card skipped',
+      'OFF_BASE': 'card off-base', 'BAD_LINK': 'card bad-link'
+    };
 
-    const sentDone = status === 'SENT';
-    const skippedDone = status === 'SKIPPED';
-    const flaggedDone = status === 'BAD_LINK';
+    const isActioned = ['SENT','SKIPPED','OFF_BASE','BAD_LINK'].includes(status);
+    const isSent = status === 'SENT';
+    const isOffBase = status === 'OFF_BASE';
+    const isBadLink = status === 'BAD_LINK';
 
     container.innerHTML += `
-    <div class="${cardClass}" id="card-${p.hubspot_id}">
+    <div class="${cardClassMap[status] || 'card'}" id="card-${p.hubspot_id}">
       <div class="card-head">
-        <div>
+        <div style="flex:1;min-width:0">
           <div class="prospect-name">${p.name}</div>
           <div class="prospect-title">${p.title}</div>
           <div class="prospect-company">${p.company}</div>
         </div>
-        <div class="${badgeClass}" id="badge-${p.hubspot_id}">${badgeText}</div>
+        <div class="${badgeMap[status] || 'status-badge new'}" id="badge-${p.hubspot_id}">${badgeTextMap[status] || 'NEW'}</div>
       </div>
       <div class="touch-block">
-        <div class="touch-label">Touch 1 (Connection Request)</div>
-        <div id="touch1-${p.hubspot_id}">${p.touch1}</div>
+        <div class="touch-label">Touch 1 · Connection Request</div>
+        <div>${p.touch1}</div>
       </div>
-      <div class="touch-block" style="border-left-color:#9f7aea">
-        <div class="touch-label" style="color:#553c9a">Touch 2 (Value Message)</div>
+      <div class="touch-block t2">
+        <div class="touch-label t2">Touch 2 · Value Message</div>
         <div>${p.touch2}</div>
       </div>
-      <div class="touch-block" style="border-left-color:#ed8936">
-        <div class="touch-label" style="color:#7b341e">Touch 3 (Follow-up)</div>
+      <div class="touch-block t3">
+        <div class="touch-label t3">Touch 3 · Follow-up</div>
         <div>${p.touch3}</div>
       </div>
       <div class="card-actions">
         <button class="btn btn-copy" onclick="copyText('${p.touch1.replace(/'/g,"\\'")}', this)">📋 Copy T1</button>
-        <button class="${linkedinClass}" id="linkedin-${p.hubspot_id}" onclick="window.open('${p.linkedin_url}','_blank')">${linkedinText}</button>
-        <button class="btn btn-sent ${sentDone ? 'done' : ''}" id="sent-${p.hubspot_id}" onclick="doSent('${p.hubspot_id}')" ${sentDone || skippedDone ? 'disabled' : ''}>✓ Sent</button>
-        <button class="btn btn-skip" id="skip-${p.hubspot_id}" onclick="doSkip('${p.hubspot_id}')" ${skippedDone || sentDone ? 'disabled' : ''}>Skip</button>
-        <button class="btn btn-flag ${flaggedDone ? 'flagged' : ''}" id="flag-${p.hubspot_id}" onclick="doFlag('${p.hubspot_id}')" ${flaggedDone ? 'disabled' : ''}>🚩 ${flaggedDone ? 'Flagged' : 'Bad Link'}</button>
+        <a class="btn btn-linkedin${isBadLink ? ' bad' : ''}" id="linkedin-${p.hubspot_id}" href="${p.linkedin_url}" target="_blank">${isBadLink ? '⚠ Bad Link' : '→ LinkedIn'}</a>
+        <button class="btn btn-sent${isSent ? ' done' : ''}" id="sent-${p.hubspot_id}" onclick="doSent('${p.hubspot_id}')" ${isActioned ? 'disabled' : ''}>✓ Sent</button>
+        <button class="btn btn-skip" id="skip-${p.hubspot_id}" onclick="doSkip('${p.hubspot_id}')" ${isActioned ? 'disabled' : ''}>Skip</button>
+        <button class="btn btn-offbase${isOffBase ? ' flagged' : ''}" id="offbase-${p.hubspot_id}" onclick="doOffBase('${p.hubspot_id}')" ${isOffBase ? 'disabled' : ''}>🚫 ${isOffBase ? 'Off Base' : 'Off Base'}</button>
+        <button class="btn btn-badlink${isBadLink ? ' flagged' : ''}" id="badlink-${p.hubspot_id}" onclick="doBadLink('${p.hubspot_id}')" ${isBadLink ? 'disabled' : ''}>🚩 ${isBadLink ? 'Flagged' : 'Bad Link'}</button>
       </div>
     </div>`;
   });
@@ -283,7 +302,8 @@ function renderCards() {
   const total = PROSPECTS.length;
   document.getElementById('stat-total').textContent = total;
   document.getElementById('stat-sent').textContent = sent;
-  document.getElementById('stat-unsent').textContent = total - sent - skipped - badlinks;
+  document.getElementById('stat-unsent').textContent = total - sent - skipped - offbase - badlinks;
+  document.getElementById('stat-offbase').textContent = offbase;
   document.getElementById('stat-badlink').textContent = badlinks;
 }
 
@@ -297,70 +317,73 @@ function copyText(text, btn) {
 
 async function doSent(id) {
   const btn = document.getElementById(`sent-${id}`);
-  btn.textContent = 'Saving...';
-  btn.disabled = true;
+  btn.textContent = 'Saving...'; btn.disabled = true;
   const ok = await updateStatus(id, 'SENT');
   if (ok) {
     document.getElementById(`badge-${id}`).className = 'status-badge sent';
     document.getElementById(`badge-${id}`).textContent = 'SENT';
-    document.getElementById(`skip-${id}`).disabled = true;
-    btn.textContent = '✓ Sent';
-    btn.classList.add('done');
+    ['skip','offbase','badlink'].forEach(b => document.getElementById(`${b}-${id}`).disabled = true);
+    btn.textContent = '✓ Sent'; btn.classList.add('done');
     updateStatCounts();
-  } else {
-    btn.textContent = '✓ Sent';
-    btn.disabled = false;
-  }
+  } else { btn.textContent = '✓ Sent'; btn.disabled = false; }
 }
 
 async function doSkip(id) {
   const btn = document.getElementById(`skip-${id}`);
-  btn.textContent = 'Saving...';
-  btn.disabled = true;
+  btn.textContent = 'Saving...'; btn.disabled = true;
   const ok = await updateStatus(id, 'SKIPPED');
   if (ok) {
     document.getElementById(`badge-${id}`).className = 'status-badge skipped';
     document.getElementById(`badge-${id}`).textContent = 'SKIPPED';
-    document.getElementById(`sent-${id}`).disabled = true;
     document.getElementById(`card-${id}`).classList.add('skipped');
+    ['sent','offbase','badlink'].forEach(b => document.getElementById(`${b}-${id}`).disabled = true);
     updateStatCounts();
-  } else {
-    btn.textContent = 'Skip';
-    btn.disabled = false;
-  }
+  } else { btn.textContent = 'Skip'; btn.disabled = false; }
 }
 
-async function doFlag(id) {
-  const btn = document.getElementById(`flag-${id}`);
-  btn.textContent = 'Saving...';
-  btn.disabled = true;
+async function doOffBase(id) {
+  const btn = document.getElementById(`offbase-${id}`);
+  btn.textContent = 'Saving...'; btn.disabled = true;
+  const ok = await updateStatus(id, 'OFF_BASE');
+  if (ok) {
+    document.getElementById(`badge-${id}`).className = 'status-badge off-base';
+    document.getElementById(`badge-${id}`).textContent = '🚫 OFF BASE';
+    document.getElementById(`card-${id}`).classList.add('off-base');
+    ['sent','skip','badlink'].forEach(b => document.getElementById(`${b}-${id}`).disabled = true);
+    btn.textContent = '🚫 Off Base'; btn.classList.add('flagged');
+    updateStatCounts();
+  } else { btn.textContent = '🚫 Off Base'; btn.disabled = false; }
+}
+
+async function doBadLink(id) {
+  const btn = document.getElementById(`badlink-${id}`);
+  btn.textContent = 'Saving...'; btn.disabled = true;
   const ok = await updateStatus(id, 'BAD_LINK');
   if (ok) {
     document.getElementById(`badge-${id}`).className = 'status-badge bad-link';
     document.getElementById(`badge-${id}`).textContent = '⚠ BAD LINK';
     document.getElementById(`card-${id}`).classList.add('bad-link');
-    const linkedinBtn = document.getElementById(`linkedin-${id}`);
-    if (linkedinBtn) { linkedinBtn.classList.add('bad'); linkedinBtn.textContent = '⚠ Bad Link'; }
-    btn.textContent = '🚩 Flagged';
-    btn.classList.add('flagged');
+    const lnBtn = document.getElementById(`linkedin-${id}`);
+    if (lnBtn) { lnBtn.classList.add('bad'); lnBtn.textContent = '⚠ Bad Link'; }
+    ['sent','skip','offbase'].forEach(b => document.getElementById(`${b}-${id}`).disabled = true);
+    btn.textContent = '🚩 Flagged'; btn.classList.add('flagged');
     updateStatCounts();
-  } else {
-    btn.textContent = '🚩 Bad Link';
-    btn.disabled = false;
-  }
+  } else { btn.textContent = '🚩 Bad Link'; btn.disabled = false; }
 }
 
 function updateStatCounts() {
-  let sent = 0, skipped = 0, badlinks = 0;
+  let sent = 0, skipped = 0, offbase = 0, badlinks = 0;
   PROSPECTS.forEach(p => {
     const s = (statuses[p.hubspot_id] || 'NEW').toUpperCase();
     if (s === 'SENT') sent++;
     if (s === 'SKIPPED') skipped++;
+    if (s === 'OFF_BASE') offbase++;
     if (s === 'BAD_LINK') badlinks++;
   });
   const total = PROSPECTS.length;
   document.getElementById('stat-sent').textContent = sent;
-  document.getElementById('stat-unsent').textContent = total - sent - skipped - badlinks;
+  document.getElementById('stat-unsent').textContent = total - sent - skipped - offbase - badlinks;
+  document.getElementById('stat-offbase').textContent = offbase;
   document.getElementById('stat-badlink').textContent = badlinks;
 }
 
