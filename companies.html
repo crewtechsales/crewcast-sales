@@ -7,65 +7,55 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f0f4f8;color:#1a202c}
-header{background:#1a202c;color:#fff;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #2d3748;position:sticky;top:0;z-index:100}
-h1{font-size:18px;font-weight:700;margin:0}
+header{background:#1a202c;color:#fff;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
+h1{font-size:18px;font-weight:700}
 .sub{font-size:12px;color:#a0aec0;margin-top:2px}
-.nav{display:flex;gap:12px;align-items:center}
-.nav a{color:#a0aec0;text-decoration:none;font-size:13px;padding:4px 10px;border-radius:4px}
+.nav a{color:#a0aec0;text-decoration:none;font-size:13px;padding:4px 10px;border-radius:4px;margin-left:8px}
 .nav a:hover{background:#2d3748;color:#fff}
 .nav .active{background:#4299e1;color:#fff}
 .wrap{max-width:1000px;margin:0 auto;padding:24px 16px}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:24px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:12px;margin-bottom:24px}
 .stat{background:#fff;padding:12px 16px;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.08);text-align:center}
 .stat-num{font-size:22px;font-weight:700;color:#2d3748}
 .stat-label{color:#718096;font-size:11px;margin-top:2px;text-transform:uppercase}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-bottom:32px}
-.card{background:#fff;border-radius:8px;border:1px solid #e2e8f0;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.08);transition:all .2s;display:flex;flex-direction:column}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;margin-bottom:32px}
+.card{background:#fff;border-radius:10px;border:1px solid #e2e8f0;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.08);transition:all .2s;display:flex;flex-direction:column}
 .card:hover{box-shadow:0 4px 12px rgba(0,0,0,.12);transform:translateY(-2px)}
-.card.skipped{opacity:0.45}
-.card.bad-link{border:2px solid #fc8181}
+.card.done{opacity:0.4}
 .card.off-base{border:2px solid #f6ad55;opacity:0.5}
-.card-head{margin-bottom:10px;display:flex;justify-content:space-between;align-items:flex-start}
-.company-name{font-size:15px;font-weight:700;color:#1a202c}
+.card.bad-link{border:2px solid #fc8181;opacity:0.6}
+.card-head{margin-bottom:12px}
+.company-name{font-size:15px;font-weight:700}
 .company-meta{font-size:11px;color:#718096;margin-top:3px}
-.sector-tag{display:inline-block;background:#ebf8ff;color:#2b6cb0;padding:2px 7px;border-radius:4px;font-size:10px;font-weight:600;margin-top:5px}
-.status-badge{padding:3px 8px;border-radius:4px;font-size:10px;font-weight:700;white-space:nowrap;margin-left:8px;flex-shrink:0}
-.status-badge.new{background:#bee3f8;color:#2c5282}
-.status-badge.followed{background:#c6f6d5;color:#22543d}
-.status-badge.skipped{background:#e2e8f0;color:#4a5568}
-.status-badge.bad-link{background:#fed7d7;color:#c53030}
-.status-badge.off-base{background:#feebc8;color:#c05621}
-.info-block{margin:10px 0;padding:10px;background:#f7fafc;border-left:3px solid #4299e1;border-radius:0 4px 4px 0;font-size:12px;color:#4a5568;line-height:1.5}
-.info-label{font-weight:700;color:#2d3748;font-size:11px;margin-bottom:3px}
-.strategy-block{margin:8px 0;padding:10px;background:#f7fafc;border-left:3px solid #9f7aea;border-radius:0 4px 4px 0;font-size:12px;color:#4a5568;line-height:1.5}
-.card-actions{display:flex;gap:6px;margin-top:auto;padding-top:12px;flex-wrap:wrap}
-.btn{padding:7px 10px;font-size:11px;border:none;border-radius:4px;cursor:pointer;transition:all .2s;font-weight:600;white-space:nowrap}
-.btn:disabled{opacity:0.5;cursor:not-allowed}
-.btn-copy{background:#4299e1;color:#fff;flex:1}
-.btn-copy:hover:not(:disabled){background:#3182ce}
-.btn-copy.copied{background:#48bb78}
-.btn-linkedin{background:#0a66c2;color:#fff}
-.btn-linkedin:hover:not(:disabled){background:#055199}
-.btn-linkedin.bad{background:#fc8181;color:#fff}
-.btn-followed{background:#48bb78;color:#fff}
-.btn-followed:hover:not(:disabled){background:#38a169}
-.btn-followed.done{background:#276749}
+.company-hq{font-size:12px;font-weight:600;color:#4299e1;margin-top:4px}
+.stage-pill{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap;margin-top:8px}
+.stage-pill.new{background:#bee3f8;color:#2c5282}
+.stage-pill.followed{background:#c6f6d5;color:#22543d}
+.stage-pill.off-base{background:#feebc8;color:#c05621}
+.stage-pill.bad-link{background:#fed7d7;color:#c53030}
+.stage-pill.skipped{background:#e2e8f0;color:#4a5568}
+.angle-block{margin:12px 0 8px;padding:10px 12px;background:#f7fafc;border-left:4px solid #4299e1;border-radius:0 5px 5px 0;font-size:12px;color:#2d3748;line-height:1.55;flex:1}
+.strategy-block{padding:8px 12px;background:#f0fff4;border-left:4px solid #68d391;border-radius:0 5px 5px 0;font-size:11px;color:#276749;line-height:1.5}
+.strategy-label{font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;color:#276749}
+.inactive-msg{padding:10px 12px;background:#f7fafc;border-radius:6px;font-size:12px;color:#718096;text-align:center}
+.card-actions{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
+.btn{padding:8px 12px;font-size:12px;border:none;border-radius:5px;cursor:pointer;transition:all .15s;font-weight:600;white-space:nowrap}
+.btn-linkedin{background:#0a66c2;color:#fff;flex:1}
+.btn-linkedin:hover{background:#055199}
+.btn-follow{background:#48bb78;color:#fff;flex:1}
+.btn-follow:hover{background:#38a169}
 .btn-skip{background:#e2e8f0;color:#4a5568}
-.btn-skip:hover:not(:disabled){background:#cbd5e0}
+.btn-skip:hover{background:#cbd5e0}
 .btn-offbase{background:#fff;color:#c05621;border:1px solid #f6ad55}
-.btn-offbase:hover:not(:disabled){background:#feebc8}
-.btn-offbase.flagged{background:#feebc8;color:#7b341e;border-color:#ed8936;cursor:not-allowed}
-.btn-badlink{background:#fff;color:#c53030;border:1px solid #fc8181;font-size:10px}
-.btn-badlink:hover:not(:disabled){background:#fff5f5}
-.btn-badlink.flagged{background:#fff5f5;color:#9b2c2c;cursor:not-allowed}
-.error-msg{background:#fed7d7;color:#c53030;padding:12px 16px;border-radius:8px;margin-bottom:16px;font-size:13px}
-.loading{text-align:center;padding:60px;color:#718096;font-size:14px;grid-column:1/-1}
-footer{text-align:center;padding:24px;color:#718096;font-size:12px;border-top:1px solid #e2e8f0;margin-top:16px}
+.btn-offbase:hover{background:#feebc8}
+.btn-badlink{background:#fff;color:#c53030;border:1px solid #fc8181;font-size:11px}
+.btn-badlink:hover{background:#fff5f5}
+footer{text-align:center;padding:24px;color:#718096;font-size:12px;border-top:1px solid #e2e8f0;margin-top:8px}
 </style>
 </head>
 <body>
 <header>
-  <div><h1>📋 Company Follow</h1><div class="sub">CrewCast Sales · Research Portal</div></div>
+  <div><h1>🏢 Company Follow</h1><div class="sub">CrewCast Sales · Company Portal</div></div>
   <div class="nav">
     <a href="index.html">Prospects</a>
     <a href="companies.html" class="active">Companies</a>
@@ -73,350 +63,370 @@ footer{text-align:center;padding:24px;color:#718096;font-size:12px;border-top:1p
 </header>
 <div class="wrap">
   <div class="stats">
-    <div class="stat"><div class="stat-num" id="stat-total">—</div><div class="stat-label">Companies</div></div>
-    <div class="stat"><div class="stat-num" id="stat-followed">—</div><div class="stat-label">Followed</div></div>
-    <div class="stat"><div class="stat-num" id="stat-unsent">—</div><div class="stat-label">Unsent</div></div>
-    <div class="stat"><div class="stat-num" id="stat-offbase">—</div><div class="stat-label">Off Base</div></div>
-    <div class="stat"><div class="stat-num" id="stat-badlink">—</div><div class="stat-label">Bad Links</div></div>
+    <div class="stat"><div class="stat-num" id="s-total">—</div><div class="stat-label">Total</div></div>
+    <div class="stat"><div class="stat-num" id="s-new">—</div><div class="stat-label">Need Follow</div></div>
+    <div class="stat"><div class="stat-num" id="s-followed">—</div><div class="stat-label">Followed</div></div>
+    <div class="stat"><div class="stat-num" id="s-offbase">—</div><div class="stat-label">Off Base</div></div>
+    <div class="stat"><div class="stat-num" id="s-badlink">—</div><div class="stat-label">Bad Links</div></div>
   </div>
-  <div id="error-container"></div>
-  <div class="grid" id="cards-container">
-    <div class="loading">Loading companies...</div>
-  </div>
+  <div class="grid" id="cards"></div>
 </div>
-<footer>CrewCast Sales · Daily Outreach Portal · <a href="index.html" style="color:#4299e1">← Individual Outreach</a></footer>
-
+<footer>CrewCast Sales · Daily Outreach Portal · <a href="index.html" style="color:#4299e1">← Back to Prospects</a></footer>
 <script>
-const API_BASE = 'https://superagent-39294123.base44.app/functions';
-
+const API = 'https://superagent-39294123.base44.app/functions';
 const COMPANIES = [
   {
-    id: '6a2cf9aa4b215bc3545fc65a',
-    company_name: 'Granite Construction Company',
-    linkedin_url: 'https://www.linkedin.com/company/granite-construction-inc/',
-    headquarters: 'Watsonville, CA',
-    revenue_estimate: '$250M-$500M',
-    employee_count: '3,000-5,000',
-    sector: 'Heavy Civil Infrastructure',
-    specialties: 'Highway Construction, Water Infrastructure, Transportation',
-    engagement_angle: "Granite's recent $67M highway projects & CAP expansion = heavy ops scaling. CrewCast forecasting helps manage growing labor needs.",
-    follow_strategy: 'Monitor new CAP additions & Kenny Seng integration; reach out on ops scaling & labor planning.'
-  },
-  {
-    id: '6a2cf9aa4b215bc3545fc65b',
-    company_name: 'Webcor Builders',
-    linkedin_url: 'https://www.linkedin.com/company/webcor/',
-    headquarters: 'San Francisco, CA',
+    id: '6a2e4c588d3a15e143dc30d0',
+    company_name: 'Eutaw Construction Company',
+    sector: 'Heavy Civil & Infrastructure',
+    headquarters: 'Baltimore, MD',
     revenue_estimate: '$150M-$300M',
-    employee_count: '1,500-2,500',
-    sector: 'Commercial General Contracting',
-    specialties: 'Commercial, Mixed-Use, Healthcare, Sustainability',
-    engagement_angle: "Webcor's active hiring for schedulers & project roles signals growth. CrewCast optimizes labor allocation across multiple concurrent projects.",
-    follow_strategy: 'Engage on hiring momentum & ops scale; pitch workforce forecasting for project staffing.'
-  },
-  {
-    id: '6a2cf9aa4b215bc3545fc65c',
-    company_name: 'DPR Construction',
-    linkedin_url: 'https://www.linkedin.com/company/dpr-construction/',
-    headquarters: 'Redwood City, CA',
-    revenue_estimate: '$300M-$500M',
-    employee_count: '2,500-4,000',
-    sector: 'Commercial General Contracting',
-    specialties: 'Technology, Healthcare, Commercial, Hyperscale Data Centers',
-    engagement_angle: "DPR's hyperscale data center boom & shared leadership model = complex ops. CrewCast helps forecast labor across portfolio.",
-    follow_strategy: 'Target Carolyn Hunter (VP Ops) on workforce forecasting for multi-site hyperscale projects.'
-  },
-  {
-    id: '6a2cf9aa4b215bc3545fc65d',
-    company_name: 'Anderson Columbia Co., Inc.',
-    linkedin_url: 'https://www.linkedin.com/company/anderson-columbia-co-inc/',
-    headquarters: 'Portland, OR',
-    revenue_estimate: '$100M-$250M',
     employee_count: '800-1,500',
-    sector: 'Heavy Highway Construction',
-    specialties: 'Highway, Asphalt/Concrete, Infrastructure, Government',
-    engagement_angle: "Anderson's I-395/I-94 projects & multi-state ops = complex scheduling. CrewCast visibility into labor capacity across regions.",
-    follow_strategy: 'Engage on highway project scaling; pitch labor forecasting for multiple concurrent contracts.'
+    linkedin_url: 'https://www.linkedin.com/company/eutaw-construction-company/',
+    engagement_angle: `Eutaw owns its trade workforce. Multiple plant/water projects = complex crew allocation.`,
+    follow_strategy: `Engage on wastewater treatment scaling; pitch forecasting for distributed crews.`,
+    status: 'NEW'
   },
   {
-    id: '6a2cf9aa4b215bc3545fc65e',
-    company_name: 'Consigli Construction Co., Inc.',
-    linkedin_url: 'https://www.linkedin.com/company/consigli-construction/',
-    headquarters: 'Glastonbury, CT',
-    revenue_estimate: '$150M-$350M',
-    employee_count: '1,200-2,000',
-    sector: 'Commercial General Contracting',
-    specialties: 'Healthcare, Commercial, Education, Mixed-Use',
-    engagement_angle: "Josh Sylvester's new CT ops role + Ed's 30yr tenure = strong ops foundation. CrewCast scales forecasting across regions.",
-    follow_strategy: 'Reach Josh Sylvester on ops scaling; pitch workforce planning for multi-project healthcare/education portfolio.'
-  },
-  {
-    id: '6a2cf9aa4b215bc3545fc65f',
-    company_name: 'Lunda Construction Company',
-    linkedin_url: 'https://www.linkedin.com/company/lunda-construction/',
-    headquarters: 'Minneapolis, MN',
+    id: '6a2e4c588d3a15e143dc30d1',
+    company_name: 'Garco Construction',
+    sector: 'Heavy Civil & Utility',
+    headquarters: 'Spokane, WA',
     revenue_estimate: '$80M-$200M',
     employee_count: '600-1,200',
-    sector: 'Heavy Highway & Civil Construction',
-    specialties: 'Highway, Civil, Industrial, Infrastructure',
-    engagement_angle: "Lunda's $67.2M I-94/I-394 award shows strong backlog. CrewCast forecasting helps allocate crews across large contracts.",
-    follow_strategy: 'Engage Joseph Larson (President) on highway project labor planning & crew scheduling.'
+    linkedin_url: 'https://www.linkedin.com/company/garco-construction/',
+    engagement_angle: `Garco self-performs power transmission. Growth in renewable = crew scaling pressure.`,
+    follow_strategy: `Target on transmission & distribution expansion; labor forecasting for equipment operators.`,
+    status: 'NEW'
   },
   {
-    id: '6a2cf9aa4b215bc3545fc660',
-    company_name: 'Pepper Construction',
-    linkedin_url: 'https://www.linkedin.com/company/pepper-construction-company/',
-    headquarters: 'Chicago, IL',
-    revenue_estimate: '$120M-$280M',
-    employee_count: '1,000-2,000',
-    sector: 'Commercial General Contracting',
-    specialties: 'Commercial, Healthcare, Mixed-Use, Hospitality, Aerospace',
-    engagement_angle: "Pepper's complex project portfolio (aerospace testing, community centers) = high coordination needs. CrewCast solves labor complexity.",
-    follow_strategy: 'Target ops team on workforce planning for complex, concurrent commercial projects.'
+    id: '6a2e4c588d3a15e143dc30d2',
+    company_name: 'Northwest Excavating',
+    sector: 'Heavy Civil & Earthwork',
+    headquarters: 'Portland, OR',
+    revenue_estimate: '$120M-$250M',
+    employee_count: '700-1,400',
+    linkedin_url: 'https://www.linkedin.com/company/northwest-excavating/',
+    engagement_angle: `NWE self-performs grading/excavation. Highway/airport projects = distributed crew management.`,
+    follow_strategy: `Target ops team on multi-site project coordination; pitch crew scheduling for heavy equipment.`,
+    status: 'NEW'
   },
   {
-    id: '6a2cf9aa4b215bc3545fc661',
-    company_name: 'Helix Electric, Inc.',
-    linkedin_url: 'https://www.linkedin.com/company/helix-electric/',
-    headquarters: 'Las Vegas, NV',
-    revenue_estimate: '$400M-$600M',
-    employee_count: '4,000-6,000',
+    id: '6a2e4c588d3a15e143dc30d3',
+    company_name: 'Blokable Electric',
     sector: 'Electrical Contracting',
-    specialties: 'Electrical, Design-Build, Data Centers, Energy, Water Treatment',
-    engagement_angle: "Victor Fuchs' growth in water-treatment + nationwide expansion = massive labor scaling. CrewCast forecasts labor across regions.",
-    follow_strategy: 'Engage Casey Long (COO) on workforce scaling for nationwide electrical projects & emerging verticals.'
+    headquarters: 'Denver, CO',
+    revenue_estimate: '$90M-$220M',
+    employee_count: '650-1,300',
+    linkedin_url: 'https://www.linkedin.com/company/blokable-electric/',
+    engagement_angle: `Blokable union electricians across CO/WY. Solar/wind projects = seasonal crew ramping.`,
+    follow_strategy: `Engage on renewable energy expansion; pitch labor forecasting for electrician allocation.`,
+    status: 'NEW'
   },
   {
-    id: '6a2cf9aa4b215bc3545fc662',
-    company_name: 'Sundt Construction',
-    linkedin_url: 'https://www.linkedin.com/company/sundt-construction/',
-    headquarters: 'Tucson, AZ',
-    revenue_estimate: '$250M-$450M',
-    employee_count: '2,000-3,500',
-    sector: 'General Contracting & Building',
-    specialties: 'Building, Heavy Civil, Infrastructure, Industrial',
-    engagement_angle: "Shawn Blubaum's new Tucson region leadership + portfolio across AZ = coordinated labor strategy. CrewCast optimizes forecasting.",
-    follow_strategy: 'Reach Shawn Blubaum on regional ops scaling; pitch labor forecasting across AZ building projects.'
+    id: '6a2e4c588d3a15e143dc30d4',
+    company_name: 'Precision Concrete Contractors',
+    sector: 'Concrete Specialties',
+    headquarters: 'Phoenix, AZ',
+    revenue_estimate: '$75M-$180M',
+    employee_count: '500-1,100',
+    linkedin_url: 'https://www.linkedin.com/company/precision-concrete-contractors/',
+    engagement_angle: `PCC owns concrete crews. AZ building boom = need for real-time capacity visibility.`,
+    follow_strategy: `Target on Arizona project pipeline; pitch labor forecasting for concrete crews.`,
+    status: 'NEW'
+  },
+  {
+    id: '6a2e4c588d3a15e143dc30d5',
+    company_name: 'Murphy Pipelines, Inc.',
+    sector: 'Utilities & Pipelines',
+    headquarters: 'Houston, TX',
+    revenue_estimate: '$200M-$400M',
+    employee_count: '1,500-2,500',
+    linkedin_url: 'https://www.linkedin.com/company/murphy-pipelines/',
+    engagement_angle: `Murphy self-performs pipeline work across TX/LA. Multiple concurrent = crew management complexity.`,
+    follow_strategy: `Reach ops leadership on workforce scaling for distributed pipeline projects.`,
+    status: 'NEW'
+  },
+  {
+    id: '6a2e4c588d3a15e143dc30d6',
+    company_name: 'Southwest Mechanical',
+    sector: 'Mechanical & HVAC',
+    headquarters: 'Las Vegas, NV',
+    revenue_estimate: '$60M-$150M',
+    employee_count: '400-900',
+    linkedin_url: 'https://www.linkedin.com/company/southwest-mechanical-hvac/',
+    engagement_angle: `SWM owns HVAC crews. Vegas development surge = skilled tech shortage forecasting.`,
+    follow_strategy: `Engage on building season labor ramping; pitch crew forecasting for HVAC technicians.`,
+    status: 'NEW'
+  },
+  {
+    id: '6a2e4c588d3a15e143dc30d7',
+    company_name: 'Tilcon New York Holdings',
+    sector: 'Materials & Construction',
+    headquarters: 'Mt. Kisco, NY',
+    revenue_estimate: '$350M-$550M',
+    employee_count: '2,500-4,000',
+    linkedin_url: 'https://www.linkedin.com/company/tilcon-new-york/',
+    engagement_angle: `Tilcon employs equipment operators & laborers. Seasonal paving = cyclical crew demand.`,
+    follow_strategy: `Target paving division on seasonal crew scaling; pitch labor forecasting for operators.`,
+    status: 'NEW'
+  },
+  {
+    id: '6a2e4c588d3a15e143dc30d8',
+    company_name: 'Turnkey Energy Solutions',
+    sector: 'Renewable Energy & EPC',
+    headquarters: 'Austin, TX',
+    revenue_estimate: '$85M-$200M',
+    employee_count: '550-1,200',
+    linkedin_url: 'https://www.linkedin.com/company/turnkey-energy-solutions/',
+    engagement_angle: `Turnkey self-performs solar installs. Booming pipeline = electrician/tech forecasting critical.`,
+    follow_strategy: `Engage on solar project scaling; pitch crew forecasting for renewable energy technicians.`,
+    status: 'NEW'
+  },
+  {
+    id: '6a2e4c588d3a15e143dc30d9',
+    company_name: 'Helix Electric West',
+    sector: 'Electrical Contracting',
+    headquarters: 'Phoenix, AZ',
+    revenue_estimate: '$120M-$280M',
+    employee_count: '900-1,800',
+    linkedin_url: 'https://www.linkedin.com/company/helix-electric-west/',
+    engagement_angle: `Helix West self-performs electrical. AZ data center boom = high-volume electrician allocation.`,
+    follow_strategy: `Target on data center expansion & commercial growth; pitch crew scheduling.`,
+    status: 'NEW'
   },
   {
     id: '6a2cf9aa4b215bc3545fc663',
     company_name: 'Barton Malow Company',
-    linkedin_url: 'https://www.linkedin.com/company/bartonmalow/',
+    sector: 'General Contracting',
     headquarters: 'Livonia, MI',
     revenue_estimate: '$200M-$400M',
     employee_count: '1,500-2,500',
-    sector: 'General Contracting',
-    specialties: 'Healthcare, Commercial, Education, Industrial',
-    engagement_angle: 'Ryan Maibach (CEO) + Chuck Binkowski (COO) + 100yr history = mature ops. CrewCast adds precision forecasting.',
-    follow_strategy: 'Target operations team on labor optimization for mature multi-project healthcare/education portfolio.'
+    linkedin_url: 'https://www.linkedin.com/company/bartonmalow/',
+    engagement_angle: `Ryan Maibach (CEO) + Chuck Binkowski (COO) + 100yr history = mature ops. CrewCast adds precision forecasting.`,
+    follow_strategy: `Target operations team on labor optimization for mature multi-project healthcare/education portfolio.`,
+    status: 'FOLLOWED'
+  },
+  {
+    id: '6a2cf9aa4b215bc3545fc664',
+    company_name: 'Sundt Construction',
+    sector: 'General Contracting & Building',
+    headquarters: 'Tucson, AZ',
+    revenue_estimate: '$250M-$450M',
+    employee_count: '2,000-3,500',
+    linkedin_url: 'https://www.linkedin.com/company/sundt-construction/',
+    engagement_angle: `Shawn Blubaum's new Tucson region leadership + portfolio across AZ = coordinated labor strategy.`,
+    follow_strategy: `Reach Shawn Blubaum on regional ops scaling; pitch labor forecasting across AZ building projects.`,
+    status: 'FOLLOWED'
+  },
+  {
+    id: '6a2cf9aa4b215bc3545fc665',
+    company_name: 'Helix Electric, Inc.',
+    sector: 'Electrical Contracting',
+    headquarters: 'Las Vegas, NV',
+    revenue_estimate: '$150M-$350M',
+    employee_count: '1,200-2,200',
+    linkedin_url: 'https://www.linkedin.com/company/helix-electric/',
+    engagement_angle: `Victor Fuchs' growth in water-treatment + nationwide expansion = massive labor scaling.`,
+    follow_strategy: `Engage Casey Long (COO) on workforce scaling for nationwide electrical projects.`,
+    status: 'FOLLOWED'
+  },
+  {
+    id: '6a2cf9aa4b215bc3545fc666',
+    company_name: 'Pepper Construction',
+    sector: 'Commercial General Contracting',
+    headquarters: 'Chicago, IL',
+    revenue_estimate: '$200M-$400M',
+    employee_count: '1,000-2,000',
+    linkedin_url: 'https://www.linkedin.com/company/pepper-construction-company/',
+    engagement_angle: `Pepper's complex project portfolio (aerospace testing, community centers) = high coordination needs.`,
+    follow_strategy: `Target ops team on workforce planning for complex, concurrent commercial projects.`,
+    status: 'FOLLOWED'
+  },
+  {
+    id: '6a2cf9aa4b215bc3545fc667',
+    company_name: 'Lunda Construction Company',
+    sector: 'Heavy Highway & Civil Construction',
+    headquarters: 'Minneapolis, MN',
+    revenue_estimate: '$150M-$300M',
+    employee_count: '800-1,600',
+    linkedin_url: 'https://www.linkedin.com/company/lunda-construction/',
+    engagement_angle: `Lunda's $67.2M I-94/I-394 award shows strong backlog. CrewCast forecasting helps allocate crews.`,
+    follow_strategy: `Engage Joseph Larson (President) on highway project labor planning & crew scheduling.`,
+    status: 'FOLLOWED'
+  },
+  {
+    id: '6a2cf9aa4b215bc3545fc668',
+    company_name: 'Consigli Construction Co., Inc.',
+    sector: 'Commercial General Contracting',
+    headquarters: 'Glastonbury, CT',
+    revenue_estimate: '$200M-$400M',
+    employee_count: '1,500-2,500',
+    linkedin_url: 'https://www.linkedin.com/company/consigli-construction/',
+    engagement_angle: `Josh Sylvester's new CT ops role + Ed's 30yr tenure = strong ops foundation.`,
+    follow_strategy: `Reach Josh Sylvester on ops scaling; pitch workforce planning for multi-project portfolio.`,
+    status: 'OFF_BASE'
+  },
+  {
+    id: '6a2cf9aa4b215bc3545fc669',
+    company_name: 'Anderson Columbia Co., Inc.',
+    sector: 'Heavy Highway Construction',
+    headquarters: 'Portland, OR',
+    revenue_estimate: '$150M-$300M',
+    employee_count: '900-1,800',
+    linkedin_url: 'https://www.linkedin.com/company/anderson-columbia-co-inc/',
+    engagement_angle: `Anderson's I-395/I-94 projects & multi-state ops = complex scheduling.`,
+    follow_strategy: `Engage on highway project scaling; pitch labor forecasting for multiple concurrent contracts.`,
+    status: 'FOLLOWED'
+  },
+  {
+    id: '6a2cf9aa4b215bc3545fc66a',
+    company_name: 'DPR Construction',
+    sector: 'Commercial General Contracting',
+    headquarters: 'Redwood City, CA',
+    revenue_estimate: '$400M-$600M',
+    employee_count: '3,000-5,000',
+    linkedin_url: 'https://www.linkedin.com/company/dpr-construction/',
+    engagement_angle: `DPR's hyperscale data center boom & shared leadership model = complex ops.`,
+    follow_strategy: `Target Carolyn Hunter (VP Ops) on workforce forecasting for multi-site hyperscale projects.`,
+    status: 'OFF_BASE'
+  },
+  {
+    id: '6a2cf9aa4b215bc3545fc66b',
+    company_name: 'Webcor Builders',
+    sector: 'Commercial General Contracting',
+    headquarters: 'San Francisco, CA',
+    revenue_estimate: '$300M-$500M',
+    employee_count: '1,500-2,500',
+    linkedin_url: 'https://www.linkedin.com/company/webcor/',
+    engagement_angle: `Webcor's active hiring for schedulers & project roles signals growth.`,
+    follow_strategy: `Engage on hiring momentum & ops scale; pitch workforce forecasting for project staffing.`,
+    status: 'FOLLOWED'
+  },
+  {
+    id: '6a2cf9aa4b215bc3545fc66c',
+    company_name: 'Granite Construction Company',
+    sector: 'Heavy Civil Infrastructure',
+    headquarters: 'Watsonville, CA',
+    revenue_estimate: '$300M-$500M',
+    employee_count: '2,000-4,000',
+    linkedin_url: 'https://www.linkedin.com/company/granite-construction-inc/',
+    engagement_angle: `Granite's recent $67M highway projects & CAP expansion = heavy ops scaling.`,
+    follow_strategy: `Monitor new CAP additions & Kenny Seng integration; reach out on ops scaling & labor planning.`,
+    status: 'BAD_LINK'
   }
 ];
 
-let statuses = {};
+let statusMap = {};
 
-async function loadStatuses() {
-  try {
-    const res = await fetch(`${API_BASE}/getCompanyStatuses`, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({})
-    });
-    if (res.ok) {
-      const data = await res.json();
-      statuses = data.statuses || {};
-    }
-  } catch(e) { /* fallback: all NEW */ }
-  renderCards();
+function getStatus(id) { return statusMap[id] || 'NEW'; }
+
+function updateStats() {
+  const total = COMPANIES.length;
+  let needFollow = 0, followed = 0, offbase = 0, badlink = 0;
+  COMPANIES.forEach(c => {
+    const s = getStatus(c.id);
+    if (s === 'NEW') needFollow++;
+    else if (s === 'FOLLOWED') followed++;
+    else if (s === 'OFF_BASE') offbase++;
+    else if (s === 'BAD_LINK') badlink++;
+  });
+  document.getElementById('s-total').textContent = total;
+  document.getElementById('s-new').textContent = needFollow;
+  document.getElementById('s-followed').textContent = followed;
+  document.getElementById('s-offbase').textContent = offbase;
+  document.getElementById('s-badlink').textContent = badlink;
 }
 
-async function updateStatus(id, status) {
-  try {
-    const res = await fetch(`${API_BASE}/updateCompanyStatus`, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ id, status })
-    });
-    if (!res.ok) throw new Error('Server error');
-    statuses[id] = status;
-    return true;
-  } catch(e) {
-    showError('Could not save status. Check your connection and try again.');
-    return false;
-  }
+function pillClass(s) {
+  return s === 'FOLLOWED' ? 'followed' : s === 'OFF_BASE' ? 'off-base' : s === 'BAD_LINK' ? 'bad-link' : s === 'SKIPPED' ? 'skipped' : 'new';
+}
+function pillLabel(s) {
+  return s === 'FOLLOWED' ? '✅ Followed' : s === 'OFF_BASE' ? '🚫 Off Base' : s === 'BAD_LINK' ? '🚩 Bad Link' : s === 'SKIPPED' ? 'Skipped' : '🔵 Follow Now';
 }
 
-function showError(msg) {
-  const el = document.getElementById('error-container');
-  el.innerHTML = `<div class="error-msg">⚠️ ${msg}</div>`;
-  setTimeout(() => el.innerHTML = '', 4000);
+function renderCard(c) {
+  const s = getStatus(c.id);
+  const inactive = ['FOLLOWED','OFF_BASE','BAD_LINK','SKIPPED'].includes(s);
+  const card = document.createElement('div');
+  card.id = 'card-' + c.id;
+  card.className = `card ${inactive && s !== 'FOLLOWED' ? 'done' : ''} ${s === 'OFF_BASE' ? 'off-base' : ''} ${s === 'BAD_LINK' ? 'bad-link' : ''}`.trim();
+
+  const contentHtml = inactive && s !== 'NEW'
+    ? `<div class="inactive-msg">${
+        s === 'FOLLOWED' ? '✅ Company followed on LinkedIn' :
+        s === 'OFF_BASE' ? '🚫 Flagged as off ICP — excluded from future research' :
+        s === 'BAD_LINK' ? '🚩 LinkedIn URL flagged as broken' :
+        '⏭️ Skipped'
+      }</div>`
+    : `<div class="angle-block">${c.engagement_angle}</div>
+       <div class="strategy-block"><div class="strategy-label">📋 Follow Strategy</div>${c.follow_strategy}</div>`;
+
+  const actionsHtml = s === 'NEW'
+    ? `<div class="card-actions">
+        <button class="btn btn-linkedin" onclick="openLI('${c.linkedin_url}','${c.id}')">🔗 LinkedIn</button>
+        <button class="btn btn-follow" onclick="setStatus('${c.id}','FOLLOWED')">✓ Followed</button>
+      </div>
+      <div class="card-actions" style="margin-top:4px">
+        <button class="btn btn-skip" onclick="setStatus('${c.id}','SKIPPED')">Skip</button>
+        <button class="btn btn-offbase" onclick="setStatus('${c.id}','OFF_BASE')">🚫 Off Base</button>
+        <button class="btn btn-badlink" onclick="setStatus('${c.id}','BAD_LINK')">🚩 Bad Link</button>
+      </div>`
+    : '';
+
+  card.innerHTML = `
+    <div class="card-head">
+      <div class="company-name">${c.company_name}</div>
+      <div class="company-meta">${c.sector}</div>
+      <div class="company-hq">📍 ${c.headquarters} · ${c.revenue_estimate} · ${c.employee_count} emp</div>
+      <span class="stage-pill ${pillClass(s)}">${pillLabel(s)}</span>
+    </div>
+    ${contentHtml}
+    ${actionsHtml}
+  `;
+  return card;
 }
 
-function renderCards() {
-  const container = document.getElementById('cards-container');
+function renderAll() {
+  const container = document.getElementById('cards');
   container.innerHTML = '';
-
-  let followed = 0, skipped = 0, offbase = 0, badlinks = 0;
-
-  COMPANIES.forEach(c => {
-    const status = (statuses[c.id] || 'NEW').toUpperCase();
-    if (status === 'FOLLOWED') followed++;
-    if (status === 'SKIPPED') skipped++;
-    if (status === 'OFF_BASE') offbase++;
-    if (status === 'BAD_LINK') badlinks++;
-
-    const badgeMap = {
-      'NEW': 'status-badge new',
-      'FOLLOWED': 'status-badge followed',
-      'SKIPPED': 'status-badge skipped',
-      'OFF_BASE': 'status-badge off-base',
-      'BAD_LINK': 'status-badge bad-link'
-    };
-    const badgeTextMap = {
-      'NEW': 'NEW',
-      'FOLLOWED': 'FOLLOWED',
-      'SKIPPED': 'SKIPPED',
-      'OFF_BASE': '🚫 OFF BASE',
-      'BAD_LINK': '⚠ BAD LINK'
-    };
-    const cardClassMap = {
-      'NEW': 'card',
-      'FOLLOWED': 'card',
-      'SKIPPED': 'card skipped',
-      'OFF_BASE': 'card off-base',
-      'BAD_LINK': 'card bad-link'
-    };
-
-    const isActioned = ['FOLLOWED','SKIPPED','OFF_BASE','BAD_LINK'].includes(status);
-    const isOffBase = status === 'OFF_BASE';
-    const isBadLink = status === 'BAD_LINK';
-    const isFollowed = status === 'FOLLOWED';
-
-    container.innerHTML += `
-    <div class="${cardClassMap[status] || 'card'}" id="card-${c.id}">
-      <div class="card-head">
-        <div style="flex:1;min-width:0">
-          <div class="company-name">${c.company_name}</div>
-          <div class="company-meta">${c.headquarters} · ${c.employee_count} employees · ${c.revenue_estimate}</div>
-          <span class="sector-tag">${c.sector}</span>
-        </div>
-        <div class="${badgeMap[status] || 'status-badge new'}" id="badge-${c.id}">${badgeTextMap[status] || 'NEW'}</div>
-      </div>
-      <div class="info-block">
-        <div class="info-label">Engagement Angle</div>
-        ${c.engagement_angle}
-      </div>
-      <div class="strategy-block">
-        <div class="info-label" style="color:#553c9a">Follow Strategy</div>
-        ${c.follow_strategy}
-      </div>
-      <div class="card-actions">
-        <button class="btn btn-copy" onclick="copyText('${c.engagement_angle.replace(/'/g,"\\'")}', this)">📋 Copy</button>
-        <a class="btn btn-linkedin${isBadLink ? ' bad' : ''}" id="linkedin-${c.id}" href="${c.linkedin_url}" target="_blank">${isBadLink ? '⚠ Bad Link' : '→ LinkedIn'}</a>
-        <button class="btn btn-followed${isFollowed ? ' done' : ''}" id="followed-${c.id}" onclick="doFollow('${c.id}')" ${isActioned ? 'disabled' : ''}>✓ Followed</button>
-        <button class="btn btn-skip" id="skip-${c.id}" onclick="doSkip('${c.id}')" ${isActioned ? 'disabled' : ''}>Skip</button>
-        <button class="btn btn-offbase${isOffBase ? ' flagged' : ''}" id="offbase-${c.id}" onclick="doOffBase('${c.id}')" ${isOffBase ? 'disabled' : ''}>🚫 ${isOffBase ? 'Off Base' : 'Off Base'}</button>
-        <button class="btn btn-badlink${isBadLink ? ' flagged' : ''}" id="badlink-${c.id}" onclick="doBadLink('${c.id}')" ${isBadLink ? 'disabled' : ''}>🚩 ${isBadLink ? 'Flagged' : 'Bad Link'}</button>
-      </div>
-    </div>`;
-  });
-
-  const total = COMPANIES.length;
-  document.getElementById('stat-total').textContent = total;
-  document.getElementById('stat-followed').textContent = followed;
-  document.getElementById('stat-unsent').textContent = total - followed - skipped - offbase - badlinks;
-  document.getElementById('stat-offbase').textContent = offbase;
-  document.getElementById('stat-badlink').textContent = badlinks;
+  const order = { 'NEW': 0, 'FOLLOWED': 1, 'SKIPPED': 2, 'OFF_BASE': 3, 'BAD_LINK': 4 };
+  const sorted = [...COMPANIES].sort((a,b) => (order[getStatus(a.id)]||0) - (order[getStatus(b.id)]||0));
+  sorted.forEach(c => container.appendChild(renderCard(c)));
+  updateStats();
 }
 
-function copyText(text, btn) {
-  navigator.clipboard.writeText(text).then(() => {
-    btn.textContent = '✓ Copied!';
-    btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = '📋 Copy'; btn.classList.remove('copied'); }, 2000);
-  });
+function openLI(url, id) {
+  if (!url || !url.includes('/company/')) {
+    setStatus(id, 'BAD_LINK');
+    alert('LinkedIn URL looks invalid — marked as Bad Link.');
+    return;
+  }
+  window.open(url, '_blank');
 }
 
-async function doFollow(id) {
-  const btn = document.getElementById(`followed-${id}`);
-  btn.textContent = 'Saving...'; btn.disabled = true;
-  const ok = await updateStatus(id, 'FOLLOWED');
-  if (ok) {
-    document.getElementById(`badge-${id}`).className = 'status-badge followed';
-    document.getElementById(`badge-${id}`).textContent = 'FOLLOWED';
-    document.getElementById(`skip-${id}`).disabled = true;
-    document.getElementById(`offbase-${id}`).disabled = true;
-    document.getElementById(`badlink-${id}`).disabled = true;
-    btn.textContent = '✓ Followed'; btn.classList.add('done');
-    updateStatCounts();
-  } else { btn.textContent = '✓ Followed'; btn.disabled = false; }
+async function setStatus(id, status) {
+  statusMap[id] = status;
+  const old = document.getElementById('card-' + id);
+  if (old) old.replaceWith(renderCard(COMPANIES.find(c => c.id === id)));
+  updateStats();
+  try {
+    await fetch(`${API}/updateCompanyStatus`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ company_id: id, status })
+    });
+  } catch(e) { console.log('Save failed:', e); }
 }
 
-async function doSkip(id) {
-  const btn = document.getElementById(`skip-${id}`);
-  btn.textContent = 'Saving...'; btn.disabled = true;
-  const ok = await updateStatus(id, 'SKIPPED');
-  if (ok) {
-    document.getElementById(`badge-${id}`).className = 'status-badge skipped';
-    document.getElementById(`badge-${id}`).textContent = 'SKIPPED';
-    document.getElementById(`card-${id}`).classList.add('skipped');
-    document.getElementById(`followed-${id}`).disabled = true;
-    document.getElementById(`offbase-${id}`).disabled = true;
-    document.getElementById(`badlink-${id}`).disabled = true;
-    updateStatCounts();
-  } else { btn.textContent = 'Skip'; btn.disabled = false; }
-}
-
-async function doOffBase(id) {
-  const btn = document.getElementById(`offbase-${id}`);
-  btn.textContent = 'Saving...'; btn.disabled = true;
-  const ok = await updateStatus(id, 'OFF_BASE');
-  if (ok) {
-    document.getElementById(`badge-${id}`).className = 'status-badge off-base';
-    document.getElementById(`badge-${id}`).textContent = '🚫 OFF BASE';
-    document.getElementById(`card-${id}`).classList.add('off-base');
-    document.getElementById(`followed-${id}`).disabled = true;
-    document.getElementById(`skip-${id}`).disabled = true;
-    document.getElementById(`badlink-${id}`).disabled = true;
-    btn.textContent = '🚫 Off Base'; btn.classList.add('flagged');
-    updateStatCounts();
-  } else { btn.textContent = '🚫 Off Base'; btn.disabled = false; }
-}
-
-async function doBadLink(id) {
-  const btn = document.getElementById(`badlink-${id}`);
-  btn.textContent = 'Saving...'; btn.disabled = true;
-  const ok = await updateStatus(id, 'BAD_LINK');
-  if (ok) {
-    document.getElementById(`badge-${id}`).className = 'status-badge bad-link';
-    document.getElementById(`badge-${id}`).textContent = '⚠ BAD LINK';
-    document.getElementById(`card-${id}`).classList.add('bad-link');
-    const lnBtn = document.getElementById(`linkedin-${id}`);
-    if (lnBtn) { lnBtn.classList.add('bad'); lnBtn.textContent = '⚠ Bad Link'; }
-    document.getElementById(`followed-${id}`).disabled = true;
-    document.getElementById(`skip-${id}`).disabled = true;
-    document.getElementById(`offbase-${id}`).disabled = true;
-    btn.textContent = '🚩 Flagged'; btn.classList.add('flagged');
-    updateStatCounts();
-  } else { btn.textContent = '🚩 Bad Link'; btn.disabled = false; }
-}
-
-function updateStatCounts() {
-  let followed = 0, skipped = 0, offbase = 0, badlinks = 0;
-  COMPANIES.forEach(c => {
-    const s = (statuses[c.id] || 'NEW').toUpperCase();
-    if (s === 'FOLLOWED') followed++;
-    if (s === 'SKIPPED') skipped++;
-    if (s === 'OFF_BASE') offbase++;
-    if (s === 'BAD_LINK') badlinks++;
-  });
-  const total = COMPANIES.length;
-  document.getElementById('stat-followed').textContent = followed;
-  document.getElementById('stat-unsent').textContent = total - followed - skipped - offbase - badlinks;
-  document.getElementById('stat-offbase').textContent = offbase;
-  document.getElementById('stat-badlink').textContent = badlinks;
-}
-
-loadStatuses();
+(async () => {
+  try {
+    const r = await fetch(`${API}/getCompanyStatuses`, { method:'POST', headers:{'Content-Type':'application/json'}, body:'{}' });
+    const d = await r.json();
+    if (d.statuses) d.statuses.forEach(s => { statusMap[s.company_id] = s.status; });
+  } catch(e) { console.log('Load failed:', e); }
+  renderAll();
+})();
 </script>
 </body>
 </html>
