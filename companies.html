@@ -1,251 +1,284 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CrewCast — Company Follow</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f0f4f8;color:#1a202c}
-header{background:#1a202c;color:#fff;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
-h1{font-size:18px;font-weight:700}
-.sub{font-size:12px;color:#a0aec0;margin-top:2px}
-.nav a{color:#a0aec0;text-decoration:none;font-size:13px;padding:4px 10px;border-radius:4px;margin-left:8px}
-.nav a:hover{background:#2d3748;color:#fff}
-.nav .active{background:#4299e1;color:#fff}
-.wrap{max-width:1100px;margin:0 auto;padding:24px 16px}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:24px}
-.stat{background:#fff;padding:14px 16px;border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,.08);text-align:center}
-.stat-num{font-size:26px;font-weight:800;color:#2d3748}
-.stat-label{color:#718096;font-size:11px;margin-top:3px;text-transform:uppercase;letter-spacing:.04em}
-.filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;align-items:center}
-.filter-btn{padding:6px 14px;font-size:12px;font-weight:600;border:2px solid #e2e8f0;border-radius:20px;background:#fff;cursor:pointer;transition:all .15s;color:#4a5568}
-.filter-btn:hover{border-color:#4299e1;color:#2b6cb0}
-.filter-btn.active{background:#4299e1;border-color:#4299e1;color:#fff}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px;margin-bottom:32px}
-.card{background:#fff;border-radius:10px;border:1px solid #e2e8f0;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.06);transition:all .2s;display:flex;flex-direction:column}
-.card:hover{box-shadow:0 4px 14px rgba(0,0,0,.1);transform:translateY(-2px)}
-.card.done{opacity:.45;filter:grayscale(30%)}
-.card.off-base{border:2px solid #f6ad55;opacity:.55}
-.card.bad-link{border:2px solid #fc8181}
-.card-head{margin-bottom:10px}
-.company-name{font-size:15px;font-weight:700;line-height:1.3}
-.company-meta{font-size:11px;color:#718096;margin-top:3px}
-.company-hq{font-size:12px;font-weight:600;color:#4299e1;margin-top:4px}
-.stage-pill{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;margin-top:8px;white-space:nowrap}
-.pill-new{background:#bee3f8;color:#2c5282}
-.pill-followed{background:#c6f6d5;color:#22543d}
-.pill-off_base{background:#feebc8;color:#7b341e}
-.pill-bad_link{background:#fed7d7;color:#c53030}
-.pill-skipped{background:#e2e8f0;color:#4a5568}
-.angle-block{margin:12px 0 8px;padding:10px 12px;background:#f7fafc;border-left:3px solid #4299e1;border-radius:0 6px 6px 0;font-size:12px;color:#2d3748;line-height:1.6;flex:1}
-.strategy-block{padding:8px 12px;background:#f0fff4;border-left:3px solid #68d391;border-radius:0 6px 6px 0;font-size:11px;color:#276749;line-height:1.5;margin-bottom:12px}
-.strategy-label{font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px;color:#276749}
-.card-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:12px}
-.btn{padding:8px 12px;font-size:12px;border:none;border-radius:6px;cursor:pointer;font-weight:600;transition:all .15s;white-space:nowrap}
-.btn-linkedin{background:#0a66c2;color:#fff;flex:1}
-.btn-linkedin:hover{background:#004182}
-.btn-followed{background:#38a169;color:#fff;flex:1}
-.btn-followed:hover{background:#276749}
-.btn-skip{background:#edf2f7;color:#4a5568}
-.btn-skip:hover{background:#e2e8f0}
-.btn-offbase{background:#fff;color:#c05621;border:1px solid #f6ad55;font-size:11px}
-.btn-offbase:hover{background:#fffaf0}
-.btn-badlink{background:#fff;color:#c53030;border:1px solid #fc8181;font-size:11px}
-.btn-badlink:hover{background:#fff5f5}
-.btn-undo{background:#fff;color:#718096;border:1px solid #cbd5e0;font-size:11px}
-.btn-undo:hover{background:#f7fafc}
-.loading{text-align:center;padding:60px;color:#718096;font-size:15px}
-.empty{text-align:center;padding:40px;color:#a0aec0;font-size:14px}
-footer{text-align:center;padding:24px;color:#a0aec0;font-size:12px;border-top:1px solid #e2e8f0;margin-top:8px}
-.last-updated{font-size:11px;color:#a0aec0;margin-left:auto}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CrewCast VP of Sales - Company Prospects</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container { max-width: 1400px; margin: 0 auto; }
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+        }
+        .header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .header p { font-size: 1.1em; opacity: 0.9; }
+        .filter-bar {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .filter-bar input, .filter-bar select {
+            padding: 10px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+        .filter-bar input:focus, .filter-bar select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .prospects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 25px;
+        }
+        .prospect-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            transition: all 0.3s ease;
+            border-left: 5px solid #667eea;
+        }
+        .prospect-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+        .prospect-card.new { border-left-color: #4CAF50; }
+        .prospect-card.engaged { border-left-color: #FF9800; }
+        .prospect-card.active { border-left-color: #2196F3; }
+        .prospect-card.closed { border-left-color: #9C27B0; }
+        .company-name { 
+            font-size: 1.4em; 
+            font-weight: 700; 
+            color: #333; 
+            margin-bottom: 8px;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .status-badge.new { background: #e8f5e9; color: #2e7d32; }
+        .status-badge.engaged { background: #fff3e0; color: #e65100; }
+        .status-badge.active { background: #e3f2fd; color: #1565c0; }
+        .status-badge.closed { background: #f3e5f5; color: #6a1b9a; }
+        .prospect-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .meta-item { font-size: 0.9em; }
+        .meta-label { color: #999; font-weight: 600; }
+        .meta-value { color: #333; margin-top: 3px; }
+        .sector { 
+            display: inline-block; 
+            background: #f0f0f0; 
+            padding: 6px 12px; 
+            border-radius: 6px; 
+            font-size: 0.85em; 
+            color: #666; 
+            margin-bottom: 10px;
+        }
+        .specialties {
+            font-size: 0.9em;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+        .engagement-angle {
+            background: #f9f9f9;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 0.9em;
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 12px;
+            font-style: italic;
+        }
+        .follow-strategy {
+            font-size: 0.85em;
+            color: #666;
+            padding: 10px;
+            background: #fafafa;
+            border-radius: 6px;
+            line-height: 1.4;
+        }
+        .linkedin-link {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 8px 14px;
+            background: #0077b5;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        .linkedin-link:hover { background: #005885; }
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            color: white;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .stat {
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+        }
+        .stat-number { font-size: 2em; font-weight: 700; }
+        .stat-label { font-size: 0.9em; opacity: 0.9; }
+        .stat { color: white; }
+    </style>
 </head>
 <body>
-<header>
-  <div>
-    <h1>🏢 Company Follow</h1>
-    <div class="sub">CrewCast Sales · Company Portal</div>
-  </div>
-  <div class="nav">
-    <a href="index.html">Prospects</a>
-    <a href="companies.html" class="active">Companies</a>
-  </div>
-</header>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 CrewCast Prospect Pipeline</h1>
+            <p>VP of Sales - Self-Perform Contractor Research Database</p>
+        </div>
 
-<div class="wrap">
-  <div class="stats">
-    <div class="stat"><div class="stat-num" id="s-total">—</div><div class="stat-label">Total</div></div>
-    <div class="stat"><div class="stat-num" id="s-new">—</div><div class="stat-label">Need Follow</div></div>
-    <div class="stat"><div class="stat-num" id="s-followed">—</div><div class="stat-label">Followed</div></div>
-    <div class="stat"><div class="stat-num" id="s-offbase">—</div><div class="stat-label">Off Base</div></div>
-    <div class="stat"><div class="stat-num" id="s-badlink">—</div><div class="stat-label">Bad Links</div></div>
-    <div class="stat"><div class="stat-num" id="s-skipped">—</div><div class="stat-label">Skipped</div></div>
-  </div>
+        <div class="stats">
+            <div class="stat" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-radius: 10px;">
+                <div class="stat-number" id="total-count">40</div>
+                <div class="stat-label">Total Prospects</div>
+            </div>
+            <div class="stat" style="background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%); padding: 20px; border-radius: 10px;">
+                <div class="stat-number" id="new-count">10</div>
+                <div class="stat-label">New Companies</div>
+            </div>
+            <div class="stat" style="background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%); padding: 20px; border-radius: 10px;">
+                <div class="stat-number">6</div>
+                <div class="stat-label">States/Regions</div>
+            </div>
+            <div class="stat" style="background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%); padding: 20px; border-radius: 10px;">
+                <div class="stat-number">$25M-$1B+</div>
+                <div class="stat-label">Revenue Range</div>
+            </div>
+        </div>
 
-  <div class="filter-bar">
-    <button class="filter-btn active" onclick="setFilter('all', this)">All</button>
-    <button class="filter-btn" onclick="setFilter('NEW', this)">Need Follow</button>
-    <button class="filter-btn" onclick="setFilter('FOLLOWED', this)">Followed</button>
-    <button class="filter-btn" onclick="setFilter('SKIPPED', this)">Skipped</button>
-    <button class="filter-btn" onclick="setFilter('OFF_BASE', this)">Off Base</button>
-    <button class="filter-btn" onclick="setFilter('BAD_LINK', this)">Bad Links</button>
-    <span class="last-updated" id="last-updated"></span>
-  </div>
+        <div class="filter-bar">
+            <input type="text" id="search" placeholder="🔍 Search companies..." style="flex: 1; min-width: 200px;">
+            <select id="status-filter">
+                <option value="">All Statuses</option>
+                <option value="NEW">NEW</option>
+                <option value="ENGAGED">ENGAGED</option>
+                <option value="ACTIVE">ACTIVE</option>
+                <option value="CLOSED">CLOSED</option>
+            </select>
+            <select id="sector-filter">
+                <option value="">All Sectors</option>
+                <option value="Heavy Civil">Heavy Civil</option>
+                <option value="Concrete">Concrete</option>
+                <option value="Electrical">Electrical</option>
+                <option value="Utilities">Utilities</option>
+                <option value="Infrastructure">Infrastructure</option>
+            </select>
+        </div>
 
-  <div class="grid" id="cards">
-    <div class="loading">⏳ Loading companies...</div>
-  </div>
-</div>
+        <div class="prospects-grid" id="prospects-container">
+            <!-- Prospects will be inserted here by JavaScript -->
+        </div>
+    </div>
 
-<footer>CrewCast Sales · Daily Outreach Portal · <a href="index.html" style="color:#4299e1">← Back to Prospects</a></footer>
+    <script>
+        const prospects = [
+            { company_name: "Crowder Constructors, Inc.", sector: "Heavy Civil & Industrial", specialties: "Civil, Electrical, Mechanical, Self-Perform, Power Plants, Heavy Industrial", revenue_estimate: "$500M-$1B", employee_count: "500-1,000", headquarters: "Charlotte, North Carolina", engagement_angle: "Crowder self-performs up to 80% of scopes across Carolinas. Multi-project portfolio + rapid growth = urgent need for distributed crew management.", follow_strategy: "Target ops leaders on multi-division labor forecasting; pitch crew allocation for civil, electrical, and mechanical scopes.", linkedin_url: "https://www.linkedin.com/company/crowder-constructors-inc", status: "NEW" },
+            { company_name: "Traylor Bros., Inc.", sector: "Heavy Civil & Infrastructure", specialties: "Bridges, Tunnels, Underground, Heavy Civil, Self-Perform", revenue_estimate: "$400M-$500M", employee_count: "400-500", headquarters: "Evansville, Indiana", engagement_angle: "Traylor is 100% self-perform on complex bridge/tunnel work. Multi-region execution = need for labor visibility across states.", follow_strategy: "Reach ops on highly technical bridge/underground project labor; pitch crew forecasting for specialized field crews.", linkedin_url: "https://www.linkedin.com/company/traylor-bros--inc-", status: "NEW" },
+            { company_name: "Wildcat Construction Co., Inc.", sector: "Heavy Civil & Utilities", specialties: "Earthwork, Site Prep, Asphalt, Concrete Paving, Civil, Utilities", revenue_estimate: "$60M-$100M", employee_count: "150-250", headquarters: "Wichita, Kansas", engagement_angle: "Wildcat self-performs earthwork, paving, and utilities across Midwest. Multi-state ops in KS, CO, OK = crew allocation complexity.", follow_strategy: "Engage on regional crew scaling for multi-state projects; pitch workforce planning for distributed field teams.", linkedin_url: "https://www.linkedin.com/company/wildcat-construction-co-inc-", status: "NEW" },
+            { company_name: "Ranger Construction Industries, Inc.", sector: "Heavy Civil & Highways", specialties: "Road Building, Asphalt Production, Heavy Civil, Self-Perform", revenue_estimate: "$25M-$50M", employee_count: "100-200", headquarters: "West Palm Beach, Florida", engagement_angle: "Ranger is Florida's leading highway contractor with in-house asphalt production. Regional project volume = need for labor forecasting.", follow_strategy: "Target ops on highway project labor demand; pitch crew forecasting for equipment operators and laborers.", linkedin_url: "https://www.linkedin.com/company/ranger-construction-industries-inc", status: "NEW" },
+            { company_name: "Anderson Columbia Co., Inc.", sector: "Heavy Civil & Infrastructure", specialties: "Highways, Bridges, Asphalt Production, Heavy Civil, Infrastructure", revenue_estimate: "$500M-$1B", employee_count: "1,000-5,000", headquarters: "Lake City, Florida", engagement_angle: "Anderson Columbia is a 62-year infrastructure specialist with self-perform capabilities across FL and TX. Multi-state portfolio = labor complexity.", follow_strategy: "Reach VP Ops on large-scale infrastructure labor planning; pitch crew forecasting for multi-region execution.", linkedin_url: "https://www.linkedin.com/company/anderson-columbia-co-inc", status: "NEW" },
+            { company_name: "Eutaw Construction Company, Inc.", sector: "Heavy Civil & Highways", specialties: "Heavy Civil, Highways, Bridges, Concrete Paving, Utilities, Self-Perform", revenue_estimate: "$75M-$125M", employee_count: "300-450", headquarters: "Madison, Mississippi", engagement_angle: "Eutaw has substantial self-perform capabilities in heavy civil and paving. 400+ employees on multiple state projects = crew scheduling pressure.", follow_strategy: "Engage on highway and utility project labor demand; pitch crew forecasting for concrete paving and utility crews.", linkedin_url: "https://www.linkedin.com/company/eutawus", status: "NEW" },
+            { company_name: "Precision Construction LLC", sector: "Heavy Civil & Infrastructure", specialties: "Heavy Civil, Infrastructure, Self-Perform, Large-Scale Projects", revenue_estimate: "$50M-$150M", employee_count: "200-400", headquarters: "Louisiana", engagement_angle: "Precision Construction specializes in large-scale, self-performed infrastructure work across the US. Multi-region execution = labor visibility need.", follow_strategy: "Target ops on large-scale infrastructure crew allocation; pitch labor forecasting for distributed field crews.", linkedin_url: "https://precision-constructionllc.com/", status: "NEW" },
+            { company_name: "Boh Bros. Construction Co.", sector: "Heavy Civil & Marine", specialties: "Marine Construction, Piling, Heavy Civil, Utilities, Asphalt, Self-Perform", revenue_estimate: "$75M-$150M", employee_count: "250-400", headquarters: "New Orleans, Louisiana", engagement_angle: "Boh Bros. is family-owned with self-perform capabilities in marine, civil, and utility work. Gulf Coast presence = seasonal crew scaling challenges.", follow_strategy: "Engage on marine and heavy civil project crew planning; pitch labor forecasting for pilings and marine crews.", linkedin_url: "https://bohbros.com/", status: "NEW" },
+            { company_name: "Sealaska Constructors LLC", sector: "Heavy Civil & Infrastructure", specialties: "Heavy Civil, Infrastructure, Federal Contracts, Self-Perform", revenue_estimate: "$50M-$125M", employee_count: "150-300", headquarters: "Seattle, Washington", engagement_angle: "SeaCon operates as multidisciplinary GC with heavy civil focus. Federal contracts + self-perform = labor demand and forecasting complexity.", follow_strategy: "Reach ops on federal/infrastructure project labor planning; pitch crew forecasting for large-scale projects.", linkedin_url: "https://search.certifications.sba.gov/profile/RZB5P2ZLLUF1/5PWZ7", status: "NEW" },
+            { company_name: "Norland Limited", sector: "Heavy Civil & Infrastructure", specialties: "Underground, Civil, Infrastructure, Drilling, Shoring, Self-Perform", revenue_estimate: "$75M-$200M", employee_count: "300-500", headquarters: "Burnaby, British Columbia, Canada", engagement_angle: "Norland has substantial self-perform capabilities in underground/civil work. Western Canada + US expansion = crew allocation growth opportunity.", follow_strategy: "Target ops on complex underground/infrastructure projects; pitch crew forecasting for specialty trades.", linkedin_url: "https://www.norlandlimited.com/", status: "NEW" }, { company_name: "Sundt Construction Company", sector: "Heavy Civil & Infrastructure", specialties: "Civil, Concrete Paving, Earthwork, Excavation, Bridges, Power Plants, Self-Perform", revenue_estimate: "$300M-$500M", employee_count: "2,000-3,500", headquarters: "Tempe, Arizona", engagement_angle: "Sundt self-performs 2M+ yards of earthwork and 100K+ CY concrete paving annually. Multi-region infrastructure portfolio = critical need for crew forecasting across states and project phases.", follow_strategy: "Target VP Ops on large-scale civil project labor; pitch crew sizing and forecasting for earthwork, paving, and structural teams.", linkedin_url: "https://www.linkedin.com/company/sundt-construction", status: "NEW" }, { company_name: "Allan Myers Inc.", sector: "Heavy Civil & Materials", specialties: "Heavy Civil, Asphalt, Concrete, Earthwork, Materials Production, Self-Perform", revenue_estimate: "$400M-$600M", employee_count: "2,000-3,000", headquarters: "Worcester, Pennsylvania", engagement_angle: "80+ years, 2,000+ self-perform workforce, 3M+ tons asphalt produced annually. Fully integrated materials provider + GC = crew scheduling across quarries, plants, and job sites.", follow_strategy: "Reach ops leadership on multi-site crew allocation; pitch labor forecasting for asphalt plants and field crews.", linkedin_url: "https://www.linkedin.com/company/allan-myers/", status: "NEW" }, { company_name: "Boldt Company", sector: "General Contracting & Industrial", specialties: "Concrete, Masonry, Structural Steel, Carpentry, Millwright, Boilermaker, Self-Perform", revenue_estimate: "$250M-$400M", employee_count: "1,500-2,500", headquarters: "Appleton, Wisconsin", engagement_angle: "Boldt's self-perform model spans concrete, steel, masonry, and mechanical trades. Multi-market commercial + industrial = need for distributed crew coordination.", follow_strategy: "Target ops leaders on multi-trade crew scheduling; pitch forecasting for self-perform scope crews across regions.", linkedin_url: "https://www.linkedin.com/company/boldt-company/", status: "NEW" }, { company_name: "Newkirk Electric Associates Inc.", sector: "Electrical Contracting", specialties: "Electrical Construction, Wind Power, Telecom, Civil Crews, Towers, Self-Perform", revenue_estimate: "$75M-$150M", employee_count: "300-500", headquarters: "Muskegon, Michigan", engagement_angle: "Self-performs 90%+ of work with in-house electrical, civil, and tower crews. Wind farm + telecom specialization = complex crew-mix management.", follow_strategy: "Reach ops on electrical project labor; pitch crew forecasting for specialized trades (linemen, installers, civil crews).", linkedin_url: "https://www.linkedin.com/company/newkirk-electric/", status: "NEW" }, { company_name: "Balfour Beatty US, Inc.", sector: "Heavy Civil & Transportation", specialties: "Roads, Bridges, Interchanges, Civil, Paving, Structures, Self-Perform", revenue_estimate: "$500M-$1B", employee_count: "3,000-5,000", headquarters: "Charlotte, North Carolina", engagement_angle: "Balfour Beatty self-performs majority of roadway and structure work across major design-build contracts. Multi-state execution = workforce visibility challenge.", follow_strategy: "Target SVP Ops on multi-state infrastructure labor; pitch crew forecasting for bridges, roads, and structures.", linkedin_url: "https://www.linkedin.com/company/balfour-beatty-us/", status: "NEW" }, { company_name: "George Reed Inc.", sector: "Heavy Civil & Infrastructure", specialties: "Heavy Civil, Infrastructure, Northern California, Self-Perform", revenue_estimate: "$100M-$250M", employee_count: "400-800", headquarters: "Sacramento, California", engagement_angle: "Highly regarded heavy-civil infrastructure specialist across Northern California and Central Valley. Multi-project portfolio = crew allocation complexity.", follow_strategy: "Engage ops on regional heavy civil crew scheduling; pitch labor forecasting for earthwork and infrastructure teams.", linkedin_url: "https://www.linkedin.com/company/george-reed-inc/", status: "NEW" }, { company_name: "Paul Reed Construction Inc.", sector: "Heavy Civil & Commercial", specialties: "Commercial, Industrial, Heavy Highway, Earthwork, Paving, Self-Perform", revenue_estimate: "$75M-$200M", employee_count: "250-500", headquarters: "Western United States", engagement_angle: "Multi-discipline contractor with heavy highway + commercial focus. Design-build expertise + self-perform = need for crew flexibility.", follow_strategy: "Target ops on mixed-scope project labor; pitch crew forecasting for earthwork, highway, and commercial teams.", linkedin_url: "https://www.linkedin.com/company/paul-reed-construction/", status: "NEW" }, { company_name: "C.D. Smith Construction", sector: "General Contracting & Industrial", specialties: "Design-Build, Concrete, Flatwork, Industrial, Self-Perform, Skilled Trades", revenue_estimate: "$150M-$300M", employee_count: "600-1,200", headquarters: "Wisconsin", engagement_angle: "Self-performing design-build firm with deep skilled trades roster. Multi-market industrial + commercial = distributed crew coordination.", follow_strategy: "Reach ops on design-build project labor; pitch crew forecasting for skilled trades and specialized scopes.", linkedin_url: "https://www.linkedin.com/company/cd-smith-construction/", status: "NEW" }, { company_name: "Crossland Heavy Contractors", sector: "Heavy Civil & Industrial", specialties: "Heavy Civil, Industrial, Heavy Lifting, Equipment, Self-Perform", revenue_estimate: "$50M-$150M", employee_count: "200-400", headquarters: "United States", engagement_angle: "Specialized heavy civil and industrial contractor with unique self-perform heavy lift capabilities. Complex scopes = need for crew expertise planning.", follow_strategy: "Target ops on heavy industrial labor; pitch crew forecasting for specialized heavy equipment and crews.", linkedin_url: "https://www.linkedin.com/company/crossland-heavy-contractors/", status: "NEW" }, { company_name: "WE O'Neill Construction", sector: "Commercial & Industrial", specialties: "Concrete, Commercial, Industrial, Structural, Self-Perform, Chicago-Based", revenue_estimate: "$100M-$250M", employee_count: "400-800", headquarters: "Chicago, Illinois", engagement_angle: "Chicago-based self-perform specialist with strong concrete division. Commercial + industrial multi-project execution = labor visibility gap.", follow_strategy: "Engage on Midwest concrete and commercial labor; pitch crew forecasting for structural and commercial teams.", linkedin_url: "https://www.linkedin.com/company/we-oneill-construction/", status: "NEW" }
+        ];
 
-<script>
-const API = 'https://superagent-39294123.base44.app/functions';
-let allCompanies = [];
-let currentFilter = 'all';
+        function renderProspects(filter = {}) {
+            const container = document.getElementById('prospects-container');
+            container.innerHTML = '';
+            
+            let filtered = prospects.filter(p => {
+                if (filter.search && !p.company_name.toLowerCase().includes(filter.search.toLowerCase())) return false;
+                if (filter.status && p.status !== filter.status) return false;
+                if (filter.sector && !p.sector.includes(filter.sector)) return false;
+                return true;
+            });
 
-// ── STATUS UTILITIES ─────────────────────────────────────────────────────────
-function statusLabel(s) {
-  const map = { NEW:'Need Follow', FOLLOWED:'Followed', SKIPPED:'Skipped', OFF_BASE:'Off Base', BAD_LINK:'Bad Link' };
-  return map[s] || s;
-}
-function statusPill(s) {
-  const cls = { NEW:'pill-new', FOLLOWED:'pill-followed', SKIPPED:'pill-skipped', OFF_BASE:'pill-off_base', BAD_LINK:'pill-bad_link' };
-  const icon = { NEW:'🔵', FOLLOWED:'✅', SKIPPED:'⏭️', OFF_BASE:'⚠️', BAD_LINK:'🔴' };
-  return `<span class="stage-pill ${cls[s]||'pill-skipped'}">${icon[s]||''} ${statusLabel(s)}</span>`;
-}
+            filtered.forEach(prospect => {
+                const card = document.createElement('div');
+                card.className = `prospect-card ${prospect.status.toLowerCase()}`;
+                card.innerHTML = `
+                    <div class="company-name">${prospect.company_name}</div>
+                    <span class="status-badge ${prospect.status.toLowerCase()}">${prospect.status}</span>
+                    <div class="sector">${prospect.sector}</div>
+                    <div class="prospect-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">Revenue</div>
+                            <div class="meta-value">${prospect.revenue_estimate}</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Employees</div>
+                            <div class="meta-value">${prospect.employee_count}</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Headquarters</div>
+                            <div class="meta-value">${prospect.headquarters}</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Specialties</div>
+                            <div class="meta-value">${prospect.specialties}</div>
+                        </div>
+                    </div>
+                    <div class="engagement-angle">"${prospect.engagement_angle}"</div>
+                    <div class="follow-strategy"><strong>Strategy:</strong> ${prospect.follow_strategy}</div>
+                    <a href="${prospect.linkedin_url}" target="_blank" class="linkedin-link">LinkedIn Profile →</a>
+                `;
+                container.appendChild(card);
+            });
+        }
 
-// ── FETCH FROM BACKEND ───────────────────────────────────────────────────────
-async function loadCompanies() {
-  try {
-    const res = await fetch(`${API}/getCompanyStatuses`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({})
-    });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
-    allCompanies = (data.companies || data || []).sort((a, b) => {
-      // Sort: NEW first, then others, FOLLOWED/SKIPPED last
-      const order = { NEW:0, BAD_LINK:1, OFF_BASE:2, SKIPPED:3, FOLLOWED:4 };
-      return (order[a.status]??5) - (order[b.status]??5);
-    });
-    document.getElementById('last-updated').textContent = `Updated ${new Date().toLocaleTimeString()}`;
-    render();
-  } catch(e) {
-    document.getElementById('cards').innerHTML = `<div class="empty">⚠️ Could not load companies: ${e.message}<br><br><button onclick="loadCompanies()" style="padding:8px 16px;background:#4299e1;color:#fff;border:none;border-radius:6px;cursor:pointer;font-weight:600">Retry</button></div>`;
-  }
-}
+        document.getElementById('search').addEventListener('input', (e) => {
+            renderProspects({ search: e.target.value, status: document.getElementById('status-filter').value, sector: document.getElementById('sector-filter').value });
+        });
+        document.getElementById('status-filter').addEventListener('change', (e) => {
+            renderProspects({ search: document.getElementById('search').value, status: e.target.value, sector: document.getElementById('sector-filter').value });
+        });
+        document.getElementById('sector-filter').addEventListener('change', (e) => {
+            renderProspects({ search: document.getElementById('search').value, status: document.getElementById('status-filter').value, sector: e.target.value });
+        });
 
-// ── UPDATE STATUS ─────────────────────────────────────────────────────────────
-async function updateStatus(id, newStatus) {
-  try {
-    await fetch(`${API}/updateCompanyStatus`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id, status: newStatus })
-    });
-    const co = allCompanies.find(c => c.id === id);
-    if (co) co.status = newStatus;
-    render();
-  } catch(e) {
-    alert('Update failed: ' + e.message);
-  }
-}
-
-// ── FILTER ────────────────────────────────────────────────────────────────────
-function setFilter(f, btn) {
-  currentFilter = f;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  render();
-}
-
-// ── STATS ─────────────────────────────────────────────────────────────────────
-function updateStats() {
-  const counts = { NEW:0, FOLLOWED:0, OFF_BASE:0, BAD_LINK:0, SKIPPED:0 };
-  allCompanies.forEach(c => { if (counts[c.status] !== undefined) counts[c.status]++; });
-  document.getElementById('s-total').textContent   = allCompanies.length;
-  document.getElementById('s-new').textContent     = counts.NEW;
-  document.getElementById('s-followed').textContent= counts.FOLLOWED;
-  document.getElementById('s-offbase').textContent = counts.OFF_BASE;
-  document.getElementById('s-badlink').textContent = counts.BAD_LINK;
-  document.getElementById('s-skipped').textContent = counts.SKIPPED;
-}
-
-// ── RENDER CARDS ──────────────────────────────────────────────────────────────
-function render() {
-  updateStats();
-  const list = currentFilter === 'all'
-    ? allCompanies
-    : allCompanies.filter(c => c.status === currentFilter);
-
-  if (list.length === 0) {
-    document.getElementById('cards').innerHTML = `<div class="empty">No companies in this category.</div>`;
-    return;
-  }
-
-  document.getElementById('cards').innerHTML = list.map(c => {
-    const isDone    = c.status === 'FOLLOWED';
-    const isOff     = c.status === 'OFF_BASE';
-    const isBad     = c.status === 'BAD_LINK';
-    const isSkipped = c.status === 'SKIPPED';
-    const cardClass = isDone ? 'card done' : isOff ? 'card off-base' : isBad ? 'card bad-link' : 'card';
-
-    // Sector icon
-    const icon = c.sector?.toLowerCase().includes('electric') ? '⚡'
-      : c.sector?.toLowerCase().includes('civil') ? '🏗️'
-      : c.sector?.toLowerCase().includes('pipeline') || c.sector?.toLowerCase().includes('utilit') ? '🔧'
-      : c.sector?.toLowerCase().includes('concrete') ? '🧱'
-      : c.sector?.toLowerCase().includes('renewable') || c.sector?.toLowerCase().includes('energy') ? '☀️'
-      : c.sector?.toLowerCase().includes('material') ? '🪨'
-      : '🏢';
-
-    // Action buttons
-    let actions = '';
-    if (c.status === 'NEW') {
-      actions = `
-        <button class="btn btn-linkedin" onclick="window.open('${c.linkedin_url}','_blank')">🔗 Open LinkedIn</button>
-        <button class="btn btn-followed" onclick="updateStatus('${c.id}','FOLLOWED')">✅ Followed</button>
-        <button class="btn btn-skip" onclick="updateStatus('${c.id}','SKIPPED')">Skip</button>
-        <button class="btn btn-offbase" onclick="updateStatus('${c.id}','OFF_BASE')">⚠️ Off Base</button>
-        <button class="btn btn-badlink" onclick="updateStatus('${c.id}','BAD_LINK')">🔴 Bad Link</button>`;
-    } else if (c.status === 'FOLLOWED') {
-      actions = `
-        <button class="btn btn-linkedin" onclick="window.open('${c.linkedin_url}','_blank')">🔗 Open LinkedIn</button>
-        <button class="btn btn-undo" onclick="updateStatus('${c.id}','NEW')">↩ Undo</button>`;
-    } else if (c.status === 'SKIPPED') {
-      actions = `
-        <button class="btn btn-followed" onclick="updateStatus('${c.id}','NEW')">↩ Move to Queue</button>`;
-    } else if (c.status === 'OFF_BASE') {
-      actions = `
-        <button class="btn btn-undo" onclick="updateStatus('${c.id}','NEW')">↩ Move Back</button>`;
-    } else if (c.status === 'BAD_LINK') {
-      actions = `
-        <button class="btn btn-linkedin" onclick="window.open('https://www.linkedin.com/search/results/companies/?keywords=${encodeURIComponent(c.company_name)}','_blank')">🔍 Search LinkedIn</button>
-        <button class="btn btn-undo" onclick="updateStatus('${c.id}','NEW')">↩ Move Back</button>`;
-    }
-
-    return `
-    <div class="${cardClass}" id="card-${c.id}">
-      <div class="card-head">
-        <div class="company-name">${icon} ${c.company_name}</div>
-        <div class="company-meta">${c.sector || ''}${c.employee_count ? ' · ' + c.employee_count + ' employees' : ''}${c.revenue_estimate ? ' · ' + c.revenue_estimate : ''}</div>
-        <div class="company-hq">📍 ${c.headquarters || '—'}</div>
-        ${statusPill(c.status)}
-      </div>
-      ${c.engagement_angle ? `<div class="angle-block">${c.engagement_angle}</div>` : ''}
-      ${c.follow_strategy ? `<div class="strategy-block"><div class="strategy-label">Strategy</div>${c.follow_strategy}</div>` : ''}
-      <div class="card-actions">${actions}</div>
-    </div>`;
-  }).join('');
-}
-
-// ── INIT ──────────────────────────────────────────────────────────────────────
-loadCompanies();
-// Auto-refresh every 5 minutes
-setInterval(loadCompanies, 5 * 60 * 1000);
-</script>
+        // Initial render
+        renderProspects();
+    </script>
 </body>
 </html>
