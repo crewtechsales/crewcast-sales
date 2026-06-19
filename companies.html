@@ -1,284 +1,884 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CrewCast VP of Sales - Company Prospects</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 40px 20px;
-        }
-        .container { max-width: 1400px; margin: 0 auto; }
-        .header {
-            text-align: center;
-            color: white;
-            margin-bottom: 50px;
-        }
-        .header h1 { font-size: 2.5em; margin-bottom: 10px; }
-        .header p { font-size: 1.1em; opacity: 0.9; }
-        .filter-bar {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-        .filter-bar input, .filter-bar select {
-            padding: 10px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            font-size: 1em;
-            transition: border-color 0.3s;
-        }
-        .filter-bar input:focus, .filter-bar select:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-        .prospects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-            gap: 25px;
-        }
-        .prospect-card {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-            transition: all 0.3s ease;
-            border-left: 5px solid #667eea;
-        }
-        .prospect-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-        }
-        .prospect-card.new { border-left-color: #4CAF50; }
-        .prospect-card.engaged { border-left-color: #FF9800; }
-        .prospect-card.active { border-left-color: #2196F3; }
-        .prospect-card.closed { border-left-color: #9C27B0; }
-        .company-name { 
-            font-size: 1.4em; 
-            font-weight: 700; 
-            color: #333; 
-            margin-bottom: 8px;
-        }
-        .status-badge {
-            display: inline-block;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.85em;
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-        .status-badge.new { background: #e8f5e9; color: #2e7d32; }
-        .status-badge.engaged { background: #fff3e0; color: #e65100; }
-        .status-badge.active { background: #e3f2fd; color: #1565c0; }
-        .status-badge.closed { background: #f3e5f5; color: #6a1b9a; }
-        .prospect-meta {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        .meta-item { font-size: 0.9em; }
-        .meta-label { color: #999; font-weight: 600; }
-        .meta-value { color: #333; margin-top: 3px; }
-        .sector { 
-            display: inline-block; 
-            background: #f0f0f0; 
-            padding: 6px 12px; 
-            border-radius: 6px; 
-            font-size: 0.85em; 
-            color: #666; 
-            margin-bottom: 10px;
-        }
-        .specialties {
-            font-size: 0.9em;
-            color: #666;
-            line-height: 1.5;
-            margin-bottom: 12px;
-        }
-        .engagement-angle {
-            background: #f9f9f9;
-            padding: 12px;
-            border-radius: 6px;
-            font-size: 0.9em;
-            color: #555;
-            line-height: 1.5;
-            margin-bottom: 12px;
-            font-style: italic;
-        }
-        .follow-strategy {
-            font-size: 0.85em;
-            color: #666;
-            padding: 10px;
-            background: #fafafa;
-            border-radius: 6px;
-            line-height: 1.4;
-        }
-        .linkedin-link {
-            display: inline-block;
-            margin-top: 12px;
-            padding: 8px 14px;
-            background: #0077b5;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            font-size: 0.9em;
-            font-weight: 600;
-            transition: background 0.3s;
-        }
-        .linkedin-link:hover { background: #005885; }
-        .stats {
-            display: flex;
-            justify-content: space-between;
-            padding: 20px;
-            background: white;
-            border-radius: 12px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            color: white;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        .stat {
-            text-align: center;
-            flex: 1;
-            min-width: 150px;
-        }
-        .stat-number { font-size: 2em; font-weight: 700; }
-        .stat-label { font-size: 0.9em; opacity: 0.9; }
-        .stat { color: white; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CrewCast — Company Follow Portal</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f1117; color: #e0e0e0; min-height: 100vh; }
+    .header { background: linear-gradient(135deg, #1a1f2e 0%, #0d1117 100%); border-bottom: 1px solid #30363d; padding: 24px 32px; display: flex; justify-content: space-between; align-items: center; }
+    .header h1 { font-size: 24px; font-weight: 700; color: #fff; }
+    .header h1 span { color: #0077B5; }
+    .stats { display: flex; gap: 24px; }
+    .stat { text-align: center; }
+    .stat-num { font-size: 28px; font-weight: 800; color: #0077B5; }
+    .stat-label { font-size: 11px; color: #8b949e; text-transform: uppercase; letter-spacing: 1px; }
+    .filters { padding: 16px 32px; background: #161b22; border-bottom: 1px solid #30363d; display: flex; gap: 12px; flex-wrap: wrap; }
+    .filter-btn { padding: 6px 16px; border-radius: 20px; border: 1px solid #30363d; background: transparent; color: #8b949e; cursor: pointer; font-size: 13px; transition: all 0.2s; }
+    .filter-btn.active { background: #0077B5; border-color: #0077B5; color: white; }
+    .filter-btn:hover { border-color: #0077B5; color: #0077B5; }
+    .container { padding: 24px 32px; max-width: 1400px; margin: 0 auto; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 20px; }
+    .card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,119,181,0.15); }
+    .card-header { padding: 16px 20px; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; background: #1c2128; border-bottom: 1px solid #30363d; }
+    .company-name { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .meta { font-size: 12px; color: #8b949e; }
+    .badge { padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; color: white; white-space: nowrap; }
+    .card-body { padding: 16px 20px; }
+    .revenue { font-size: 13px; color: #58a6ff; margin-bottom: 8px; }
+    .specialties { font-size: 12px; color: #8b949e; margin-bottom: 8px; line-height: 1.5; }
+    .angle { font-size: 12px; color: #c9d1d9; line-height: 1.5; background: #0d1117; padding: 8px 12px; border-radius: 6px; border-left: 3px solid #0077B5; }
+    .card-footer { padding: 12px 20px; border-top: 1px solid #30363d; display: flex; align-items: center; gap: 12px; }
+    .btn-linkedin { display: inline-flex; align-items: center; gap: 8px; background: #0077B5; color: white; text-decoration: none; padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; transition: background 0.2s; }
+    .btn-linkedin:hover { background: #005885; }
+    .action-needed { font-size: 11px; color: #f0883e; font-weight: 600; }
+    .section-header { margin: 0 0 16px 0; }
+    .section-title { font-size: 18px; font-weight: 700; color: #fff; }
+    .section-count { font-size: 13px; color: #8b949e; margin-top: 4px; }
+    .section { margin-bottom: 40px; }
+    .last-updated { font-size: 11px; color: #8b949e; }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🎯 CrewCast Prospect Pipeline</h1>
-            <p>VP of Sales - Self-Perform Contractor Research Database</p>
-        </div>
+  <div class="header">
+    <div>
+      <h1>CrewCast <span>Company Follow Portal</span></h1>
+      <p class="last-updated">Updated: Jun 19, 2026 08:11 PM ET</p>
+    </div>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-num">29</div>
+        <div class="stat-label">To Follow</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">7</div>
+        <div class="stat-label">Following</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">36</div>
+        <div class="stat-label">Total</div>
+      </div>
+    </div>
+  </div>
 
-        <div class="stats">
-            <div class="stat" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-radius: 10px;">
-                <div class="stat-number" id="total-count">40</div>
-                <div class="stat-label">Total Prospects</div>
-            </div>
-            <div class="stat" style="background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%); padding: 20px; border-radius: 10px;">
-                <div class="stat-number" id="new-count">10</div>
-                <div class="stat-label">New Companies</div>
-            </div>
-            <div class="stat" style="background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%); padding: 20px; border-radius: 10px;">
-                <div class="stat-number">6</div>
-                <div class="stat-label">States/Regions</div>
-            </div>
-            <div class="stat" style="background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%); padding: 20px; border-radius: 10px;">
-                <div class="stat-number">$25M-$1B+</div>
-                <div class="stat-label">Revenue Range</div>
-            </div>
-        </div>
+  <div class="filters">
+    <button class="filter-btn active" onclick="filterCards('ALL')">All (36)</button>
+    <button class="filter-btn" onclick="filterCards('NEW')">🔵 To Follow (29)</button>
+    <button class="filter-btn" onclick="filterCards('FOLLOWED')">✅ Following (7)</button>
+  </div>
 
-        <div class="filter-bar">
-            <input type="text" id="search" placeholder="🔍 Search companies..." style="flex: 1; min-width: 200px;">
-            <select id="status-filter">
-                <option value="">All Statuses</option>
-                <option value="NEW">NEW</option>
-                <option value="ENGAGED">ENGAGED</option>
-                <option value="ACTIVE">ACTIVE</option>
-                <option value="CLOSED">CLOSED</option>
-            </select>
-            <select id="sector-filter">
-                <option value="">All Sectors</option>
-                <option value="Heavy Civil">Heavy Civil</option>
-                <option value="Concrete">Concrete</option>
-                <option value="Electrical">Electrical</option>
-                <option value="Utilities">Utilities</option>
-                <option value="Infrastructure">Infrastructure</option>
-            </select>
+  <div class="container">
+    <div class="grid" id="card-grid">
+      
+    <div class="card" data-status="NEW">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">Vaughn Construction</h3>
+          <p class="meta">General Contracting &bull; Houston, TX &bull; 1,000+ employees</p>
         </div>
-
-        <div class="prospects-grid" id="prospects-container">
-            <!-- Prospects will be inserted here by JavaScript -->
-        </div>
+        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $100M–$500M</p>
+        <p class="specialties"><strong>Specialties:</strong> Self-perform GC with 400 in-house craft workers, healthcare and education</p>
+        <p class="angle"><strong>Why CrewCast:</strong> 400 in-house craft workers managed in-house — perfect CrewCast use case</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/vaughn-construction" target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        <span class='action-needed'>👆 Follow CrewCast Page First</span>
+      </div>
     </div>
 
-    <script>
-        const prospects = [
-            { company_name: "Crowder Constructors, Inc.", sector: "Heavy Civil & Industrial", specialties: "Civil, Electrical, Mechanical, Self-Perform, Power Plants, Heavy Industrial", revenue_estimate: "$500M-$1B", employee_count: "500-1,000", headquarters: "Charlotte, North Carolina", engagement_angle: "Crowder self-performs up to 80% of scopes across Carolinas. Multi-project portfolio + rapid growth = urgent need for distributed crew management.", follow_strategy: "Target ops leaders on multi-division labor forecasting; pitch crew allocation for civil, electrical, and mechanical scopes.", linkedin_url: "https://www.linkedin.com/company/crowder-constructors-inc", status: "NEW" },
-            { company_name: "Traylor Bros., Inc.", sector: "Heavy Civil & Infrastructure", specialties: "Bridges, Tunnels, Underground, Heavy Civil, Self-Perform", revenue_estimate: "$400M-$500M", employee_count: "400-500", headquarters: "Evansville, Indiana", engagement_angle: "Traylor is 100% self-perform on complex bridge/tunnel work. Multi-region execution = need for labor visibility across states.", follow_strategy: "Reach ops on highly technical bridge/underground project labor; pitch crew forecasting for specialized field crews.", linkedin_url: "https://www.linkedin.com/company/traylor-bros--inc-", status: "NEW" },
-            { company_name: "Wildcat Construction Co., Inc.", sector: "Heavy Civil & Utilities", specialties: "Earthwork, Site Prep, Asphalt, Concrete Paving, Civil, Utilities", revenue_estimate: "$60M-$100M", employee_count: "150-250", headquarters: "Wichita, Kansas", engagement_angle: "Wildcat self-performs earthwork, paving, and utilities across Midwest. Multi-state ops in KS, CO, OK = crew allocation complexity.", follow_strategy: "Engage on regional crew scaling for multi-state projects; pitch workforce planning for distributed field teams.", linkedin_url: "https://www.linkedin.com/company/wildcat-construction-co-inc-", status: "NEW" },
-            { company_name: "Ranger Construction Industries, Inc.", sector: "Heavy Civil & Highways", specialties: "Road Building, Asphalt Production, Heavy Civil, Self-Perform", revenue_estimate: "$25M-$50M", employee_count: "100-200", headquarters: "West Palm Beach, Florida", engagement_angle: "Ranger is Florida's leading highway contractor with in-house asphalt production. Regional project volume = need for labor forecasting.", follow_strategy: "Target ops on highway project labor demand; pitch crew forecasting for equipment operators and laborers.", linkedin_url: "https://www.linkedin.com/company/ranger-construction-industries-inc", status: "NEW" },
-            { company_name: "Anderson Columbia Co., Inc.", sector: "Heavy Civil & Infrastructure", specialties: "Highways, Bridges, Asphalt Production, Heavy Civil, Infrastructure", revenue_estimate: "$500M-$1B", employee_count: "1,000-5,000", headquarters: "Lake City, Florida", engagement_angle: "Anderson Columbia is a 62-year infrastructure specialist with self-perform capabilities across FL and TX. Multi-state portfolio = labor complexity.", follow_strategy: "Reach VP Ops on large-scale infrastructure labor planning; pitch crew forecasting for multi-region execution.", linkedin_url: "https://www.linkedin.com/company/anderson-columbia-co-inc", status: "NEW" },
-            { company_name: "Eutaw Construction Company, Inc.", sector: "Heavy Civil & Highways", specialties: "Heavy Civil, Highways, Bridges, Concrete Paving, Utilities, Self-Perform", revenue_estimate: "$75M-$125M", employee_count: "300-450", headquarters: "Madison, Mississippi", engagement_angle: "Eutaw has substantial self-perform capabilities in heavy civil and paving. 400+ employees on multiple state projects = crew scheduling pressure.", follow_strategy: "Engage on highway and utility project labor demand; pitch crew forecasting for concrete paving and utility crews.", linkedin_url: "https://www.linkedin.com/company/eutawus", status: "NEW" },
-            { company_name: "Precision Construction LLC", sector: "Heavy Civil & Infrastructure", specialties: "Heavy Civil, Infrastructure, Self-Perform, Large-Scale Projects", revenue_estimate: "$50M-$150M", employee_count: "200-400", headquarters: "Louisiana", engagement_angle: "Precision Construction specializes in large-scale, self-performed infrastructure work across the US. Multi-region execution = labor visibility need.", follow_strategy: "Target ops on large-scale infrastructure crew allocation; pitch labor forecasting for distributed field crews.", linkedin_url: "https://precision-constructionllc.com/", status: "NEW" },
-            { company_name: "Boh Bros. Construction Co.", sector: "Heavy Civil & Marine", specialties: "Marine Construction, Piling, Heavy Civil, Utilities, Asphalt, Self-Perform", revenue_estimate: "$75M-$150M", employee_count: "250-400", headquarters: "New Orleans, Louisiana", engagement_angle: "Boh Bros. is family-owned with self-perform capabilities in marine, civil, and utility work. Gulf Coast presence = seasonal crew scaling challenges.", follow_strategy: "Engage on marine and heavy civil project crew planning; pitch labor forecasting for pilings and marine crews.", linkedin_url: "https://bohbros.com/", status: "NEW" },
-            { company_name: "Sealaska Constructors LLC", sector: "Heavy Civil & Infrastructure", specialties: "Heavy Civil, Infrastructure, Federal Contracts, Self-Perform", revenue_estimate: "$50M-$125M", employee_count: "150-300", headquarters: "Seattle, Washington", engagement_angle: "SeaCon operates as multidisciplinary GC with heavy civil focus. Federal contracts + self-perform = labor demand and forecasting complexity.", follow_strategy: "Reach ops on federal/infrastructure project labor planning; pitch crew forecasting for large-scale projects.", linkedin_url: "https://search.certifications.sba.gov/profile/RZB5P2ZLLUF1/5PWZ7", status: "NEW" },
-            { company_name: "Norland Limited", sector: "Heavy Civil & Infrastructure", specialties: "Underground, Civil, Infrastructure, Drilling, Shoring, Self-Perform", revenue_estimate: "$75M-$200M", employee_count: "300-500", headquarters: "Burnaby, British Columbia, Canada", engagement_angle: "Norland has substantial self-perform capabilities in underground/civil work. Western Canada + US expansion = crew allocation growth opportunity.", follow_strategy: "Target ops on complex underground/infrastructure projects; pitch crew forecasting for specialty trades.", linkedin_url: "https://www.norlandlimited.com/", status: "NEW" }, { company_name: "Sundt Construction Company", sector: "Heavy Civil & Infrastructure", specialties: "Civil, Concrete Paving, Earthwork, Excavation, Bridges, Power Plants, Self-Perform", revenue_estimate: "$300M-$500M", employee_count: "2,000-3,500", headquarters: "Tempe, Arizona", engagement_angle: "Sundt self-performs 2M+ yards of earthwork and 100K+ CY concrete paving annually. Multi-region infrastructure portfolio = critical need for crew forecasting across states and project phases.", follow_strategy: "Target VP Ops on large-scale civil project labor; pitch crew sizing and forecasting for earthwork, paving, and structural teams.", linkedin_url: "https://www.linkedin.com/company/sundt-construction", status: "NEW" }, { company_name: "Allan Myers Inc.", sector: "Heavy Civil & Materials", specialties: "Heavy Civil, Asphalt, Concrete, Earthwork, Materials Production, Self-Perform", revenue_estimate: "$400M-$600M", employee_count: "2,000-3,000", headquarters: "Worcester, Pennsylvania", engagement_angle: "80+ years, 2,000+ self-perform workforce, 3M+ tons asphalt produced annually. Fully integrated materials provider + GC = crew scheduling across quarries, plants, and job sites.", follow_strategy: "Reach ops leadership on multi-site crew allocation; pitch labor forecasting for asphalt plants and field crews.", linkedin_url: "https://www.linkedin.com/company/allan-myers/", status: "NEW" }, { company_name: "Boldt Company", sector: "General Contracting & Industrial", specialties: "Concrete, Masonry, Structural Steel, Carpentry, Millwright, Boilermaker, Self-Perform", revenue_estimate: "$250M-$400M", employee_count: "1,500-2,500", headquarters: "Appleton, Wisconsin", engagement_angle: "Boldt's self-perform model spans concrete, steel, masonry, and mechanical trades. Multi-market commercial + industrial = need for distributed crew coordination.", follow_strategy: "Target ops leaders on multi-trade crew scheduling; pitch forecasting for self-perform scope crews across regions.", linkedin_url: "https://www.linkedin.com/company/boldt-company/", status: "NEW" }, { company_name: "Newkirk Electric Associates Inc.", sector: "Electrical Contracting", specialties: "Electrical Construction, Wind Power, Telecom, Civil Crews, Towers, Self-Perform", revenue_estimate: "$75M-$150M", employee_count: "300-500", headquarters: "Muskegon, Michigan", engagement_angle: "Self-performs 90%+ of work with in-house electrical, civil, and tower crews. Wind farm + telecom specialization = complex crew-mix management.", follow_strategy: "Reach ops on electrical project labor; pitch crew forecasting for specialized trades (linemen, installers, civil crews).", linkedin_url: "https://www.linkedin.com/company/newkirk-electric/", status: "NEW" }, { company_name: "Balfour Beatty US, Inc.", sector: "Heavy Civil & Transportation", specialties: "Roads, Bridges, Interchanges, Civil, Paving, Structures, Self-Perform", revenue_estimate: "$500M-$1B", employee_count: "3,000-5,000", headquarters: "Charlotte, North Carolina", engagement_angle: "Balfour Beatty self-performs majority of roadway and structure work across major design-build contracts. Multi-state execution = workforce visibility challenge.", follow_strategy: "Target SVP Ops on multi-state infrastructure labor; pitch crew forecasting for bridges, roads, and structures.", linkedin_url: "https://www.linkedin.com/company/balfour-beatty-us/", status: "NEW" }, { company_name: "George Reed Inc.", sector: "Heavy Civil & Infrastructure", specialties: "Heavy Civil, Infrastructure, Northern California, Self-Perform", revenue_estimate: "$100M-$250M", employee_count: "400-800", headquarters: "Sacramento, California", engagement_angle: "Highly regarded heavy-civil infrastructure specialist across Northern California and Central Valley. Multi-project portfolio = crew allocation complexity.", follow_strategy: "Engage ops on regional heavy civil crew scheduling; pitch labor forecasting for earthwork and infrastructure teams.", linkedin_url: "https://www.linkedin.com/company/george-reed-inc/", status: "NEW" }, { company_name: "Paul Reed Construction Inc.", sector: "Heavy Civil & Commercial", specialties: "Commercial, Industrial, Heavy Highway, Earthwork, Paving, Self-Perform", revenue_estimate: "$75M-$200M", employee_count: "250-500", headquarters: "Western United States", engagement_angle: "Multi-discipline contractor with heavy highway + commercial focus. Design-build expertise + self-perform = need for crew flexibility.", follow_strategy: "Target ops on mixed-scope project labor; pitch crew forecasting for earthwork, highway, and commercial teams.", linkedin_url: "https://www.linkedin.com/company/paul-reed-construction/", status: "NEW" }, { company_name: "C.D. Smith Construction", sector: "General Contracting & Industrial", specialties: "Design-Build, Concrete, Flatwork, Industrial, Self-Perform, Skilled Trades", revenue_estimate: "$150M-$300M", employee_count: "600-1,200", headquarters: "Wisconsin", engagement_angle: "Self-performing design-build firm with deep skilled trades roster. Multi-market industrial + commercial = distributed crew coordination.", follow_strategy: "Reach ops on design-build project labor; pitch crew forecasting for skilled trades and specialized scopes.", linkedin_url: "https://www.linkedin.com/company/cd-smith-construction/", status: "NEW" }, { company_name: "Crossland Heavy Contractors", sector: "Heavy Civil & Industrial", specialties: "Heavy Civil, Industrial, Heavy Lifting, Equipment, Self-Perform", revenue_estimate: "$50M-$150M", employee_count: "200-400", headquarters: "United States", engagement_angle: "Specialized heavy civil and industrial contractor with unique self-perform heavy lift capabilities. Complex scopes = need for crew expertise planning.", follow_strategy: "Target ops on heavy industrial labor; pitch crew forecasting for specialized heavy equipment and crews.", linkedin_url: "https://www.linkedin.com/company/crossland-heavy-contractors/", status: "NEW" }, { company_name: "WE O'Neill Construction", sector: "Commercial & Industrial", specialties: "Concrete, Commercial, Industrial, Structural, Self-Perform, Chicago-Based", revenue_estimate: "$100M-$250M", employee_count: "400-800", headquarters: "Chicago, Illinois", engagement_angle: "Chicago-based self-perform specialist with strong concrete division. Commercial + industrial multi-project execution = labor visibility gap.", follow_strategy: "Engage on Midwest concrete and commercial labor; pitch crew forecasting for structural and commercial teams.", linkedin_url: "https://www.linkedin.com/company/we-oneill-construction/", status: "NEW" }
-        ];
+    <div class="card" data-status="NEW">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">Rogers-O'Brien Construction</h3>
+          <p class="meta">General Contracting &bull; Dallas, TX &bull; 501–1,000 employees</p>
+        </div>
+        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $100M–$500M</p>
+        <p class="specialties"><strong>Specialties:</strong> Commercial general contractor, Texas market leader</p>
+        <p class="angle"><strong>Why CrewCast:</strong> Texas GC scaling rapidly — crew coordination complexity growing with volume</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/rogersobrien" target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        <span class='action-needed'>👆 Follow CrewCast Page First</span>
+      </div>
+    </div>
 
-        function renderProspects(filter = {}) {
-            const container = document.getElementById('prospects-container');
-            container.innerHTML = '';
-            
-            let filtered = prospects.filter(p => {
-                if (filter.search && !p.company_name.toLowerCase().includes(filter.search.toLowerCase())) return false;
-                if (filter.status && p.status !== filter.status) return false;
-                if (filter.sector && !p.sector.includes(filter.sector)) return false;
-                return true;
-            });
+    <div class="card" data-status="NEW">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">Dragados USA, Inc.</h3>
+          <p class="meta">Heavy Civil &bull; New York, NY &bull; 1,001–5,000 employees</p>
+        </div>
+        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $1B+</p>
+        <p class="specialties"><strong>Specialties:</strong> Heavy civil infrastructure, bridges, tunnels, transit</p>
+        <p class="angle"><strong>Why CrewCast:</strong> Massive self-perform heavy civil crews on megaprojects — crew scheduling at scale</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/dragados-usa-inc." target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        <span class='action-needed'>👆 Follow CrewCast Page First</span>
+      </div>
+    </div>
 
-            filtered.forEach(prospect => {
-                const card = document.createElement('div');
-                card.className = `prospect-card ${prospect.status.toLowerCase()}`;
-                card.innerHTML = `
-                    <div class="company-name">${prospect.company_name}</div>
-                    <span class="status-badge ${prospect.status.toLowerCase()}">${prospect.status}</span>
-                    <div class="sector">${prospect.sector}</div>
-                    <div class="prospect-meta">
-                        <div class="meta-item">
-                            <div class="meta-label">Revenue</div>
-                            <div class="meta-value">${prospect.revenue_estimate}</div>
-                        </div>
-                        <div class="meta-item">
-                            <div class="meta-label">Employees</div>
-                            <div class="meta-value">${prospect.employee_count}</div>
-                        </div>
-                        <div class="meta-item">
-                            <div class="meta-label">Headquarters</div>
-                            <div class="meta-value">${prospect.headquarters}</div>
-                        </div>
-                        <div class="meta-item">
-                            <div class="meta-label">Specialties</div>
-                            <div class="meta-value">${prospect.specialties}</div>
-                        </div>
-                    </div>
-                    <div class="engagement-angle">"${prospect.engagement_angle}"</div>
-                    <div class="follow-strategy"><strong>Strategy:</strong> ${prospect.follow_strategy}</div>
-                    <a href="${prospect.linkedin_url}" target="_blank" class="linkedin-link">LinkedIn Profile →</a>
-                `;
-                container.appendChild(card);
-            });
+    <div class="card" data-status="NEW">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">ARCO Design/Build</h3>
+          <p class="meta">Design-Build / General Contracting &bull; St. Louis, MO &bull; 500–1,000 employees</p>
+        </div>
+        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $500M–$1B</p>
+        <p class="specialties"><strong>Specialties:</strong> Industrial and commercial design-build, self-perform construction</p>
+        <p class="angle"><strong>Why CrewCast:</strong> Fast-track design-build model demands tight crew scheduling and real-time adjustments</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/arco-design-build" target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        <span class='action-needed'>👆 Follow CrewCast Page First</span>
+      </div>
+    </div>
+
+    <div class="card" data-status="NEW">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">JRM Construction Management</h3>
+          <p class="meta">General Contracting / Construction Management &bull; New York, NY &bull; 201–500 employees</p>
+        </div>
+        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $100M–$500M</p>
+        <p class="specialties"><strong>Specialties:</strong> Commercial interiors, self-perform GC, NYC market</p>
+        <p class="angle"><strong>Why CrewCast:</strong> Dense urban self-perform environment with tight scheduling constraints</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/jrm-construction-management" target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        <span class='action-needed'>👆 Follow CrewCast Page First</span>
+      </div>
+    </div>
+
+    <div class="card" data-status="NEW">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">Alberici Corporation</h3>
+          <p class="meta">Heavy Civil / General Contracting &bull; St. Louis, MO &bull; 1,001–5,000 employees</p>
+        </div>
+        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $1B+</p>
+        <p class="specialties"><strong>Specialties:</strong> Self-perform heavy civil, industrial, concrete, and building construction</p>
+        <p class="angle"><strong>Why CrewCast:</strong> Multi-division self-perform GC — complex crew mix across heavy civil and industrial</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/alberici-corporation" target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        <span class='action-needed'>👆 Follow CrewCast Page First</span>
+      </div>
+    </div>
+
+    <div class="card" data-status="NEW">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">Crossland Construction Company</h3>
+          <p class="meta">General Contracting &bull; Columbus, KS &bull; 500–1,000 employees</p>
+        </div>
+        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $500M–$1B</p>
+        <p class="specialties"><strong>Specialties:</strong> Self-perform GC across commercial, industrial, and heavy civil</p>
+        <p class="angle"><strong>Why CrewCast:</strong> Family-owned self-perform GC with strong Midwest presence — crew-first culture</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/crossland-construction-company" target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        <span class='action-needed'>👆 Follow CrewCast Page First</span>
+      </div>
+    </div>
+
+    <div class="card" data-status="NEW">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">Choate Construction Company</h3>
+          <p class="meta">General Contracting &bull; Atlanta, GA &bull; 500–1,000 employees</p>
+        </div>
+        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $500M–$1B</p>
+        <p class="specialties"><strong>Specialties:</strong> Self-perform base and interior construction, employee-owned</p>
+        <p class="angle"><strong>Why CrewCast:</strong> Employee-owned culture + self-perform workforce management aligns with CrewCast's scheduling value prop</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/choate-construction-company" target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        <span class='action-needed'>👆 Follow CrewCast Page First</span>
+      </div>
+    </div>
+
+    <div class="card" data-status="NEW">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">Hoar Construction</h3>
+          <p class="meta">General Contracting &bull; Birmingham, AL &bull; 501–1,000 employees</p>
+        </div>
+        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $500M–$1B</p>
+        <p class="specialties"><strong>Specialties:</strong> Self-perform heavy civil, general construction, construction management</p>
+        <p class="angle"><strong>Why CrewCast:</strong> Multi-office self-perform GC with complex crew coordination needs</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/hoar-construction" target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        <span class='action-needed'>👆 Follow CrewCast Page First</span>
+      </div>
+    </div>
+
+    <div class="card" data-status="NEW">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">Keeley Construction Group</h3>
+          <p class="meta">Heavy Civil / General Contracting &bull; St. Louis, MO &bull; 1,000–2,000 employees</p>
+        </div>
+        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $500M–$1B</p>
+        <p class="specialties"><strong>Specialties:</strong> Self-perform civil, paving, building, and industrial construction</p>
+        <p class="angle"><strong>Why CrewCast:</strong> Four distinct self-perform business groups — ideal for multi-crew scheduling</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/keeley-construction-group" target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        <span class='action-needed'>👆 Follow CrewCast Page First</span>
+      </div>
+    </div>
+
+    <div class="card" data-status="NEW">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">Stacy and Witbeck, Inc.</h3>
+          <p class="meta">Heavy Civil & Infrastructure &bull; Kittanning, PA &bull; 800–1,500 employees</p>
+        </div>
+        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $250M–$400M</p>
+        <p class="specialties"><strong>Specialties:</strong> Heavy Civil, Tunneling, Underground, Concrete, Self-Perform</p>
+        <p class="angle"><strong>Why CrewCast:</strong> Self-performs major tunnel and underground work — critical need for specialized crew coordination</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/stacy-and-witbeck-inc/" target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        <span class='action-needed'>👆 Follow CrewCast Page First</span>
+      </div>
+    </div>
+
+    <div class="card" data-status="NEW">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">Hubbard Construction Company</h3>
+          <p class="meta">Heavy Civil & Infrastructure &bull; Des Moines, IA &bull; 600–1,000 employees</p>
+        </div>
+        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $200M–$350M</p>
+        <p class="specialties"><strong>Specialties:</strong> Heavy Highway, Bridge, Concrete, Earthwork, Self-Perform</p>
+        <p class="angle"><strong>Why CrewCast:</strong> Multi-region design-build portfolio = workforce visibility challenge</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/hubbard-construction-company/" target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        <span class='action-needed'>👆 Follow CrewCast Page First</span>
+      </div>
+    </div>
+
+    <div class="card" data-status="NEW">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">Baker Construction</h3>
+          <p class="meta">Concrete / Heavy Civil &bull; Cincinnati, OH &bull; 3,000+ employees</p>
+        </div>
+        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $1B+</p>
+        <p class="specialties"><strong>Specialties:</strong> Self-perform concrete, tilt-up, industrial flooring</p>
+        <p class="angle"><strong>Why CrewCast:</strong> Largest self-perform concrete contractor in the US — crew density is the whole game</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/baker-construction" target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        <span class='action-needed'>👆 Follow CrewCast Page First</span>
+      </div>
+    </div>
+
+    <div class="card" data-status="NEW">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">Ames Construction</h3>
+          <p class="meta">Heavy Civil &bull; Burnsville, MN &bull; 2,000+ employees</p>
+        </div>
+        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $1B+</p>
+        <p class="specialties"><strong>Specialties:</strong> Earthwork, highways, dams, mining infrastructure, self-perform</p>
+        <p class="angle"><strong>Why CrewCast:</strong> Major self-perform heavy civil across 15+ states — complex multi-project crew management</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/ames-construction" target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        <span class='action-needed'>👆 Follow CrewCast Page First</span>
+      </div>
+    </div>
+
+    <div class="card" data-status="NEW">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">Kiewit Corporation</h3>
+          <p class="meta">Heavy Civil / Infrastructure &bull; Omaha, NE &bull; 10,000+ employees</p>
+        </div>
+        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $10B+</p>
+        <p class="specialties"><strong>Specialties:</strong> Heavy civil, mining, power, oil & gas, self-perform</p>
+        <p class="angle"><strong>Why CrewCast:</strong> The gold standard self-perform heavy civil contractor — multi-billion dollar crew management</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/kiewit" target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        <span class='action-needed'>👆 Follow CrewCast Page First</span>
+      </div>
+    </div>
+
+    <div class="card" data-status="NEW">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">Primoris Services Corporation</h3>
+          <p class="meta">Specialty / Heavy Civil &bull; Dallas, TX &bull; 5,000+ employees</p>
+        </div>
+        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $4B+</p>
+        <p class="specialties"><strong>Specialties:</strong> Self-perform utilities, pipeline, civil, power, industrial</p>
+        <p class="angle"><strong>Why CrewCast:</strong> Multi-division self-perform contractor across energy and infrastructure — massive scheduling need</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/primoris-services-corporation" target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        <span class='action-needed'>👆 Follow CrewCast Page First</span>
+      </div>
+    </div>
+
+    <div class="card" data-status="NEW">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">Rosendin Electric</h3>
+          <p class="meta">Electrical Contracting &bull; San Jose, CA &bull; 5,000+ employees</p>
+        </div>
+        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $2B+</p>
+        <p class="specialties"><strong>Specialties:</strong> Self-perform electrical, data centers, renewable energy</p>
+        <p class="angle"><strong>Why CrewCast:</strong> Largest employee-owned electrical contractor — complex multi-site crew deployment</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/rosendin-electric" target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        <span class='action-needed'>👆 Follow CrewCast Page First</span>
+      </div>
+    </div>
+
+    <div class="card" data-status="NEW">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">Michels Corporation</h3>
+          <p class="meta">Utility / Heavy Civil &bull; Brownsville, WI &bull; 5,000+ employees</p>
+        </div>
+        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $3B+</p>
+        <p class="specialties"><strong>Specialties:</strong> Self-perform pipeline, power, telecommunications, heavy civil</p>
+        <p class="angle"><strong>Why CrewCast:</strong> Massive self-perform utility contractor with crews across dozens of active projects simultaneously</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/michels-corp" target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        <span class='action-needed'>👆 Follow CrewCast Page First</span>
+      </div>
+    </div>
+
+    <div class="card" data-status="NEW">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">MYR Group Inc.</h3>
+          <p class="meta">Electrical Contracting &bull; Rolling Meadows, IL &bull; 6,000+ employees</p>
+        </div>
+        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $3B+</p>
+        <p class="specialties"><strong>Specialties:</strong> Self-perform electrical construction, transmission, distribution, commercial</p>
+        <p class="angle"><strong>Why CrewCast:</strong> Multi-subsidiary electrical contractor — crew deployment across T&D and commercial is their core complexity</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/myr-group" target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        <span class='action-needed'>👆 Follow CrewCast Page First</span>
+      </div>
+    </div>
+
+    <div class="card" data-status="NEW">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">Skanska USA Civil</h3>
+          <p class="meta">Heavy Civil &bull; New York, NY &bull; 10,000+ employees</p>
+        </div>
+        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $5B+</p>
+        <p class="specialties"><strong>Specialties:</strong> Self-perform bridges, tunnels, highways, transit megaprojects</p>
+        <p class="angle"><strong>Why CrewCast:</strong> Major heavy civil megaproject contractor — self-perform crews on billion-dollar jobs</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/skanska-usa" target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        <span class='action-needed'>👆 Follow CrewCast Page First</span>
+      </div>
+    </div>
+
+    <div class="card" data-status="NEW">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">Helix Electric</h3>
+          <p class="meta">Electrical Contracting &bull; San Diego, CA &bull; 1,500+ employees</p>
+        </div>
+        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $500M–$1B</p>
+        <p class="specialties"><strong>Specialties:</strong> Self-perform commercial and industrial electrical</p>
+        <p class="angle"><strong>Why CrewCast:</strong> West Coast electrical self-performer scaling nationally — crew coordination across regions</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/helix-electric" target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        <span class='action-needed'>👆 Follow CrewCast Page First</span>
+      </div>
+    </div>
+
+    <div class="card" data-status="NEW">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">Granite Construction Company</h3>
+          <p class="meta">Heavy Civil &bull; Watsonville, CA &bull; 5,500+ employees</p>
+        </div>
+        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $3B+</p>
+        <p class="specialties"><strong>Specialties:</strong> Self-perform highways, tunnels, heavy civil, aggregates</p>
+        <p class="angle"><strong>Why CrewCast:</strong> Full self-perform heavy civil across western US — massive crew-to-project coordination challenge</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/granite-construction" target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        <span class='action-needed'>👆 Follow CrewCast Page First</span>
+      </div>
+    </div>
+
+    <div class="card" data-status="FOLLOWED">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">Sundt Construction</h3>
+          <p class="meta">General Contracting &bull; Tempe, AZ &bull; 2,000+ employees</p>
+        </div>
+        <span class="badge" style="background:#4CAF50">✅ Following</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $2B+</p>
+        <p class="specialties"><strong>Specialties:</strong> Self-perform concrete, earthwork, electrical, general construction</p>
+        <p class="angle"><strong>Why CrewCast:</strong> One of the most self-perform-heavy GCs in the US — embedded craft workforce is their differentiator</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/sundt-construction-inc" target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        
+      </div>
+    </div>
+
+    <div class="card" data-status="FOLLOWED">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">Lunda Construction Company</h3>
+          <p class="meta">Heavy Civil / Bridge &bull; Black River Falls, WI &bull; 1,000+ employees</p>
+        </div>
+        <span class="badge" style="background:#4CAF50">✅ Following</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $500M–$1B</p>
+        <p class="specialties"><strong>Specialties:</strong> Self-perform bridge, highway, marine, heavy civil</p>
+        <p class="angle"><strong>Why CrewCast:</strong> Specialist bridge builder with 100% self-perform model — crew expertise and scheduling is everything</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/lunda-construction" target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        
+      </div>
+    </div>
+
+    <div class="card" data-status="FOLLOWED">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">Pepper Construction</h3>
+          <p class="meta">General Contracting &bull; Chicago, IL &bull; 1,500+ employees</p>
+        </div>
+        <span class="badge" style="background:#4CAF50">✅ Following</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $1B+</p>
+        <p class="specialties"><strong>Specialties:</strong> Self-perform GC, concrete, healthcare, education</p>
+        <p class="angle"><strong>Why CrewCast:</strong> Midwest's largest private GC with strong self-perform concrete division</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/pepper-construction" target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        
+      </div>
+    </div>
+
+    <div class="card" data-status="FOLLOWED">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">Barton Malow Company</h3>
+          <p class="meta">General Contracting &bull; Southfield, MI &bull; 2,500+ employees</p>
+        </div>
+        <span class="badge" style="background:#4CAF50">✅ Following</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $2B+</p>
+        <p class="specialties"><strong>Specialties:</strong> Self-perform concrete, structural steel, earthwork, industrial</p>
+        <p class="angle"><strong>Why CrewCast:</strong> Family-owned GC with deep self-perform roots across industrial and commercial</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/barton-malow" target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        
+      </div>
+    </div>
+
+    <div class="card" data-status="NEW">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">Traylor Bros., Inc.</h3>
+          <p class="meta">Heavy Civil / Tunneling &bull; Evansville, IN &bull; 500–1,000 employees</p>
+        </div>
+        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $500M–$1B</p>
+        <p class="specialties"><strong>Specialties:</strong> Self-perform tunneling, bridges, marine, underground</p>
+        <p class="angle"><strong>Why CrewCast:</strong> Specialist underground contractor — highly skilled crews with complex scheduling across long-duration projects</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/traylor-brothers-inc" target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        <span class='action-needed'>👆 Follow CrewCast Page First</span>
+      </div>
+    </div>
+
+    <div class="card" data-status="FOLLOWED">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">Anderson Columbia Co., Inc.</h3>
+          <p class="meta">Heavy Civil / Highway &bull; Lake City, FL &bull; 1,000+ employees</p>
+        </div>
+        <span class="badge" style="background:#4CAF50">✅ Following</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $500M–$1B</p>
+        <p class="specialties"><strong>Specialties:</strong> Self-perform highway, bridge, earthwork, utilities</p>
+        <p class="angle"><strong>Why CrewCast:</strong> Florida's largest heavy civil contractor — self-perform across every trade on roadway projects</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/anderson-columbia" target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        
+      </div>
+    </div>
+
+    <div class="card" data-status="NEW">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">Boh Bros. Construction Co.</h3>
+          <p class="meta">Heavy Civil / Marine &bull; New Orleans, LA &bull; 500–1,000 employees</p>
+        </div>
+        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $250M–$500M</p>
+        <p class="specialties"><strong>Specialties:</strong> Self-perform heavy civil, marine, pile driving, bridge</p>
+        <p class="angle"><strong>Why CrewCast:</strong> Gulf Coast specialist — marine and pile-driving crews require precision scheduling</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/boh-bros-construction" target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        <span class='action-needed'>👆 Follow CrewCast Page First</span>
+      </div>
+    </div>
+
+    <div class="card" data-status="NEW">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">Garco Construction</h3>
+          <p class="meta">General Contracting &bull; Spokane, WA &bull; 200–500 employees</p>
+        </div>
+        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $100M–$250M</p>
+        <p class="specialties"><strong>Specialties:</strong> Self-perform GC, concrete, industrial, commercial</p>
+        <p class="angle"><strong>Why CrewCast:</strong> Pacific Northwest self-perform GC with strong industrial base</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/garco-construction" target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        <span class='action-needed'>👆 Follow CrewCast Page First</span>
+      </div>
+    </div>
+
+    <div class="card" data-status="NEW">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">Crossland Heavy Contractors</h3>
+          <p class="meta">Heavy Civil &bull; Columbus, KS &bull; 500–1,000 employees</p>
+        </div>
+        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $500M–$1B</p>
+        <p class="specialties"><strong>Specialties:</strong> Self-perform earthwork, utilities, heavy civil</p>
+        <p class="angle"><strong>Why CrewCast:</strong> Dedicated heavy civil arm with full self-perform crews across Midwest and South</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/crossland-heavy-contractors" target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        <span class='action-needed'>👆 Follow CrewCast Page First</span>
+      </div>
+    </div>
+
+    <div class="card" data-status="NEW">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">Wanzek Construction</h3>
+          <p class="meta">Heavy Civil / Renewables &bull; Fargo, ND &bull; 2,000+ employees</p>
+        </div>
+        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $1B+</p>
+        <p class="specialties"><strong>Specialties:</strong> Self-perform wind, solar, power, and industrial construction</p>
+        <p class="angle"><strong>Why CrewCast:</strong> Largest renewable energy constructor in the US — managing mobile craft crews across 20+ simultaneous projects</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/wanzek-construction" target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        <span class='action-needed'>👆 Follow CrewCast Page First</span>
+      </div>
+    </div>
+
+    <div class="card" data-status="NEW">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">Allan Myers Inc.</h3>
+          <p class="meta">Heavy Civil / Highway &bull; Worcester, PA &bull; 2,000+ employees</p>
+        </div>
+        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $1B+</p>
+        <p class="specialties"><strong>Specialties:</strong> Self-perform highway, bridge, underground utilities, earthwork</p>
+        <p class="angle"><strong>Why CrewCast:</strong> Mid-Atlantic's largest heavy civil contractor — full self-perform across highway and utility trades</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/allan-myers" target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        <span class='action-needed'>👆 Follow CrewCast Page First</span>
+      </div>
+    </div>
+
+    <div class="card" data-status="NEW">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">Ranger Construction Industries, Inc.</h3>
+          <p class="meta">Heavy Civil / Highway &bull; West Palm Beach, FL &bull; 500–1,000 employees</p>
+        </div>
+        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $250M–$500M</p>
+        <p class="specialties"><strong>Specialties:</strong> Self-perform paving, bridge, earthwork, utilities in Florida</p>
+        <p class="angle"><strong>Why CrewCast:</strong> South Florida's dominant heavy highway contractor — high-volume paving crews across multiple DOT projects</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/ranger-construction-industries" target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        <span class='action-needed'>👆 Follow CrewCast Page First</span>
+      </div>
+    </div>
+
+    <div class="card" data-status="FOLLOWED">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">Helix Electric, Inc.</h3>
+          <p class="meta">Electrical Contracting &bull; San Diego, CA &bull; 1,500+ employees</p>
+        </div>
+        <span class="badge" style="background:#4CAF50">✅ Following</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $500M–$1B</p>
+        <p class="specialties"><strong>Specialties:</strong> Self-perform commercial and industrial electrical</p>
+        <p class="angle"><strong>Why CrewCast:</strong> West Coast electrical self-performer scaling nationally</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/helix-electric" target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        
+      </div>
+    </div>
+
+    <div class="card" data-status="FOLLOWED">
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">Webcor Builders</h3>
+          <p class="meta">General Contracting &bull; San Francisco, CA &bull; 1,000+ employees</p>
+        </div>
+        <span class="badge" style="background:#4CAF50">✅ Following</span>
+      </div>
+      <div class="card-body">
+        <p class="revenue">💰 $1B+</p>
+        <p class="specialties"><strong>Specialties:</strong> Self-perform concrete, carpentry, general construction</p>
+        <p class="angle"><strong>Why CrewCast:</strong> California's self-perform GC leader — union crews, high-rise concrete, complex scheduling</p>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/company/webcor-builders" target="_blank" class="btn btn-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        
+      </div>
+    </div>
+
+    </div>
+  </div>
+
+  <script>
+    function filterCards(status) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      document.querySelectorAll('.card').forEach(card => {
+        if (status === 'ALL' || card.dataset.status === status) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
         }
-
-        document.getElementById('search').addEventListener('input', (e) => {
-            renderProspects({ search: e.target.value, status: document.getElementById('status-filter').value, sector: document.getElementById('sector-filter').value });
-        });
-        document.getElementById('status-filter').addEventListener('change', (e) => {
-            renderProspects({ search: document.getElementById('search').value, status: e.target.value, sector: document.getElementById('sector-filter').value });
-        });
-        document.getElementById('sector-filter').addEventListener('change', (e) => {
-            renderProspects({ search: document.getElementById('search').value, status: document.getElementById('status-filter').value, sector: e.target.value });
-        });
-
-        // Initial render
-        renderProspects();
-    </script>
+      });
+    }
+  </script>
 </body>
 </html>
