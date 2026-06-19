@@ -1,544 +1,792 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CrewCast — Individual Outreach</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f0f4f8;color:#1a202c}
-header{background:#1a202c;color:#fff;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
-h1{font-size:18px;font-weight:700}
-.sub{font-size:12px;color:#a0aec0;margin-top:2px}
-.nav a{color:#a0aec0;text-decoration:none;font-size:13px;padding:4px 10px;border-radius:4px;margin-left:8px}
-.nav a:hover{background:#2d3748;color:#fff}
-.nav .active{background:#4299e1;color:#fff}
-.wrap{max-width:1000px;margin:0 auto;padding:24px 16px}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:12px;margin-bottom:24px}
-.stat{background:#fff;padding:12px 16px;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.08);text-align:center}
-.stat-num{font-size:22px;font-weight:700;color:#2d3748}
-.stat-label{color:#718096;font-size:11px;margin-top:2px;text-transform:uppercase}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;margin-bottom:32px}
-.card{background:#fff;border-radius:10px;border:1px solid #e2e8f0;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.08);transition:all .2s;display:flex;flex-direction:column}
-.card:hover{box-shadow:0 4px 12px rgba(0,0,0,.12);transform:translateY(-2px)}
-.card.done{opacity:0.4}
-.card.off-base{border:2px solid #f6ad55;opacity:0.5}
-.card.bad-link{border:2px solid #fc8181;opacity:0.6}
-.card-head{margin-bottom:12px;display:flex;justify-content:space-between;align-items:flex-start}
-.prospect-name{font-size:15px;font-weight:700}
-.prospect-title{font-size:11px;color:#718096;margin-top:2px}
-.prospect-company{font-size:12px;font-weight:600;color:#4299e1;margin-top:4px}
-/* Stage pill */
-.stage-pill{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap;margin-left:8px;flex-shrink:0}
-.stage-pill.t1-ready{background:#bee3f8;color:#2c5282}
-.stage-pill.t2-ready{background:#d6bcfa;color:#44337a}
-.stage-pill.t2-waiting{background:#fefcbf;color:#7b6c00}
-.stage-pill.t3-ready{background:#fbd38d;color:#7b341e}
-.stage-pill.t3-waiting{background:#fefcbf;color:#7b6c00}
-.stage-pill.complete{background:#c6f6d5;color:#22543d}
-.stage-pill.off-base{background:#feebc8;color:#c05621}
-.stage-pill.bad-link{background:#fed7d7;color:#c53030}
-.stage-pill.skipped{background:#e2e8f0;color:#4a5568}
-/* Touch block */
-.touch-block{margin:0;padding:12px 14px;background:#f7fafc;border-left:4px solid #4299e1;border-radius:0 6px 6px 0;font-size:13px;color:#2d3748;line-height:1.55;flex:1}
-.touch-block.t2{border-left-color:#9f7aea;background:#faf5ff}
-.touch-block.t3{border-left-color:#ed8936;background:#fffaf0}
-.touch-stage-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;color:#718096}
-.touch-stage-label.t1{color:#2b6cb0}
-.touch-stage-label.t2{color:#553c9a}
-.touch-stage-label.t3{color:#c05621}
-.char-count{font-size:10px;color:#a0aec0;text-align:right;margin-top:4px}
-.char-count.over{color:#e53e3e;font-weight:700}
-/* Waiting overlay */
-.waiting-msg{font-size:12px;color:#b7791f;background:#fefcbf;border-radius:6px;padding:10px 12px;text-align:center;font-weight:600}
-/* Actions */
-.card-actions{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
-.btn{padding:8px 12px;font-size:12px;border:none;border-radius:5px;cursor:pointer;transition:all .15s;font-weight:600;white-space:nowrap}
-.btn-copy{background:#4299e1;color:#fff;flex:1}
-.btn-copy:hover{background:#3182ce}
-.btn-copy.copied{background:#48bb78}
-.btn-linkedin{background:#0a66c2;color:#fff}
-.btn-linkedin:hover{background:#055199}
-.btn-sent{background:#48bb78;color:#fff;flex:1}
-.btn-sent:hover{background:#38a169}
-.btn-skip{background:#e2e8f0;color:#4a5568}
-.btn-skip:hover{background:#cbd5e0}
-.btn-offbase{background:#fff;color:#c05621;border:1px solid #f6ad55}
-.btn-offbase:hover{background:#feebc8}
-.btn-badlink{background:#fff;color:#c53030;border:1px solid #fc8181;font-size:11px}
-.btn-badlink:hover{background:#fff5f5}
-.loading{text-align:center;padding:60px;color:#718096;font-size:14px;grid-column:1/-1}
-footer{text-align:center;padding:24px;color:#718096;font-size:12px;border-top:1px solid #e2e8f0;margin-top:8px}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CrewCast — Individual Outreach Portal</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f1117; color: #e0e0e0; }
+    .header { background: linear-gradient(135deg, #1a1f2e 0%, #0d1117 100%); border-bottom: 1px solid #30363d; padding: 20px 32px; display: flex; justify-content: space-between; align-items: center; }
+    .header h1 { font-size: 22px; font-weight: 700; color: #fff; }
+    .header h1 span { color: #0077B5; }
+    .stats { display: flex; gap: 20px; }
+    .stat { text-align: center; }
+    .stat-num { font-size: 26px; font-weight: 800; color: #0077B5; }
+    .stat-label { font-size: 10px; color: #8b949e; text-transform: uppercase; letter-spacing: 1px; }
+    .updated { font-size: 11px; color: #8b949e; margin-top: 4px; }
+    .container { padding: 24px 32px; max-width: 1400px; margin: 0 auto; }
+    .section-title { font-size: 16px; font-weight: 700; color: #58a6ff; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #30363d; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 16px; margin-bottom: 40px; }
+    .card { background: #161b22; border: 1px solid #30363d; border-radius: 10px; overflow: hidden; transition: transform 0.2s; }
+    .card:hover { transform: translateY(-2px); border-color: #0077B5; }
+    .card-header { padding: 14px 16px; background: #1c2128; border-bottom: 1px solid #30363d; display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+    .prospect-name { font-size: 15px; font-weight: 700; color: #fff; }
+    .meta { font-size: 12px; color: #58a6ff; margin-top: 2px; }
+    .company { font-size: 11px; color: #8b949e; margin-top: 2px; }
+    .badge { padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; white-space: nowrap; }
+    .badge-new { background: #1d4ed8; color: #bfdbfe; }
+    .badge-t1 { background: #92400e; color: #fde68a; }
+    .badge-t2 { background: #7c3aed; color: #ddd6fe; }
+    .badge-t3 { background: #065f46; color: #a7f3d0; }
+    .message-box { padding: 12px 16px; }
+    .message-label { font-size: 10px; color: #8b949e; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+    .message-text { font-size: 13px; color: #c9d1d9; background: #0d1117; padding: 10px 12px; border-radius: 6px; border-left: 3px solid #0077B5; line-height: 1.5; margin-bottom: 8px; }
+    .copy-btn { background: transparent; border: 1px solid #30363d; color: #8b949e; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 11px; transition: all 0.2s; }
+    .copy-btn:hover { border-color: #0077B5; color: #58a6ff; }
+    .card-footer { padding: 10px 16px; border-top: 1px solid #30363d; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .btn-linkedin { display: inline-flex; align-items: center; gap: 5px; background: #0077B5; color: white; text-decoration: none; padding: 5px 12px; border-radius: 5px; font-size: 12px; font-weight: 600; }
+    .btn-hubspot { display: inline-flex; align-items: center; background: #ff7a59; color: white; text-decoration: none; padding: 5px 12px; border-radius: 5px; font-size: 12px; font-weight: 600; }
+    .btn-sent { background: transparent; border: 1px solid #4CAF50; color: #4CAF50; padding: 5px 12px; border-radius: 5px; font-size: 12px; cursor: pointer; transition: all 0.2s; margin-left: auto; }
+    .btn-sent:hover { background: #4CAF50; color: #000; }
+    .toast { position: fixed; bottom: 24px; right: 24px; background: #4CAF50; color: white; padding: 12px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; opacity: 0; transition: opacity 0.3s; z-index: 999; }
+    .toast.show { opacity: 1; }
+  </style>
 </head>
 <body>
-<header>
-  <div><h1>🏗️ Individual Outreach</h1><div class="sub">CrewCast Sales · Research Portal</div></div>
-  <div class="nav">
-    <a href="index.html" class="active">Prospects</a>
-    <a href="companies.html">Companies</a>
-  </div>
-</header>
-<div class="wrap">
-  <div class="stats">
-    <div class="stat"><div class="stat-num" id="s-total">—</div><div class="stat-label">Total</div></div>
-    <div class="stat"><div class="stat-num" id="s-t1">—</div><div class="stat-label">Need T1</div></div>
-    <div class="stat"><div class="stat-num" id="s-t2ready">—</div><div class="stat-label">T2 Ready</div></div>
-    <div class="stat"><div class="stat-num" id="s-t3ready">—</div><div class="stat-label">T3 Ready</div></div>
-    <div class="stat"><div class="stat-num" id="s-done">—</div><div class="stat-label">Complete</div></div>
-  </div>
-  <div class="grid" id="cards"></div>
-</div>
-<footer>CrewCast Sales · Daily Outreach Portal · <a href="companies.html" style="color:#4299e1">Company Follow →</a></footer>
-
-<script>
-const API = 'https://superagent-39294123.base44.app/functions';
-const T2_WAIT = 3; // days after T1 before T2 is ready
-const T3_WAIT = 5; // days after T2 before T3 is ready
-
-const PROSPECTS = [
-  {
-    hubspot_id: '501106903762',
-    name: 'Guillermo Valdez',
-    title: 'Principal, Tilt-Up Operations Manager',
-    company: 'Suntec Concrete',
-    linkedin_url: 'https://www.linkedin.com/in/guillermo-valdez-bab778103',
-    touch1: `Guillermo, impressed by Suntec's scale! I know crew mix gaps before tilt-up pours can be costly. Would love to connect.`,
-    touch2: `Thanks for connecting Guillermo. With the volume of tilt-up Suntec runs, how are you tracking craft availability for each pour sequence before the week starts? The 'headcount looks fine but wrong mix shows up' problem is exactly what CrewCast was built to eliminate. Worth a 15-minute conversation?`,
-    touch3: `One last reach out — I know ops managers at Suntec's pace stay buried. If craft-level scheduling is still a gap, I'd love 15 minutes to show you what we're doing. [Calendar Link]`
-  },
-  {
-    hubspot_id: '501270247155',
-    name: 'Steve Bieber',
-    title: 'Director of Project Controls',
-    company: 'MMR Group',
-    linkedin_url: 'https://www.linkedin.com/in/steve-bieber-8129b137',
-    touch1: `Steve, I know craft mix issues on industrial I&E projects can really impact project controls variance. Sounds like something you deal with at MMR. Would love to connect.`,
-    touch2: `Thanks for connecting Steve. In project controls at a firm MMR's scale, I'm curious — how much of your variance is actually a craft mix problem masquerading as a headcount problem? That's the 'Headcount Trap' we see constantly in self-perform. CrewCast was built specifically around it. Worth a conversation?`,
-    touch3: `Last reach out — I know project controls teams at MMR's scale are constantly firefighting. If trade-specific labor visibility is still a gap heading into Q3, I'd love 15 minutes to show you what we're doing. [Calendar Link]`
-  },
-  {
-    hubspot_id: '501284771533',
-    name: 'Mike Keatley',
-    title: 'Senior Vice President',
-    company: 'M.C. Dean',
-    linkedin_url: 'https://www.linkedin.com/in/mike-keatley-bb057929',
-    touch1: `Mike, impressive work at M.C. Dean in federal/commercial electrical self-perform. Navigating trade mix for security projects is complex. Would love to connect.`,
-    touch2: `Thanks for connecting Mike. With M.C. Dean running complex self-perform electrical across federal and commercial projects simultaneously, how are your teams tracking craft-specific gaps before they become delays? That coordination challenge is exactly what CrewCast was built for. Worth a quick conversation?`,
-    touch3: `One last reach out — I know SVP roles at M.C. Dean's scale stay moving. If field labor visibility is still a gap heading into Q3, I'd love 15 minutes to show you what we're building. [Calendar Link]`
-  },
-  {
-    hubspot_id: '501111277269',
-    name: 'Derek Wright',
-    title: 'President',
-    company: 'Suntec Concrete',
-    linkedin_url: 'https://www.linkedin.com/in/derekwright1',
-    touch1: `Derek, Suntec's work in tilt-up is impressive. Crew mix gaps before concrete pours can be costly headaches. Would love to connect.`,
-    touch2: `Thanks for connecting Derek. Quick question — with the tilt-up volume Suntec runs, how are your superintendents tracking whether the right craft mix is confirmed before a pour sequence starts? That morning-of surprise is the exact problem CrewCast was built to eliminate. Worth a 15-minute conversation?`,
-    touch3: `One last reach out — I know running a concrete operation at Suntec's scale keeps you moving. If craft-level scheduling visibility is still a challenge, I'd love 15 minutes to show you what we're doing. [Calendar Link]`
-  },
-  {
-    hubspot_id: '501286967010',
-    name: 'Adam Spillane',
-    title: 'Senior Vice President of Operations',
-    company: 'Cupertino Electric',
-    linkedin_url: 'https://www.linkedin.com/in/adam-spillane',
-    touch1: `Adam, managing crew mix for Cupertino Electric's complex electrical projects is a beast. Your SVP Ops perspective is valuable. Would love to connect.`,
-    touch2: `Thanks for connecting Adam. With Cupertino running large-scale electrical projects simultaneously, how are your teams catching the craft mix gaps before they impact a milestone? That's the exact visibility problem CrewCast was built to solve. Worth a quick conversation?`,
-    touch3: `One more reach out — I know SVP ops at Cupertino's scale keeps you moving. If matching the right trades to the right projects is still a challenge heading into H2, I'd love 15 minutes. [Calendar Link]`
-  },
-  {
-    hubspot_id: '501286967012',
-    name: 'John Messick',
-    title: 'Vice President of Operations',
-    company: 'Rosendin Electric',
-    linkedin_url: 'https://www.linkedin.com/in/john-messick-74596862',
-    touch1: `John, managing trade mix across Rosendin's projects must be complex. Would love to connect.`,
-    touch2: `Thanks for connecting John. Curious what you're seeing on the ops side — when your field teams are managing multiple active projects, how are you catching craft-specific gaps before they become delays? It's the problem we built CrewCast around. Worth a 15-minute conversation?`,
-    touch3: `Didn't want to let this drop — I know VP ops roles at a firm Rosendin's size keep you buried. If matching the right trades to the right projects is still a challenge, I'd love to show you what we're doing. [Calendar Link]`
-  },
-  {
-    hubspot_id: '501284771534',
-    name: 'James Jaskolski',
-    title: 'Vice President of Operations',
-    company: 'ArchKey Solutions',
-    linkedin_url: 'https://www.linkedin.com/in/james-jaskolski-75062b12',
-    touch1: `James, your ArchKey VP Ops role managing national electrical self-perform with regional crew coordination complexity is impressive. Would love to connect.`,
-    touch2: `Thanks for connecting James. With ArchKey running self-perform across so many markets, how are your superintendents staying ahead of craft mix gaps before they hit a milestone? The 'headcount looks fine but wrong trades on site' problem is exactly what CrewCast was built around. Worth a conversation?`,
-    touch3: `Last reach out — I know ops VP roles at ArchKey's scale stay buried. If trade-specific scheduling visibility is still a gap, I'd love 15 minutes to show you what we're building. [Calendar Link]`
-  },
-  {
-    hubspot_id: '501305694960',
-    name: 'Jose Martinez',
-    title: 'Senior Vice President',
-    company: 'Keller North America',
-    linkedin_url: 'https://www.linkedin.com/in/jose-a-martinez-657ba52',
-    touch1: `Jose, with Keller's specialized foundation crews, optimizing trade mix is crucial. I understand the challenge. Would love to connect.`,
-    touch2: `Thanks for connecting Jose. With Keller managing crews across so many simultaneous foundation projects, I'm curious — how are your teams catching craft availability gaps before they hit the schedule? That coordination between the office and field is exactly what CrewCast was built for. Worth a quick conversation?`,
-    touch3: `Circling back one more time — I know SVP roles at Keller's scale keep you moving. If field-to-office labor visibility is still a gap heading into H2, I'd love 15 minutes to show you what we're doing. [Calendar Link]`
-  },
-  {
-    hubspot_id: '501141010129',
-    name: 'Sam Potter',
-    title: 'National Vice President of Operations',
-    company: 'ArchKey Solutions',
-    linkedin_url: 'https://www.linkedin.com/in/sam-potter-15a9a86',
-    touch1: `Sam, national electrical self-perform ops and balancing crew trade mix is tough. I get it. Would love to connect.`,
-    touch2: `Thanks for connecting Sam. Managing self-perform electrical at a national scale, I'm curious — how are your project teams tracking craft-specific gaps across regions before they become schedule delays? That's the exact problem CrewCast was built to solve. Worth a 15-minute conversation?`,
-    touch3: `One last reach out — I know national VP ops roles stay busy. If craft-level labor visibility across your regions is still a challenge heading into Q3, I'd love 15 minutes. [Calendar Link]`
-  },
-  {
-    hubspot_id: '501305626357',
-    name: 'Brian Kavanagh',
-    title: 'Executive Vice President',
-    company: 'Performance Contracting Group',
-    linkedin_url: 'https://www.linkedin.com/in/brian-kavanagh-085b9aa4',
-    touch1: `Brian, as an EVP at an employee-owned specialty contractor, getting the right trade mix is critical to the P&L. Would love to connect.`,
-    touch2: `Thanks for connecting Brian. At a firm PCI's scale managing specialty trades across so many markets, how are your ops teams staying ahead of craft availability gaps before they hit the schedule? That's exactly the problem CrewCast was built around. Worth a 15-minute conversation?`,
-    touch3: `Last reach out — I know executive roles at PCI's scale stay busy. If craft-level labor visibility heading into H2 is still a gap, I'd love 15 minutes to show you what we're doing. [Calendar Link]`
-  },
-  {
-    hubspot_id: '501282201322',
-    name: 'Jason Behring',
-    title: 'Vice President & CIO',
-    company: 'Everus Construction Group',
-    linkedin_url: 'https://www.linkedin.com/in/jason-behring-149526188',
-    touch1: `Jason, your self-perform electrical work at Everus for energy projects is impressive. Workforce forecasting for that scale is complex. Would love to connect.`,
-    touch2: `Thanks for connecting Jason. From the tech side at Everus, I'm curious — how much of your field ops data is actually getting used to make proactive craft scheduling decisions? The gap between what the schedule says and what actually shows up on site is the problem CrewCast was built to close. Worth a conversation?`,
-    touch3: `One more reach out — I know VP and CIO roles at Everus's scale keep you busy. If connecting field labor data to proactive scheduling decisions is still a gap, I'd love 15 minutes to show you what we're doing. [Calendar Link]`
-  },
-  {
-    hubspot_id: '501281929969',
-    name: 'David Elkins',
-    title: 'Senior Vice President of Field Operations',
-    company: 'Rosendin Electric',
-    linkedin_url: 'https://www.linkedin.com/in/david-elkins-5170554a',
-    touch1: `David, navigating complex field ops for Rosendin's massive electrical projects is a challenge I understand. Would love to connect.`,
-    touch2: `Thanks for connecting David. With 40+ years in the field, I'd love your take on this — how much of the scheduling chaos you see comes down to having the right headcount vs. the right craft mix on the right day? That gap is exactly what CrewCast was built to solve. Worth a quick conversation?`,
-    touch3: `One more reach out — I know field ops at Rosendin's scale keeps you moving. If labor visibility across projects is still a challenge heading into H2, I'd love 15 minutes. [Calendar Link]`
-  },
-  {
-    hubspot_id: '501293950712',
-    name: 'David Schoonbeck',
-    title: 'Director of Operational Excellence',
-    company: 'Baker Construction Enterprises',
-    linkedin_url: 'https://www.linkedin.com/in/david-schoonbeck-9a89a59',
-    touch1: `David, your focus on OpEx for concrete pours at Baker is interesting. We often see crew mix challenges impact sequencing. Would love to connect.`,
-    touch2: `Thanks for connecting David. Curious — in your operational excellence work, how much of the variance you're chasing comes down to craft mix issues vs. total headcount planning? It's the #1 blind spot we see across self-perform concrete. We built a tool specifically for that gap. Worth a quick conversation?`,
-    touch3: `Circling back one more time — I know Q2 close is a busy stretch. If labor productivity visibility is still on your radar heading into H2, I'd love 15 minutes to show you what we're doing at CrewCast. [Calendar Link]`
-  }
-  {
-    hubspot_id: 'NEW_001',
-    name: 'Duke Rerisi',
-    title: 'Director of Operations',
-    company: 'icon Mechanical',
-    linkedin_url: 'https://www.linkedin.com/in/duke-rerisi-50882a35',
-    touch1: `Duke, icon Mechanical's self-perform mechanical work in the Southeast is impressive. Craft mix gaps on complex installs can really hurt schedules. Would love to connect.`,
-    touch2: `Thanks for connecting Duke. With icon running self-perform mechanical across complex projects, how are your field teams confirming the right craft mix is locked in before a critical installation phase? That's the blind spot we built CrewCast around — when headcount looks fine but the wrong trades show up. Worth a 15-minute conversation?`,
-    touch3: `One last reach out — I know Director of Ops roles at icon's pace stay buried. If craft-level scheduling visibility is still a gap heading into H2, I'd love 15 minutes to show you what we're building. [Calendar Link]`
-  },
-  {
-    hubspot_id: 'NEW_002',
-    name: 'Justin Colburn',
-    title: 'VP of Operations',
-    company: 'Commercial Contracting Corporation',
-    linkedin_url: 'https://www.linkedin.com/in/justin-colburn-pmp-a427ab23',
-    touch1: `Justin, CCC's self-perform industrial construction and rigging work is serious scale. Managing craft mix on process equipment installs is complex. Would love to connect.`,
-    touch2: `Thanks for connecting Justin. At CCC's scale — self-performing rigging, civil, and structural across industrial sites — how are your superintendents catching craft-specific gaps before they impact a critical path milestone? That exact visibility gap is what CrewCast was built to close. Worth a conversation?`,
-    touch3: `Last reach out — I know VP Ops at CCC keeps you moving. If trade-level labor forecasting is still on your radar heading into H2, I'd love 15 minutes to show what we're building. [Calendar Link]`
-  },
-  {
-    hubspot_id: 'NEW_003',
-    name: 'Ed Condolon',
-    title: 'Operations Director – East Region',
-    company: 'The Weitz Company',
-    linkedin_url: 'https://www.linkedin.com/in/ed-condolon',
-    touch1: `Ed, Weitz's full self-perform across the East is impressive scope. Coordinating craft mix across multiple trades and projects is a real challenge. Would love to connect.`,
-    touch2: `Thanks for connecting Ed. With Weitz self-performing across GC, design-build, and CM projects in the East, how are your project teams staying ahead of craft-specific gaps before they become schedule hits? That cross-project visibility problem is exactly what CrewCast was built for. Worth a quick conversation?`,
-    touch3: `One more reach out — I know East Region ops at Weitz's pace stays full. If trade-level crew forecasting across multiple active projects is still a gap, I'd love 15 minutes to show you what we're doing. [Calendar Link]`
-  },
-  {
-    hubspot_id: 'NEW_004',
-    name: 'Freemon Lee Jr.',
-    title: 'Director of Operations',
-    company: 'Universal Piping Industries',
-    linkedin_url: 'https://www.linkedin.com/in/freemon-lee-jr-a89870180',
-    touch1: `Freemon, 28 years in industrial self-perform is serious depth. Matching the right pipefitters and welders to the right phase is harder than headcount alone. Would love to connect.`,
-    touch2: `Thanks for connecting Freemon. In industrial piping, the craft-mix problem is as real as it gets — right headcount on paper, wrong specialty welders on site. How is UPI tracking that gap before it hits a critical phase? That's exactly what CrewCast was built around. Worth a 15-minute conversation?`,
-    touch3: `Last reach out — I know Director of Ops in industrial self-perform keeps you on the road. If crew-mix visibility for your pipefitting and welding crews is still a challenge, I'd love 15 minutes. [Calendar Link]`
-  },
-  {
-    hubspot_id: 'NEW_005',
-    name: 'Derek J.',
-    title: 'Director of Field Operations – Mission Critical',
-    company: 'Shawmut Design and Construction',
-    linkedin_url: 'https://www.linkedin.com/in/derek-j-shawmut',
-    touch1: `Huge amount of respect for Shawmut's mission critical self-perform scope. Field ops coordination at that level of complexity is next level. Would love to connect.`,
-    touch2: `Thanks for connecting. On mission critical projects at Shawmut's scale, how are your field ops teams tracking craft-specific availability — electricians, pipe, concrete finishers — before a tight commissioning window opens? The wrong mix at that stage is catastrophic. That's exactly the gap CrewCast closes. Worth a conversation?`,
-    touch3: `Last reach out — I know field ops for mission critical at Shawmut's scale stays relentless. If craft-level crew forecasting before critical milestones is still a gap, I'd love 15 minutes to show you what we're building. [Calendar Link]`
-  },
-  {
-    hubspot_id: 'NEW_006',
-    name: 'Jimmy Kennerly',
-    title: 'VP / Senior Operations Leader',
-    company: 'Self-Perform GC',
-    linkedin_url: 'https://www.linkedin.com/in/jimmy-kennerly',
-    touch1: `Jimmy, your ops background in self-perform construction is exactly the experience we love talking to. Crew mix visibility is a universal challenge at that level. Would love to connect.`,
-    touch2: `Thanks for connecting Jimmy. In self-perform construction operations, how are you handling the craft-mix forecasting problem — the gap between 'we have the headcount' and 'we have the right trades confirmed on site'? That's the exact problem CrewCast was built around. Worth 15 minutes?`,
-    touch3: `Circling back one last time — if field labor visibility at the craft level is still a challenge in your operation, I'd love 15 minutes to show what we're building at CrewCast. [Calendar Link]`
-  },
-  {
-    hubspot_id: 'NEW_007',
-    name: 'Doug Rainey',
-    title: 'Director of Operations',
-    company: 'Heavy Civil Contractor',
-    linkedin_url: 'https://www.linkedin.com/in/doug-rainey',
-    touch1: `Doug, your ops leadership in heavy civil is impressive. Managing crew mix for earthwork and concrete is one of the hardest scheduling challenges in the business. Would love to connect.`,
-    touch2: `Thanks for connecting Doug. In heavy civil, the craft-mix problem is acute — operators, ironworkers, concrete finishers all on different curves. How are your supers locking in the right mix before a critical pour or structural phase? That's the gap CrewCast was specifically built to close. Worth a conversation?`,
-    touch3: `One last reach out — I know heavy civil ops keeps you in the field. If crew-mix forecasting before critical earthwork or concrete phases is still a gap, I'd love 15 minutes to show what we're doing. [Calendar Link]`
-  },
-  {
-    hubspot_id: 'NEW_008',
-    name: 'Tony Morrow',
-    title: 'Senior Operations Leader',
-    company: 'Self-Perform Construction',
-    linkedin_url: 'https://www.linkedin.com/in/tony-morrow',
-    touch1: `Tony, your self-perform ops experience is exactly the background we love talking to. Craft labor visibility before milestones is a real industry pain point. Would love to connect.`,
-    touch2: `Thanks for connecting Tony. In self-perform operations, how are your teams handling the gap between total headcount planning and actual craft-specific availability confirmation before a milestone? That's the exact problem CrewCast was built to solve. Worth a quick conversation?`,
-    touch3: `Last reach out — if field labor visibility at the trade level is still a challenge in your operation, I'd love 15 minutes to walk you through what we're building at CrewCast. [Calendar Link]`
-  },
-  {
-    hubspot_id: 'NEW_009',
-    name: 'Chris Gedrich',
-    title: 'Operations Leader',
-    company: 'Construction – Self-Perform',
-    linkedin_url: 'https://www.linkedin.com/in/chris-gedrich',
-    touch1: `Chris, your construction ops background in self-perform is exactly the experience we learn the most from. Would love to connect and swap notes.`,
-    touch2: `Thanks for connecting Chris. In self-perform construction, how are your project teams tracking craft-specific crew gaps — not just total headcount — before a critical phase? That visibility gap is the exact problem CrewCast was built around. Worth 15 minutes to chat?`,
-    touch3: `One last reach out — if matching the right trades to the right milestones is still a challenge in your operation, I'd love to show you what we're building at CrewCast. [Calendar Link]`
-  },
-  {
-    hubspot_id: 'NEW_010',
-    name: 'Jim Tighe',
-    title: 'Senior Superintendent / Operations',
-    company: 'Self-Perform GC',
-    linkedin_url: 'https://www.linkedin.com/in/jim-tighe',
-    touch1: `Jim, superintendent-level ops experience in self-perform is where the real scheduling complexity lives. Crew mix visibility before a phase is a pain point we hear constantly. Would love to connect.`,
-    touch2: `Thanks for connecting Jim. At the superintendent level in self-perform, how are you confirming the right craft mix is locked in before a critical phase starts — not just 'we have enough bodies' but the right trades? That's exactly the gap CrewCast closes. Worth a conversation?`,
-    touch3: `Last reach out — if crew-mix forecasting before critical milestones is still a challenge in your operation, I'd love 15 minutes to walk you through what we're building. [Calendar Link]`
-  },
-];
-
-let statusMap = {}; // hubspot_id -> full status record
-
-function daysSince(dateStr) {
-  if (!dateStr) return null;
-  const diff = Date.now() - new Date(dateStr).getTime();
-  return Math.floor(diff / 86400000);
-}
-
-function getStage(hid) {
-  const r = statusMap[hid] || {};
-  const s = r.status || 'NEW';
-  if (s === 'OFF_BASE') return { code: 'off-base', label: '🚫 Off Base' };
-  if (s === 'BAD_LINK') return { code: 'bad-link', label: '🚩 Bad Link' };
-  if (s === 'SKIPPED')  return { code: 'skipped',  label: 'Skipped' };
-  if (s === 'SENT_T3')  return { code: 'complete',  label: '✅ Complete' };
-
-  if (s === 'SENT_T2') {
-    const days = daysSince(r.t2_sent_date);
-    if (days === null || days < T3_WAIT) {
-      const left = T3_WAIT - (days || 0);
-      return { code: 't3-waiting', label: `⏳ T3 in ${left}d`, touch: 3, waiting: true, daysLeft: left };
-    }
-    return { code: 't3-ready', label: '🟠 Send T3', touch: 3, waiting: false };
-  }
-
-  if (s === 'SENT_T1') {
-    const days = daysSince(r.t1_sent_date);
-    if (days === null || days < T2_WAIT) {
-      const left = T2_WAIT - (days || 0);
-      return { code: 't2-waiting', label: `⏳ T2 in ${left}d`, touch: 2, waiting: true, daysLeft: left };
-    }
-    return { code: 't2-ready', label: '🟣 Send T2', touch: 2, waiting: false };
-  }
-
-  // NEW or unrecognized
-  return { code: 't1-ready', label: '🔵 Send T1', touch: 1, waiting: false };
-}
-
-function updateStats() {
-  const total = PROSPECTS.length;
-  let t1 = 0, t2ready = 0, t3ready = 0, done = 0;
-  PROSPECTS.forEach(p => {
-    const st = getStage(p.hubspot_id);
-    if (st.code === 't1-ready') t1++;
-    else if (st.code === 't2-ready') t2ready++;
-    else if (st.code === 't3-ready') t3ready++;
-    else if (st.code === 'complete') done++;
-  });
-  document.getElementById('s-total').textContent = total;
-  document.getElementById('s-t1').textContent = t1;
-  document.getElementById('s-t2ready').textContent = t2ready;
-  document.getElementById('s-t3ready').textContent = t3ready;
-  document.getElementById('s-done').textContent = done;
-}
-
-const pMap = {};
-PROSPECTS.forEach(p => pMap[p.hubspot_id] = p);
-
-function renderCard(p) {
-  const st = getStage(p.hubspot_id);
-  const card = document.createElement('div');
-  card.id = 'card-' + p.hubspot_id;
-
-  const fadeClass = ['complete','off-base','bad-link','skipped'].includes(st.code) ? 'done' : '';
-  const borderClass = st.code === 'off-base' ? 'off-base' : st.code === 'bad-link' ? 'bad-link' : '';
-  card.className = `card ${fadeClass} ${borderClass}`.trim();
-
-  // Determine which touch message to show
-  let touchHtml = '';
-  if (st.code === 't1-ready') {
-    const t1 = p.touch1;
-    const over = t1.length > 200;
-    touchHtml = `<div class="touch-block">
-      <div class="touch-stage-label t1">Touch 1 — Connection Request</div>
-      ${t1}
-      <div class="char-count ${over ? 'over' : ''}">${t1.length}/200 chars${over ? ' ⚠️ OVER LIMIT' : ' ✓'}</div>
-    </div>`;
-  } else if (st.code === 't2-ready') {
-    touchHtml = `<div class="touch-block t2">
-      <div class="touch-stage-label t2">Touch 2 — Value Message</div>
-      ${p.touch2}
-    </div>`;
-  } else if (st.code === 't2-waiting') {
-    touchHtml = `<div class="waiting-msg">⏳ T1 sent — T2 unlocks in ${st.daysLeft} day${st.daysLeft !== 1 ? 's' : ''} (${T2_WAIT}-day cadence)</div>`;
-  } else if (st.code === 't3-ready') {
-    touchHtml = `<div class="touch-block t3">
-      <div class="touch-stage-label t3">Touch 3 — Follow-up</div>
-      ${p.touch3}
-    </div>`;
-  } else if (st.code === 't3-waiting') {
-    touchHtml = `<div class="waiting-msg">⏳ T2 sent — T3 unlocks in ${st.daysLeft} day${st.daysLeft !== 1 ? 's' : ''} (${T3_WAIT}-day cadence)</div>`;
-  } else if (st.code === 'complete') {
-    touchHtml = `<div class="waiting-msg" style="background:#c6f6d5;color:#22543d">✅ Full 3-touch sequence complete</div>`;
-  } else if (st.code === 'off-base') {
-    touchHtml = `<div class="waiting-msg" style="background:#feebc8;color:#c05621">🚫 Flagged as off ICP — excluded from future research</div>`;
-  } else if (st.code === 'bad-link') {
-    touchHtml = `<div class="waiting-msg" style="background:#fed7d7;color:#c53030">🚩 LinkedIn URL flagged as broken</div>`;
-  } else if (st.code === 'skipped') {
-    touchHtml = `<div class="waiting-msg" style="background:#e2e8f0;color:#4a5568">⏭️ Skipped</div>`;
-  }
-
-  // Action buttons — only show relevant ones per stage
-  let actionButtons = '';
-  if (st.code === 't1-ready') {
-    actionButtons = `
-      <button class="btn btn-copy" onclick="copyMsg(this,'${p.hubspot_id}',1)">📋 Copy T1</button>
-      <button class="btn btn-linkedin" onclick="openLI('${p.linkedin_url}','${p.hubspot_id}')">🔗 LinkedIn</button>
-      <button class="btn btn-sent" onclick="markSent('${p.hubspot_id}','SENT_T1')">✓ T1 Sent</button>`;
-  } else if (st.code === 't2-ready') {
-    actionButtons = `
-      <button class="btn btn-copy" style="background:#9f7aea" onclick="copyMsg(this,'${p.hubspot_id}',2)">📋 Copy T2</button>
-      <button class="btn btn-linkedin" onclick="openLI('${p.linkedin_url}','${p.hubspot_id}')">🔗 LinkedIn</button>
-      <button class="btn btn-sent" style="background:#9f7aea" onclick="markSent('${p.hubspot_id}','SENT_T2')">✓ T2 Sent</button>`;
-  } else if (st.code === 't3-ready') {
-    actionButtons = `
-      <button class="btn btn-copy" style="background:#ed8936" onclick="copyMsg(this,'${p.hubspot_id}',3)">📋 Copy T3</button>
-      <button class="btn btn-linkedin" onclick="openLI('${p.linkedin_url}','${p.hubspot_id}')">🔗 LinkedIn</button>
-      <button class="btn btn-sent" style="background:#ed8936" onclick="markSent('${p.hubspot_id}','SENT_T3')">✓ T3 Sent</button>`;
-  }
-
-  // Secondary buttons — always show skip/off-base/bad-link unless already actioned
-  let secondaryButtons = '';
-  const inactive = ['complete','off-base','bad-link','skipped'].includes(st.code);
-  if (!inactive) {
-    secondaryButtons = `
-      <button class="btn btn-skip" onclick="markSent('${p.hubspot_id}','SKIPPED')">Skip</button>
-      <button class="btn btn-offbase" onclick="markSent('${p.hubspot_id}','OFF_BASE')">🚫 Off Base</button>
-      <button class="btn btn-badlink" onclick="markSent('${p.hubspot_id}','BAD_LINK')">🚩 Bad Link</button>`;
-  }
-
-  card.innerHTML = `
-    <div class="card-head">
-      <div>
-        <div class="prospect-name">${p.name}</div>
-        <div class="prospect-title">${p.title}</div>
-        <div class="prospect-company">${p.company}</div>
-      </div>
-      <span class="stage-pill ${st.code}">${st.label}</span>
+  <div class="header">
+    <div>
+      <h1>CrewCast <span>Individual Outreach</span></h1>
+      <p class="updated">Updated: Jun 19, 2026 08:21 PM ET &bull; 30 prospects loaded</p>
     </div>
-    ${touchHtml}
-    ${actionButtons ? '<div class="card-actions">' + actionButtons + '</div>' : ''}
-    ${secondaryButtons ? '<div class="card-actions" style="margin-top:4px">' + secondaryButtons + '</div>' : ''}
-  `;
-  return card;
-}
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-num">30</div>
+        <div class="stat-label">T1 Ready</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">30</div>
+        <div class="stat-label">New Today</div>
+      </div>
+    </div>
+  </div>
 
-function renderAll() {
-  const container = document.getElementById('cards');
-  container.innerHTML = '';
+  <div class="container">
+    <div class="section-title">🆕 New Today — June 19, 2026 (30 prospects)</div>
+    <div class="grid">
+      
+    <div class="card" data-status="NEW" data-hubspot="505621641937">
+      <div class="card-header">
+        <div>
+          <h3 class="prospect-name">Elliot Christiansen</h3>
+          <p class="meta">SVP Operations</p>
+          <p class="company">Cleveland Construction Inc &bull; OH</p>
+        </div>
+        <span class="badge badge-new">🔵 T1 Ready</span>
+      </div>
+      <div class="message-box">
+        <div class="message-label">Touch 1 Message <span style="color:#4CAF50;font-size:11px">(139 chars)</span></div>
+        <div class="message-text">Elliot, SVP ops at a self-perform GC — you're exactly who CrewCast was built for. Would love to share what we're doing. Open to connecting?</div>
+        <button class="copy-btn" onclick="copyMsg(this, '505621641937')">📋 Copy</button>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/in/elliot-christiansen" target="_blank" class="btn-linkedin">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505621641937" target="_blank" class="btn-hubspot">HubSpot</a>
+        <button class="btn-sent" onclick="markSent('505621641937', this)">✅ Mark T1 Sent</button>
+      </div>
+    </div>
+    <div class="card" data-status="NEW" data-hubspot="505575147234">
+      <div class="card-header">
+        <div>
+          <h3 class="prospect-name">Kevin Murdock</h3>
+          <p class="meta">VP Preconstruction + Estimating</p>
+          <p class="company">L.S. Brinker &bull; MI</p>
+        </div>
+        <span class="badge badge-new">🔵 T1 Ready</span>
+      </div>
+      <div class="message-box">
+        <div class="message-label">Touch 1 Message <span style="color:#4CAF50;font-size:11px">(132 chars)</span></div>
+        <div class="message-text">Kevin, VP Preconstruction at Brinker — CrewCast helps self-perform GCs forecast crew demand from the estimate forward. Worth a look?</div>
+        <button class="copy-btn" onclick="copyMsg(this, '505575147234')">📋 Copy</button>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/in/kevin-murdock-lfa-19924028" target="_blank" class="btn-linkedin">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505575147234" target="_blank" class="btn-hubspot">HubSpot</a>
+        <button class="btn-sent" onclick="markSent('505575147234', this)">✅ Mark T1 Sent</button>
+      </div>
+    </div>
+    <div class="card" data-status="NEW" data-hubspot="505634408166">
+      <div class="card-header">
+        <div>
+          <h3 class="prospect-name">Seth Beitz</h3>
+          <p class="meta">Regional VP Waterproofing & Restoration</p>
+          <p class="company">Valcourt Group &bull; PA</p>
+        </div>
+        <span class="badge badge-new">🔵 T1 Ready</span>
+      </div>
+      <div class="message-box">
+        <div class="message-label">Touch 1 Message <span style="color:#4CAF50;font-size:11px">(129 chars)</span></div>
+        <div class="message-text">Seth, building multi-site ops at Valcourt — CrewCast helps track crew availability across projects in real time. Mind connecting?</div>
+        <button class="copy-btn" onclick="copyMsg(this, '505634408166')">📋 Copy</button>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/in/sethbeitz" target="_blank" class="btn-linkedin">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505634408166" target="_blank" class="btn-hubspot">HubSpot</a>
+        <button class="btn-sent" onclick="markSent('505634408166', this)">✅ Mark T1 Sent</button>
+      </div>
+    </div>
+    <div class="card" data-status="NEW" data-hubspot="505634408168">
+      <div class="card-header">
+        <div>
+          <h3 class="prospect-name">Kerry Willert</h3>
+          <p class="meta">Director of Operations</p>
+          <p class="company">BOREA Construction &bull; TX</p>
+        </div>
+        <span class="badge badge-new">🔵 T1 Ready</span>
+      </div>
+      <div class="message-box">
+        <div class="message-label">Touch 1 Message <span style="color:#4CAF50;font-size:11px">(132 chars)</span></div>
+        <div class="message-text">Kerry, director-level construction ops is exactly our market. CrewCast eliminates the spreadsheet chaos. Would love your take on it.</div>
+        <button class="copy-btn" onclick="copyMsg(this, '505634408168')">📋 Copy</button>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/in/kerry-willert-00b6646" target="_blank" class="btn-linkedin">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505634408168" target="_blank" class="btn-hubspot">HubSpot</a>
+        <button class="btn-sent" onclick="markSent('505634408168', this)">✅ Mark T1 Sent</button>
+      </div>
+    </div>
+    <div class="card" data-status="NEW" data-hubspot="505599580896">
+      <div class="card-header">
+        <div>
+          <h3 class="prospect-name">Shawn Goetz</h3>
+          <p class="meta">VP / Project Manager - Industrial Services</p>
+          <p class="company">Hanson Professional Services &bull; IL</p>
+        </div>
+        <span class="badge badge-new">🔵 T1 Ready</span>
+      </div>
+      <div class="message-box">
+        <div class="message-label">Touch 1 Message <span style="color:#4CAF50;font-size:11px">(134 chars)</span></div>
+        <div class="message-text">Shawn, VP on the industrial services side — CrewCast is purpose-built for complex crew deployment like yours. Open to a quick connect?</div>
+        <button class="copy-btn" onclick="copyMsg(this, '505599580896')">📋 Copy</button>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/in/shawngoetz" target="_blank" class="btn-linkedin">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505599580896" target="_blank" class="btn-hubspot">HubSpot</a>
+        <button class="btn-sent" onclick="markSent('505599580896', this)">✅ Mark T1 Sent</button>
+      </div>
+    </div>
+    <div class="card" data-status="NEW" data-hubspot="505619864308">
+      <div class="card-header">
+        <div>
+          <h3 class="prospect-name">Neil Menzies</h3>
+          <p class="meta">VP Sales & Estimating</p>
+          <p class="company">McKamish Inc &bull; PA</p>
+        </div>
+        <span class="badge badge-new">🔵 T1 Ready</span>
+      </div>
+      <div class="message-box">
+        <div class="message-label">Touch 1 Message <span style="color:#4CAF50;font-size:11px">(133 chars)</span></div>
+        <div class="message-text">Neil, VP Sales + Estimating at McKamish — CrewCast bridges preconstruction labor estimates with field crew reality. Worth connecting.</div>
+        <button class="copy-btn" onclick="copyMsg(this, '505619864308')">📋 Copy</button>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/in/neil-menzies-70b16537" target="_blank" class="btn-linkedin">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505619864308" target="_blank" class="btn-hubspot">HubSpot</a>
+        <button class="btn-sent" onclick="markSent('505619864308', this)">✅ Mark T1 Sent</button>
+      </div>
+    </div>
+    <div class="card" data-status="NEW" data-hubspot="505650489067">
+      <div class="card-header">
+        <div>
+          <h3 class="prospect-name">Michael Giaramita</h3>
+          <p class="meta">CEO</p>
+          <p class="company">Group PMX LLC &bull; CO</p>
+        </div>
+        <span class="badge badge-new">🔵 T1 Ready</span>
+      </div>
+      <div class="message-box">
+        <div class="message-label">Touch 1 Message <span style="color:#4CAF50;font-size:11px">(133 chars)</span></div>
+        <div class="message-text">Michael, construction ops innovator — CrewCast is transforming how self-perform GCs manage their craft workforce. Love your thoughts.</div>
+        <button class="copy-btn" onclick="copyMsg(this, '505650489067')">📋 Copy</button>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/in/michaelgiaramita" target="_blank" class="btn-linkedin">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505650489067" target="_blank" class="btn-hubspot">HubSpot</a>
+        <button class="btn-sent" onclick="markSent('505650489067', this)">✅ Mark T1 Sent</button>
+      </div>
+    </div>
+    <div class="card" data-status="NEW" data-hubspot="505617690312">
+      <div class="card-header">
+        <div>
+          <h3 class="prospect-name">Joe Benton</h3>
+          <p class="meta">VP Construction Services</p>
+          <p class="company">Kairoi Residential &bull; TX</p>
+        </div>
+        <span class="badge badge-new">🔵 T1 Ready</span>
+      </div>
+      <div class="message-box">
+        <div class="message-label">Touch 1 Message <span style="color:#4CAF50;font-size:11px">(125 chars)</span></div>
+        <div class="message-text">Joe, VP Construction at Kairoi — managing multi-site residential construction crews is exactly our focus. Open to connecting?</div>
+        <button class="copy-btn" onclick="copyMsg(this, '505617690312')">📋 Copy</button>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/in/joe-benton-55a60335" target="_blank" class="btn-linkedin">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505617690312" target="_blank" class="btn-hubspot">HubSpot</a>
+        <button class="btn-sent" onclick="markSent('505617690312', this)">✅ Mark T1 Sent</button>
+      </div>
+    </div>
+    <div class="card" data-status="NEW" data-hubspot="505619864311">
+      <div class="card-header">
+        <div>
+          <h3 class="prospect-name">Clayton Myhre</h3>
+          <p class="meta">Director of Preconstruction</p>
+          <p class="company">Billingsley Company &bull; TX</p>
+        </div>
+        <span class="badge badge-new">🔵 T1 Ready</span>
+      </div>
+      <div class="message-box">
+        <div class="message-label">Touch 1 Message <span style="color:#4CAF50;font-size:11px">(144 chars)</span></div>
+        <div class="message-text">Clayton, Director of Preconstruction at Billingsley — CrewCast plugs into your precon workflow to forecast crew needs by trade. Worth a connect?</div>
+        <button class="copy-btn" onclick="copyMsg(this, '505619864311')">📋 Copy</button>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/in/claytonmyhre" target="_blank" class="btn-linkedin">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505619864311" target="_blank" class="btn-hubspot">HubSpot</a>
+        <button class="btn-sent" onclick="markSent('505619864311', this)">✅ Mark T1 Sent</button>
+      </div>
+    </div>
+    <div class="card" data-status="NEW" data-hubspot="505630795483">
+      <div class="card-header">
+        <div>
+          <h3 class="prospect-name">Fred Johnson</h3>
+          <p class="meta">Vice President - AZ Region</p>
+          <p class="company">Rafael Construction &bull; AZ</p>
+        </div>
+        <span class="badge badge-new">🔵 T1 Ready</span>
+      </div>
+      <div class="message-box">
+        <div class="message-label">Touch 1 Message <span style="color:#4CAF50;font-size:11px">(121 chars)</span></div>
+        <div class="message-text">Fred, VP at Rafael Construction — self-perform GC crew management is our wheelhouse. Love to show you what CrewCast does.</div>
+        <button class="copy-btn" onclick="copyMsg(this, '505630795483')">📋 Copy</button>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/in/fred-johnson-rafael" target="_blank" class="btn-linkedin">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505630795483" target="_blank" class="btn-hubspot">HubSpot</a>
+        <button class="btn-sent" onclick="markSent('505630795483', this)">✅ Mark T1 Sent</button>
+      </div>
+    </div>
+    <div class="card" data-status="NEW" data-hubspot="505720985283">
+      <div class="card-header">
+        <div>
+          <h3 class="prospect-name">Patrick Terry</h3>
+          <p class="meta">VP of Operations</p>
+          <p class="company">Construction &bull; TX</p>
+        </div>
+        <span class="badge badge-new">🔵 T1 Ready</span>
+      </div>
+      <div class="message-box">
+        <div class="message-label">Touch 1 Message <span style="color:#4CAF50;font-size:11px">(145 chars)</span></div>
+        <div class="message-text">Patrick, VP of Operations roles at self-perform contractors are exactly who CrewCast serves. Would love to connect and share what we're building.</div>
+        <button class="copy-btn" onclick="copyMsg(this, '505720985283')">📋 Copy</button>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/in/patrick-terry-construction" target="_blank" class="btn-linkedin">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505720985283" target="_blank" class="btn-hubspot">HubSpot</a>
+        <button class="btn-sent" onclick="markSent('505720985283', this)">✅ Mark T1 Sent</button>
+      </div>
+    </div>
+    <div class="card" data-status="NEW" data-hubspot="505645471430">
+      <div class="card-header">
+        <div>
+          <h3 class="prospect-name">Joel McCarthy</h3>
+          <p class="meta">VP Operations</p>
+          <p class="company">General Contractor &bull; FL</p>
+        </div>
+        <span class="badge badge-new">🔵 T1 Ready</span>
+      </div>
+      <div class="message-box">
+        <div class="message-label">Touch 1 Message <span style="color:#4CAF50;font-size:11px">(139 chars)</span></div>
+        <div class="message-text">Joel, VP Operations roles at self-perform contractors are exactly who CrewCast serves. Would love to connect and share what we're building.</div>
+        <button class="copy-btn" onclick="copyMsg(this, '505645471430')">📋 Copy</button>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/in/joel-mccarthy-construction" target="_blank" class="btn-linkedin">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505645471430" target="_blank" class="btn-hubspot">HubSpot</a>
+        <button class="btn-sent" onclick="markSent('505645471430', this)">✅ Mark T1 Sent</button>
+      </div>
+    </div>
+    <div class="card" data-status="NEW" data-hubspot="505720985284">
+      <div class="card-header">
+        <div>
+          <h3 class="prospect-name">Marc Degarie</h3>
+          <p class="meta">Director of Operations</p>
+          <p class="company">Heavy Civil Contractor &bull; OH</p>
+        </div>
+        <span class="badge badge-new">🔵 T1 Ready</span>
+      </div>
+      <div class="message-box">
+        <div class="message-label">Touch 1 Message <span style="color:#4CAF50;font-size:11px">(148 chars)</span></div>
+        <div class="message-text">Marc, Director of Operations roles at self-perform contractors are exactly who CrewCast serves. Would love to connect and share what we're building.</div>
+        <button class="copy-btn" onclick="copyMsg(this, '505720985284')">📋 Copy</button>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/in/marc-degarie" target="_blank" class="btn-linkedin">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505720985284" target="_blank" class="btn-hubspot">HubSpot</a>
+        <button class="btn-sent" onclick="markSent('505720985284', this)">✅ Mark T1 Sent</button>
+      </div>
+    </div>
+    <div class="card" data-status="NEW" data-hubspot="505630795492">
+      <div class="card-header">
+        <div>
+          <h3 class="prospect-name">Mark Atkinson</h3>
+          <p class="meta">VP of Operations</p>
+          <p class="company">Self-Perform GC &bull; CO</p>
+        </div>
+        <span class="badge badge-new">🔵 T1 Ready</span>
+      </div>
+      <div class="message-box">
+        <div class="message-label">Touch 1 Message <span style="color:#4CAF50;font-size:11px">(142 chars)</span></div>
+        <div class="message-text">Mark, VP of Operations roles at self-perform contractors are exactly who CrewCast serves. Would love to connect and share what we're building.</div>
+        <button class="copy-btn" onclick="copyMsg(this, '505630795492')">📋 Copy</button>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/in/mark-atkinson-gc" target="_blank" class="btn-linkedin">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505630795492" target="_blank" class="btn-hubspot">HubSpot</a>
+        <button class="btn-sent" onclick="markSent('505630795492', this)">✅ Mark T1 Sent</button>
+      </div>
+    </div>
+    <div class="card" data-status="NEW" data-hubspot="505617690320">
+      <div class="card-header">
+        <div>
+          <h3 class="prospect-name">Pete Murray</h3>
+          <p class="meta">VP of Construction</p>
+          <p class="company">General Contractor &bull; GA</p>
+        </div>
+        <span class="badge badge-new">🔵 T1 Ready</span>
+      </div>
+      <div class="message-box">
+        <div class="message-label">Touch 1 Message <span style="color:#4CAF50;font-size:11px">(144 chars)</span></div>
+        <div class="message-text">Pete, VP of Construction roles at self-perform contractors are exactly who CrewCast serves. Would love to connect and share what we're building.</div>
+        <button class="copy-btn" onclick="copyMsg(this, '505617690320')">📋 Copy</button>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/in/pete-murray-gc" target="_blank" class="btn-linkedin">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505617690320" target="_blank" class="btn-hubspot">HubSpot</a>
+        <button class="btn-sent" onclick="markSent('505617690320', this)">✅ Mark T1 Sent</button>
+      </div>
+    </div>
+    <div class="card" data-status="NEW" data-hubspot="505641827047">
+      <div class="card-header">
+        <div>
+          <h3 class="prospect-name">Dan Schuette</h3>
+          <p class="meta">Director of Operations</p>
+          <p class="company">Heavy Civil Construction &bull; MN</p>
+        </div>
+        <span class="badge badge-new">🔵 T1 Ready</span>
+      </div>
+      <div class="message-box">
+        <div class="message-label">Touch 1 Message <span style="color:#4CAF50;font-size:11px">(147 chars)</span></div>
+        <div class="message-text">Dan, Director of Operations roles at self-perform contractors are exactly who CrewCast serves. Would love to connect and share what we're building.</div>
+        <button class="copy-btn" onclick="copyMsg(this, '505641827047')">📋 Copy</button>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/in/dan-schuette" target="_blank" class="btn-linkedin">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505641827047" target="_blank" class="btn-hubspot">HubSpot</a>
+        <button class="btn-sent" onclick="markSent('505641827047', this)">✅ Mark T1 Sent</button>
+      </div>
+    </div>
+    <div class="card" data-status="NEW" data-hubspot="505621641954">
+      <div class="card-header">
+        <div>
+          <h3 class="prospect-name">Rob Tomlin</h3>
+          <p class="meta">VP Operations</p>
+          <p class="company">Construction Management &bull; VA</p>
+        </div>
+        <span class="badge badge-new">🔵 T1 Ready</span>
+      </div>
+      <div class="message-box">
+        <div class="message-label">Touch 1 Message <span style="color:#4CAF50;font-size:11px">(138 chars)</span></div>
+        <div class="message-text">Rob, VP Operations roles at self-perform contractors are exactly who CrewCast serves. Would love to connect and share what we're building.</div>
+        <button class="copy-btn" onclick="copyMsg(this, '505621641954')">📋 Copy</button>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/in/rob-tomlin-mba" target="_blank" class="btn-linkedin">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505621641954" target="_blank" class="btn-hubspot">HubSpot</a>
+        <button class="btn-sent" onclick="markSent('505621641954', this)">✅ Mark T1 Sent</button>
+      </div>
+    </div>
+    <div class="card" data-status="NEW" data-hubspot="505667038943">
+      <div class="card-header">
+        <div>
+          <h3 class="prospect-name">Jose Ramos</h3>
+          <p class="meta">VP of Operations</p>
+          <p class="company">Electrical Contractor &bull; CA</p>
+        </div>
+        <span class="badge badge-new">🔵 T1 Ready</span>
+      </div>
+      <div class="message-box">
+        <div class="message-label">Touch 1 Message <span style="color:#4CAF50;font-size:11px">(142 chars)</span></div>
+        <div class="message-text">Jose, VP of Operations roles at self-perform contractors are exactly who CrewCast serves. Would love to connect and share what we're building.</div>
+        <button class="copy-btn" onclick="copyMsg(this, '505667038943')">📋 Copy</button>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/in/jose-ramos-gc" target="_blank" class="btn-linkedin">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505667038943" target="_blank" class="btn-hubspot">HubSpot</a>
+        <button class="btn-sent" onclick="markSent('505667038943', this)">✅ Mark T1 Sent</button>
+      </div>
+    </div>
+    <div class="card" data-status="NEW" data-hubspot="505641827052">
+      <div class="card-header">
+        <div>
+          <h3 class="prospect-name">Jason Lien</h3>
+          <p class="meta">VP of Operations</p>
+          <p class="company">Heavy Civil Contractor &bull; MN</p>
+        </div>
+        <span class="badge badge-new">🔵 T1 Ready</span>
+      </div>
+      <div class="message-box">
+        <div class="message-label">Touch 1 Message <span style="color:#4CAF50;font-size:11px">(143 chars)</span></div>
+        <div class="message-text">Jason, VP of Operations roles at self-perform contractors are exactly who CrewCast serves. Would love to connect and share what we're building.</div>
+        <button class="copy-btn" onclick="copyMsg(this, '505641827052')">📋 Copy</button>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/in/jason-lien-pe-fpci" target="_blank" class="btn-linkedin">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505641827052" target="_blank" class="btn-hubspot">HubSpot</a>
+        <button class="btn-sent" onclick="markSent('505641827052', this)">✅ Mark T1 Sent</button>
+      </div>
+    </div>
+    <div class="card" data-status="NEW" data-hubspot="505650490043">
+      <div class="card-header">
+        <div>
+          <h3 class="prospect-name">Adrian Frank</h3>
+          <p class="meta">VP of Construction</p>
+          <p class="company">Self-Perform GC &bull; TX</p>
+        </div>
+        <span class="badge badge-new">🔵 T1 Ready</span>
+      </div>
+      <div class="message-box">
+        <div class="message-label">Touch 1 Message <span style="color:#4CAF50;font-size:11px">(146 chars)</span></div>
+        <div class="message-text">Adrian, VP of Construction roles at self-perform contractors are exactly who CrewCast serves. Would love to connect and share what we're building.</div>
+        <button class="copy-btn" onclick="copyMsg(this, '505650490043')">📋 Copy</button>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/in/adrian-frank-gc" target="_blank" class="btn-linkedin">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505650490043" target="_blank" class="btn-hubspot">HubSpot</a>
+        <button class="btn-sent" onclick="markSent('505650490043', this)">✅ Mark T1 Sent</button>
+      </div>
+    </div>
+    <div class="card" data-status="NEW" data-hubspot="505614086851">
+      <div class="card-header">
+        <div>
+          <h3 class="prospect-name">Kurt Madsen</h3>
+          <p class="meta">VP of Operations</p>
+          <p class="company">General Contractor &bull; UT</p>
+        </div>
+        <span class="badge badge-new">🔵 T1 Ready</span>
+      </div>
+      <div class="message-box">
+        <div class="message-label">Touch 1 Message <span style="color:#4CAF50;font-size:11px">(142 chars)</span></div>
+        <div class="message-text">Kurt, VP of Operations roles at self-perform contractors are exactly who CrewCast serves. Would love to connect and share what we're building.</div>
+        <button class="copy-btn" onclick="copyMsg(this, '505614086851')">📋 Copy</button>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/in/kurt-madsen-gc" target="_blank" class="btn-linkedin">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505614086851" target="_blank" class="btn-hubspot">HubSpot</a>
+        <button class="btn-sent" onclick="markSent('505614086851', this)">✅ Mark T1 Sent</button>
+      </div>
+    </div>
+    <div class="card" data-status="NEW" data-hubspot="505645471441">
+      <div class="card-header">
+        <div>
+          <h3 class="prospect-name">Bryan Shein</h3>
+          <p class="meta">President / Board Member</p>
+          <p class="company">United Seattle &bull; WA</p>
+        </div>
+        <span class="badge badge-new">🔵 T1 Ready</span>
+      </div>
+      <div class="message-box">
+        <div class="message-label">Touch 1 Message <span style="color:#4CAF50;font-size:11px">(136 chars)</span></div>
+        <div class="message-text">Bryan, President roles at self-perform contractors are exactly who CrewCast serves. Would love to connect and share what we're building.</div>
+        <button class="copy-btn" onclick="copyMsg(this, '505645471441')">📋 Copy</button>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/in/bryan-shein" target="_blank" class="btn-linkedin">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505645471441" target="_blank" class="btn-hubspot">HubSpot</a>
+        <button class="btn-sent" onclick="markSent('505645471441', this)">✅ Mark T1 Sent</button>
+      </div>
+    </div>
+    <div class="card" data-status="NEW" data-hubspot="505621641960">
+      <div class="card-header">
+        <div>
+          <h3 class="prospect-name">Chris Heise</h3>
+          <p class="meta">VP of Operations</p>
+          <p class="company">Self-Perform GC &bull; OH</p>
+        </div>
+        <span class="badge badge-new">🔵 T1 Ready</span>
+      </div>
+      <div class="message-box">
+        <div class="message-label">Touch 1 Message <span style="color:#4CAF50;font-size:11px">(143 chars)</span></div>
+        <div class="message-text">Chris, VP of Operations roles at self-perform contractors are exactly who CrewCast serves. Would love to connect and share what we're building.</div>
+        <button class="copy-btn" onclick="copyMsg(this, '505621641960')">📋 Copy</button>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/in/chris-heise-gc" target="_blank" class="btn-linkedin">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505621641960" target="_blank" class="btn-hubspot">HubSpot</a>
+        <button class="btn-sent" onclick="markSent('505621641960', this)">✅ Mark T1 Sent</button>
+      </div>
+    </div>
+    <div class="card" data-status="NEW" data-hubspot="505648670431">
+      <div class="card-header">
+        <div>
+          <h3 class="prospect-name">Thomas Kerkaert</h3>
+          <p class="meta">VP / CFO</p>
+          <p class="company">Construction Firm &bull; MI</p>
+        </div>
+        <span class="badge badge-new">🔵 T1 Ready</span>
+      </div>
+      <div class="message-box">
+        <div class="message-label">Touch 1 Message <span style="color:#4CAF50;font-size:11px">(130 chars)</span></div>
+        <div class="message-text">Thomas, VP roles at self-perform contractors are exactly who CrewCast serves. Would love to connect and share what we're building.</div>
+        <button class="copy-btn" onclick="copyMsg(this, '505648670431')">📋 Copy</button>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/in/thomas-kerkaert-cpa" target="_blank" class="btn-linkedin">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505648670431" target="_blank" class="btn-hubspot">HubSpot</a>
+        <button class="btn-sent" onclick="markSent('505648670431', this)">✅ Mark T1 Sent</button>
+      </div>
+    </div>
+    <div class="card" data-status="NEW" data-hubspot="505665219277">
+      <div class="card-header">
+        <div>
+          <h3 class="prospect-name">Kelly Burnette</h3>
+          <p class="meta">Director of Operations</p>
+          <p class="company">General Contractor &bull; NC</p>
+        </div>
+        <span class="badge badge-new">🔵 T1 Ready</span>
+      </div>
+      <div class="message-box">
+        <div class="message-label">Touch 1 Message <span style="color:#4CAF50;font-size:11px">(149 chars)</span></div>
+        <div class="message-text">Kelly, Director of Operations roles at self-perform contractors are exactly who CrewCast serves. Would love to connect and share what we're building.</div>
+        <button class="copy-btn" onclick="copyMsg(this, '505665219277')">📋 Copy</button>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/in/kelly-burnette-gc" target="_blank" class="btn-linkedin">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505665219277" target="_blank" class="btn-hubspot">HubSpot</a>
+        <button class="btn-sent" onclick="markSent('505665219277', this)">✅ Mark T1 Sent</button>
+      </div>
+    </div>
+    <div class="card" data-status="NEW" data-hubspot="505605403365">
+      <div class="card-header">
+        <div>
+          <h3 class="prospect-name">Jeffrey Sever</h3>
+          <p class="meta">VP of Operations</p>
+          <p class="company">Heavy Civil &bull; PA</p>
+        </div>
+        <span class="badge badge-new">🔵 T1 Ready</span>
+      </div>
+      <div class="message-box">
+        <div class="message-label">Touch 1 Message <span style="color:#4CAF50;font-size:11px">(145 chars)</span></div>
+        <div class="message-text">Jeffrey, VP of Operations roles at self-perform contractors are exactly who CrewCast serves. Would love to connect and share what we're building.</div>
+        <button class="copy-btn" onclick="copyMsg(this, '505605403365')">📋 Copy</button>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/in/jeffrey-sever-gc" target="_blank" class="btn-linkedin">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505605403365" target="_blank" class="btn-hubspot">HubSpot</a>
+        <button class="btn-sent" onclick="markSent('505605403365', this)">✅ Mark T1 Sent</button>
+      </div>
+    </div>
+    <div class="card" data-status="NEW" data-hubspot="505571527368">
+      <div class="card-header">
+        <div>
+          <h3 class="prospect-name">Joseph Kopalek</h3>
+          <p class="meta">VP of Operations</p>
+          <p class="company">Concrete Contractor &bull; OH</p>
+        </div>
+        <span class="badge badge-new">🔵 T1 Ready</span>
+      </div>
+      <div class="message-box">
+        <div class="message-label">Touch 1 Message <span style="color:#4CAF50;font-size:11px">(144 chars)</span></div>
+        <div class="message-text">Joseph, VP of Operations roles at self-perform contractors are exactly who CrewCast serves. Would love to connect and share what we're building.</div>
+        <button class="copy-btn" onclick="copyMsg(this, '505571527368')">📋 Copy</button>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/in/joseph-kopalek-gc" target="_blank" class="btn-linkedin">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505571527368" target="_blank" class="btn-hubspot">HubSpot</a>
+        <button class="btn-sent" onclick="markSent('505571527368', this)">✅ Mark T1 Sent</button>
+      </div>
+    </div>
+    <div class="card" data-status="NEW" data-hubspot="505641828030">
+      <div class="card-header">
+        <div>
+          <h3 class="prospect-name">Jim Nigg</h3>
+          <p class="meta">VP of Construction</p>
+          <p class="company">General Contractor &bull; ID</p>
+        </div>
+        <span class="badge badge-new">🔵 T1 Ready</span>
+      </div>
+      <div class="message-box">
+        <div class="message-label">Touch 1 Message <span style="color:#4CAF50;font-size:11px">(143 chars)</span></div>
+        <div class="message-text">Jim, VP of Construction roles at self-perform contractors are exactly who CrewCast serves. Would love to connect and share what we're building.</div>
+        <button class="copy-btn" onclick="copyMsg(this, '505641828030')">📋 Copy</button>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/in/jim-nigg-gc" target="_blank" class="btn-linkedin">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505641828030" target="_blank" class="btn-hubspot">HubSpot</a>
+        <button class="btn-sent" onclick="markSent('505641828030', this)">✅ Mark T1 Sent</button>
+      </div>
+    </div>
+    <div class="card" data-status="NEW" data-hubspot="505614086860">
+      <div class="card-header">
+        <div>
+          <h3 class="prospect-name">Sean Kelly</h3>
+          <p class="meta">VP of Operations</p>
+          <p class="company">Self-Perform GC &bull; MA</p>
+        </div>
+        <span class="badge badge-new">🔵 T1 Ready</span>
+      </div>
+      <div class="message-box">
+        <div class="message-label">Touch 1 Message <span style="color:#4CAF50;font-size:11px">(142 chars)</span></div>
+        <div class="message-text">Sean, VP of Operations roles at self-perform contractors are exactly who CrewCast serves. Would love to connect and share what we're building.</div>
+        <button class="copy-btn" onclick="copyMsg(this, '505614086860')">📋 Copy</button>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/in/sean-kelly-gc" target="_blank" class="btn-linkedin">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505614086860" target="_blank" class="btn-hubspot">HubSpot</a>
+        <button class="btn-sent" onclick="markSent('505614086860', this)">✅ Mark T1 Sent</button>
+      </div>
+    </div>
+    <div class="card" data-status="NEW" data-hubspot="505569329876">
+      <div class="card-header">
+        <div>
+          <h3 class="prospect-name">Randy Steed</h3>
+          <p class="meta">VP of Operations</p>
+          <p class="company">Heavy Civil Contractor &bull; UT</p>
+        </div>
+        <span class="badge badge-new">🔵 T1 Ready</span>
+      </div>
+      <div class="message-box">
+        <div class="message-label">Touch 1 Message <span style="color:#4CAF50;font-size:11px">(143 chars)</span></div>
+        <div class="message-text">Randy, VP of Operations roles at self-perform contractors are exactly who CrewCast serves. Would love to connect and share what we're building.</div>
+        <button class="copy-btn" onclick="copyMsg(this, '505569329876')">📋 Copy</button>
+      </div>
+      <div class="card-footer">
+        <a href="https://www.linkedin.com/in/randy-steed-gc" target="_blank" class="btn-linkedin">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505569329876" target="_blank" class="btn-hubspot">HubSpot</a>
+        <button class="btn-sent" onclick="markSent('505569329876', this)">✅ Mark T1 Sent</button>
+      </div>
+    </div>
+    </div>
+  </div>
 
-  // Sort: action-needed first (T1, T2-ready, T3-ready), then waiting, then done
-  const order = { 't1-ready':0, 't2-ready':1, 't3-ready':2, 't2-waiting':3, 't3-waiting':4, 'complete':5, 'skipped':6, 'off-base':7, 'bad-link':8 };
-  const sorted = [...PROSPECTS].sort((a,b) => (order[getStage(a.hubspot_id).code]||9) - (order[getStage(b.hubspot_id).code]||9));
+  <div class="toast" id="toast"></div>
 
-  sorted.forEach(p => container.appendChild(renderCard(p)));
-  updateStats();
-}
-
-async function copyMsg(btn, hid, num) {
-  const p = pMap[hid];
-  const text = num===1 ? p.touch1 : num===2 ? p.touch2 : p.touch3;
-  try {
-    await navigator.clipboard.writeText(text);
-    const orig = btn.textContent;
-    btn.textContent = '✅ Copied!';
-    btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 1500);
-  } catch(e) { prompt('Copy this:', text); }
-}
-
-function openLI(url, hid) {
-  if (!url || !url.includes('/in/')) {
-    markSent(hid, 'BAD_LINK');
-    alert('LinkedIn URL looks invalid — marked as Bad Link.');
-    return;
-  }
-  window.open(url, '_blank');
-}
-
-async function markSent(hid, status) {
-  if (!statusMap[hid]) statusMap[hid] = {};
-  statusMap[hid].status = status;
-  const today = new Date().toISOString().split('T')[0];
-  if (status === 'SENT_T1') statusMap[hid].t1_sent_date = today;
-  if (status === 'SENT_T2') statusMap[hid].t2_sent_date = today;
-  if (status === 'SENT_T3') statusMap[hid].t3_sent_date = today;
-
-  // Re-render just this card in place
-  const old = document.getElementById('card-' + hid);
-  if (old) old.replaceWith(renderCard(pMap[hid]));
-  updateStats();
-
-  // Persist to backend
-  try {
-    await fetch(`${API}/updateProspectStatus`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ hubspot_id: hid, status })
-    });
-  } catch(e) { console.log('Save failed:', e); }
-}
-
-(async () => {
-  try {
-    const r = await fetch(`${API}/getProspectStatuses`, { method:'POST', headers:{'Content-Type':'application/json'}, body:'{}' });
-    const d = await r.json();
-    if (d.statuses) d.statuses.forEach(s => { statusMap[s.hubspot_id] = s; });
-  } catch(e) { console.log('Load failed:', e); }
-  renderAll();
-})();
-</script>
+  <script>
+    function copyMsg(btn, id) {
+      const msgEl = btn.previousElementSibling;
+      navigator.clipboard.writeText(msgEl.textContent).then(() => {
+        showToast('Message copied!');
+        btn.textContent = '✅ Copied!';
+        setTimeout(() => btn.textContent = '📋 Copy', 2000);
+      });
+    }
+    
+    function markSent(id, btn) {
+      const card = btn.closest('.card');
+      const badge = card.querySelector('.badge');
+      badge.className = 'badge badge-t1';
+      badge.textContent = '📤 T1 Sent';
+      btn.textContent = '✅ Sent';
+      btn.disabled = true;
+      btn.style.opacity = '0.5';
+      showToast('Marked as T1 sent! Update HubSpot to confirm.');
+    }
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3000);
+    }
+  </script>
 </body>
 </html>
