@@ -39,6 +39,10 @@
     .btn-hubspot { display: inline-flex; align-items: center; background: #ff7a59; color: white; text-decoration: none; padding: 5px 12px; border-radius: 5px; font-size: 12px; font-weight: 600; }
     .btn-sent { background: transparent; border: 1px solid #4CAF50; color: #4CAF50; padding: 5px 12px; border-radius: 5px; font-size: 12px; cursor: pointer; transition: all 0.2s; margin-left: auto; }
     .btn-sent:hover { background: #4CAF50; color: #000; }
+    .btn-skip { background: transparent; border: 1px solid #8b949e; color: #8b949e; padding: 5px 10px; border-radius: 5px; font-size: 11px; cursor: pointer; transition: all 0.2s; }
+    .btn-skip:hover { border-color: #f0883e; color: #f0883e; }
+    .btn-offbase { background: transparent; border: 1px solid #f85149; color: #f85149; padding: 5px 10px; border-radius: 5px; font-size: 11px; cursor: pointer; transition: all 0.2s; }
+    .btn-offbase:hover { background: #f85149; color: #fff; }
     .toast { position: fixed; bottom: 24px; right: 24px; background: #4CAF50; color: white; padding: 12px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; opacity: 0; transition: opacity 0.3s; z-index: 999; }
     .toast.show { opacity: 1; }
   </style>
@@ -86,6 +90,8 @@
         </a>
         <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505621641937" target="_blank" class="btn-hubspot">HubSpot</a>
         <button class="btn-sent" onclick="markSent('505621641937', this)">✅ Mark T1 Sent</button>
+        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
+        <button class="btn-offbase" onclick="offBaseCard(this, '505621641937')">🚫 Off Base</button>
       </div>
     </div>
     <div class="card" data-status="NEW" data-hubspot="505575147234">
@@ -109,6 +115,8 @@
         </a>
         <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505575147234" target="_blank" class="btn-hubspot">HubSpot</a>
         <button class="btn-sent" onclick="markSent('505575147234', this)">✅ Mark T1 Sent</button>
+        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
+        <button class="btn-offbase" onclick="offBaseCard(this, '505575147234')">🚫 Off Base</button>
       </div>
     </div>
     <div class="card" data-status="NEW" data-hubspot="505634408166">
@@ -132,6 +140,8 @@
         </a>
         <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505634408166" target="_blank" class="btn-hubspot">HubSpot</a>
         <button class="btn-sent" onclick="markSent('505634408166', this)">✅ Mark T1 Sent</button>
+        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
+        <button class="btn-offbase" onclick="offBaseCard(this, '505634408166')">🚫 Off Base</button>
       </div>
     </div>
     <div class="card" data-status="NEW" data-hubspot="505634408168">
@@ -155,6 +165,8 @@
         </a>
         <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505634408168" target="_blank" class="btn-hubspot">HubSpot</a>
         <button class="btn-sent" onclick="markSent('505634408168', this)">✅ Mark T1 Sent</button>
+        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
+        <button class="btn-offbase" onclick="offBaseCard(this, '505634408168')">🚫 Off Base</button>
       </div>
     </div>
     <div class="card" data-status="NEW" data-hubspot="505599580896">
@@ -178,6 +190,8 @@
         </a>
         <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505599580896" target="_blank" class="btn-hubspot">HubSpot</a>
         <button class="btn-sent" onclick="markSent('505599580896', this)">✅ Mark T1 Sent</button>
+        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
+        <button class="btn-offbase" onclick="offBaseCard(this, '505599580896')">🚫 Off Base</button>
       </div>
     </div>
     <div class="card" data-status="NEW" data-hubspot="505619864308">
@@ -201,6 +215,8 @@
         </a>
         <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505619864308" target="_blank" class="btn-hubspot">HubSpot</a>
         <button class="btn-sent" onclick="markSent('505619864308', this)">✅ Mark T1 Sent</button>
+        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
+        <button class="btn-offbase" onclick="offBaseCard(this, '505619864308')">🚫 Off Base</button>
       </div>
     </div>
     <div class="card" data-status="NEW" data-hubspot="505650489067">
@@ -224,6 +240,8 @@
         </a>
         <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505650489067" target="_blank" class="btn-hubspot">HubSpot</a>
         <button class="btn-sent" onclick="markSent('505650489067', this)">✅ Mark T1 Sent</button>
+        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
+        <button class="btn-offbase" onclick="offBaseCard(this, '505650489067')">🚫 Off Base</button>
       </div>
     </div>
     <div class="card" data-status="NEW" data-hubspot="505617690312">
@@ -247,6 +265,8 @@
         </a>
         <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505617690312" target="_blank" class="btn-hubspot">HubSpot</a>
         <button class="btn-sent" onclick="markSent('505617690312', this)">✅ Mark T1 Sent</button>
+        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
+        <button class="btn-offbase" onclick="offBaseCard(this, '505617690312')">🚫 Off Base</button>
       </div>
     </div>
     <div class="card" data-status="NEW" data-hubspot="505619864311">
@@ -270,6 +290,8 @@
         </a>
         <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505619864311" target="_blank" class="btn-hubspot">HubSpot</a>
         <button class="btn-sent" onclick="markSent('505619864311', this)">✅ Mark T1 Sent</button>
+        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
+        <button class="btn-offbase" onclick="offBaseCard(this, '505619864311')">🚫 Off Base</button>
       </div>
     </div>
     <div class="card" data-status="NEW" data-hubspot="505630795483">
@@ -293,6 +315,8 @@
         </a>
         <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505630795483" target="_blank" class="btn-hubspot">HubSpot</a>
         <button class="btn-sent" onclick="markSent('505630795483', this)">✅ Mark T1 Sent</button>
+        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
+        <button class="btn-offbase" onclick="offBaseCard(this, '505630795483')">🚫 Off Base</button>
       </div>
     </div>
     <div class="card" data-status="NEW" data-hubspot="505720985283">
@@ -316,6 +340,8 @@
         </a>
         <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505720985283" target="_blank" class="btn-hubspot">HubSpot</a>
         <button class="btn-sent" onclick="markSent('505720985283', this)">✅ Mark T1 Sent</button>
+        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
+        <button class="btn-offbase" onclick="offBaseCard(this, '505720985283')">🚫 Off Base</button>
       </div>
     </div>
     <div class="card" data-status="NEW" data-hubspot="505645471430">
@@ -339,6 +365,8 @@
         </a>
         <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505645471430" target="_blank" class="btn-hubspot">HubSpot</a>
         <button class="btn-sent" onclick="markSent('505645471430', this)">✅ Mark T1 Sent</button>
+        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
+        <button class="btn-offbase" onclick="offBaseCard(this, '505645471430')">🚫 Off Base</button>
       </div>
     </div>
     <div class="card" data-status="NEW" data-hubspot="505720985284">
@@ -362,6 +390,8 @@
         </a>
         <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505720985284" target="_blank" class="btn-hubspot">HubSpot</a>
         <button class="btn-sent" onclick="markSent('505720985284', this)">✅ Mark T1 Sent</button>
+        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
+        <button class="btn-offbase" onclick="offBaseCard(this, '505720985284')">🚫 Off Base</button>
       </div>
     </div>
     <div class="card" data-status="NEW" data-hubspot="505630795492">
@@ -385,6 +415,8 @@
         </a>
         <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505630795492" target="_blank" class="btn-hubspot">HubSpot</a>
         <button class="btn-sent" onclick="markSent('505630795492', this)">✅ Mark T1 Sent</button>
+        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
+        <button class="btn-offbase" onclick="offBaseCard(this, '505630795492')">🚫 Off Base</button>
       </div>
     </div>
     <div class="card" data-status="NEW" data-hubspot="505617690320">
@@ -408,6 +440,8 @@
         </a>
         <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505617690320" target="_blank" class="btn-hubspot">HubSpot</a>
         <button class="btn-sent" onclick="markSent('505617690320', this)">✅ Mark T1 Sent</button>
+        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
+        <button class="btn-offbase" onclick="offBaseCard(this, '505617690320')">🚫 Off Base</button>
       </div>
     </div>
     <div class="card" data-status="NEW" data-hubspot="505641827047">
@@ -431,6 +465,8 @@
         </a>
         <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505641827047" target="_blank" class="btn-hubspot">HubSpot</a>
         <button class="btn-sent" onclick="markSent('505641827047', this)">✅ Mark T1 Sent</button>
+        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
+        <button class="btn-offbase" onclick="offBaseCard(this, '505641827047')">🚫 Off Base</button>
       </div>
     </div>
     <div class="card" data-status="NEW" data-hubspot="505621641954">
@@ -454,6 +490,8 @@
         </a>
         <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505621641954" target="_blank" class="btn-hubspot">HubSpot</a>
         <button class="btn-sent" onclick="markSent('505621641954', this)">✅ Mark T1 Sent</button>
+        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
+        <button class="btn-offbase" onclick="offBaseCard(this, '505621641954')">🚫 Off Base</button>
       </div>
     </div>
     <div class="card" data-status="NEW" data-hubspot="505667038943">
@@ -477,6 +515,8 @@
         </a>
         <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505667038943" target="_blank" class="btn-hubspot">HubSpot</a>
         <button class="btn-sent" onclick="markSent('505667038943', this)">✅ Mark T1 Sent</button>
+        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
+        <button class="btn-offbase" onclick="offBaseCard(this, '505667038943')">🚫 Off Base</button>
       </div>
     </div>
     <div class="card" data-status="NEW" data-hubspot="505641827052">
@@ -500,6 +540,8 @@
         </a>
         <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505641827052" target="_blank" class="btn-hubspot">HubSpot</a>
         <button class="btn-sent" onclick="markSent('505641827052', this)">✅ Mark T1 Sent</button>
+        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
+        <button class="btn-offbase" onclick="offBaseCard(this, '505641827052')">🚫 Off Base</button>
       </div>
     </div>
     <div class="card" data-status="NEW" data-hubspot="505650490043">
@@ -523,6 +565,8 @@
         </a>
         <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505650490043" target="_blank" class="btn-hubspot">HubSpot</a>
         <button class="btn-sent" onclick="markSent('505650490043', this)">✅ Mark T1 Sent</button>
+        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
+        <button class="btn-offbase" onclick="offBaseCard(this, '505650490043')">🚫 Off Base</button>
       </div>
     </div>
     <div class="card" data-status="NEW" data-hubspot="505614086851">
@@ -546,6 +590,8 @@
         </a>
         <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505614086851" target="_blank" class="btn-hubspot">HubSpot</a>
         <button class="btn-sent" onclick="markSent('505614086851', this)">✅ Mark T1 Sent</button>
+        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
+        <button class="btn-offbase" onclick="offBaseCard(this, '505614086851')">🚫 Off Base</button>
       </div>
     </div>
     <div class="card" data-status="NEW" data-hubspot="505645471441">
@@ -569,6 +615,8 @@
         </a>
         <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505645471441" target="_blank" class="btn-hubspot">HubSpot</a>
         <button class="btn-sent" onclick="markSent('505645471441', this)">✅ Mark T1 Sent</button>
+        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
+        <button class="btn-offbase" onclick="offBaseCard(this, '505645471441')">🚫 Off Base</button>
       </div>
     </div>
     <div class="card" data-status="NEW" data-hubspot="505621641960">
@@ -592,6 +640,8 @@
         </a>
         <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505621641960" target="_blank" class="btn-hubspot">HubSpot</a>
         <button class="btn-sent" onclick="markSent('505621641960', this)">✅ Mark T1 Sent</button>
+        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
+        <button class="btn-offbase" onclick="offBaseCard(this, '505621641960')">🚫 Off Base</button>
       </div>
     </div>
     <div class="card" data-status="NEW" data-hubspot="505648670431">
@@ -615,6 +665,8 @@
         </a>
         <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505648670431" target="_blank" class="btn-hubspot">HubSpot</a>
         <button class="btn-sent" onclick="markSent('505648670431', this)">✅ Mark T1 Sent</button>
+        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
+        <button class="btn-offbase" onclick="offBaseCard(this, '505648670431')">🚫 Off Base</button>
       </div>
     </div>
     <div class="card" data-status="NEW" data-hubspot="505665219277">
@@ -638,6 +690,8 @@
         </a>
         <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505665219277" target="_blank" class="btn-hubspot">HubSpot</a>
         <button class="btn-sent" onclick="markSent('505665219277', this)">✅ Mark T1 Sent</button>
+        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
+        <button class="btn-offbase" onclick="offBaseCard(this, '505665219277')">🚫 Off Base</button>
       </div>
     </div>
     <div class="card" data-status="NEW" data-hubspot="505605403365">
@@ -661,6 +715,8 @@
         </a>
         <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505605403365" target="_blank" class="btn-hubspot">HubSpot</a>
         <button class="btn-sent" onclick="markSent('505605403365', this)">✅ Mark T1 Sent</button>
+        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
+        <button class="btn-offbase" onclick="offBaseCard(this, '505605403365')">🚫 Off Base</button>
       </div>
     </div>
     <div class="card" data-status="NEW" data-hubspot="505571527368">
@@ -684,6 +740,8 @@
         </a>
         <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505571527368" target="_blank" class="btn-hubspot">HubSpot</a>
         <button class="btn-sent" onclick="markSent('505571527368', this)">✅ Mark T1 Sent</button>
+        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
+        <button class="btn-offbase" onclick="offBaseCard(this, '505571527368')">🚫 Off Base</button>
       </div>
     </div>
     <div class="card" data-status="NEW" data-hubspot="505641828030">
@@ -707,6 +765,8 @@
         </a>
         <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505641828030" target="_blank" class="btn-hubspot">HubSpot</a>
         <button class="btn-sent" onclick="markSent('505641828030', this)">✅ Mark T1 Sent</button>
+        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
+        <button class="btn-offbase" onclick="offBaseCard(this, '505641828030')">🚫 Off Base</button>
       </div>
     </div>
     <div class="card" data-status="NEW" data-hubspot="505614086860">
@@ -730,6 +790,8 @@
         </a>
         <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505614086860" target="_blank" class="btn-hubspot">HubSpot</a>
         <button class="btn-sent" onclick="markSent('505614086860', this)">✅ Mark T1 Sent</button>
+        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
+        <button class="btn-offbase" onclick="offBaseCard(this, '505614086860')">🚫 Off Base</button>
       </div>
     </div>
     <div class="card" data-status="NEW" data-hubspot="505569329876">
@@ -753,6 +815,8 @@
         </a>
         <a href="https://app-na2.hubspot.com/contacts/246437386/record/0-1/505569329876" target="_blank" class="btn-hubspot">HubSpot</a>
         <button class="btn-sent" onclick="markSent('505569329876', this)">✅ Mark T1 Sent</button>
+        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
+        <button class="btn-offbase" onclick="offBaseCard(this, '505569329876')">🚫 Off Base</button>
       </div>
     </div>
     </div>
@@ -769,7 +833,7 @@
         setTimeout(() => btn.textContent = '📋 Copy', 2000);
       });
     }
-    
+
     function markSent(id, btn) {
       const card = btn.closest('.card');
       const badge = card.querySelector('.badge');
@@ -778,9 +842,38 @@
       btn.textContent = '✅ Sent';
       btn.disabled = true;
       btn.style.opacity = '0.5';
+      // Hide skip/offbase once sent
+      card.querySelectorAll('.btn-skip, .btn-offbase').forEach(b => b.style.display = 'none');
       showToast('Marked as T1 sent! Update HubSpot to confirm.');
     }
-    
+
+    function skipCard(btn) {
+      const card = btn.closest('.card');
+      card.style.transition = 'opacity 0.3s';
+      card.style.opacity = '0';
+      setTimeout(() => { card.style.display = 'none'; updateSkipCount(); }, 300);
+      showToast('Skipped — will carry over tomorrow.');
+    }
+
+    function offBaseCard(btn, id) {
+      const card = btn.closest('.card');
+      card.style.transition = 'opacity 0.3s';
+      card.style.opacity = '0';
+      setTimeout(() => { card.style.display = 'none'; updateOffBaseCount(); }, 300);
+      showToast('Marked Off Base — removed from queue.');
+    }
+
+    let skippedCount = 0;
+    let offBaseCount = 0;
+
+    function updateSkipCount() {
+      skippedCount++;
+    }
+
+    function updateOffBaseCount() {
+      offBaseCount++;
+    }
+
     function showToast(msg) {
       const t = document.getElementById('toast');
       t.textContent = msg;
