@@ -7,976 +7,248 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f1117; color: #e0e0e0; min-height: 100vh; }
-    .header { background: linear-gradient(135deg, #1a1f2e 0%, #0d1117 100%); border-bottom: 1px solid #30363d; padding: 24px 32px; display: flex; justify-content: space-between; align-items: center; }
-    .header h1 { font-size: 24px; font-weight: 700; color: #fff; }
+
+    .header { background: linear-gradient(135deg, #1a1f2e 0%, #0d1117 100%); border-bottom: 1px solid #30363d; padding: 20px 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .header h1 { font-size: 22px; font-weight: 700; color: #fff; }
     .header h1 span { color: #0077B5; }
-    .stats { display: flex; gap: 24px; }
+    .header-meta { font-size: 11px; color: #8b949e; margin-top: 4px; }
+    .stats { display: flex; gap: 20px; flex-wrap: wrap; }
     .stat { text-align: center; }
-    .stat-num { font-size: 28px; font-weight: 800; color: #0077B5; }
-    .stat-label { font-size: 11px; color: #8b949e; text-transform: uppercase; letter-spacing: 1px; }
-    .filters { padding: 16px 32px; background: #161b22; border-bottom: 1px solid #30363d; display: flex; gap: 12px; flex-wrap: wrap; }
-    .filter-btn { padding: 6px 16px; border-radius: 20px; border: 1px solid #30363d; background: transparent; color: #8b949e; cursor: pointer; font-size: 13px; transition: all 0.2s; }
+    .stat-num { font-size: 26px; font-weight: 800; color: #0077B5; }
+    .stat-label { font-size: 10px; color: #8b949e; text-transform: uppercase; letter-spacing: 1px; }
+
+    .filters { padding: 14px 32px; background: #161b22; border-bottom: 1px solid #30363d; display: flex; gap: 10px; flex-wrap: wrap; }
+    .filter-btn { padding: 5px 14px; border-radius: 20px; border: 1px solid #30363d; background: transparent; color: #8b949e; cursor: pointer; font-size: 12px; transition: all 0.2s; }
     .filter-btn.active { background: #0077B5; border-color: #0077B5; color: white; }
-    .filter-btn:hover { border-color: #0077B5; color: #0077B5; }
+    .filter-btn:hover:not(.active) { border-color: #0077B5; color: #58a6ff; }
+
     .container { padding: 24px 32px; max-width: 1400px; margin: 0 auto; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 20px; }
-    .card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
+    .section-title { font-size: 15px; font-weight: 700; color: #58a6ff; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #30363d; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 16px; margin-bottom: 40px; }
+
+    .card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; overflow: hidden; transition: transform 0.2s, opacity 0.3s; }
     .card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,119,181,0.15); }
     .card-header { padding: 16px 20px; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; background: #1c2128; border-bottom: 1px solid #30363d; }
     .company-name { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px; }
     .meta { font-size: 12px; color: #8b949e; }
-    .badge { padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; color: white; white-space: nowrap; }
+    .badge { padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+    .badge-new      { background: #1d4ed8; color: #bfdbfe; }
+    .badge-followed { background: #065f46; color: #a7f3d0; }
+    .badge-skipped  { background: #374151; color: #9ca3af; }
+    .badge-offbase  { background: #7f1d1d; color: #fca5a5; }
+
     .card-body { padding: 16px 20px; }
-    .revenue { font-size: 13px; color: #58a6ff; margin-bottom: 8px; }
+    .revenue { font-size: 13px; color: #58a6ff; margin-bottom: 8px; font-weight: 600; }
     .specialties { font-size: 12px; color: #8b949e; margin-bottom: 8px; line-height: 1.5; }
     .angle { font-size: 12px; color: #c9d1d9; line-height: 1.5; background: #0d1117; padding: 8px 12px; border-radius: 6px; border-left: 3px solid #0077B5; }
-    .card-footer { padding: 12px 20px; border-top: 1px solid #30363d; display: flex; align-items: center; gap: 12px; }
-    .btn-linkedin { display: inline-flex; align-items: center; gap: 8px; background: #0077B5; color: white; text-decoration: none; padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; transition: background 0.2s; }
+
+    .card-footer { padding: 12px 20px; border-top: 1px solid #30363d; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .btn-linkedin  { display: inline-flex; align-items: center; gap: 6px; background: #0077B5; color: white; text-decoration: none; padding: 7px 14px; border-radius: 6px; font-size: 12px; font-weight: 600; transition: background 0.2s; }
     .btn-linkedin:hover { background: #005885; }
-    .action-needed { font-size: 11px; color: #f0883e; font-weight: 600; }
-    .section-header { margin: 0 0 16px 0; }
-    .section-title { font-size: 18px; font-weight: 700; color: #fff; }
-    .section-count { font-size: 13px; color: #8b949e; margin-top: 4px; }
-    .section { margin-bottom: 40px; }
-    .last-updated { font-size: 11px; color: #8b949e; }
-    .btn-skip { background: transparent; border: 1px solid #8b949e; color: #8b949e; padding: 6px 12px; border-radius: 5px; font-size: 12px; cursor: pointer; transition: all 0.2s; }
+    .btn-followed  { background: transparent; border: 1px solid #4CAF50; color: #4CAF50; padding: 6px 12px; border-radius: 5px; font-size: 12px; cursor: pointer; transition: all 0.2s; margin-left: auto; }
+    .btn-followed:hover:not(:disabled) { background: #4CAF50; color: #000; }
+    .btn-followed:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn-skip    { background: transparent; border: 1px solid #8b949e; color: #8b949e; padding: 6px 10px; border-radius: 5px; font-size: 11px; cursor: pointer; transition: all 0.2s; }
     .btn-skip:hover { border-color: #f0883e; color: #f0883e; }
-    .btn-offbase { background: transparent; border: 1px solid #f85149; color: #f85149; padding: 6px 12px; border-radius: 5px; font-size: 12px; cursor: pointer; transition: all 0.2s; }
+    .btn-offbase { background: transparent; border: 1px solid #f85149; color: #f85149; padding: 6px 10px; border-radius: 5px; font-size: 11px; cursor: pointer; transition: all 0.2s; }
     .btn-offbase:hover { background: #f85149; color: #fff; }
-    .btn-followed { background: transparent; border: 1px solid #4CAF50; color: #4CAF50; padding: 6px 12px; border-radius: 5px; font-size: 12px; cursor: pointer; transition: all 0.2s; }
-    .btn-followed:hover { background: #4CAF50; color: #000; }
+
+    .loading { text-align: center; padding: 80px 20px; color: #8b949e; }
+    .loading-spinner { font-size: 32px; animation: spin 1s linear infinite; display: block; margin-bottom: 12px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .empty { text-align: center; padding: 60px 20px; color: #8b949e; }
+
+    .toast { position: fixed; bottom: 24px; right: 24px; background: #238636; color: white; padding: 12px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; opacity: 0; transition: opacity 0.3s; z-index: 999; pointer-events: none; }
+    .toast.show { opacity: 1; }
+    .toast.error { background: #da3633; }
   </style>
 </head>
 <body>
-  <div class="header">
-    <div>
-      <h1>CrewCast <span>Company Follow Portal</span></h1>
-      <p class="last-updated">Updated: Jun 19, 2026 08:11 PM ET</p>
-    </div>
-    <div class="stats">
-      <div class="stat">
-        <div class="stat-num">29</div>
-        <div class="stat-label">To Follow</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">7</div>
-        <div class="stat-label">Following</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">36</div>
-        <div class="stat-label">Total</div>
-      </div>
-    </div>
+
+<div class="header">
+  <div>
+    <h1>CrewCast <span>Company Follow Portal</span></h1>
+    <p class="header-meta" id="last-updated">Loading...</p>
   </div>
-
-  <div class="filters">
-    <button class="filter-btn active" onclick="filterCards('ALL')">All (36)</button>
-    <button class="filter-btn" onclick="filterCards('NEW')">🔵 To Follow (29)</button>
-    <button class="filter-btn" onclick="filterCards('FOLLOWED')">✅ Following (7)</button>
+  <div class="stats">
+    <div class="stat"><div class="stat-num" id="stat-new">—</div><div class="stat-label">To Follow</div></div>
+    <div class="stat"><div class="stat-num" id="stat-followed">—</div><div class="stat-label">Following</div></div>
+    <div class="stat"><div class="stat-num" id="stat-total">—</div><div class="stat-label">Total</div></div>
   </div>
+</div>
 
-  <div class="container">
-    <div class="grid" id="card-grid">
-      
-    <div class="card" data-status="NEW">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">Vaughn Construction</h3>
-          <p class="meta">General Contracting &bull; Houston, TX &bull; 1,000+ employees</p>
-        </div>
-        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $100M–$500M</p>
-        <p class="specialties"><strong>Specialties:</strong> Self-perform GC with 400 in-house craft workers, healthcare and education</p>
-        <p class="angle"><strong>Why CrewCast:</strong> 400 in-house craft workers managed in-house — perfect CrewCast use case</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/vaughn-construction" target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        <button class="btn-followed" onclick="markFollowed(this)">✅ Mark Followed</button>
-        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
-        <button class="btn-offbase" onclick="offBaseCard(this)">🚫 Off Base</button>
-      </div>
-    </div>
+<div class="filters">
+  <button class="filter-btn active" onclick="setFilter('ALL', this)">All</button>
+  <button class="filter-btn" onclick="setFilter('NEW', this)">🔵 To Follow</button>
+  <button class="filter-btn" onclick="setFilter('FOLLOWED', this)">✅ Following</button>
+  <button class="filter-btn" onclick="setFilter('SKIPPED', this)">⏭ Skipped</button>
+</div>
 
-    <div class="card" data-status="NEW">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">Rogers-O'Brien Construction</h3>
-          <p class="meta">General Contracting &bull; Dallas, TX &bull; 501–1,000 employees</p>
-        </div>
-        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $100M–$500M</p>
-        <p class="specialties"><strong>Specialties:</strong> Commercial general contractor, Texas market leader</p>
-        <p class="angle"><strong>Why CrewCast:</strong> Texas GC scaling rapidly — crew coordination complexity growing with volume</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/rogersobrien" target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        <button class="btn-followed" onclick="markFollowed(this)">✅ Mark Followed</button>
-        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
-        <button class="btn-offbase" onclick="offBaseCard(this)">🚫 Off Base</button>
-      </div>
-    </div>
-
-    <div class="card" data-status="NEW">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">Dragados USA, Inc.</h3>
-          <p class="meta">Heavy Civil &bull; New York, NY &bull; 1,001–5,000 employees</p>
-        </div>
-        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $1B+</p>
-        <p class="specialties"><strong>Specialties:</strong> Heavy civil infrastructure, bridges, tunnels, transit</p>
-        <p class="angle"><strong>Why CrewCast:</strong> Massive self-perform heavy civil crews on megaprojects — crew scheduling at scale</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/dragados-usa-inc." target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        <button class="btn-followed" onclick="markFollowed(this)">✅ Mark Followed</button>
-        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
-        <button class="btn-offbase" onclick="offBaseCard(this)">🚫 Off Base</button>
-      </div>
-    </div>
-
-    <div class="card" data-status="NEW">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">ARCO Design/Build</h3>
-          <p class="meta">Design-Build / General Contracting &bull; St. Louis, MO &bull; 500–1,000 employees</p>
-        </div>
-        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $500M–$1B</p>
-        <p class="specialties"><strong>Specialties:</strong> Industrial and commercial design-build, self-perform construction</p>
-        <p class="angle"><strong>Why CrewCast:</strong> Fast-track design-build model demands tight crew scheduling and real-time adjustments</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/arco-design-build" target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        <button class="btn-followed" onclick="markFollowed(this)">✅ Mark Followed</button>
-        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
-        <button class="btn-offbase" onclick="offBaseCard(this)">🚫 Off Base</button>
-      </div>
-    </div>
-
-    <div class="card" data-status="NEW">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">JRM Construction Management</h3>
-          <p class="meta">General Contracting / Construction Management &bull; New York, NY &bull; 201–500 employees</p>
-        </div>
-        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $100M–$500M</p>
-        <p class="specialties"><strong>Specialties:</strong> Commercial interiors, self-perform GC, NYC market</p>
-        <p class="angle"><strong>Why CrewCast:</strong> Dense urban self-perform environment with tight scheduling constraints</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/jrm-construction-management" target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        <button class="btn-followed" onclick="markFollowed(this)">✅ Mark Followed</button>
-        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
-        <button class="btn-offbase" onclick="offBaseCard(this)">🚫 Off Base</button>
-      </div>
-    </div>
-
-    <div class="card" data-status="NEW">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">Alberici Corporation</h3>
-          <p class="meta">Heavy Civil / General Contracting &bull; St. Louis, MO &bull; 1,001–5,000 employees</p>
-        </div>
-        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $1B+</p>
-        <p class="specialties"><strong>Specialties:</strong> Self-perform heavy civil, industrial, concrete, and building construction</p>
-        <p class="angle"><strong>Why CrewCast:</strong> Multi-division self-perform GC — complex crew mix across heavy civil and industrial</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/alberici-corporation" target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        <button class="btn-followed" onclick="markFollowed(this)">✅ Mark Followed</button>
-        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
-        <button class="btn-offbase" onclick="offBaseCard(this)">🚫 Off Base</button>
-      </div>
-    </div>
-
-    <div class="card" data-status="NEW">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">Crossland Construction Company</h3>
-          <p class="meta">General Contracting &bull; Columbus, KS &bull; 500–1,000 employees</p>
-        </div>
-        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $500M–$1B</p>
-        <p class="specialties"><strong>Specialties:</strong> Self-perform GC across commercial, industrial, and heavy civil</p>
-        <p class="angle"><strong>Why CrewCast:</strong> Family-owned self-perform GC with strong Midwest presence — crew-first culture</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/crossland-construction-company" target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        <button class="btn-followed" onclick="markFollowed(this)">✅ Mark Followed</button>
-        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
-        <button class="btn-offbase" onclick="offBaseCard(this)">🚫 Off Base</button>
-      </div>
-    </div>
-
-    <div class="card" data-status="NEW">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">Choate Construction Company</h3>
-          <p class="meta">General Contracting &bull; Atlanta, GA &bull; 500–1,000 employees</p>
-        </div>
-        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $500M–$1B</p>
-        <p class="specialties"><strong>Specialties:</strong> Self-perform base and interior construction, employee-owned</p>
-        <p class="angle"><strong>Why CrewCast:</strong> Employee-owned culture + self-perform workforce management aligns with CrewCast's scheduling value prop</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/choate-construction-company" target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        <button class="btn-followed" onclick="markFollowed(this)">✅ Mark Followed</button>
-        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
-        <button class="btn-offbase" onclick="offBaseCard(this)">🚫 Off Base</button>
-      </div>
-    </div>
-
-    <div class="card" data-status="NEW">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">Hoar Construction</h3>
-          <p class="meta">General Contracting &bull; Birmingham, AL &bull; 501–1,000 employees</p>
-        </div>
-        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $500M–$1B</p>
-        <p class="specialties"><strong>Specialties:</strong> Self-perform heavy civil, general construction, construction management</p>
-        <p class="angle"><strong>Why CrewCast:</strong> Multi-office self-perform GC with complex crew coordination needs</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/hoar-construction" target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        <button class="btn-followed" onclick="markFollowed(this)">✅ Mark Followed</button>
-        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
-        <button class="btn-offbase" onclick="offBaseCard(this)">🚫 Off Base</button>
-      </div>
-    </div>
-
-    <div class="card" data-status="NEW">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">Keeley Construction Group</h3>
-          <p class="meta">Heavy Civil / General Contracting &bull; St. Louis, MO &bull; 1,000–2,000 employees</p>
-        </div>
-        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $500M–$1B</p>
-        <p class="specialties"><strong>Specialties:</strong> Self-perform civil, paving, building, and industrial construction</p>
-        <p class="angle"><strong>Why CrewCast:</strong> Four distinct self-perform business groups — ideal for multi-crew scheduling</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/keeley-construction-group" target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        <button class="btn-followed" onclick="markFollowed(this)">✅ Mark Followed</button>
-        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
-        <button class="btn-offbase" onclick="offBaseCard(this)">🚫 Off Base</button>
-      </div>
-    </div>
-
-    <div class="card" data-status="NEW">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">Stacy and Witbeck, Inc.</h3>
-          <p class="meta">Heavy Civil & Infrastructure &bull; Kittanning, PA &bull; 800–1,500 employees</p>
-        </div>
-        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $250M–$400M</p>
-        <p class="specialties"><strong>Specialties:</strong> Heavy Civil, Tunneling, Underground, Concrete, Self-Perform</p>
-        <p class="angle"><strong>Why CrewCast:</strong> Self-performs major tunnel and underground work — critical need for specialized crew coordination</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/stacy-and-witbeck-inc/" target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        <button class="btn-followed" onclick="markFollowed(this)">✅ Mark Followed</button>
-        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
-        <button class="btn-offbase" onclick="offBaseCard(this)">🚫 Off Base</button>
-      </div>
-    </div>
-
-    <div class="card" data-status="NEW">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">Hubbard Construction Company</h3>
-          <p class="meta">Heavy Civil & Infrastructure &bull; Des Moines, IA &bull; 600–1,000 employees</p>
-        </div>
-        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $200M–$350M</p>
-        <p class="specialties"><strong>Specialties:</strong> Heavy Highway, Bridge, Concrete, Earthwork, Self-Perform</p>
-        <p class="angle"><strong>Why CrewCast:</strong> Multi-region design-build portfolio = workforce visibility challenge</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/hubbard-construction-company/" target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        <button class="btn-followed" onclick="markFollowed(this)">✅ Mark Followed</button>
-        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
-        <button class="btn-offbase" onclick="offBaseCard(this)">🚫 Off Base</button>
-      </div>
-    </div>
-
-    <div class="card" data-status="NEW">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">Baker Construction</h3>
-          <p class="meta">Concrete / Heavy Civil &bull; Cincinnati, OH &bull; 3,000+ employees</p>
-        </div>
-        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $1B+</p>
-        <p class="specialties"><strong>Specialties:</strong> Self-perform concrete, tilt-up, industrial flooring</p>
-        <p class="angle"><strong>Why CrewCast:</strong> Largest self-perform concrete contractor in the US — crew density is the whole game</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/baker-construction" target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        <button class="btn-followed" onclick="markFollowed(this)">✅ Mark Followed</button>
-        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
-        <button class="btn-offbase" onclick="offBaseCard(this)">🚫 Off Base</button>
-      </div>
-    </div>
-
-    <div class="card" data-status="NEW">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">Ames Construction</h3>
-          <p class="meta">Heavy Civil &bull; Burnsville, MN &bull; 2,000+ employees</p>
-        </div>
-        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $1B+</p>
-        <p class="specialties"><strong>Specialties:</strong> Earthwork, highways, dams, mining infrastructure, self-perform</p>
-        <p class="angle"><strong>Why CrewCast:</strong> Major self-perform heavy civil across 15+ states — complex multi-project crew management</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/ames-construction" target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        <button class="btn-followed" onclick="markFollowed(this)">✅ Mark Followed</button>
-        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
-        <button class="btn-offbase" onclick="offBaseCard(this)">🚫 Off Base</button>
-      </div>
-    </div>
-
-    <div class="card" data-status="NEW">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">Kiewit Corporation</h3>
-          <p class="meta">Heavy Civil / Infrastructure &bull; Omaha, NE &bull; 10,000+ employees</p>
-        </div>
-        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $10B+</p>
-        <p class="specialties"><strong>Specialties:</strong> Heavy civil, mining, power, oil & gas, self-perform</p>
-        <p class="angle"><strong>Why CrewCast:</strong> The gold standard self-perform heavy civil contractor — multi-billion dollar crew management</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/kiewit" target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        <button class="btn-followed" onclick="markFollowed(this)">✅ Mark Followed</button>
-        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
-        <button class="btn-offbase" onclick="offBaseCard(this)">🚫 Off Base</button>
-      </div>
-    </div>
-
-    <div class="card" data-status="NEW">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">Primoris Services Corporation</h3>
-          <p class="meta">Specialty / Heavy Civil &bull; Dallas, TX &bull; 5,000+ employees</p>
-        </div>
-        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $4B+</p>
-        <p class="specialties"><strong>Specialties:</strong> Self-perform utilities, pipeline, civil, power, industrial</p>
-        <p class="angle"><strong>Why CrewCast:</strong> Multi-division self-perform contractor across energy and infrastructure — massive scheduling need</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/primoris-services-corporation" target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        <button class="btn-followed" onclick="markFollowed(this)">✅ Mark Followed</button>
-        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
-        <button class="btn-offbase" onclick="offBaseCard(this)">🚫 Off Base</button>
-      </div>
-    </div>
-
-    <div class="card" data-status="NEW">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">Rosendin Electric</h3>
-          <p class="meta">Electrical Contracting &bull; San Jose, CA &bull; 5,000+ employees</p>
-        </div>
-        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $2B+</p>
-        <p class="specialties"><strong>Specialties:</strong> Self-perform electrical, data centers, renewable energy</p>
-        <p class="angle"><strong>Why CrewCast:</strong> Largest employee-owned electrical contractor — complex multi-site crew deployment</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/rosendin-electric" target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        <button class="btn-followed" onclick="markFollowed(this)">✅ Mark Followed</button>
-        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
-        <button class="btn-offbase" onclick="offBaseCard(this)">🚫 Off Base</button>
-      </div>
-    </div>
-
-    <div class="card" data-status="NEW">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">Michels Corporation</h3>
-          <p class="meta">Utility / Heavy Civil &bull; Brownsville, WI &bull; 5,000+ employees</p>
-        </div>
-        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $3B+</p>
-        <p class="specialties"><strong>Specialties:</strong> Self-perform pipeline, power, telecommunications, heavy civil</p>
-        <p class="angle"><strong>Why CrewCast:</strong> Massive self-perform utility contractor with crews across dozens of active projects simultaneously</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/michels-corp" target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        <button class="btn-followed" onclick="markFollowed(this)">✅ Mark Followed</button>
-        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
-        <button class="btn-offbase" onclick="offBaseCard(this)">🚫 Off Base</button>
-      </div>
-    </div>
-
-    <div class="card" data-status="NEW">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">MYR Group Inc.</h3>
-          <p class="meta">Electrical Contracting &bull; Rolling Meadows, IL &bull; 6,000+ employees</p>
-        </div>
-        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $3B+</p>
-        <p class="specialties"><strong>Specialties:</strong> Self-perform electrical construction, transmission, distribution, commercial</p>
-        <p class="angle"><strong>Why CrewCast:</strong> Multi-subsidiary electrical contractor — crew deployment across T&D and commercial is their core complexity</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/myr-group" target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        <button class="btn-followed" onclick="markFollowed(this)">✅ Mark Followed</button>
-        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
-        <button class="btn-offbase" onclick="offBaseCard(this)">🚫 Off Base</button>
-      </div>
-    </div>
-
-    <div class="card" data-status="NEW">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">Skanska USA Civil</h3>
-          <p class="meta">Heavy Civil &bull; New York, NY &bull; 10,000+ employees</p>
-        </div>
-        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $5B+</p>
-        <p class="specialties"><strong>Specialties:</strong> Self-perform bridges, tunnels, highways, transit megaprojects</p>
-        <p class="angle"><strong>Why CrewCast:</strong> Major heavy civil megaproject contractor — self-perform crews on billion-dollar jobs</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/skanska-usa" target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        <button class="btn-followed" onclick="markFollowed(this)">✅ Mark Followed</button>
-        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
-        <button class="btn-offbase" onclick="offBaseCard(this)">🚫 Off Base</button>
-      </div>
-    </div>
-
-    <div class="card" data-status="NEW">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">Helix Electric</h3>
-          <p class="meta">Electrical Contracting &bull; San Diego, CA &bull; 1,500+ employees</p>
-        </div>
-        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $500M–$1B</p>
-        <p class="specialties"><strong>Specialties:</strong> Self-perform commercial and industrial electrical</p>
-        <p class="angle"><strong>Why CrewCast:</strong> West Coast electrical self-performer scaling nationally — crew coordination across regions</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/helix-electric" target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        <button class="btn-followed" onclick="markFollowed(this)">✅ Mark Followed</button>
-        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
-        <button class="btn-offbase" onclick="offBaseCard(this)">🚫 Off Base</button>
-      </div>
-    </div>
-
-    <div class="card" data-status="NEW">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">Granite Construction Company</h3>
-          <p class="meta">Heavy Civil &bull; Watsonville, CA &bull; 5,500+ employees</p>
-        </div>
-        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $3B+</p>
-        <p class="specialties"><strong>Specialties:</strong> Self-perform highways, tunnels, heavy civil, aggregates</p>
-        <p class="angle"><strong>Why CrewCast:</strong> Full self-perform heavy civil across western US — massive crew-to-project coordination challenge</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/granite-construction" target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        <button class="btn-followed" onclick="markFollowed(this)">✅ Mark Followed</button>
-        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
-        <button class="btn-offbase" onclick="offBaseCard(this)">🚫 Off Base</button>
-      </div>
-    </div>
-
-    <div class="card" data-status="FOLLOWED">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">Sundt Construction</h3>
-          <p class="meta">General Contracting &bull; Tempe, AZ &bull; 2,000+ employees</p>
-        </div>
-        <span class="badge" style="background:#4CAF50">✅ Following</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $2B+</p>
-        <p class="specialties"><strong>Specialties:</strong> Self-perform concrete, earthwork, electrical, general construction</p>
-        <p class="angle"><strong>Why CrewCast:</strong> One of the most self-perform-heavy GCs in the US — embedded craft workforce is their differentiator</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/sundt-construction-inc" target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        
-      </div>
-    </div>
-
-    <div class="card" data-status="FOLLOWED">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">Lunda Construction Company</h3>
-          <p class="meta">Heavy Civil / Bridge &bull; Black River Falls, WI &bull; 1,000+ employees</p>
-        </div>
-        <span class="badge" style="background:#4CAF50">✅ Following</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $500M–$1B</p>
-        <p class="specialties"><strong>Specialties:</strong> Self-perform bridge, highway, marine, heavy civil</p>
-        <p class="angle"><strong>Why CrewCast:</strong> Specialist bridge builder with 100% self-perform model — crew expertise and scheduling is everything</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/lunda-construction" target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        
-      </div>
-    </div>
-
-    <div class="card" data-status="FOLLOWED">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">Pepper Construction</h3>
-          <p class="meta">General Contracting &bull; Chicago, IL &bull; 1,500+ employees</p>
-        </div>
-        <span class="badge" style="background:#4CAF50">✅ Following</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $1B+</p>
-        <p class="specialties"><strong>Specialties:</strong> Self-perform GC, concrete, healthcare, education</p>
-        <p class="angle"><strong>Why CrewCast:</strong> Midwest's largest private GC with strong self-perform concrete division</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/pepper-construction" target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        
-      </div>
-    </div>
-
-    <div class="card" data-status="FOLLOWED">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">Barton Malow Company</h3>
-          <p class="meta">General Contracting &bull; Southfield, MI &bull; 2,500+ employees</p>
-        </div>
-        <span class="badge" style="background:#4CAF50">✅ Following</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $2B+</p>
-        <p class="specialties"><strong>Specialties:</strong> Self-perform concrete, structural steel, earthwork, industrial</p>
-        <p class="angle"><strong>Why CrewCast:</strong> Family-owned GC with deep self-perform roots across industrial and commercial</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/barton-malow" target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        
-      </div>
-    </div>
-
-    <div class="card" data-status="NEW">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">Traylor Bros., Inc.</h3>
-          <p class="meta">Heavy Civil / Tunneling &bull; Evansville, IN &bull; 500–1,000 employees</p>
-        </div>
-        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $500M–$1B</p>
-        <p class="specialties"><strong>Specialties:</strong> Self-perform tunneling, bridges, marine, underground</p>
-        <p class="angle"><strong>Why CrewCast:</strong> Specialist underground contractor — highly skilled crews with complex scheduling across long-duration projects</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/traylor-brothers-inc" target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        <button class="btn-followed" onclick="markFollowed(this)">✅ Mark Followed</button>
-        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
-        <button class="btn-offbase" onclick="offBaseCard(this)">🚫 Off Base</button>
-      </div>
-    </div>
-
-    <div class="card" data-status="FOLLOWED">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">Anderson Columbia Co., Inc.</h3>
-          <p class="meta">Heavy Civil / Highway &bull; Lake City, FL &bull; 1,000+ employees</p>
-        </div>
-        <span class="badge" style="background:#4CAF50">✅ Following</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $500M–$1B</p>
-        <p class="specialties"><strong>Specialties:</strong> Self-perform highway, bridge, earthwork, utilities</p>
-        <p class="angle"><strong>Why CrewCast:</strong> Florida's largest heavy civil contractor — self-perform across every trade on roadway projects</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/anderson-columbia" target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        
-      </div>
-    </div>
-
-    <div class="card" data-status="NEW">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">Boh Bros. Construction Co.</h3>
-          <p class="meta">Heavy Civil / Marine &bull; New Orleans, LA &bull; 500–1,000 employees</p>
-        </div>
-        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $250M–$500M</p>
-        <p class="specialties"><strong>Specialties:</strong> Self-perform heavy civil, marine, pile driving, bridge</p>
-        <p class="angle"><strong>Why CrewCast:</strong> Gulf Coast specialist — marine and pile-driving crews require precision scheduling</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/boh-bros-construction" target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        <button class="btn-followed" onclick="markFollowed(this)">✅ Mark Followed</button>
-        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
-        <button class="btn-offbase" onclick="offBaseCard(this)">🚫 Off Base</button>
-      </div>
-    </div>
-
-    <div class="card" data-status="NEW">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">Garco Construction</h3>
-          <p class="meta">General Contracting &bull; Spokane, WA &bull; 200–500 employees</p>
-        </div>
-        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $100M–$250M</p>
-        <p class="specialties"><strong>Specialties:</strong> Self-perform GC, concrete, industrial, commercial</p>
-        <p class="angle"><strong>Why CrewCast:</strong> Pacific Northwest self-perform GC with strong industrial base</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/garco-construction" target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        <button class="btn-followed" onclick="markFollowed(this)">✅ Mark Followed</button>
-        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
-        <button class="btn-offbase" onclick="offBaseCard(this)">🚫 Off Base</button>
-      </div>
-    </div>
-
-    <div class="card" data-status="NEW">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">Crossland Heavy Contractors</h3>
-          <p class="meta">Heavy Civil &bull; Columbus, KS &bull; 500–1,000 employees</p>
-        </div>
-        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $500M–$1B</p>
-        <p class="specialties"><strong>Specialties:</strong> Self-perform earthwork, utilities, heavy civil</p>
-        <p class="angle"><strong>Why CrewCast:</strong> Dedicated heavy civil arm with full self-perform crews across Midwest and South</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/crossland-heavy-contractors" target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        <button class="btn-followed" onclick="markFollowed(this)">✅ Mark Followed</button>
-        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
-        <button class="btn-offbase" onclick="offBaseCard(this)">🚫 Off Base</button>
-      </div>
-    </div>
-
-    <div class="card" data-status="NEW">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">Wanzek Construction</h3>
-          <p class="meta">Heavy Civil / Renewables &bull; Fargo, ND &bull; 2,000+ employees</p>
-        </div>
-        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $1B+</p>
-        <p class="specialties"><strong>Specialties:</strong> Self-perform wind, solar, power, and industrial construction</p>
-        <p class="angle"><strong>Why CrewCast:</strong> Largest renewable energy constructor in the US — managing mobile craft crews across 20+ simultaneous projects</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/wanzek-construction" target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        <button class="btn-followed" onclick="markFollowed(this)">✅ Mark Followed</button>
-        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
-        <button class="btn-offbase" onclick="offBaseCard(this)">🚫 Off Base</button>
-      </div>
-    </div>
-
-    <div class="card" data-status="NEW">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">Allan Myers Inc.</h3>
-          <p class="meta">Heavy Civil / Highway &bull; Worcester, PA &bull; 2,000+ employees</p>
-        </div>
-        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $1B+</p>
-        <p class="specialties"><strong>Specialties:</strong> Self-perform highway, bridge, underground utilities, earthwork</p>
-        <p class="angle"><strong>Why CrewCast:</strong> Mid-Atlantic's largest heavy civil contractor — full self-perform across highway and utility trades</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/allan-myers" target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        <button class="btn-followed" onclick="markFollowed(this)">✅ Mark Followed</button>
-        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
-        <button class="btn-offbase" onclick="offBaseCard(this)">🚫 Off Base</button>
-      </div>
-    </div>
-
-    <div class="card" data-status="NEW">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">Ranger Construction Industries, Inc.</h3>
-          <p class="meta">Heavy Civil / Highway &bull; West Palm Beach, FL &bull; 500–1,000 employees</p>
-        </div>
-        <span class="badge" style="background:#2196F3">🔵 New — Follow Page</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $250M–$500M</p>
-        <p class="specialties"><strong>Specialties:</strong> Self-perform paving, bridge, earthwork, utilities in Florida</p>
-        <p class="angle"><strong>Why CrewCast:</strong> South Florida's dominant heavy highway contractor — high-volume paving crews across multiple DOT projects</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/ranger-construction-industries" target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        <button class="btn-followed" onclick="markFollowed(this)">✅ Mark Followed</button>
-        <button class="btn-skip" onclick="skipCard(this)">⏭ Skip</button>
-        <button class="btn-offbase" onclick="offBaseCard(this)">🚫 Off Base</button>
-      </div>
-    </div>
-
-    <div class="card" data-status="FOLLOWED">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">Helix Electric, Inc.</h3>
-          <p class="meta">Electrical Contracting &bull; San Diego, CA &bull; 1,500+ employees</p>
-        </div>
-        <span class="badge" style="background:#4CAF50">✅ Following</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $500M–$1B</p>
-        <p class="specialties"><strong>Specialties:</strong> Self-perform commercial and industrial electrical</p>
-        <p class="angle"><strong>Why CrewCast:</strong> West Coast electrical self-performer scaling nationally</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/helix-electric" target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        
-      </div>
-    </div>
-
-    <div class="card" data-status="FOLLOWED">
-      <div class="card-header">
-        <div>
-          <h3 class="company-name">Webcor Builders</h3>
-          <p class="meta">General Contracting &bull; San Francisco, CA &bull; 1,000+ employees</p>
-        </div>
-        <span class="badge" style="background:#4CAF50">✅ Following</span>
-      </div>
-      <div class="card-body">
-        <p class="revenue">💰 $1B+</p>
-        <p class="specialties"><strong>Specialties:</strong> Self-perform concrete, carpentry, general construction</p>
-        <p class="angle"><strong>Why CrewCast:</strong> California's self-perform GC leader — union crews, high-rise concrete, complex scheduling</p>
-      </div>
-      <div class="card-footer">
-        <a href="https://www.linkedin.com/company/webcor-builders" target="_blank" class="btn btn-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View on LinkedIn
-        </a>
-        
-      </div>
-    </div>
-
-    </div>
+<div class="container">
+  <div id="grid-wrapper">
+    <div class="loading"><span class="loading-spinner">⚙️</span>Loading companies...</div>
   </div>
+</div>
 
-  <script>
-    function filterCards(status) {
-      document.querySelectorAll('.card').forEach(c => {
-        c.style.display = (status === 'ALL' || c.dataset.status === status) ? '' : 'none';
+<div class="toast" id="toast"></div>
+
+<script>
+  const API_BASE = 'https://base44.app/api/apps/6a274334d6b0962f39294123/functions';
+  let allCompanies = [];
+  let currentFilter = 'ALL';
+
+  async function loadCompanies() {
+    try {
+      const res  = await fetch(API_BASE + '/getCompanyStatuses', { method: 'POST', headers: {'Content-Type':'application/json'}, body: '{}' });
+      const data = await res.json();
+      allCompanies = (data.companies || []).filter(c => c.status !== 'OFF_BASE');
+      renderAll();
+      updateStats();
+      document.getElementById('last-updated').textContent =
+        'Live data · ' + new Date().toLocaleString('en-US', { timeZone: 'America/New_York', month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true }) + ' ET';
+    } catch(e) {
+      document.getElementById('grid-wrapper').innerHTML = '<div class="empty">⚠️ Error loading companies. Refresh to try again.</div>';
+    }
+  }
+
+  function updateStats() {
+    const visible = allCompanies.filter(c => c.status !== 'OFF_BASE');
+    document.getElementById('stat-new').textContent      = visible.filter(c => c.status === 'NEW' || !c.status).length;
+    document.getElementById('stat-followed').textContent = visible.filter(c => c.status === 'FOLLOWED').length;
+    document.getElementById('stat-total').textContent    = visible.length;
+  }
+
+  function setFilter(f, btn) {
+    currentFilter = f;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderAll();
+  }
+
+  function matchesFilter(c) {
+    const s = c.status || 'NEW';
+    if (currentFilter === 'ALL') return true;
+    return s === currentFilter;
+  }
+
+  function renderAll() {
+    const visible = allCompanies.filter(matchesFilter);
+    const wrapper = document.getElementById('grid-wrapper');
+    if (visible.length === 0) {
+      wrapper.innerHTML = '<div class="empty">Nothing here — try a different filter.</div>';
+      return;
+    }
+    wrapper.innerHTML = `<div class="section-title">${visible.length} compan${visible.length !== 1 ? 'ies' : 'y'}</div><div class="grid" id="main-grid"></div>`;
+    const grid = document.getElementById('main-grid');
+    visible.forEach(c => grid.appendChild(buildCard(c)));
+  }
+
+  function buildCard(c) {
+    const status = c.status || 'NEW';
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.dataset.id     = c.id;
+    div.dataset.status = status;
+
+    const badgeMap = {
+      NEW:      ['badge-new',      '🔵 To Follow'],
+      FOLLOWED: ['badge-followed', '✅ Following'],
+      SKIPPED:  ['badge-skipped',  '⏭ Skipped'],
+      OFF_BASE: ['badge-offbase',  '🚫 Off Base'],
+    };
+    const [badgeClass, badgeLabel] = badgeMap[status] || badgeMap.NEW;
+
+    const metaParts = [c.sector || '', c.headquarters || '', c.employee_count ? c.employee_count + ' employees' : ''].filter(Boolean).join(' · ');
+    const angle = c.engagement_angle || c.follow_strategy || '';
+    const revenue = c.revenue_estimate || '';
+
+    const actionBtn = status === 'NEW' || status === 'SKIPPED'
+      ? `<button class="btn-followed" onclick="markFollowed('${c.id}', this)">✅ Mark Followed</button>`
+      : `<button class="btn-followed" disabled>✅ Following</button>`;
+
+    const skipOffBase = status !== 'FOLLOWED'
+      ? `<button class="btn-skip"    onclick="markStatus('${c.id}','SKIPPED',this)">⏭ Skip</button>
+         <button class="btn-offbase" onclick="markStatus('${c.id}','OFF_BASE',this)">🚫 Off Base</button>`
+      : '';
+
+    div.innerHTML = `
+      <div class="card-header">
+        <div>
+          <h3 class="company-name">${esc(c.company_name || 'Unknown')}</h3>
+          <p class="meta">${esc(metaParts)}</p>
+        </div>
+        <span class="badge ${badgeClass}">${badgeLabel}</span>
+      </div>
+      <div class="card-body">
+        ${revenue ? `<p class="revenue">💰 ${esc(revenue)}</p>` : ''}
+        ${angle ? `<p class="angle"><strong>Why CrewCast:</strong> ${esc(angle)}</p>` : ''}
+      </div>
+      <div class="card-footer">
+        <a href="${esc(c.linkedin_url || '#')}" target="_blank" class="btn-linkedin">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View on LinkedIn
+        </a>
+        ${actionBtn}
+        ${skipOffBase}
+      </div>`;
+
+    return div;
+  }
+
+  async function markFollowed(id, btn) {
+    await markStatus(id, 'FOLLOWED', btn);
+  }
+
+  async function markStatus(id, newStatus, btn) {
+    btn.disabled = true;
+    const orig = btn.textContent;
+    btn.textContent = '...';
+
+    try {
+      const res = await fetch(API_BASE + '/updateCompanyStatus', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, status: newStatus })
       });
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      event.target.classList.add('active');
-    }
+      const data = await res.json();
+      if (!data.success) throw new Error(data.error);
 
-    function markFollowed(btn) {
-      const card = btn.closest('.card');
-      card.dataset.status = 'FOLLOWED';
-      const badge = card.querySelector('.badge');
-      badge.textContent = '✅ Following';
-      badge.style.background = '#065f46';
-      btn.textContent = '✅ Following';
-      btn.disabled = true;
-      btn.style.opacity = '0.5';
-      card.querySelectorAll('.btn-skip, .btn-offbase').forEach(b => b.style.display = 'none');
-      const span = card.querySelector('.action-needed');
-      if (span) span.style.display = 'none';
-      showToast('Marked as Following!');
-    }
+      // Update local state
+      const c = allCompanies.find(x => x.id === id);
+      if (c) c.status = newStatus;
 
-    function skipCard(btn) {
-      const card = btn.closest('.card');
-      card.style.transition = 'opacity 0.3s';
-      card.style.opacity = '0';
-      setTimeout(() => { card.style.display = 'none'; }, 300);
-      showToast('Skipped — will carry over tomorrow.');
-    }
+      if (newStatus === 'OFF_BASE' || newStatus === 'SKIPPED') {
+        const card = btn.closest('.card');
+        card.style.opacity = '0';
+        setTimeout(() => { card.style.display = 'none'; updateStats(); }, 300);
+      } else {
+        const card = btn.closest('.card');
+        const newCard = buildCard(c);
+        card.replaceWith(newCard);
+        updateStats();
+      }
 
-    function offBaseCard(btn) {
-      const card = btn.closest('.card');
-      card.style.transition = 'opacity 0.3s';
-      card.style.opacity = '0';
-      setTimeout(() => { card.style.display = 'none'; }, 300);
-      showToast('Marked Off Base — removed from queue.');
+      const msgs = { FOLLOWED: 'Marked as Following ✅', SKIPPED: 'Skipped — carries over tomorrow', OFF_BASE: 'Marked Off Base' };
+      showToast(msgs[newStatus] || 'Updated!');
+    } catch(e) {
+      btn.disabled = false;
+      btn.textContent = orig;
+      showToast('Error saving — try again', true);
     }
+  }
 
-    function showToast(msg) {
-      const t = document.getElementById('toast');
-      t.textContent = msg;
-      t.style.opacity = '1';
-      setTimeout(() => t.style.opacity = '0', 3000);
-    }
-  </script>
+  function showToast(msg, isError = false) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast show' + (isError ? ' error' : '');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  function esc(s) {
+    return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  loadCompanies();
+</script>
 </body>
 </html>
