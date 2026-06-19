@@ -36,6 +36,7 @@
     .badge-followed { background: #065f46; color: #a7f3d0; }
     .badge-skipped  { background: #374151; color: #9ca3af; }
     .badge-offbase  { background: #7f1d1d; color: #fca5a5; }
+    .badge-badlink  { background: #78350f; color: #fde68a; }
 
     .card-body { padding: 16px 20px; }
     .revenue { font-size: 13px; color: #58a6ff; margin-bottom: 8px; font-weight: 600; }
@@ -101,7 +102,7 @@
     try {
       const res  = await fetch(API_BASE + '/getCompanyStatuses', { method: 'POST', headers: {'Content-Type':'application/json'}, body: '{}' });
       const data = await res.json();
-      allCompanies = (data.companies || []).filter(c => c.status !== 'OFF_BASE');
+      allCompanies = (data.companies || []).filter(c => c.status !== 'OFF_BASE' && c.status !== 'BAD_LINK');
       renderAll();
       updateStats();
       document.getElementById('last-updated').textContent =
@@ -112,7 +113,7 @@
   }
 
   function updateStats() {
-    const visible = allCompanies.filter(c => c.status !== 'OFF_BASE');
+    const visible = allCompanies.filter(c => c.status !== 'OFF_BASE' && c.status !== 'BAD_LINK');
     document.getElementById('stat-new').textContent      = visible.filter(c => c.status === 'NEW' || !c.status).length;
     document.getElementById('stat-followed').textContent = visible.filter(c => c.status === 'FOLLOWED').length;
     document.getElementById('stat-total').textContent    = visible.length;
@@ -155,6 +156,7 @@
       FOLLOWED: ['badge-followed', '✅ Following'],
       SKIPPED:  ['badge-skipped',  '⏭ Skipped'],
       OFF_BASE: ['badge-offbase',  '🚫 Off Base'],
+      BAD_LINK: ['badge-badlink',  '⚠️ Bad Link'],
     };
     const [badgeClass, badgeLabel] = badgeMap[status] || badgeMap.NEW;
 
@@ -168,7 +170,8 @@
 
     const skipOffBase = status !== 'FOLLOWED'
       ? `<button class="btn-skip"    onclick="markStatus('${c.id}','SKIPPED',this)">⏭ Skip</button>
-         <button class="btn-offbase" onclick="markStatus('${c.id}','OFF_BASE',this)">🚫 Off Base</button>`
+         <button class="btn-offbase" onclick="markStatus('${c.id}','OFF_BASE',this)">🚫 Off Base</button>
+         <button class="btn-offbase" style="background:#78350f" onclick="markStatus('${c.id}','BAD_LINK',this)">⚠️ Bad Link</button>`
       : '';
 
     div.innerHTML = `
@@ -217,7 +220,7 @@
       const c = allCompanies.find(x => x.id === id);
       if (c) c.status = newStatus;
 
-      if (newStatus === 'OFF_BASE' || newStatus === 'SKIPPED') {
+      if (newStatus === 'OFF_BASE' || newStatus === 'SKIPPED' || newStatus === 'BAD_LINK') {
         const card = btn.closest('.card');
         card.style.opacity = '0';
         setTimeout(() => { card.style.display = 'none'; updateStats(); }, 300);
@@ -228,7 +231,7 @@
         updateStats();
       }
 
-      const msgs = { FOLLOWED: 'Marked as Following ✅', SKIPPED: 'Skipped — carries over tomorrow', OFF_BASE: 'Marked Off Base' };
+      const msgs = { FOLLOWED: 'Marked as Following ✅', SKIPPED: 'Skipped — carries over tomorrow', OFF_BASE: 'Marked Off Base', BAD_LINK: '⚠️ Flagged as bad link' };
       showToast(msgs[newStatus] || 'Updated!');
     } catch(e) {
       btn.disabled = false;
