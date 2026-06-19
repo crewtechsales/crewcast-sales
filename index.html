@@ -47,6 +47,7 @@
     .badge-done    { background: #374151; color: #9ca3af; }
     .badge-skipped { background: #374151; color: #9ca3af; }
     .badge-offbase { background: #7f1d1d; color: #fca5a5; }
+    .badge-badlink { background: #78350f; color: #fde68a; }
 
     /* TOUCH TABS */
     .touch-tabs { display: flex; gap: 6px; padding: 10px 16px 0; }
@@ -188,6 +189,7 @@
     document.getElementById('stat-t1').textContent   = es.filter(s => s === 'SENT_T1').length;
     document.getElementById('stat-t2').textContent   = es.filter(s => s === 'SENT_T2').length;
     document.getElementById('stat-done').textContent = allProspects.filter(p => p.status === 'SENT_T3' || p.status === 'OFF_BASE').length;
+    document.getElementById('stat-badlink') && (document.getElementById('stat-badlink').textContent = allProspects.filter(p => p.status === 'BAD_LINK').length);
   }
 
   // ── Filter ───────────────────────────────────────────────────
@@ -200,7 +202,7 @@
 
   function matchesFilter(p) {
     const es = effectiveStatus(p);
-    if (currentFilter === 'ALL') return p.status !== 'OFF_BASE';
+    if (currentFilter === 'ALL') return p.status !== 'OFF_BASE' && p.status !== 'BAD_LINK';
     if (currentFilter === 'T2_READY') return es === 'T2_READY';
     if (currentFilter === 'T3_READY') return es === 'T3_READY';
     return p.status === currentFilter;
@@ -242,6 +244,7 @@
       SENT_T3:  ['badge-done',    '✅ All Done'],
       SKIPPED:  ['badge-skipped', '⏭ Skipped'],
       OFF_BASE: ['badge-offbase', '🚫 Off Base'],
+      BAD_LINK: ['badge-badlink', '⚠️ Bad Link'],
     }[es] || ['badge-new', '🔵 New'];
 
     const companyLine = [p.company, p.state].filter(Boolean).join(' · ');
@@ -294,9 +297,10 @@
       actionBtn = `<button class="btn-sent" disabled>⏳ Waiting...</button>`;
     }
 
-    const skipOffBase = p.status !== 'SENT_T3' && p.status !== 'OFF_BASE'
+    const skipOffBase = p.status !== 'SENT_T3' && p.status !== 'OFF_BASE' && p.status !== 'BAD_LINK'
       ? `<button class="btn-skip"    onclick="markStatus('${p.hubspot_id}','SKIPPED',this)">⏭ Skip</button>
-         <button class="btn-offbase" onclick="markStatus('${p.hubspot_id}','OFF_BASE',this)">🚫 Off Base</button>`
+         <button class="btn-offbase" onclick="markStatus('${p.hubspot_id}','OFF_BASE',this)">🚫 Off Base</button>
+         <button class="btn-offbase" style="background:#78350f" onclick="markStatus('${p.hubspot_id}','BAD_LINK',this)">⚠️ Bad Link</button>`
       : '';
 
     const hsLink = `https://app-na2.hubspot.com/contacts/246437386/record/0-1/${p.hubspot_id}`;
@@ -409,7 +413,7 @@
       }
 
       // If hiding from current view, fade card out
-      if (newStatus === 'SKIPPED' || newStatus === 'OFF_BASE') {
+      if (newStatus === 'SKIPPED' || newStatus === 'OFF_BASE' || newStatus === 'BAD_LINK') {
         const card = btn.closest('.card');
         card.style.opacity = '0';
         setTimeout(() => { card.style.display = 'none'; updateStats(); }, 300);
@@ -421,7 +425,7 @@
         updateStats();
       }
 
-      const msgs = { SENT_T1: 'T1 marked sent ✅', SENT_T2: 'T2 marked sent ✅', SENT_T3: '🎉 All 3 touches complete!', SKIPPED: 'Skipped — carries over tomorrow', OFF_BASE: 'Marked Off Base' };
+      const msgs = { SENT_T1: 'T1 marked sent ✅', SENT_T2: 'T2 marked sent ✅', SENT_T3: '🎉 All 3 touches complete!', SKIPPED: 'Skipped — carries over tomorrow', OFF_BASE: 'Marked Off Base', BAD_LINK: '⚠️ Flagged as bad link' };
       showToast(msgs[newStatus] || 'Updated!');
     } catch(e) {
       btn.disabled = false;
