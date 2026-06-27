@@ -42,6 +42,7 @@
     .badge { padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; white-space: nowrap; }
     .badge-new     { background: #1d4ed8; color: #bfdbfe; }
     .badge-t1      { background: #92400e; color: #fde68a; }
+    .badge-connected { background: #7c3aed; color: #ddd6fe; }
     .badge-t2      { background: #7c3aed; color: #ddd6fe; }
     .badge-t3      { background: #065f46; color: #a7f3d0; }
     .badge-done    { background: #374151; color: #9ca3af; }
@@ -80,6 +81,8 @@
     .btn-sent   { background: transparent; border: 1px solid #4CAF50; color: #4CAF50; padding: 5px 12px; border-radius: 5px; font-size: 12px; cursor: pointer; transition: all 0.2s; margin-left: auto; }
     .btn-sent:hover:not(:disabled) { background: #4CAF50; color: #000; }
     .btn-sent:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn-connected { background: transparent; border: 1px solid #7c3aed; color: #7c3aed; padding: 5px 12px; border-radius: 5px; font-size: 12px; cursor: pointer; transition: all 0.2s; margin-left: auto; }
+    .btn-connected:hover { background: #7c3aed; color: #fff; }
     .btn-skip   { background: transparent; border: 1px solid #8b949e; color: #8b949e; padding: 5px 10px; border-radius: 5px; font-size: 11px; cursor: pointer; transition: all 0.2s; }
     .btn-skip:hover { border-color: #f0883e; color: #f0883e; }
     .btn-offbase { background: transparent; border: 1px solid #f85149; color: #f85149; padding: 5px 10px; border-radius: 5px; font-size: 11px; cursor: pointer; transition: all 0.2s; }
@@ -115,7 +118,8 @@
 <div class="filters">
   <button class="filter-btn active" onclick="setFilter('ALL', this)">All</button>
   <button class="filter-btn" onclick="setFilter('NEW', this)">🔵 T1 Ready</button>
-  <button class="filter-btn" onclick="setFilter('SENT_T1', this)">⏳ Awaiting T2</button>
+  <button class="filter-btn" onclick="setFilter('SENT_T1', this)">⏳ Awaiting Accept</button>
+  <button class="filter-btn" onclick="setFilter('CONNECTED', this)">🤝 Connected</button>
   <button class="filter-btn" onclick="setFilter('T2_READY', this)">🟣 T2 Ready</button>
   <button class="filter-btn" onclick="setFilter('SENT_T2', this)">⏳ Awaiting T3</button>
   <button class="filter-btn" onclick="setFilter('T3_READY', this)">🟢 T3 Ready</button>
@@ -156,12 +160,11 @@
 
   // Compute the "effective status" for display + filtering
   function effectiveStatus(p) {
-    if (p.status === 'SENT_T1') {
-      const rem = daysUntil(p.t1_sent_date, T2_DAYS);
-      if (rem !== null && rem <= 0) return 'T2_READY';
-    }
+    // T2 only unlocks when they ACCEPTED (status=CONNECTED), not on a timer
+    if (p.status === 'CONNECTED') return 'T2_READY';
+    // T3 unlocks 5 days after T2 sent
     if (p.status === 'SENT_T2') {
-      const rem = daysUntil(p.t2_sent_date, T3_DAYS - T2_DAYS);
+      const rem = daysUntil(p.t2_sent_date, 5);
       if (rem !== null && rem <= 0) return 'T3_READY';
     }
     return p.status;
@@ -237,7 +240,8 @@
     // Badge
     const badgeInfo = {
       NEW:      ['badge-new',     '🔵 T1 Ready'],
-      SENT_T1:  ['badge-t1',      '📤 T1 Sent — Awaiting T2'],
+      SENT_T1:  ['badge-t1',      '📤 T1 Sent — Awaiting Accept'],
+      CONNECTED:['badge-connected', '🤝 Accepted'],
       T2_READY: ['badge-t2',      '🟣 T2 Ready'],
       SENT_T2:  ['badge-t2',      '📤 T2 Sent — Awaiting T3'],
       T3_READY: ['badge-t3',      '🟢 T3 Ready'],
@@ -279,13 +283,15 @@
     const t3 = p.touch3 || '(T3 message not yet generated)';
 
     // T2 locked until T2_DAYS, T3 locked until T3_DAYS
-    const t2Unlocked = ['T2_READY', 'SENT_T2', 'T3_READY', 'SENT_T3'].includes(es);
+    const t2Unlocked = ['CONNECTED', 'T2_READY', 'SENT_T2', 'T3_READY', 'SENT_T3'].includes(es);
     const t3Unlocked = ['T3_READY', 'SENT_T3'].includes(es);
 
     // Action button — what's the NEXT action?
     let actionBtn = '';
     if (p.status === 'NEW') {
       actionBtn = `<button class="btn-sent" onclick="markStatus('${p.hubspot_id}','SENT_T1',this)">✅ Mark T1 Sent</button>`;
+    } else if (p.status === 'SENT_T1') {
+      actionBtn = `<button class="btn-connected" onclick="markStatus('${p.hubspot_id}','CONNECTED',this)">🤝 Mark Accepted</button>`;
     } else if (es === 'T2_READY') {
       actionBtn = `<button class="btn-sent" onclick="markStatus('${p.hubspot_id}','SENT_T2',this)">✅ Mark T2 Sent</button>`;
     } else if (es === 'T3_READY') {
